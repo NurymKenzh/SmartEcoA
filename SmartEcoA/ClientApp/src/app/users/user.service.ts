@@ -64,6 +64,14 @@ export class UserService {
     this.router.navigate(['/']);
   }
 
+  public get(Id?) {
+    if (Id) {
+      return this.httpClient.get(this.baseUrl + this.apiUrl + Id);
+    } else {
+      return this.httpClient.get(this.baseUrl + this.apiUrl);
+    }
+  }
+
   authorizedUser() {
     return localStorage.getItem('token') != null;
   }

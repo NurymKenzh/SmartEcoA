@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SmartEcoA.Models;
 using System;
@@ -20,17 +21,12 @@ namespace SmartEcoA.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _context;
 
         public class ApplicationUserLoginModel
         {
             public string Email { get; set; }
             public string Password { get; set; }
-        }
-
-
-        public UsersController(UserManager<ApplicationUser> userManager)
-        {
-            _userManager = userManager;
         }
 
         public class ApplicationUserRegisterModel
@@ -43,6 +39,21 @@ namespace SmartEcoA.Controllers
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             public string Password { get; set; }
+        }
+
+        public class ApplicationUserViewModel
+        {
+            public string Id { get; set; }
+            public string Email { get; set; }
+            public string[] Roles { get; set; }
+        }
+
+        public UsersController(UserManager<ApplicationUser> userManager,
+            ApplicationDbContext context)
+        {
+            _userManager = userManager;
+            _context = context;
+
         }
 
         // POST: api/Users/Register
@@ -114,5 +125,25 @@ namespace SmartEcoA.Controllers
                 user.Email
             };
         }
+
+        // GET: api/Users
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public async Task<ActionResult<IEnumerable<ApplicationUserViewModel>>> Users()
+        {
+            List<ApplicationUserViewModel> applicationUserViewModels = new List<ApplicationUserViewModel>();
+            List<ApplicationUser> applicationUsers = await _context.Users.ToListAsync();
+            foreach (ApplicationUser applicationUser in applicationUsers)
+            {
+                applicationUserViewModels.Add(new ApplicationUserViewModel()
+                {
+                    Id = applicationUser.Id,
+                    Email = applicationUser.Email,
+                    Roles = _userManager.GetRolesAsync(applicationUser).Result.ToArray()
+                });
+            }
+            return applicationUserViewModels;
+        }
+
     }
 }
