@@ -10,7 +10,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using SmartEcoA.Models;
 using System;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SmartEcoA
 {
@@ -72,10 +74,10 @@ namespace SmartEcoA
 
             services.AddControllers()
                 .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
-    }
+        }
 
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -124,6 +126,37 @@ namespace SmartEcoA
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
+            CreateRoles(serviceProvider).Wait();
         }
+
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            string[] roleNames = { "Administrator", "Moderator" };
+            IdentityResult roleResult;
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+            var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
+            ApplicationUser user = userManager.Users.FirstOrDefault(u => u.Email == "n.a.k@bk.ru");
+            if (user != null)
+            {
+                await userManager.AddToRoleAsync(user, "Administrator");
+                await userManager.AddToRoleAsync(user, "Moderator");
+            }
+            ApplicationUser user2 = userManager.Users.FirstOrDefault(u => u.Email == "n.k.a@bk.ru");
+            if (user2 != null)
+            {
+                await userManager.AddToRoleAsync(user2, "Administrator");
+            }
+        }
+
     }
 }
