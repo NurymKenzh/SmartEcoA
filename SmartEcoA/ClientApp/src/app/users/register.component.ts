@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
       (res: any) => {
         if (res.succeeded) {
           this.userService.formRegisterModel.reset();
-          console.log('New user registered!');
+          alert('New user registered!');
         } else {
           res.errors.forEach(element => {
             console.log(element.description);
