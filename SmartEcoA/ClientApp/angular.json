@@ -47,6 +47,27 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
+            },
+            "en": {
+              "aot": true,
+              "i18nFile": "src/locale/messages.en.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "en",
+              "i18nMissingTranslation": "error"
+            },
+            "ru": {
+              "aot": true,
+              "i18nFile": "src/locale/messages.ru.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "ru",
+              "i18nMissingTranslation": "error"
+            },
+            "kk": {
+              "aot": true,
+              "i18nFile": "src/locale/messages.kk.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "kk",
+              "i18nMissingTranslation": "error"
             }
           }
         },
@@ -58,6 +79,15 @@
           "configurations": {
             "production": {
               "browserTarget": "SmartEcoA:build:production"
+            },
+            "en": {
+              "browserTarget": "SmartEcoA:build:en"
+            },
+            "ru": {
+              "browserTarget": "SmartEcoA:build:ru"
+            },
+            "kk": {
+              "browserTarget": "SmartEcoA:build:kk"
             }
           }
         },
@@ -147,5 +177,8 @@
       }
     }
   },
-  "defaultProject": "SmartEcoA"
+  "defaultProject": "SmartEcoA",
+  "cli": {
+    "analytics": false
+  }
 }

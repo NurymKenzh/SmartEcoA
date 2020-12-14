@@ -114,6 +114,45 @@ namespace SmartEcoA
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
+            app.Map("/en", spa =>
+            {
+                spa.UseSpa(spa =>
+                {
+                    spa.Options.SourcePath = "ClientApp";
+                    spa.Options.DefaultPage = $"/en/index.html";
+                    if (env.IsDevelopment())
+                    {
+                        spa.UseAngularCliServer(npmScript: "start:en");
+                    }
+                });
+            });
+
+            app.Map("/ru", spa =>
+            {
+                spa.UseSpa(spa =>
+                {
+                    spa.Options.SourcePath = "ClientApp";
+                    spa.Options.DefaultPage = $"/ru/index.html";
+                    if (env.IsDevelopment())
+                    {
+                        spa.UseAngularCliServer(npmScript: "start:ru");
+                    }
+                });
+            });
+
+            app.Map("/kk", spa =>
+            {
+                spa.UseSpa(spa =>
+                {
+                    spa.Options.SourcePath = "ClientApp";
+                    spa.Options.DefaultPage = $"/kk/index.html";
+                    if (env.IsDevelopment())
+                    {
+                        spa.UseAngularCliServer(npmScript: "start:kk");
+                    }
+                });
+            });
+
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
@@ -123,7 +162,7 @@ namespace SmartEcoA
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseAngularCliServer(npmScript: "start:ru");
                 }
             });
 
@@ -157,6 +196,5 @@ namespace SmartEcoA
                 await userManager.AddToRoleAsync(user2, "Administrator");
             }
         }
-
     }
 }

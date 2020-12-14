@@ -24,6 +24,8 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 
+import { LocaleIndexComponent } from './locale/index.component';
+
 import { AuthorizeInterceptor } from './authorize/authorize.interceptor';
 import { AuthorizeGuard } from './authorize/authorize.guard';
 
@@ -44,6 +46,7 @@ import { AdministrationComponent } from './administration/administration.compone
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
+    LocaleIndexComponent,
     RegisterComponent,
     LoginComponent,
     UsersIndexComponent,
@@ -61,6 +64,7 @@ import { AdministrationComponent } from './administration/administration.compone
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'locale', component: LocaleIndexComponent },
       { path: 'users/register', component: RegisterComponent },
       { path: 'users/login', component: LoginComponent },
       { path: 'users', component: UsersIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
