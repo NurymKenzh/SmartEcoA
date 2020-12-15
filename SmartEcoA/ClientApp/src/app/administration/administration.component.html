@@ -1,2 +1,8 @@
 <h1>Administration</h1>
-<a class="btn" [routerLink]="['/users']" matTooltip="Users"><i class="material-icons">people_alt</i> Users</a>
+<a class="btn" [routerLink]="['/users']" matTooltip="Users">
+  <i class="material-icons">people_alt</i> Users
+</a>
+<a i18n-matTooltip="@@PollutionEnvironments" class="btn" [routerLink]="['/pollutionenvironments']" matTooltip="Pollution Environments">
+  <i class="material-icons">flag</i>
+  <span i18n="@@PollutionEnvironments">Pollution Environments</span>
+</a>

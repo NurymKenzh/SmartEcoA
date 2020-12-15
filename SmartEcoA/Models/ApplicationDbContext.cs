@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SmartEcoA.Models;
 
 namespace SmartEcoA.Models
 {
@@ -13,5 +14,6 @@ namespace SmartEcoA.Models
             DbContextOptions options) : base(options)
         {
         }
+        public DbSet<SmartEcoA.Models.PollutionEnvironment> PollutionEnvironment { get; set; }
     }
 }

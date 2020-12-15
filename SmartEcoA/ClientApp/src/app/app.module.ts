@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,6 +17,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import 'hammerjs';
+
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -39,6 +42,17 @@ import { UserEditComponent } from './users/edit.component';
 
 import { AdministrationComponent } from './administration/administration.component';
 
+import { PollutionEnvironmentService } from './pollutionenvironments/pollutionenvironment.service';
+import { PollutionEnvironmentsIndexComponent } from './pollutionenvironments/index.component';
+import { PollutionEnvironmentsListComponent } from './pollutionenvironments/list.component';
+import { PollutionEnvironmentCreateComponent } from './pollutionenvironments/create.component';
+import { PollutionEnvironmentEditComponent } from './pollutionenvironments/edit.component';
+import { PollutionEnvironmentDetailsComponent } from './pollutionenvironments/details.component';
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/locale/', '.json');
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +67,12 @@ import { AdministrationComponent } from './administration/administration.compone
     UsersListComponent,
     UserDetailsComponent,
     UserEditComponent,
-    AdministrationComponent
+    AdministrationComponent,
+    PollutionEnvironmentsIndexComponent,
+    PollutionEnvironmentsListComponent,
+    PollutionEnvironmentCreateComponent,
+    PollutionEnvironmentEditComponent,
+    PollutionEnvironmentDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -71,6 +90,10 @@ import { AdministrationComponent } from './administration/administration.compone
       { path: 'users/:id', component: UserDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
       { path: 'users/edit/:id', component: UserEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
       { path: 'administration', component: AdministrationComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
+      { path: 'pollutionenvironments', component: PollutionEnvironmentsIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'pollutionenvironments/create', component: PollutionEnvironmentCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'pollutionenvironments/edit/:id', component: PollutionEnvironmentEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'pollutionenvironments/:id', component: PollutionEnvironmentDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
     ]),
     BrowserAnimationsModule,
     ReactiveFormsModule,
@@ -85,10 +108,18 @@ import { AdministrationComponent } from './administration/administration.compone
     MatButtonModule,
     MatDividerModule,
     MatListModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     UserService,
+    PollutionEnvironmentService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizeInterceptor,

@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace SmartEcoA.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("{language}/api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {

@@ -1,0 +1,32 @@
+<mat-card>
+  <mat-card-title i18n="@@EditPollutionEnvironment">Edit Pollution Environment</mat-card-title>
+  <form [formGroup]="pollutionenvironmentForm" autocomplete="off" novalidate (ngSubmit)="save(pollutionenvironmentForm.value)">
+    <mat-card-content>
+      <mat-form-field>
+        <input i18n-placeholder="@@PollutionEnvironmentNameEnglish" matInput type="text" placeholder="Pollution Environment name (English)" formControlName="NameEN" id="nameen">
+        <mat-hint i18n="@@NotMore50Characters">Not more then 50 characters long.</mat-hint>
+        <mat-error i18n="@@NameEnglishRequired" *ngIf="error('NameEN', 'required')">Name (English) is required</mat-error>
+        <mat-error i18n="@@More50Characters" *ngIf="error('NameEN', 'maxlength')">You have more than 50 characters</mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@PollutionEnvironmentNameRussian" matInput type="text" placeholder="Pollution Environment name (Russian)" formControlName="NameRU" id="nameru">
+        <mat-hint i18n="@@NotMore50Characters">Not more then 50 characters long.</mat-hint>
+        <mat-error i18n="@@NameRussianRequired" *ngIf="error('NameRU', 'required')">Name (Russian) is required</mat-error>
+        <mat-error i18n="@@More50Characters" *ngIf="error('NameRU', 'maxlength')">You have more than 50 characters</mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@PollutionEnvironmentNameKazakh" matInput type="text" placeholder="Pollution Environment name (Kazakh)" formControlName="NameKK" id="namekk">
+        <mat-hint i18n="@@NotMore50Characters">Not more then 50 characters long.</mat-hint>
+        <mat-error i18n="@@NameKazakhRequired" *ngIf="error('NameKK', 'required')">Name (Kazakh) is required</mat-error>
+        <mat-error i18n="@@More50Characters" *ngIf="error('NameKK', 'maxlength')">You have more than 50 characters</mat-error>
+      </mat-form-field>
+      <br />
+    </mat-card-content>
+    <mat-card-actions align="center">
+      <button i18n="@@Save" mat-raised-button color="primary" [disabled]="!pollutionenvironmentForm.valid">Save</button>
+      <button i18n="@@Cancel" type="button" mat-raised-button color="warn" (click)="cancel()">Cancel</button>
+    </mat-card-actions>
+  </form>
+</mat-card>

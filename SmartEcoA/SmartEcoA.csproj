@@ -16,10 +16,13 @@
     <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="3.1.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.10" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
   </ItemGroup>
 
@@ -35,6 +38,13 @@
     <None Remove="ClientApp\src\app\authorize\authorize.guard.ts" />
     <None Remove="ClientApp\src\app\authorize\authorize.interceptor.ts" />
     <None Remove="ClientApp\src\app\locale\index.component.ts" />
+    <None Remove="ClientApp\src\app\pollutionenvironments\create.component.ts" />
+    <None Remove="ClientApp\src\app\pollutionenvironments\details.component.ts" />
+    <None Remove="ClientApp\src\app\pollutionenvironments\edit.component.ts" />
+    <None Remove="ClientApp\src\app\pollutionenvironments\index.component.ts" />
+    <None Remove="ClientApp\src\app\pollutionenvironments\list.component.ts" />
+    <None Remove="ClientApp\src\app\pollutionenvironments\pollutionenvironment.model.ts" />
+    <None Remove="ClientApp\src\app\pollutionenvironments\pollutionenvironment.service.ts" />
     <None Remove="ClientApp\src\app\users\details.component.ts" />
     <None Remove="ClientApp\src\app\users\edit.component.ts" />
     <None Remove="ClientApp\src\app\users\index.component.ts" />
@@ -50,6 +60,13 @@
     <TypeScriptCompile Include="ClientApp\src\app\authorize\authorize.guard.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\authorize\authorize.interceptor.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\locale\index.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\create.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\details.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\edit.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\index.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\list.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\pollutionenvironment.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\pollutionenvironment.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\users\details.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\users\edit.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\users\index.component.ts" />

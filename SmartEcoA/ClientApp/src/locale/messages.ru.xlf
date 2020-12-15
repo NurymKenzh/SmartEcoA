@@ -10,6 +10,262 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="PollutionEnvironments" datatype="html">
+        <source>Pollution Environments</source>
+        <target>Среды загязнения</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/administration/administration.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/administration/administration.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/index.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Create" datatype="html">
+        <source>Create</source>
+        <target>Создать</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/list.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Filter" datatype="html">
+        <source>Filter</source>
+        <target>Фильтр</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/list.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Name" datatype="html">
+        <source>Name</source>
+        <target>Название</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/list.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Details" datatype="html">
+        <source>Details</source>
+        <target>Детали</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/list.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Edit" datatype="html">
+        <source>Edit</source>
+        <target>Редактировать</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/list.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Delete" datatype="html">
+        <source>Delete</source>
+        <target>Удалить</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/list.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CreateNewPollutionEnvironment" datatype="html">
+        <source>Create a new Pollution Environment</source>
+        <target>Создать среду загрязнения</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PollutionEnvironmentNameEnglish" datatype="html">
+        <source>Pollution Environment name (English)</source>
+        <target>Название среды загрязнения (английский)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="NotMore50Characters" datatype="html">
+        <source>Not more than 50 characters long.</source>
+        <target>Не более 50 символов.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="NameEnglishRequired" datatype="html">
+        <source>Name (English) is required</source>
+        <target>Название (английский) обязательно</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="More50Characters" datatype="html">
+        <source>You have more than 50 characters</source>
+        <target>У Вас более 50 символов</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PollutionEnvironmentNameRussian" datatype="html">
+        <source>Pollution Environment name (Russian)</source>
+        <target>Название среды загрязнения (русский)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="NameRussianRequired" datatype="html">
+        <source>Name (Russian) is required</source>
+        <target>Название (русский) обязательно</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PollutionEnvironmentNameKazakh" datatype="html">
+        <source>Pollution Environment name (Kazakh)</source>
+        <target>Название среды загрязнения (казахский)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="NameKazakhRequired" datatype="html">
+        <source>Name (Kazakh) is required</source>
+        <target>Название (казахский) обязательно</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Cancel" datatype="html">
+        <source>Cancel</source>
+        <target>Отмена</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="EditPollutionEnvironment" datatype="html">
+        <source>Edit Pollution Environment</source>
+        <target>Редактировать среду загрязнения</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Save" datatype="html">
+        <source>Save</source>
+        <target>Сохранить</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PollutionEnvironmentDetails" datatype="html">
+        <source>Pollution Environment details</source>
+        <target>Детали среды загрязнения</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/details.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PollutionEnvironmentName" datatype="html">
+        <source>Pollution Environment name</source>
+        <target>Название среды загрязнения</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/details.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Back" datatype="html">
+        <source>Back</source>
+        <target>Обратно</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/details.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

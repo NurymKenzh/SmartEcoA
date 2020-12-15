@@ -111,7 +111,7 @@ namespace SmartEcoA
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                    pattern: "{language}/{controller}/{action=Index}/{id?}");
             });
 
             app.Map("/en", spa =>
