@@ -38,6 +38,7 @@
     <None Remove="ClientApp\src\app\authorize\authorize.guard.ts" />
     <None Remove="ClientApp\src\app\authorize\authorize.interceptor.ts" />
     <None Remove="ClientApp\src\app\locale\index.component.ts" />
+    <None Remove="ClientApp\src\app\paginator\paginator.component.ts" />
     <None Remove="ClientApp\src\app\pollutionenvironments\create.component.ts" />
     <None Remove="ClientApp\src\app\pollutionenvironments\details.component.ts" />
     <None Remove="ClientApp\src\app\pollutionenvironments\edit.component.ts" />
@@ -60,6 +61,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\authorize\authorize.guard.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\authorize\authorize.interceptor.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\locale\index.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\paginator\paginator.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\create.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\details.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\edit.component.ts" />

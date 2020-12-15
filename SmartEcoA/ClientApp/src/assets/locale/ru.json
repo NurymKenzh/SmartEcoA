@@ -1,3 +1,6 @@
 {
+  "Paginator": {
+    "ItemsPerPage": "Элементов на странице:"
+  },
   "AreYouSureDeleteThisRecord": "Вы уверены, что хотите удалить эту запись?"
 }

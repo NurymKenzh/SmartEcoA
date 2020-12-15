@@ -1,3 +1,6 @@
 {
+  "Paginator": {
+    "ItemsPerPage": "Бір беттегі элементтер:"
+  },
   "AreYouSureDeleteThisRecord": "Сіз бұл жазбаны өшіресіз бе??"
 }
