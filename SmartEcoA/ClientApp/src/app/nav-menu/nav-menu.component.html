@@ -21,22 +21,22 @@
       >
         <ul class="navbar-nav flex-grow">
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/locale']"><i class="material-icons">public</i> {{currentLanguage}}</a>
+            <a class="nav-link text-dark" [routerLink]="['/locale']"><i class="material-icons">language</i> {{currentLanguage}}</a>
           </li>
           <li *ngIf="userService.authorizedUser() && userService.allowedRole(['Administrator'])" class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/administration']">Administration</a>
+            <a i18n="@@Administration" class="nav-link text-dark" [routerLink]="['/administration']">Administration</a>
           </li>
           <li *ngIf="!userService.authorizedUser()" class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/users/register']">Register</a>
+            <a i18n="@@Register" class="nav-link text-dark" [routerLink]="['/users/register']">Register</a>
           </li>
           <li *ngIf="!userService.authorizedUser()" class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/users/login']">Log in</a>
+            <a i18n="@@LogIn" class="nav-link text-dark" [routerLink]="['/users/login']">Log in</a>
           </li>
           <li *ngIf="userService.authorizedUser() && authorizedUser" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/']"> {{authorizedUser.Email}}</a>
           </li>
           <li *ngIf="userService.authorizedUser()" class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/']" (click)="userService.logout()">Log out</a>
+            <a i18n="@@LogOut" class="nav-link text-dark" [routerLink]="['/']" (click)="userService.logout()">Log out</a>
           </li>
         </ul>
       </div>

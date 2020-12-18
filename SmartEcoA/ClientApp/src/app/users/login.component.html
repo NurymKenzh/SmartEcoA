@@ -1,23 +1,23 @@
-<h1>Log in</h1>
+<h1 i18n="@@LogIn">Log in</h1>
 <div class="row">
   <div class="col-md-4">
     <form #form='ngForm' autocomplete="off" (submit)="login(form)">
-      <h4>Use your email and password to log in.</h4>
+      <h4 i18n="@@UseYourEmailAndPasswordToLogIn">Use your email and password to log in.</h4>
       <hr />
       <div class="form-group">
-        <label>Email</label>
+        <label i18n="@@Email">Email</label>
         <input class="form-control" #Email="ngModel" name="Email" [(ngModel)]="formLoginModel.Email" required>
       </div>
       <div class="form-group">
-        <label>Password</label>
+        <label i18n="@@Password">Password</label>
         <input type="password" class="form-control" #Password="ngModel" name="Password" [(ngModel)]="formLoginModel.Password" required>
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Log in</button>
+        <button i18n="@@LogIn" type="submit" class="btn btn-primary" [disabled]="form.invalid">Log in</button>
       </div>
       <div class="form-group">
         <p>
-          <a [routerLink]="['/users/register']">Register as a new user</a>
+          <a i18n="@@RegisterAsANewUser" [routerLink]="['/users/register']">Register as a new user</a>
         </p>
       </div>
     </form>

@@ -1,39 +1,39 @@
-<h1>Register</h1>
+<h1 i18n="@@Register">Register</h1>
 <div class="row">
   <div class="col-md-4">
     <form [formGroup]=" userService.formRegisterModel" autocomplete="off" (submit)="register()">
-      <h4>Create a new account.</h4>
+      <h4 i18n="@@CreateANewAccount">Create a new account.</h4>
       <hr />
       <div class="form-group">
-        <label>Email</label>
+        <label i18n="@@Email">Email</label>
         <input formControlName="Email" class="form-control">
-        <label class="text-danger" *ngIf="userService.formRegisterModel.get('Email').touched && userService.formRegisterModel.get('Email').errors?.email">
+        <label i18n="@@InvalidEmailAddress" class="text-danger" *ngIf="userService.formRegisterModel.get('Email').touched && userService.formRegisterModel.get('Email').errors?.email">
           Invalid email address.
         </label>
       </div>
       <div formGroupName="Passwords" class="form-group">
         <div class="form-group required">
-          <label>Password</label>
+          <label i18n="@@Password">Password</label>
           <input formControlName="Password" type="password" class="form-control">
-          <label class="text-danger" *ngIf="userService.formRegisterModel.get('Passwords.Password').touched && userService.formRegisterModel.get('Passwords.Password').errors?.required">
+          <label i18n="@@ThisFieldIsMandatory" class="text-danger" *ngIf="userService.formRegisterModel.get('Passwords.Password').touched && userService.formRegisterModel.get('Passwords.Password').errors?.required">
             This field is mandatory.
           </label>
-          <label class="text-danger" *ngIf="userService.formRegisterModel.get('Passwords.Password').touched && userService.formRegisterModel.get('Passwords.Password').errors?.minlength">
+          <label i18n="@@Minimum6CharactersRequired" class="text-danger" *ngIf="userService.formRegisterModel.get('Passwords.Password').touched && userService.formRegisterModel.get('Passwords.Password').errors?.minlength">
             Minimum 6 characters required.
           </label>
         </div>
         <div class="form-group required">
-          <label>Confirm password</label>
+          <label i18n="@@ConfirmPassword">Confirm password</label>
           <input type="password" class="form-control" formControlName="ConfirmPassword">
-          <label class="text-danger" *ngIf="userService.formRegisterModel.get('Passwords.ConfirmPassword').touched && userService.formRegisterModel.get('Passwords.ConfirmPassword').errors?.required">
+          <label i18n="@@ThisFieldIsMandatory" class="text-danger" *ngIf="userService.formRegisterModel.get('Passwords.ConfirmPassword').touched && userService.formRegisterModel.get('Passwords.ConfirmPassword').errors?.required">
             This field is mandatory.
           </label>
-          <label class="text-danger" *ngIf="userService.formRegisterModel.get('Passwords.ConfirmPassword').touched && userService.formRegisterModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">
+          <label i18n="@@ConfirmPasswordDoesNotMatch" class="text-danger" *ngIf="userService.formRegisterModel.get('Passwords.ConfirmPassword').touched && userService.formRegisterModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">
             Confirm password does not match.
           </label>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary" [disabled]="! userService.formRegisterModel.valid">Register</button>
+      <button i18n="@@Register" type="submit" class="btn btn-primary" [disabled]="! userService.formRegisterModel.valid">Register</button>
     </form>
   </div>
 </div>

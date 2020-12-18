@@ -3,11 +3,139 @@
   <file source-language="ru" datatype="plaintext" original="ng2.template" target-language="en">
     <body>
       
-      <trans-unit id="Language" datatype="html">
+      <trans-unit id="Administration" datatype="html">
+        <source>Administration</source><target state="new">Administration</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/nav-menu/nav-menu.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit><trans-unit id="Register" datatype="html">
+        <source>Register</source><target state="new">Register</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/nav-menu/nav-menu.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/register.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/register.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit><trans-unit id="LogIn" datatype="html">
+        <source>Log in</source><target state="new">Log in</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/nav-menu/nav-menu.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/login.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/login.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit><trans-unit id="LogOut" datatype="html">
+        <source>Log out</source><target state="new">Log out</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/nav-menu/nav-menu.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit><trans-unit id="Language" datatype="html">
         <source>Language</source><target state="new">Language</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/locale/index.component.html</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit><trans-unit id="CreateANewAccount" datatype="html">
+        <source>Create a new account.</source><target state="new">Create a new account.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/register.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit><trans-unit id="Email" datatype="html">
+        <source>Email</source><target state="new">Email</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/register.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/login.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit><trans-unit id="InvalidEmailAddress" datatype="html">
+        <source>
+          Invalid email address.
+        </source><target state="new">
+          Invalid email address.
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/register.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit><trans-unit id="Password" datatype="html">
+        <source>Password</source><target state="new">Password</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/register.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/login.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit><trans-unit id="ThisFieldIsMandatory" datatype="html">
+        <source>
+            This field is mandatory.
+          </source><target state="new">
+            This field is mandatory.
+          </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/register.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/register.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit><trans-unit id="Minimum6CharactersRequired" datatype="html">
+        <source>
+            Minimum 6 characters required.
+          </source><target state="new">
+            Minimum 6 characters required.
+          </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/register.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit><trans-unit id="ConfirmPassword" datatype="html">
+        <source>Confirm password</source><target state="new">Confirm password</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/register.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit><trans-unit id="ConfirmPasswordDoesNotMatch" datatype="html">
+        <source>
+            Confirm password does not match.
+          </source><target state="new">
+            Confirm password does not match.
+          </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/register.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit><trans-unit id="UseYourEmailAndPasswordToLogIn" datatype="html">
+        <source>Use your email and password to log in.</source><target state="new">Use your email and password to log in.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/login.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit><trans-unit id="RegisterAsANewUser" datatype="html">
+        <source>Register as a new user</source><target state="new">Register as a new user</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/login.component.html</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="PollutionEnvironments" datatype="html">
