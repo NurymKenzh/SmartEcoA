@@ -19,6 +19,6 @@ export class HomeComponent {
     const wn = window.navigator as any;
     let lang = wn.languages ? wn.languages[0] : defaultValue;
     lang = lang || wn.language || wn.browserLanguage || wn.userLanguage;
-    return lang;
+    return lang.toString().substr(0, 2);
   }
 }
