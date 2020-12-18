@@ -1,18 +1,17 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file source-language="en" datatype="plaintext" original="ng2.template">
+  <file source-language="ru" datatype="plaintext" original="ng2.template" target-language="kk">
     <body>
-      <trans-unit id="Hello" datatype="html">
-        <source>Hello</source>
-        <target>Hello</target>
+      
+      <trans-unit id="Language" datatype="html">
+        <source>Language</source><target state="new">Тіл</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/home/home.component.html</context>
-          <context context-type="linenumber">1</context>
+          <context context-type="sourcefile">app/locale/index.component.html</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="PollutionEnvironments" datatype="html">
-        <source>Pollution Environments</source>
-        <target>Pollution Environments</target>
+        <source>Pollution Environments</source><target state="new">Ластану орталары</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/administration/administration.component.html</context>
           <context context-type="linenumber">7</context>
@@ -27,8 +26,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="Create" datatype="html">
-        <source>Create</source>
-        <target>Create</target>
+        <source>Create</source><target state="new">Жасау</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/list.component.html</context>
           <context context-type="linenumber">1</context>
@@ -39,56 +37,49 @@
         </context-group>
       </trans-unit>
       <trans-unit id="Filter" datatype="html">
-        <source>Filter</source>
-        <target>Filter</target>
+        <source>Filter</source><target state="new">Сүзгі</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/list.component.html</context>
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Name" datatype="html">
-        <source>Name</source>
-        <target>Name</target>
+        <source>Name</source><target state="new">Аты-жөні</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/list.component.html</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Details" datatype="html">
-        <source>Details</source>
-        <target>Details</target>
+        <source>Details</source><target state="new">Егжей</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/list.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Edit" datatype="html">
-        <source>Edit</source>
-        <target>Edit</target>
+        <source>Edit</source><target state="new">Өңдеу</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/list.component.html</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Delete" datatype="html">
-        <source>Delete</source>
-        <target>Delete</target>
+        <source>Delete</source><target state="new">Жою</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/list.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="CreateNewPollutionEnvironment" datatype="html">
-        <source>Create a new Pollution Environment</source>
-        <target>Create a new Pollution Environment</target>
+        <source>Create a new Pollution Environment</source><target state="new">Жаңа ластануы ортаны құру</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="PollutionEnvironmentNameEnglish" datatype="html">
-        <source>Pollution Environment name (English)</source>
-        <target>Pollution Environment name (English)</target>
+        <source>Pollution Environment name (English)</source><target state="new">Ластану ортасының атауы (ағылшын)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
           <context context-type="linenumber">6</context>
@@ -99,8 +90,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="NotMore50Characters" datatype="html">
-        <source>Not more than 50 characters long.</source>
-        <target>Not more than 50 characters long.</target>
+        <source>Not more than 50 characters long.</source><target state="new">Ұзындығы 50 таңбадан аспауы керек.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
           <context context-type="linenumber">7</context>
@@ -127,8 +117,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="NameEnglishRequired" datatype="html">
-        <source>Name (English) is required</source>
-        <target>Name (English) is required</target>
+        <source>Name (English) is required</source><target state="new">Аты-жөні (ағылшынша) қажет</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
           <context context-type="linenumber">8</context>
@@ -139,8 +128,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="More50Characters" datatype="html">
-        <source>You have more than 50 characters</source>
-        <target>You have more than 50 characters</target>
+        <source>You have more than 50 characters</source><target state="new">Сізде 50-ден астам таңба бар</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
           <context context-type="linenumber">9</context>
@@ -167,8 +155,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="PollutionEnvironmentNameRussian" datatype="html">
-        <source>Pollution Environment name (Russian)</source>
-        <target>Pollution Environment name (Russian)</target>
+        <source>Pollution Environment name (Russian)</source><target state="new">Ластану ортасының атауы (орыс)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
           <context context-type="linenumber">13</context>
@@ -179,8 +166,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="NameRussianRequired" datatype="html">
-        <source>Name (Russian) is required</source>
-        <target>Name (Russian) is required</target>
+        <source>Name (Russian) is required</source><target state="new">Аты-жөні (орыс) қажет</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
           <context context-type="linenumber">15</context>
@@ -191,8 +177,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="PollutionEnvironmentNameKazakh" datatype="html">
-        <source>Pollution Environment name (Kazakh)</source>
-        <target>Pollution Environment name (Kazakh)</target>
+        <source>Pollution Environment name (Kazakh)</source><target state="new">Ластану ортасының атауы (қазақша)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
           <context context-type="linenumber">20</context>
@@ -203,8 +188,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="NameKazakhRequired" datatype="html">
-        <source>Name (Kazakh) is required</source>
-        <target>Name (Kazakh) is required</target>
+        <source>Name (Kazakh) is required</source><target state="new">Атауы (қазақша) қажет</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
           <context context-type="linenumber">22</context>
@@ -215,8 +199,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="Cancel" datatype="html">
-        <source>Cancel</source>
-        <target>Cancel</target>
+        <source>Cancel</source><target state="new">Бас тарту</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
           <context context-type="linenumber">29</context>
@@ -227,40 +210,35 @@
         </context-group>
       </trans-unit>
       <trans-unit id="EditPollutionEnvironment" datatype="html">
-        <source>Edit Pollution Environment</source>
-        <target>Edit Pollution Environment</target>
+        <source>Edit Pollution Environment</source><target state="new">Ластану ортасын өңдеу</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Save" datatype="html">
-        <source>Save</source>
-        <target>Save</target>
+        <source>Save</source><target state="new">Сақтау</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="PollutionEnvironmentDetails" datatype="html">
-        <source>Pollution Environment details</source>
-        <target>Pollution Environment details</target>
+        <source>Pollution Environment details</source><target state="new">Ластану ортасының егжей-тегжейлері</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/details.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="PollutionEnvironmentName" datatype="html">
-        <source>Pollution Environment name</source>
-        <target>Pollution Environment name</target>
+        <source>Pollution Environment name</source><target state="new">Ластану ортасының атауы</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/details.component.html</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Back" datatype="html">
-        <source>Back</source>
-        <target>Back</target>
+        <source>Back</source><target state="new">Артқа</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/details.component.html</context>
           <context context-type="linenumber">10</context>

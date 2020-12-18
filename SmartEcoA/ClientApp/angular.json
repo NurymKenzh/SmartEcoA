@@ -50,24 +50,24 @@
             },
             "en": {
               "aot": true,
-              "i18nFile": "src/locale/messages.en.xlf",
+              "outputPath": "dist/SmartEcoA-en",
+              "i18nFile": "src/i18n/messages.en.xlf",
               "i18nFormat": "xlf",
-              "i18nLocale": "en",
-              "i18nMissingTranslation": "error"
+              "i18nLocale": "en"
             },
             "ru": {
               "aot": true,
-              "i18nFile": "src/locale/messages.ru.xlf",
+              "i18nFile": "src/i18n/messages.ru.xlf",
               "i18nFormat": "xlf",
               "i18nLocale": "ru",
               "i18nMissingTranslation": "error"
             },
             "kk": {
               "aot": true,
-              "i18nFile": "src/locale/messages.kk.xlf",
+              "outputPath": "dist/SmartEcoA-kk",
+              "i18nFile": "src/i18n/messages.kk.xlf",
               "i18nFormat": "xlf",
-              "i18nLocale": "kk",
-              "i18nMissingTranslation": "error"
+              "i18nLocale": "kk"
             }
           }
         },
@@ -149,6 +149,22 @@
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false
+            }
+          }
+        },
+        "xliffmerge": {
+          "builder": "@ngx-i18nsupport/tooling:xliffmerge",
+          "options": {
+            "xliffmergeOptions": {
+              "i18nFormat": "xlf",
+              "srcDir": "src/i18n",
+              "genDir": "src/i18n",
+              "defaultLanguage": "ru",
+              "languages": [
+                "ru",
+                "en",
+                "kk"
+              ]
             }
           }
         }
