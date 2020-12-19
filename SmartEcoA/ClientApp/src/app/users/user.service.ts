@@ -32,6 +32,19 @@ export class UserService {
         })
     });
 
+  formChangePasswordModel = this.formBuilder.group(
+    {
+      Passwords: this.formBuilder.group(
+        {
+          CurrentPassword: ['', Validators.required],
+          Password: ['', [Validators.required, Validators.minLength(6)]],
+          ConfirmPassword: ['', Validators.required]
+        },
+        {
+          validator: this.comparePasswords
+        })
+    });
+
   register() {
     const body = {
       Email: this.formRegisterModel.value.Email,
@@ -62,6 +75,14 @@ export class UserService {
     this.authorizedUser$.next(undefined);
     localStorage.removeItem('token');
     this.router.navigate(['/']);
+  }
+
+  changePassword() {
+    const body = {
+      CurrentPassword: this.formChangePasswordModel.value.Passwords.CurrentPassword,
+      NewPassword: this.formChangePasswordModel.value.Passwords.Password
+    };
+    return this.httpClient.post(this.baseUrl + this.apiUrl + 'ChangePassword', body);
   }
 
   public get(Id?) {

@@ -41,6 +41,18 @@ namespace SmartEcoA.Controllers
             public string Password { get; set; }
         }
 
+        public class ApplicationUserChangePasswordModel
+        {
+            [Required]
+            [DataType(DataType.Password)]
+            public string CurrentPassword { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [DataType(DataType.Password)]
+            public string NewPassword { get; set; }
+        }
+
         public class ApplicationUserViewModel
         {
             public string Id { get; set; }
@@ -110,6 +122,17 @@ namespace SmartEcoA.Controllers
             }
             else
                 return BadRequest(new { message = "Invalid login attempt." });
+        }
+
+        // POST: api/Users/ChangePassword
+        [HttpPost]
+        [Authorize]
+        [Route("ChangePassword")]
+        public async Task<IActionResult> ChangePassword(ApplicationUserChangePasswordModel model)
+        {
+            var user = await _userManager.FindByIdAsync(User.Claims.First(c => c.Type == "Id").Value);
+            var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+            return Ok(result);
         }
 
         // GET: api/Users/GetAuthorizedUserInfo

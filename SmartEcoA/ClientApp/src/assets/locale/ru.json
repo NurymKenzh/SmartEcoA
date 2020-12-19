@@ -2,5 +2,9 @@
   "Paginator": {
     "ItemsPerPage": "Элементов на странице:"
   },
-  "AreYouSureDeleteThisRecord": "Вы уверены, что хотите удалить эту запись?"
+  "AreYouSureDeleteThisRecord": "Вы уверены, что хотите удалить эту запись?",
+  "Users": {
+    "PasswordChanged": "Пароль изменён!",
+    "NewUserRegistered": "Новый пользователь зарегистрирован"
+  }
 }

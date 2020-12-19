@@ -76,41 +76,26 @@
           </source><target state="new">
             Бұл өріс міндетті болып табылады.
           </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/users/register.component.html</context>
-          <context context-type="linenumber">18</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/users/register.component.html</context>
-          <context context-type="linenumber">28</context>
-        </context-group>
-      </trans-unit><trans-unit id="Minimum6CharactersRequired" datatype="html">
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/users/register.component.html</context><context context-type="linenumber">18</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/register.component.html</context><context context-type="linenumber">28</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/changepassword.component.html</context><context context-type="linenumber">11</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/changepassword.component.html</context><context context-type="linenumber">18</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/changepassword.component.html</context><context context-type="linenumber">28</context></context-group></trans-unit><trans-unit id="Minimum6CharactersRequired" datatype="html">
         <source>
             Minimum 6 characters required.
           </source><target state="new">
             Кемінде 6 таңба қажет.
           </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/users/register.component.html</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-      </trans-unit><trans-unit id="ConfirmPassword" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/users/register.component.html</context><context context-type="linenumber">21</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/changepassword.component.html</context><context context-type="linenumber">21</context></context-group></trans-unit><trans-unit id="ConfirmPassword" datatype="html">
         <source>Confirm password</source><target state="new">Құпия сөзді растаңыз</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/users/register.component.html</context>
-          <context context-type="linenumber">26</context>
-        </context-group>
-      </trans-unit><trans-unit id="ConfirmPasswordDoesNotMatch" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/users/register.component.html</context><context context-type="linenumber">26</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/changepassword.component.html</context><context context-type="linenumber">26</context></context-group></trans-unit><trans-unit id="ConfirmPasswordDoesNotMatch" datatype="html">
         <source>
             Confirm password does not match.
           </source><target state="new">
             Құпия сөз сәйкес келмейтінін растаңыз.
           </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/users/register.component.html</context>
-          <context context-type="linenumber">31</context>
-        </context-group>
-      </trans-unit><trans-unit id="UseYourEmailAndPasswordToLogIn" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/users/register.component.html</context><context context-type="linenumber">31</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/changepassword.component.html</context><context context-type="linenumber">31</context></context-group></trans-unit><trans-unit id="UseYourEmailAndPasswordToLogIn" datatype="html">
         <source>Use your email and password to log in.</source><target state="new">Кіру үшін электрондық поштаңыз бен құпия сөзіңізді пайдаланыңыз.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/users/login.component.html</context>
@@ -121,6 +106,32 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/users/login.component.html</context>
           <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit><trans-unit id="ChangePassword" datatype="html">
+        <source>Change password</source><target state="new">Құпия сөзді өзгерту</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/changepassword.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/changepassword.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/changepassword.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit><trans-unit id="CurrentPassword" datatype="html">
+        <source>Current password</source><target state="new">Ағымдағы пароль</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/changepassword.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit><trans-unit id="NewPassword" datatype="html">
+        <source>New password</source><target state="new">Жаңа пароль</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/changepassword.component.html</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit><trans-unit id="Users" datatype="html">
         <source>Users</source><target state="new">Пайдаланушылар</target>

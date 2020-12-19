@@ -2,5 +2,9 @@
   "Paginator": {
     "ItemsPerPage": "Бір беттегі элементтер:"
   },
-  "AreYouSureDeleteThisRecord": "Сіз бұл жазбаны өшіресіз бе??"
+  "AreYouSureDeleteThisRecord": "Сіз бұл жазбаны өшіресіз бе??",
+  "Users": {
+    "PasswordChanged": "Пароль өзгертілді!",
+    "NewUserRegistered": "Жаңа қолданушы тіркелді"
+  }
 }

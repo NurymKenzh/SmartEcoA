@@ -36,6 +36,7 @@ import { AuthorizeGuard } from './authorize/authorize.guard';
 import { UserService } from './users/user.service';
 import { RegisterComponent } from './users/register.component';
 import { LoginComponent } from './users/login.component';
+import { ChangePasswordComponent } from './users/changepassword.component';
 import { UsersIndexComponent } from './users/index.component';
 import { UsersListComponent } from './users/list.component';
 import { UserDetailsComponent } from './users/details.component';
@@ -64,6 +65,7 @@ export function createTranslateLoader(http: HttpClient) {
     LocaleIndexComponent,
     RegisterComponent,
     LoginComponent,
+    ChangePasswordComponent,
     UsersIndexComponent,
     UsersListComponent,
     UserDetailsComponent,
@@ -87,6 +89,7 @@ export function createTranslateLoader(http: HttpClient) {
       { path: 'locale', component: LocaleIndexComponent },
       { path: 'users/register', component: RegisterComponent },
       { path: 'users/login', component: LoginComponent },
+      { path: 'users/changepassword', component: ChangePasswordComponent },
       { path: 'users', component: UsersIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
       { path: 'users/:id', component: UserDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
       { path: 'users/edit/:id', component: UserEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },

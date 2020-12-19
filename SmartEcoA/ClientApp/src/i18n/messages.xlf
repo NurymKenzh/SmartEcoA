@@ -115,6 +115,18 @@
           <context context-type="sourcefile">app/users/register.component.html</context>
           <context context-type="linenumber">28</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/changepassword.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/changepassword.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/changepassword.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Minimum6CharactersRequired" datatype="html">
         <source>
@@ -124,11 +136,19 @@
           <context context-type="sourcefile">app/users/register.component.html</context>
           <context context-type="linenumber">21</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/changepassword.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="ConfirmPassword" datatype="html">
         <source>Confirm password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/users/register.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/changepassword.component.html</context>
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
@@ -138,6 +158,10 @@
           </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/users/register.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/changepassword.component.html</context>
           <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
@@ -153,6 +177,35 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/users/login.component.html</context>
           <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ChangePassword" datatype="html">
+        <source>Change password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/changepassword.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/changepassword.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/changepassword.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CurrentPassword" datatype="html">
+        <source>Current password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/changepassword.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="NewPassword" datatype="html">
+        <source>New password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/changepassword.component.html</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Users" datatype="html">

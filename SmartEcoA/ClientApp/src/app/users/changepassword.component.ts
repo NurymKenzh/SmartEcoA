@@ -4,9 +4,9 @@ import { UserService } from './user.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  templateUrl: './register.component.html'
+  templateUrl: './changepassword.component.html'
 })
-export class RegisterComponent implements OnInit {
+export class ChangePasswordComponent implements OnInit {
 
   constructor(public userService: UserService,
     private translate: TranslateService,
@@ -16,15 +16,15 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.formRegisterModel.reset();
+    this.userService.formChangePasswordModel.reset();
   }
 
-  register() {
-    this.userService.register().subscribe(
+  changePassword() {
+    this.userService.changePassword().subscribe(
       (res: any) => {
         if (res.succeeded) {
-          this.userService.formRegisterModel.reset();
-          alert(this.translate.instant('Users.NewUserRegistered'));
+          this.userService.formChangePasswordModel.reset();
+          alert(this.translate.instant('Users.PasswordChanged'));
         } else {
           res.Errors.forEach(element => {
             console.log(element.Description);
