@@ -5,34 +5,35 @@
       
       <trans-unit id="Administration" datatype="html">
         <source>Administration</source><target state="new">Administration</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/nav-menu/nav-menu.component.html</context>
-          <context context-type="linenumber">27</context>
-        </context-group>
-      </trans-unit><trans-unit id="Register" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/nav-menu/nav-menu.component.html</context><context context-type="linenumber">27</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/nav/nav.component.html</context><context context-type="linenumber">9</context></context-group></trans-unit><trans-unit id="Register" datatype="html">
         <source>Register</source><target state="new">Register</target>
         
         
         
-      <context-group purpose="location"><context context-type="sourcefile">app/nav-menu/nav-menu.component.html</context><context context-type="linenumber">30</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/register.component.html</context><context context-type="linenumber">1</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/register.component.html</context><context context-type="linenumber">36</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/list.component.html</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="LogIn" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/nav-menu/nav-menu.component.html</context><context context-type="linenumber">30</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/nav/nav.component.html</context><context context-type="linenumber">11</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/register.component.html</context><context context-type="linenumber">1</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/register.component.html</context><context context-type="linenumber">36</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/list.component.html</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="LogIn" datatype="html">
         <source>Log in</source><target state="new">Log in</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/nav-menu/nav-menu.component.html</context>
-          <context context-type="linenumber">33</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/users/login.component.html</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/users/login.component.html</context>
-          <context context-type="linenumber">16</context>
-        </context-group>
-      </trans-unit><trans-unit id="LogOut" datatype="html">
+        
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/nav-menu/nav-menu.component.html</context><context context-type="linenumber">33</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/nav/nav.component.html</context><context context-type="linenumber">12</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/login.component.html</context><context context-type="linenumber">1</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/login.component.html</context><context context-type="linenumber">16</context></context-group></trans-unit><trans-unit id="LogOut" datatype="html">
         <source>Log out</source><target state="new">Log out</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/nav-menu/nav-menu.component.html</context><context context-type="linenumber">39</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/nav/nav.component.html</context><context context-type="linenumber">14</context></context-group></trans-unit><trans-unit id="Menu" datatype="html">
+        <source>Menu</source><target state="new">Menu</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/nav-menu/nav-menu.component.html</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="sourcefile">app/nav/nav.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit><trans-unit id="Dashboard" datatype="html">
+        <source>Dashboard</source><target state="new">Dashboard</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/nav/nav.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit><trans-unit id="Language" datatype="html">
         <source>Language</source><target state="new">Language</target>
