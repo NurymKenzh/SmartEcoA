@@ -19,3 +19,8 @@
 .dashboard-card-content {
   text-align: center;
 }
+
+.map {
+  height: 340px;
+  width: 100%;
+}
