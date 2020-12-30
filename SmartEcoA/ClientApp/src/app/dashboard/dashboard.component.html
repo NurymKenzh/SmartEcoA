@@ -11,11 +11,10 @@
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
+
     <mat-grid-tile [colspan]="1" [rowspan]="1">
-      <mat-card class="dashboard-card">
-        <mat-card-content class="dashboard-card-content">
-          <div>Table</div>
-        </mat-card-content>
+      <mat-card class="dashboard-card" style="overflow: auto;">
+        <pollutionenvironments></pollutionenvironments>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
