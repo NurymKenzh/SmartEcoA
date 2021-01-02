@@ -16,6 +16,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="3.1.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.10" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10" />
@@ -39,6 +40,13 @@
     <None Remove="ClientApp\src\app\authorize\authorize.guard.ts" />
     <None Remove="ClientApp\src\app\authorize\authorize.interceptor.ts" />
     <None Remove="ClientApp\src\app\locale\index.component.ts" />
+    <None Remove="ClientApp\src\app\measuredparameters\create.component.ts" />
+    <None Remove="ClientApp\src\app\measuredparameters\details.component.ts" />
+    <None Remove="ClientApp\src\app\measuredparameters\edit.component.ts" />
+    <None Remove="ClientApp\src\app\measuredparameters\index.component.ts" />
+    <None Remove="ClientApp\src\app\measuredparameters\list.component.ts" />
+    <None Remove="ClientApp\src\app\measuredparameters\measuredparameter.model.ts" />
+    <None Remove="ClientApp\src\app\measuredparameters\measuredparameter.service.ts" />
     <None Remove="ClientApp\src\app\paginator\paginator.component.ts" />
     <None Remove="ClientApp\src\app\pollutionenvironments\create.component.ts" />
     <None Remove="ClientApp\src\app\pollutionenvironments\details.component.ts" />
@@ -63,6 +71,13 @@
     <TypeScriptCompile Include="ClientApp\src\app\authorize\authorize.guard.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\authorize\authorize.interceptor.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\locale\index.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\measuredparameters\create.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\measuredparameters\details.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\measuredparameters\edit.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\measuredparameters\index.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\measuredparameters\list.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\measuredparameters\measuredparameter.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\measuredparameters\measuredparameter.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\paginator\paginator.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\create.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\details.component.ts" />

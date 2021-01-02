@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SmartEcoA.Models
 {
-    public class PollutionEnvironment
+    public class MeasuredParameter
     {
         public int Id { get; set; }
 
@@ -24,7 +24,7 @@ namespace SmartEcoA.Models
                 {
                     case "en":
                         return NameEN;
-                    case "ru":
+                    case "pl":
                         return NameRU;
                     case "kk":
                         return NameKK;
@@ -33,5 +33,13 @@ namespace SmartEcoA.Models
                 }
             }
         }
+
+        public decimal? MPCDailyAverage { get; set; } // maximum permissible concentration
+
+        public decimal? MPCMaxOneTime { get; set; }
+
+        public string OceanusCode { get; set; }
+
+        public string KazhydrometCode { get; set; }
     }
 }

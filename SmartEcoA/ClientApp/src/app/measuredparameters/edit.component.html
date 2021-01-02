@@ -1,0 +1,48 @@
+<mat-card>
+  <mat-card-title i18n="@@EditMeasuredParameter">Edit Measured Parameter</mat-card-title>
+  <form [formGroup]="measuredparameterForm" autocomplete="off" novalidate (ngSubmit)="save(measuredparameterForm.value)">
+    <mat-card-content>
+      <mat-form-field>
+        <input i18n-placeholder="@@MeasuredParameterNameEnglish" matInput type="text" placeholder="Measured Parameter name (English)" formControlName="NameEN" id="nameen">
+        <mat-hint i18n="@@NotMore50Characters">Not more then 50 characters long.</mat-hint>
+        <mat-error i18n="@@NameEnglishRequired" *ngIf="error('NameEN', 'required')">Name (English) is required</mat-error>
+        <mat-error i18n="@@More50Characters" *ngIf="error('NameEN', 'maxlength')">You have more than 50 characters</mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@MeasuredParameterNameRussian" matInput type="text" placeholder="Measured Parameter name (Russian)" formControlName="NameRU" id="nameru">
+        <mat-hint i18n="@@NotMore50Characters">Not more then 50 characters long.</mat-hint>
+        <mat-error i18n="@@NameRussianRequired" *ngIf="error('NameRU', 'required')">Name (Russian) is required</mat-error>
+        <mat-error i18n="@@More50Characters" *ngIf="error('NameRU', 'maxlength')">You have more than 50 characters</mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@MeasuredParameterNameKazakh" matInput type="text" placeholder="Measured Parameter name (Kazakh)" formControlName="NameKK" id="namekk">
+        <mat-hint i18n="@@NotMore50Characters">Not more then 50 characters long.</mat-hint>
+        <mat-error i18n="@@NameKazakhRequired" *ngIf="error('NameKK', 'required')">Name (Kazakh) is required</mat-error>
+        <mat-error i18n="@@More50Characters" *ngIf="error('NameKK', 'maxlength')">You have more than 50 characters</mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@MPCDailyAverage" matInput type="number" placeholder="MPC Daily Average" formControlName="MPCDailyAverage" id="mpcdailyaverage">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@MPCMaxOneTime" matInput type="number" placeholder="MPC Maximum One Time" formControlName="MPCMaxOneTime" id="mpcmaxonetime">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@OceanusCode" matInput type="text" placeholder="Oceanus Code" formControlName="OceanusCode" id="oceanuscode">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@KazhydrometCode" matInput type="text" placeholder="Kazhydromet Code" formControlName="KazhydrometCode" id="kazhydrometcode">
+      </mat-form-field>
+      <br />
+    </mat-card-content>
+    <mat-card-actions align="center">
+      <button i18n="@@Save" mat-raised-button color="primary" [disabled]="!measuredparameterForm.valid">Save</button>
+      <button i18n="@@Cancel" type="button" mat-raised-button color="warn" (click)="cancel()">Cancel</button>
+    </mat-card-actions>
+  </form>
+</mat-card>

@@ -1,0 +1,20 @@
+<mat-card>
+  <mat-card-title i18n="@@MeasuredParameterDetails">Measured Parameter details</mat-card-title>
+  <mat-card-content>
+    <dl>
+      <dt i18n="@@MeasuredParameterName">Measured Parameter name</dt>
+      <dd>{{measuredparameter?.Name}}</dd>
+      <dt i18n="@@MPCDailyAverage">MPC Daily Average</dt>
+      <dd>{{measuredparameter?.MPCDailyAverage}}</dd>
+      <dt i18n="@@MPCMaxOneTime">MPC Maximum One Time</dt>
+      <dd>{{measuredparameter?.MPCMaxOneTime}}</dd>
+      <dt i18n="@@OceanusCode">Oceanus Code</dt>
+      <dd>{{measuredparameter?.OceanusCode}}</dd>
+      <dt i18n="@@KazhydrometCode">Kazhydromet Code</dt>
+      <dd>{{measuredparameter?.KazhydrometCode}}</dd>
+    </dl>
+  </mat-card-content>
+  <mat-card-actions align="center">
+    <a i18n-matTooltip="@@Back" class="btn" [routerLink]="['/measuredparameters']" matTooltip="Back"><i class="material-icons">arrow_back</i></a>
+  </mat-card-actions>
+</mat-card>

@@ -59,6 +59,13 @@ import { PollutionEnvironmentCreateComponent } from './pollutionenvironments/cre
 import { PollutionEnvironmentEditComponent } from './pollutionenvironments/edit.component';
 import { PollutionEnvironmentDetailsComponent } from './pollutionenvironments/details.component';
 
+import { MeasuredParameterService } from './measuredparameters/measuredparameter.service';
+import { MeasuredParametersIndexComponent } from './measuredparameters/index.component';
+import { MeasuredParametersListComponent } from './measuredparameters/list.component';
+import { MeasuredParameterCreateComponent } from './measuredparameters/create.component';
+import { MeasuredParameterEditComponent } from './measuredparameters/edit.component';
+import { MeasuredParameterDetailsComponent } from './measuredparameters/details.component';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/locale/', '.json');
 }
@@ -85,7 +92,12 @@ export function createTranslateLoader(http: HttpClient) {
     PollutionEnvironmentsListComponent,
     PollutionEnvironmentCreateComponent,
     PollutionEnvironmentEditComponent,
-    PollutionEnvironmentDetailsComponent
+    PollutionEnvironmentDetailsComponent,
+    MeasuredParametersIndexComponent,
+    MeasuredParametersListComponent,
+    MeasuredParameterCreateComponent,
+    MeasuredParameterEditComponent,
+    MeasuredParameterDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -109,6 +121,10 @@ export function createTranslateLoader(http: HttpClient) {
       { path: 'pollutionenvironments/create', component: PollutionEnvironmentCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'pollutionenvironments/edit/:id', component: PollutionEnvironmentEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'pollutionenvironments/:id', component: PollutionEnvironmentDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'measuredparameters', component: MeasuredParametersIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'measuredparameters/create', component: MeasuredParameterCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'measuredparameters/edit/:id', component: MeasuredParameterEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'measuredparameters/:id', component: MeasuredParameterDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
     ]),
     BrowserAnimationsModule,
     ReactiveFormsModule,
@@ -140,6 +156,7 @@ export function createTranslateLoader(http: HttpClient) {
   providers: [
     UserService,
     PollutionEnvironmentService,
+    MeasuredParameterService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizeInterceptor,

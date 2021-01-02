@@ -11,12 +11,12 @@
         
         
         
-      <context-group purpose="location"><context context-type="sourcefile">app/nav-menu/nav-menu.component.html</context><context context-type="linenumber">30</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/nav/nav.component.html</context><context context-type="linenumber">11</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/register.component.html</context><context context-type="linenumber">1</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/register.component.html</context><context context-type="linenumber">36</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/list.component.html</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="LogIn" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/nav-menu/nav-menu.component.html</context><context context-type="linenumber">30</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/nav/nav.component.html</context><context context-type="linenumber">11</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/register.component.html</context><context context-type="linenumber">2</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/register.component.html</context><context context-type="linenumber">36</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/list.component.html</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="LogIn" datatype="html">
         <source>Log in</source><target state="final">Войти</target>
         
         
         
-      <context-group purpose="location"><context context-type="sourcefile">app/nav-menu/nav-menu.component.html</context><context context-type="linenumber">33</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/nav/nav.component.html</context><context context-type="linenumber">12</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/login.component.html</context><context context-type="linenumber">1</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/login.component.html</context><context context-type="linenumber">16</context></context-group></trans-unit><trans-unit id="LogOut" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/nav-menu/nav-menu.component.html</context><context context-type="linenumber">33</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/nav/nav.component.html</context><context context-type="linenumber">12</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/login.component.html</context><context context-type="linenumber">2</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/login.component.html</context><context context-type="linenumber">16</context></context-group></trans-unit><trans-unit id="LogOut" datatype="html">
         <source>Log out</source><target state="final">Выйти</target>
         
       <context-group purpose="location"><context context-type="sourcefile">app/nav-menu/nav-menu.component.html</context><context context-type="linenumber">39</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/nav/nav.component.html</context><context context-type="linenumber">14</context></context-group></trans-unit><trans-unit id="Menu" datatype="html">
@@ -27,15 +27,9 @@
         </context-group>
       </trans-unit><trans-unit id="Dashboard" datatype="html">
         <source>Dashboard</source><target state="final">Панель управления</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/nav/nav.component.html</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/dashboard/dashboard.component.html</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit><trans-unit id="Language" datatype="html">
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/nav/nav.component.html</context><context context-type="linenumber">10</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/dashboard/dashboard.component.html</context><context context-type="linenumber">5</context></context-group></trans-unit><trans-unit id="Language" datatype="html">
         <source>Language</source><target state="final">Язык</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/locale/index.component.html</context>
@@ -110,19 +104,10 @@
         </context-group>
       </trans-unit><trans-unit id="ChangePassword" datatype="html">
         <source>Change password</source><target state="final">Изменить пароль</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/users/changepassword.component.html</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/users/changepassword.component.html</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/users/changepassword.component.html</context>
-          <context context-type="linenumber">36</context>
-        </context-group>
-      </trans-unit><trans-unit id="CurrentPassword" datatype="html">
+        
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/users/changepassword.component.html</context><context context-type="linenumber">2</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/changepassword.component.html</context><context context-type="linenumber">5</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/users/changepassword.component.html</context><context context-type="linenumber">36</context></context-group></trans-unit><trans-unit id="CurrentPassword" datatype="html">
         <source>Current password</source><target state="final">Текущий пароль</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/users/changepassword.component.html</context>
@@ -147,19 +132,13 @@
       <context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">7</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">6</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/index.component.html</context><context context-type="linenumber">2</context></context-group></trans-unit>
       <trans-unit id="Create" datatype="html">
         <source>Create</source><target state="final">Создать</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/list.component.html</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
-          <context context-type="linenumber">28</context>
-        </context-group>
-      </trans-unit>
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/list.component.html</context><context context-type="linenumber">1</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/create.component.html</context><context context-type="linenumber">28</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/list.component.html</context><context context-type="linenumber">1</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/create.component.html</context><context context-type="linenumber">44</context></context-group></trans-unit>
       <trans-unit id="Filter" datatype="html">
         <source>Filter</source><target state="final">Фильтр</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/users/list.component.html</context><context context-type="linenumber">4</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/list.component.html</context><context context-type="linenumber">4</context></context-group></trans-unit><trans-unit id="Roles" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/users/list.component.html</context><context context-type="linenumber">4</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/list.component.html</context><context context-type="linenumber">4</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/list.component.html</context><context context-type="linenumber">4</context></context-group></trans-unit><trans-unit id="Roles" datatype="html">
         <source>Roles</source><target state="final">Роли</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/users/list.component.html</context>
@@ -172,23 +151,20 @@
       </trans-unit>
       <trans-unit id="Name" datatype="html">
         <source>Name</source><target state="final">Название</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/list.component.html</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/list.component.html</context><context context-type="linenumber">10</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/list.component.html</context><context context-type="linenumber">10</context></context-group></trans-unit>
       <trans-unit id="Details" datatype="html">
         <source>Details</source><target state="final">Детали</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/users/list.component.html</context><context context-type="linenumber">20</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/list.component.html</context><context context-type="linenumber">17</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/users/list.component.html</context><context context-type="linenumber">20</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/list.component.html</context><context context-type="linenumber">17</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/list.component.html</context><context context-type="linenumber">37</context></context-group></trans-unit>
       <trans-unit id="Edit" datatype="html">
         <source>Edit</source><target state="final">Редактировать</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/users/list.component.html</context><context context-type="linenumber">21</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/list.component.html</context><context context-type="linenumber">18</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/users/list.component.html</context><context context-type="linenumber">21</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/list.component.html</context><context context-type="linenumber">18</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/list.component.html</context><context context-type="linenumber">38</context></context-group></trans-unit>
       <trans-unit id="Delete" datatype="html">
         <source>Delete</source><target state="final">Удалить</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/users/list.component.html</context><context context-type="linenumber">22</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/list.component.html</context><context context-type="linenumber">19</context></context-group></trans-unit><trans-unit id="UserDetails" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/users/list.component.html</context><context context-type="linenumber">22</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/list.component.html</context><context context-type="linenumber">19</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/list.component.html</context><context context-type="linenumber">39</context></context-group></trans-unit><trans-unit id="UserDetails" datatype="html">
         <source>User details</source><target state="final">Детали пользователя</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/users/details.component.html</context>
@@ -227,69 +203,27 @@
       </trans-unit>
       <trans-unit id="NotMore50Characters" datatype="html">
         <source>Not more than 50 characters long.</source><target state="final">Не более 50 символов.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
-          <context context-type="linenumber">14</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
-          <context context-type="linenumber">14</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-      </trans-unit>
+        
+        
+        
+        
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/create.component.html</context><context context-type="linenumber">7</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/create.component.html</context><context context-type="linenumber">14</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/create.component.html</context><context context-type="linenumber">21</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context><context context-type="linenumber">7</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context><context context-type="linenumber">14</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context><context context-type="linenumber">21</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/create.component.html</context><context context-type="linenumber">7</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/create.component.html</context><context context-type="linenumber">14</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/create.component.html</context><context context-type="linenumber">21</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/edit.component.html</context><context context-type="linenumber">7</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/edit.component.html</context><context context-type="linenumber">14</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/edit.component.html</context><context context-type="linenumber">21</context></context-group></trans-unit>
       <trans-unit id="NameEnglishRequired" datatype="html">
         <source>Name (English) is required</source><target state="final">Название (английский) обязательно</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/create.component.html</context><context context-type="linenumber">8</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context><context context-type="linenumber">8</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/create.component.html</context><context context-type="linenumber">8</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/edit.component.html</context><context context-type="linenumber">8</context></context-group></trans-unit>
       <trans-unit id="More50Characters" datatype="html">
         <source>You have more than 50 characters</source><target state="final">У Вас более 50 символов</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
-          <context context-type="linenumber">16</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
-          <context context-type="linenumber">16</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-      </trans-unit>
+        
+        
+        
+        
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/create.component.html</context><context context-type="linenumber">9</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/create.component.html</context><context context-type="linenumber">16</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/create.component.html</context><context context-type="linenumber">23</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context><context context-type="linenumber">9</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context><context context-type="linenumber">16</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context><context context-type="linenumber">23</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/create.component.html</context><context context-type="linenumber">9</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/create.component.html</context><context context-type="linenumber">16</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/create.component.html</context><context context-type="linenumber">23</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/edit.component.html</context><context context-type="linenumber">9</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/edit.component.html</context><context context-type="linenumber">16</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/edit.component.html</context><context context-type="linenumber">23</context></context-group></trans-unit>
       <trans-unit id="PollutionEnvironmentNameRussian" datatype="html">
         <source>Pollution Environment name (Russian)</source><target state="final">Название среды загрязнения (русский)</target>
         <context-group purpose="location">
@@ -303,15 +237,9 @@
       </trans-unit>
       <trans-unit id="NameRussianRequired" datatype="html">
         <source>Name (Russian) is required</source><target state="final">Название (русский) обязательно</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
-          <context context-type="linenumber">15</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
-          <context context-type="linenumber">15</context>
-        </context-group>
-      </trans-unit>
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/create.component.html</context><context context-type="linenumber">15</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context><context context-type="linenumber">15</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/create.component.html</context><context context-type="linenumber">15</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/edit.component.html</context><context context-type="linenumber">15</context></context-group></trans-unit>
       <trans-unit id="PollutionEnvironmentNameKazakh" datatype="html">
         <source>Pollution Environment name (Kazakh)</source><target state="final">Название среды загрязнения (казахский)</target>
         <context-group purpose="location">
@@ -325,20 +253,14 @@
       </trans-unit>
       <trans-unit id="NameKazakhRequired" datatype="html">
         <source>Name (Kazakh) is required</source><target state="final">Название (казахский) обязательно</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
-          <context context-type="linenumber">22</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
-          <context context-type="linenumber">22</context>
-        </context-group>
-      </trans-unit>
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/create.component.html</context><context context-type="linenumber">22</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context><context context-type="linenumber">22</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/create.component.html</context><context context-type="linenumber">22</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/edit.component.html</context><context context-type="linenumber">22</context></context-group></trans-unit>
       <trans-unit id="Cancel" datatype="html">
         <source>Cancel</source><target state="final">Отмена</target>
         
         
-      <context-group purpose="location"><context context-type="sourcefile">app/users/edit.component.html</context><context context-type="linenumber">20</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/create.component.html</context><context context-type="linenumber">29</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context><context context-type="linenumber">29</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/users/edit.component.html</context><context context-type="linenumber">20</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/create.component.html</context><context context-type="linenumber">29</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context><context context-type="linenumber">29</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/create.component.html</context><context context-type="linenumber">45</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/edit.component.html</context><context context-type="linenumber">45</context></context-group></trans-unit>
       <trans-unit id="EditPollutionEnvironment" datatype="html">
         <source>Edit Pollution Environment</source><target state="final">Редактировать среду загрязнения</target>
         <context-group purpose="location">
@@ -349,7 +271,7 @@
       <trans-unit id="Save" datatype="html">
         <source>Save</source><target state="final">Сохранить</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/users/edit.component.html</context><context context-type="linenumber">19</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context><context context-type="linenumber">28</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/users/edit.component.html</context><context context-type="linenumber">19</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context><context context-type="linenumber">28</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/edit.component.html</context><context context-type="linenumber">44</context></context-group></trans-unit>
       <trans-unit id="PollutionEnvironmentDetails" datatype="html">
         <source>Pollution Environment details</source><target state="final">Детали среды загрязнения</target>
         <context-group purpose="location">
@@ -363,11 +285,80 @@
           <context context-type="sourcefile">app/pollutionenvironments/details.component.html</context>
           <context context-type="linenumber">5</context>
         </context-group>
+      </trans-unit><trans-unit id="MeasuredParameters" datatype="html">
+        <source>Measured Parameters</source><target state="final">Измеряемые параметры</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">10</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">9</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/index.component.html</context><context context-type="linenumber">2</context></context-group></trans-unit><trans-unit id="MPCDailyAverage" datatype="html">
+        <source>MPC Daily Average</source><target state="final">Среднесуточная ПДК</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/list.component.html</context><context context-type="linenumber">15</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/create.component.html</context><context context-type="linenumber">27</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/edit.component.html</context><context context-type="linenumber">27</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/details.component.html</context><context context-type="linenumber">7</context></context-group></trans-unit><trans-unit id="MPCMaxOneTime" datatype="html">
+        <source>MPC Maximum One Time</source><target state="final">ПДК максимально разовое</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/list.component.html</context><context context-type="linenumber">20</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/create.component.html</context><context context-type="linenumber">31</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/edit.component.html</context><context context-type="linenumber">31</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/details.component.html</context><context context-type="linenumber">9</context></context-group></trans-unit><trans-unit id="OceanusCode" datatype="html">
+        <source>Oceanus Code</source><target state="final">Код Oceanus</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/list.component.html</context><context context-type="linenumber">25</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/create.component.html</context><context context-type="linenumber">35</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/edit.component.html</context><context context-type="linenumber">35</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/details.component.html</context><context context-type="linenumber">11</context></context-group></trans-unit><trans-unit id="KazhydrometCode" datatype="html">
+        <source>Kazhydromet Code</source><target state="final">Код Казгидромет</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/list.component.html</context><context context-type="linenumber">30</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/create.component.html</context><context context-type="linenumber">39</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/edit.component.html</context><context context-type="linenumber">39</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/details.component.html</context><context context-type="linenumber">13</context></context-group></trans-unit><trans-unit id="CreateNewMeasuredParameter" datatype="html">
+        <source>Create a new Measured Parameter</source><target state="final">Создать новый измеряемый параметр</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/create.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit><trans-unit id="MeasuredParameterNameEnglish" datatype="html">
+        <source>Measured Parameter name (English)</source><target state="final">Название измеряемого параметра (английский)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/create.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/edit.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit><trans-unit id="MeasuredParameterNameRussian" datatype="html">
+        <source>Measured Parameter name (Russian)</source><target state="final">Название измеряемого параметра (русский)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/create.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/edit.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit><trans-unit id="MeasuredParameterNameKazakh" datatype="html">
+        <source>Measured Parameter name (Kazakh)</source><target state="final">Название измеряемого параметра (казахский)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/create.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/edit.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit><trans-unit id="EditMeasuredParameter" datatype="html">
+        <source>Edit Measured Parameter</source><target state="final">Редактировать измеряемый параметр</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/edit.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit><trans-unit id="MeasuredParameterDetails" datatype="html">
+        <source>Measured Parameter details</source><target state="final">Детали измеряемого параметра</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/details.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit><trans-unit id="MeasuredParameterName" datatype="html">
+        <source>Measured Parameter name</source><target state="final">Название измеряемого параметра</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/details.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Back" datatype="html">
         <source>Back</source><target state="final">Обратно</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/users/details.component.html</context><context context-type="linenumber">14</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/details.component.html</context><context context-type="linenumber">10</context></context-group></trans-unit><trans-unit id="EditUser" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/users/details.component.html</context><context context-type="linenumber">14</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/details.component.html</context><context context-type="linenumber">10</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/details.component.html</context><context context-type="linenumber">18</context></context-group></trans-unit><trans-unit id="EditUser" datatype="html">
         <source>Edit user</source><target state="final">Редактировать пользователя</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/users/edit.component.html</context>

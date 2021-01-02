@@ -4,28 +4,30 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
-import { PollutionEnvironmentService } from './pollutionenvironment.service';
-import { PollutionEnvironment } from './pollutionenvironment.model';
+import { MeasuredParameterService } from './measuredparameter.service';
+import { MeasuredParameter } from './measuredparameter.model';
 
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'pollutionenvironments',
+  selector: 'measuredparameters',
   templateUrl: 'list.component.html'
 })
 
-export class PollutionEnvironmentsListComponent implements OnInit, AfterViewInit {
-  columns: string[] = ['Name', 'details-edit-delete'];
-  dataSource = new MatTableDataSource<PollutionEnvironment>();
+export class MeasuredParametersListComponent implements OnInit, AfterViewInit {
+  columns: string[] = ['Name', 'MPCDailyAverage', 'MPCMaxOneTime', 'OceanusCode', 'KazhydrometCode', 'details-edit-delete'];
+  dataSource = new MatTableDataSource<MeasuredParameter>();
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor(private service: PollutionEnvironmentService,
+  constructor(private service: MeasuredParameterService,
     private translate: TranslateService,
     @Inject(LOCALE_ID) protected locale: string) {
-    this.dataSource.filterPredicate = (data: PollutionEnvironment, filter: string) => {
-      return data.Name.toLowerCase().includes(filter);
+    this.dataSource.filterPredicate = (data: MeasuredParameter, filter: string) => {
+      return data.Name.toLowerCase().includes(filter)
+        || data.OceanusCode.toLowerCase().includes(filter)
+        || data.KazhydrometCode.toLowerCase().includes(filter);
     };
     translate.setDefaultLang(locale);
     translate.use(locale);
@@ -43,8 +45,7 @@ export class PollutionEnvironmentsListComponent implements OnInit, AfterViewInit
   public get() {
     this.service.get()
       .subscribe(res => {
-        this.dataSource.data = res as PollutionEnvironment[];
-        console.log(res as PollutionEnvironment[]);
+        this.dataSource.data = res as MeasuredParameter[];
       })
   }
 
