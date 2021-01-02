@@ -465,8 +465,16 @@
           <context context-type="linenumber">10</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/pollutionenvironments/details.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/measuredparameters/list.component.html</context>
           <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/details.component.html</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="CreateNewPollutionEnvironment" datatype="html">
@@ -476,14 +484,22 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="PollutionEnvironmentNameEnglish" datatype="html">
-        <source>Pollution Environment name (English)</source>
+      <trans-unit id="NameEnglish" datatype="html">
+        <source>Name (English)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/create.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/edit.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
@@ -608,14 +624,22 @@
           <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="PollutionEnvironmentNameRussian" datatype="html">
-        <source>Pollution Environment name (Russian)</source>
+      <trans-unit id="NameRussian" datatype="html">
+        <source>Name (Russian)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
           <context context-type="linenumber">13</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/create.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/edit.component.html</context>
           <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
@@ -638,14 +662,22 @@
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="PollutionEnvironmentNameKazakh" datatype="html">
-        <source>Pollution Environment name (Kazakh)</source>
+      <trans-unit id="NameKazakh" datatype="html">
+        <source>Name (Kazakh)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/create.component.html</context>
           <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/edit.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/create.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/edit.component.html</context>
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
@@ -680,13 +712,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/details.component.html</context>
           <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="PollutionEnvironmentName" datatype="html">
-        <source>Pollution Environment name</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pollutionenvironments/details.component.html</context>
-          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="MPCDailyAverage" datatype="html">
@@ -772,39 +797,6 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="MeasuredParameterNameEnglish" datatype="html">
-        <source>Measured Parameter name (English)</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/measuredparameters/create.component.html</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/measuredparameters/edit.component.html</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="MeasuredParameterNameRussian" datatype="html">
-        <source>Measured Parameter name (Russian)</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/measuredparameters/create.component.html</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/measuredparameters/edit.component.html</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="MeasuredParameterNameKazakh" datatype="html">
-        <source>Measured Parameter name (Kazakh)</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/measuredparameters/create.component.html</context>
-          <context context-type="linenumber">20</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/measuredparameters/edit.component.html</context>
-          <context context-type="linenumber">20</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="EditMeasuredParameter" datatype="html">
         <source>Edit Measured Parameter</source>
         <context-group purpose="location">
@@ -817,13 +809,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/measuredparameters/details.component.html</context>
           <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="MeasuredParameterName" datatype="html">
-        <source>Measured Parameter name</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/measuredparameters/details.component.html</context>
-          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
     </body>

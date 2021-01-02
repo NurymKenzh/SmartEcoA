@@ -44,7 +44,6 @@ export class PollutionEnvironmentsListComponent implements OnInit, AfterViewInit
     this.service.get()
       .subscribe(res => {
         this.dataSource.data = res as PollutionEnvironment[];
-        console.log(res as PollutionEnvironment[]);
       })
   }
 

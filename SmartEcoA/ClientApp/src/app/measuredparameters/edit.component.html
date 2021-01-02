@@ -3,21 +3,21 @@
   <form [formGroup]="measuredparameterForm" autocomplete="off" novalidate (ngSubmit)="save(measuredparameterForm.value)">
     <mat-card-content>
       <mat-form-field>
-        <input i18n-placeholder="@@MeasuredParameterNameEnglish" matInput type="text" placeholder="Measured Parameter name (English)" formControlName="NameEN" id="nameen">
+        <input i18n-placeholder="@@NameEnglish" matInput type="text" placeholder="Name (English)" formControlName="NameEN" id="nameen">
         <mat-hint i18n="@@NotMore50Characters">Not more then 50 characters long.</mat-hint>
         <mat-error i18n="@@NameEnglishRequired" *ngIf="error('NameEN', 'required')">Name (English) is required</mat-error>
         <mat-error i18n="@@More50Characters" *ngIf="error('NameEN', 'maxlength')">You have more than 50 characters</mat-error>
       </mat-form-field>
       <br />
       <mat-form-field>
-        <input i18n-placeholder="@@MeasuredParameterNameRussian" matInput type="text" placeholder="Measured Parameter name (Russian)" formControlName="NameRU" id="nameru">
+        <input i18n-placeholder="@@NameRussian" matInput type="text" placeholder="Name (Russian)" formControlName="NameRU" id="nameru">
         <mat-hint i18n="@@NotMore50Characters">Not more then 50 characters long.</mat-hint>
         <mat-error i18n="@@NameRussianRequired" *ngIf="error('NameRU', 'required')">Name (Russian) is required</mat-error>
         <mat-error i18n="@@More50Characters" *ngIf="error('NameRU', 'maxlength')">You have more than 50 characters</mat-error>
       </mat-form-field>
       <br />
       <mat-form-field>
-        <input i18n-placeholder="@@MeasuredParameterNameKazakh" matInput type="text" placeholder="Measured Parameter name (Kazakh)" formControlName="NameKK" id="namekk">
+        <input i18n-placeholder="@@NameKazakh" matInput type="text" placeholder="Name (Kazakh)" formControlName="NameKK" id="namekk">
         <mat-hint i18n="@@NotMore50Characters">Not more then 50 characters long.</mat-hint>
         <mat-error i18n="@@NameKazakhRequired" *ngIf="error('NameKK', 'required')">Name (Kazakh) is required</mat-error>
         <mat-error i18n="@@More50Characters" *ngIf="error('NameKK', 'maxlength')">You have more than 50 characters</mat-error>
