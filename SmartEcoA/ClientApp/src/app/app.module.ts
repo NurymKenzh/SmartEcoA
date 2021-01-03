@@ -73,6 +73,13 @@ import { DataProviderCreateComponent } from './dataproviders/create.component';
 import { DataProviderEditComponent } from './dataproviders/edit.component';
 import { DataProviderDetailsComponent } from './dataproviders/details.component';
 
+import { ProjectService } from './projects/project.service';
+import { ProjectsIndexComponent } from './projects/index.component';
+import { ProjectsListComponent } from './projects/list.component';
+import { ProjectCreateComponent } from './projects/create.component';
+import { ProjectEditComponent } from './projects/edit.component';
+import { ProjectDetailsComponent } from './projects/details.component';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/locale/', '.json');
 }
@@ -109,7 +116,12 @@ export function createTranslateLoader(http: HttpClient) {
     DataProvidersListComponent,
     DataProviderCreateComponent,
     DataProviderEditComponent,
-    DataProviderDetailsComponent
+    DataProviderDetailsComponent,
+    ProjectsIndexComponent,
+    ProjectsListComponent,
+    ProjectCreateComponent,
+    ProjectEditComponent,
+    ProjectDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -141,6 +153,10 @@ export function createTranslateLoader(http: HttpClient) {
       { path: 'dataproviders/create', component: DataProviderCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'dataproviders/edit/:id', component: DataProviderEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'dataproviders/:id', component: DataProviderDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'projects', component: ProjectsIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'projects/create', component: ProjectCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'projects/edit/:id', component: ProjectEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'projects/:id', component: ProjectDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
     ]),
     BrowserAnimationsModule,
     ReactiveFormsModule,
@@ -174,6 +190,7 @@ export function createTranslateLoader(http: HttpClient) {
     PollutionEnvironmentService,
     MeasuredParameterService,
     DataProviderService,
+    ProjectService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizeInterceptor,

@@ -62,6 +62,13 @@
     <None Remove="ClientApp\src\app\pollutionenvironments\list.component.ts" />
     <None Remove="ClientApp\src\app\pollutionenvironments\pollutionenvironment.model.ts" />
     <None Remove="ClientApp\src\app\pollutionenvironments\pollutionenvironment.service.ts" />
+    <None Remove="ClientApp\src\app\projects\create.component.ts" />
+    <None Remove="ClientApp\src\app\projects\details.component.ts" />
+    <None Remove="ClientApp\src\app\projects\edit.component.ts" />
+    <None Remove="ClientApp\src\app\projects\index.component.ts" />
+    <None Remove="ClientApp\src\app\projects\list.component.ts" />
+    <None Remove="ClientApp\src\app\projects\project.model.ts" />
+    <None Remove="ClientApp\src\app\projects\project.service.ts" />
     <None Remove="ClientApp\src\app\users\changepassword.component.ts" />
     <None Remove="ClientApp\src\app\users\details.component.ts" />
     <None Remove="ClientApp\src\app\users\edit.component.ts" />
@@ -100,6 +107,27 @@
     <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\list.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\pollutionenvironment.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\pollutionenvironment.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\projects\create.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\projects\project.model.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\projects\project.service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\projects\details.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\projects\edit.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\projects\index.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\projects\list.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\users\changepassword.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\users\details.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\users\edit.component.ts" />

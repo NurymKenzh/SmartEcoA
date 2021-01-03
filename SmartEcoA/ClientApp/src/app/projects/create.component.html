@@ -1,0 +1,19 @@
+<mat-card>
+  <mat-card-title i18n="@@CreateNewProject">Create a new Project</mat-card-title>
+  <form [formGroup]="projectForm" autocomplete="off" novalidate (ngSubmit)="create(projectForm.value)">
+    <mat-card-content>
+      <mat-form-field>
+        <input i18n-placeholder="@@Name" matInput type="text" placeholder="Name" formControlName="Name" id="name">
+        <mat-hint i18n="@@NotMore50Characters">Not more than 50 characters long.</mat-hint>
+        <mat-error i18n="@@NameRequired" *ngIf="error('Name', 'required')">Name is required</mat-error>
+        <mat-error i18n="@@More50Characters" *ngIf="error('Name', 'maxlength')">You have more than 50 characters</mat-error>
+        <mat-error i18n="@@OnlyLatinLetters" *ngIf="error('Name', 'pattern')">The parameter must contain only Latin letters</mat-error>
+      </mat-form-field>
+      <br />
+    </mat-card-content>
+    <mat-card-actions align="center">
+      <button i18n="@@Create" mat-raised-button color="primary" [disabled]="!projectForm.valid">Create</button>
+      <button i18n="@@Cancel" type="button" mat-raised-button color="warn" (click)="cancel()">Cancel</button>
+    </mat-card-actions>
+  </form>
+</mat-card>
