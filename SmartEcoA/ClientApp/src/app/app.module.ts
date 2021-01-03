@@ -22,6 +22,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatExpansionModule } from '@angular/material/expansion';
 import 'hammerjs';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -177,6 +178,7 @@ export function createTranslateLoader(http: HttpClient) {
     MatIconModule,
     MatGridListModule,
     MatMenuModule,
+    MatExpansionModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

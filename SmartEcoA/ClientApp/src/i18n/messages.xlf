@@ -110,7 +110,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/users/list.component.html</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/users/edit.component.html</context>
@@ -280,11 +280,18 @@
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Info" datatype="html">
+        <source>Information</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/list.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Roles" datatype="html">
         <source>Roles</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/users/list.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">23</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/users/edit.component.html</context>
@@ -295,7 +302,7 @@
         <source>Details</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/users/list.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">29</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/list.component.html</context>
@@ -318,7 +325,7 @@
         <source>Edit</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/users/list.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">30</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/list.component.html</context>
@@ -341,7 +348,7 @@
         <source>Delete</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/users/list.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">31</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/list.component.html</context>

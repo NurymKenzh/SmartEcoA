@@ -4,6 +4,17 @@
   <input i18n-placeholder="@@Filter" matInput type="text" (keyup)="filter($event.target.value)" placeholder="Filter">
 </mat-form-field>
 
+<mat-expansion-panel hideToggle>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <i i18n-matTooltip="@@Info" class="material-icons" matTooltip="Information">info</i>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <p>Пользователи с ролью "Administrator" имеют доступ к панели управления, администрированию.</p>
+  <p>Пользователи с ролью "Moderator" имеют доступ к панели управления, администрированию (кроме данных пользователей).</p>
+  <p>Пользователи с ролью "Customer" имеют доступ к панели управления, а также к данным проектов на панели управления, которые соответсвуют их ролям.</p>
+</mat-expansion-panel>
+
 <table mat-table [dataSource]="dataSource" matSort class="table">
   <tr>
     <ng-container matColumnDef="Email">
