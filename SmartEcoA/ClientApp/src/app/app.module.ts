@@ -66,6 +66,13 @@ import { MeasuredParameterCreateComponent } from './measuredparameters/create.co
 import { MeasuredParameterEditComponent } from './measuredparameters/edit.component';
 import { MeasuredParameterDetailsComponent } from './measuredparameters/details.component';
 
+import { DataProviderService } from './dataproviders/dataprovider.service';
+import { DataProvidersIndexComponent } from './dataproviders/index.component';
+import { DataProvidersListComponent } from './dataproviders/list.component';
+import { DataProviderCreateComponent } from './dataproviders/create.component';
+import { DataProviderEditComponent } from './dataproviders/edit.component';
+import { DataProviderDetailsComponent } from './dataproviders/details.component';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/locale/', '.json');
 }
@@ -97,7 +104,12 @@ export function createTranslateLoader(http: HttpClient) {
     MeasuredParametersListComponent,
     MeasuredParameterCreateComponent,
     MeasuredParameterEditComponent,
-    MeasuredParameterDetailsComponent
+    MeasuredParameterDetailsComponent,
+    DataProvidersIndexComponent,
+    DataProvidersListComponent,
+    DataProviderCreateComponent,
+    DataProviderEditComponent,
+    DataProviderDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -125,6 +137,10 @@ export function createTranslateLoader(http: HttpClient) {
       { path: 'measuredparameters/create', component: MeasuredParameterCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'measuredparameters/edit/:id', component: MeasuredParameterEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'measuredparameters/:id', component: MeasuredParameterDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'dataproviders', component: DataProvidersIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'dataproviders/create', component: DataProviderCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'dataproviders/edit/:id', component: DataProviderEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'dataproviders/:id', component: DataProviderDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
     ]),
     BrowserAnimationsModule,
     ReactiveFormsModule,
@@ -157,6 +173,7 @@ export function createTranslateLoader(http: HttpClient) {
     UserService,
     PollutionEnvironmentService,
     MeasuredParameterService,
+    DataProviderService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizeInterceptor,

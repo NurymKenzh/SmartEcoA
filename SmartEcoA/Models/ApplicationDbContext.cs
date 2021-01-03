@@ -16,5 +16,6 @@ namespace SmartEcoA.Models
         }
         public DbSet<SmartEcoA.Models.PollutionEnvironment> PollutionEnvironment { get; set; }
         public DbSet<SmartEcoA.Models.MeasuredParameter> MeasuredParameter { get; set; }
+        public DbSet<SmartEcoA.Models.DataProvider> DataProvider { get; set; }
     }
 }

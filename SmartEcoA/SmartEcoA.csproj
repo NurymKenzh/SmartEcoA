@@ -39,6 +39,13 @@
     <None Remove="ClientApp\src\app\administration\administration.component.ts" />
     <None Remove="ClientApp\src\app\authorize\authorize.guard.ts" />
     <None Remove="ClientApp\src\app\authorize\authorize.interceptor.ts" />
+    <None Remove="ClientApp\src\app\dataproviders\create.component.ts" />
+    <None Remove="ClientApp\src\app\dataproviders\dataprovider.model.ts" />
+    <None Remove="ClientApp\src\app\dataproviders\dataprovider.service.ts" />
+    <None Remove="ClientApp\src\app\dataproviders\details.component.ts" />
+    <None Remove="ClientApp\src\app\dataproviders\edit.component.ts" />
+    <None Remove="ClientApp\src\app\dataproviders\index.component.ts" />
+    <None Remove="ClientApp\src\app\dataproviders\list.component.ts" />
     <None Remove="ClientApp\src\app\locale\index.component.ts" />
     <None Remove="ClientApp\src\app\measuredparameters\create.component.ts" />
     <None Remove="ClientApp\src\app\measuredparameters\details.component.ts" />
@@ -70,6 +77,13 @@
     <TypeScriptCompile Include="ClientApp\src\app\administration\administration.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\authorize\authorize.guard.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\authorize\authorize.interceptor.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\dataproviders\create.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\dataproviders\dataprovider.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\dataproviders\dataprovider.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\dataproviders\details.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\dataproviders\edit.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\dataproviders\index.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\dataproviders\list.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\locale\index.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\measuredparameters\create.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\measuredparameters\details.component.ts" />

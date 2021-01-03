@@ -271,6 +271,10 @@
           <context context-type="sourcefile">app/measuredparameters/list.component.html</context>
           <context context-type="linenumber">4</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/list.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Roles" datatype="html">
         <source>Roles</source>
@@ -297,6 +301,10 @@
           <context context-type="sourcefile">app/measuredparameters/list.component.html</context>
           <context context-type="linenumber">37</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/list.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Edit" datatype="html">
         <source>Edit</source>
@@ -312,6 +320,10 @@
           <context context-type="sourcefile">app/measuredparameters/list.component.html</context>
           <context context-type="linenumber">38</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/list.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Delete" datatype="html">
         <source>Delete</source>
@@ -326,6 +338,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/measuredparameters/list.component.html</context>
           <context context-type="linenumber">39</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/list.component.html</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="UserDetails" datatype="html">
@@ -363,6 +379,10 @@
           <context context-type="sourcefile">app/measuredparameters/details.component.html</context>
           <context context-type="linenumber">18</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/details.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="EditUser" datatype="html">
         <source>Edit user</source>
@@ -384,6 +404,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/measuredparameters/edit.component.html</context>
           <context context-type="linenumber">44</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/edit.component.html</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Cancel" datatype="html">
@@ -407,6 +431,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/measuredparameters/edit.component.html</context>
           <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/create.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/edit.component.html</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="PollutionEnvironments" datatype="html">
@@ -439,6 +471,21 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="DataProviders" datatype="html">
+        <source>Data Providers</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/administration/administration.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/administration/administration.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/index.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Create" datatype="html">
         <source>Create</source>
         <context-group purpose="location">
@@ -457,6 +504,14 @@
           <context context-type="sourcefile">app/measuredparameters/create.component.html</context>
           <context context-type="linenumber">44</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/list.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/create.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Name" datatype="html">
         <source>Name</source>
@@ -474,6 +529,22 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/measuredparameters/details.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/list.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/create.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/edit.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/details.component.html</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
@@ -553,6 +624,14 @@
           <context context-type="sourcefile">app/measuredparameters/edit.component.html</context>
           <context context-type="linenumber">21</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/create.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/edit.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="NameEnglishRequired" datatype="html">
         <source>Name (English) is required</source>
@@ -622,6 +701,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/measuredparameters/edit.component.html</context>
           <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/create.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/edit.component.html</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="NameRussian" datatype="html">
@@ -808,6 +895,38 @@
         <source>Measured Parameter details</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/measuredparameters/details.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CreateNewDataProvider" datatype="html">
+        <source>Create a new Data Provider</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/create.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="NameRequired" datatype="html">
+        <source>Name is required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/create.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/edit.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="EditDataProvider" datatype="html">
+        <source>Edit Data Provider</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/edit.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="DataProviderDetails" datatype="html">
+        <source>Data Provider details</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dataproviders/details.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
