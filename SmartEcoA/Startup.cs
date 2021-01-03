@@ -174,7 +174,7 @@ namespace SmartEcoA
         {
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            string[] roleNames = { "Administrator", "Moderator" };
+            string[] roleNames = { "Administrator", "Moderator", "Customer" };
             IdentityResult roleResult;
             foreach (var roleName in roleNames)
             {
@@ -189,12 +189,11 @@ namespace SmartEcoA
             if (user != null)
             {
                 await userManager.AddToRoleAsync(user, "Administrator");
-                await userManager.AddToRoleAsync(user, "Moderator");
             }
             ApplicationUser user2 = userManager.Users.FirstOrDefault(u => u.Email == "n.k.a@bk.ru");
             if (user2 != null)
             {
-                await userManager.AddToRoleAsync(user2, "Administrator");
+                await userManager.AddToRoleAsync(user2, "Moderator");
             }
         }
     }

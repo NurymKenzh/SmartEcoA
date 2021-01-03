@@ -1,5 +1,5 @@
 <h1 i18n="@@Administration"></h1>
-<a i18n-matTooltip="@@Users" class="btn" [routerLink]="['/users']" matTooltip="Users">
+<a i18n-matTooltip="@@Users" *ngIf="userService.allowedRole(['Administrator'])" class="btn" [routerLink]="['/users']" matTooltip="Users">
   <i class="material-icons">people_alt</i>
   <span i18n="@@Users">Users</span>
 </a>

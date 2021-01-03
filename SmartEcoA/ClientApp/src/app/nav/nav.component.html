@@ -6,8 +6,8 @@
     <mat-toolbar i18n="@@Menu">Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item class="nav-link text-dark" [routerLink]="['/locale']"><i class="material-icons">language</i> {{currentLanguage}}</a>
-      <a i18n="@@Administration" *ngIf="userService.authorizedUser() && userService.allowedRole(['Administrator'])" mat-list-item class="nav-link text-dark" [routerLink]="['/administration']">Administration</a>
-      <a i18n="@@Dashboard" *ngIf="userService.authorizedUser() && userService.allowedRole(['Administrator'])" mat-list-item class="nav-link text-dark" [routerLink]="['/dashboard']">Dashboard</a>
+      <a i18n="@@Administration" *ngIf="userService.authorizedUser() && userService.allowedRole(['Administrator', 'Moderator'])" mat-list-item class="nav-link text-dark" [routerLink]="['/administration']">Administration</a>
+      <a i18n="@@Dashboard" *ngIf="userService.authorizedUser() && userService.allowedRole(['Administrator', 'Moderator', 'Customer'])" mat-list-item class="nav-link text-dark" [routerLink]="['/dashboard']">Dashboard</a>
       <a i18n="@@Register" *ngIf="!userService.authorizedUser()" mat-list-item class="nav-link text-dark" [routerLink]="['/users/register']">Register</a>
       <a i18n="@@LogIn" *ngIf="!userService.authorizedUser()" mat-list-item class="nav-link text-dark" [routerLink]="['/users/login']">Log in</a>
       <a *ngIf="userService.authorizedUser() && authorizedUser" mat-list-item class="nav-link text-dark" [routerLink]="['/users/changepassword']"> {{authorizedUser.Email}}</a>
