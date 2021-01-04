@@ -6,9 +6,5 @@
     "NextPageLabel": "Келесі бет",
     "LastPageLabel": "Соңғы бет"
   },
-  "AreYouSureDeleteThisRecord": "Сіз бұл жазбаны өшіресіз бе??",
-  //"Users": {
-  //  "PasswordChanged": "Пароль өзгертілді!",
-  //  "NewUserRegistered": "Жаңа қолданушы тіркелді"
-  //}
+  "AreYouSureDeleteThisRecord": "Сіз бұл жазбаны өшіресіз бе?"
 }

@@ -6,9 +6,5 @@
     "NextPageLabel": "Следующая страница",
     "LastPageLabel": "Последняя страница"
   },
-  "AreYouSureDeleteThisRecord": "Вы уверены, что хотите удалить эту запись?",
-  //"Users": {
-  //  "PasswordChanged": "Пароль изменён!",
-  //  "NewUserRegistered": "Новый пользователь зарегистрирован"
-  //}
+  "AreYouSureDeleteThisRecord": "Вы уверены, что хотите удалить эту запись?"
 }

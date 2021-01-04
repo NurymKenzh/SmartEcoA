@@ -6,9 +6,5 @@
     "NextPageLabel": "Next page",
     "LastPageLabel": "Last page"
   },
-  "AreYouSureDeleteThisRecord": "Are you sure to delete this record?",
-  //"Users": {
-  //  "PasswordChanged": "Password changed!",
-  //  "NewUserRegistered": "New user registered"
-  //}
+  "AreYouSureDeleteThisRecord": "Are you sure to delete this record?"
 }
