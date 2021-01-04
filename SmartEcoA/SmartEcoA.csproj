@@ -74,6 +74,7 @@
     <None Remove="ClientApp\src\app\projects\project.model.ts" />
     <None Remove="ClientApp\src\app\projects\project.service.ts" />
     <None Remove="ClientApp\src\app\users\changepassword.component.ts" />
+    <None Remove="ClientApp\src\app\users\changepasswordinfo.component.ts" />
     <None Remove="ClientApp\src\app\users\delete.component.ts" />
     <None Remove="ClientApp\src\app\users\details.component.ts" />
     <None Remove="ClientApp\src\app\users\edit.component.ts" />
@@ -144,6 +145,7 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\users\changepassword.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\users\changepasswordinfo.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\users\delete.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

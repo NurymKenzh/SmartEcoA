@@ -24,6 +24,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import 'hammerjs';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -47,6 +48,7 @@ import { UserService } from './users/user.service';
 import { RegisterComponent } from './users/register.component';
 import { LoginComponent } from './users/login.component';
 import { ChangePasswordComponent } from './users/changepassword.component';
+import { ChangePasswordInfoComponent } from './users/changepasswordinfo.component';
 import { UsersIndexComponent } from './users/index.component';
 import { UsersListComponent } from './users/list.component';
 import { UserDeleteComponent } from './users/delete.component';
@@ -106,6 +108,7 @@ export function createTranslateLoader(http: HttpClient) {
     UsersIndexComponent,
     UsersListComponent,
     UserDeleteComponent,
+    ChangePasswordInfoComponent,
     UserDetailsComponent,
     UserEditComponent,
     AdministrationComponent,
@@ -191,6 +194,7 @@ export function createTranslateLoader(http: HttpClient) {
     MatMenuModule,
     MatExpansionModule,
     MatDialogModule,
+    MatSnackBarModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -216,6 +220,7 @@ export function createTranslateLoader(http: HttpClient) {
     }],
   entryComponents: [
     UserDeleteComponent,
+    ChangePasswordInfoComponent,
     PollutionEnvironmentDeleteComponent,
     MeasuredParameterDeleteComponent,
     DataProviderDeleteComponent,

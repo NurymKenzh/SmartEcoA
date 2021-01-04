@@ -102,6 +102,16 @@
           <context context-type="sourcefile">app/users/login.component.html</context>
           <context context-type="linenumber">20</context>
         </context-group>
+      </trans-unit><trans-unit id="PasswordChanged" datatype="html">
+        <source>
+  Password changed!
+</source><target state="final">
+  Пароль изменён!
+</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/users/changepasswordinfo.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
       </trans-unit><trans-unit id="ChangePassword" datatype="html">
         <source>Change password</source><target state="final">Изменить пароль</target>
         
