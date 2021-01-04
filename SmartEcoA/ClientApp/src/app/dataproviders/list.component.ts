@@ -3,9 +3,11 @@ import { Component, OnInit, ViewChild, AfterViewInit, LOCALE_ID, Inject } from '
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
 
 import { DataProviderService } from './dataprovider.service';
 import { DataProvider } from './dataprovider.model';
+import { DataProviderDeleteComponent } from './delete.component';
 
 import { TranslateService } from '@ngx-translate/core';
 
@@ -23,7 +25,8 @@ export class DataProvidersListComponent implements OnInit, AfterViewInit {
 
   constructor(private service: DataProviderService,
     private translate: TranslateService,
-    @Inject(LOCALE_ID) protected locale: string) {
+    @Inject(LOCALE_ID) protected locale: string,
+    public deleteDialog: MatDialog) {
     this.dataSource.filterPredicate = (data: DataProvider, filter: string) => {
       return data.Name.toLowerCase().includes(filter);
     };
@@ -48,15 +51,18 @@ export class DataProvidersListComponent implements OnInit, AfterViewInit {
   }
 
   delete(Id) {
-    if (confirm(this.translate.instant('AreYouSureDeleteThisRecord'))) {
-      this.service.delete(Id)
-        .subscribe(() => {
-          this.get();
-        },
+    const deleteDialog = this.deleteDialog.open(DataProviderDeleteComponent);
+    deleteDialog.afterClosed().subscribe(result => {
+      if (result) {
+        this.service.delete(Id)
+          .subscribe(() => {
+            this.get();
+          },
           err => {
             console.log(err);
           })
-    }
+      }
+    });
   }
 
   public filter(filter: string) {

@@ -23,6 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDialogModule } from '@angular/material/dialog';
 import 'hammerjs';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -48,6 +49,7 @@ import { LoginComponent } from './users/login.component';
 import { ChangePasswordComponent } from './users/changepassword.component';
 import { UsersIndexComponent } from './users/index.component';
 import { UsersListComponent } from './users/list.component';
+import { UserDeleteComponent } from './users/delete.component';
 import { UserDetailsComponent } from './users/details.component';
 import { UserEditComponent } from './users/edit.component';
 
@@ -56,6 +58,7 @@ import { AdministrationComponent } from './administration/administration.compone
 import { PollutionEnvironmentService } from './pollutionenvironments/pollutionenvironment.service';
 import { PollutionEnvironmentsIndexComponent } from './pollutionenvironments/index.component';
 import { PollutionEnvironmentsListComponent } from './pollutionenvironments/list.component';
+import { PollutionEnvironmentDeleteComponent } from './pollutionenvironments/delete.component';
 import { PollutionEnvironmentCreateComponent } from './pollutionenvironments/create.component';
 import { PollutionEnvironmentEditComponent } from './pollutionenvironments/edit.component';
 import { PollutionEnvironmentDetailsComponent } from './pollutionenvironments/details.component';
@@ -63,6 +66,7 @@ import { PollutionEnvironmentDetailsComponent } from './pollutionenvironments/de
 import { MeasuredParameterService } from './measuredparameters/measuredparameter.service';
 import { MeasuredParametersIndexComponent } from './measuredparameters/index.component';
 import { MeasuredParametersListComponent } from './measuredparameters/list.component';
+import { MeasuredParameterDeleteComponent } from './measuredparameters/delete.component';
 import { MeasuredParameterCreateComponent } from './measuredparameters/create.component';
 import { MeasuredParameterEditComponent } from './measuredparameters/edit.component';
 import { MeasuredParameterDetailsComponent } from './measuredparameters/details.component';
@@ -70,6 +74,7 @@ import { MeasuredParameterDetailsComponent } from './measuredparameters/details.
 import { DataProviderService } from './dataproviders/dataprovider.service';
 import { DataProvidersIndexComponent } from './dataproviders/index.component';
 import { DataProvidersListComponent } from './dataproviders/list.component';
+import { DataProviderDeleteComponent } from './dataproviders/delete.component';
 import { DataProviderCreateComponent } from './dataproviders/create.component';
 import { DataProviderEditComponent } from './dataproviders/edit.component';
 import { DataProviderDetailsComponent } from './dataproviders/details.component';
@@ -77,6 +82,7 @@ import { DataProviderDetailsComponent } from './dataproviders/details.component'
 import { ProjectService } from './projects/project.service';
 import { ProjectsIndexComponent } from './projects/index.component';
 import { ProjectsListComponent } from './projects/list.component';
+import { ProjectDeleteComponent } from './projects/delete.component';
 import { ProjectCreateComponent } from './projects/create.component';
 import { ProjectEditComponent } from './projects/edit.component';
 import { ProjectDetailsComponent } from './projects/details.component';
@@ -99,27 +105,32 @@ export function createTranslateLoader(http: HttpClient) {
     ChangePasswordComponent,
     UsersIndexComponent,
     UsersListComponent,
+    UserDeleteComponent,
     UserDetailsComponent,
     UserEditComponent,
     AdministrationComponent,
     DashboardComponent,
     PollutionEnvironmentsIndexComponent,
     PollutionEnvironmentsListComponent,
+    PollutionEnvironmentDeleteComponent,
     PollutionEnvironmentCreateComponent,
     PollutionEnvironmentEditComponent,
     PollutionEnvironmentDetailsComponent,
     MeasuredParametersIndexComponent,
     MeasuredParametersListComponent,
+    MeasuredParameterDeleteComponent,
     MeasuredParameterCreateComponent,
     MeasuredParameterEditComponent,
     MeasuredParameterDetailsComponent,
     DataProvidersIndexComponent,
     DataProvidersListComponent,
+    DataProviderDeleteComponent,
     DataProviderCreateComponent,
     DataProviderEditComponent,
     DataProviderDetailsComponent,
     ProjectsIndexComponent,
     ProjectsListComponent,
+    ProjectDeleteComponent,
     ProjectCreateComponent,
     ProjectEditComponent,
     ProjectDetailsComponent
@@ -179,6 +190,7 @@ export function createTranslateLoader(http: HttpClient) {
     MatGridListModule,
     MatMenuModule,
     MatExpansionModule,
+    MatDialogModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -202,6 +214,12 @@ export function createTranslateLoader(http: HttpClient) {
       provide: MatPaginatorIntl,
       useClass: Paginator
     }],
+  entryComponents: [
+    UserDeleteComponent,
+    PollutionEnvironmentDeleteComponent,
+    MeasuredParameterDeleteComponent,
+    DataProviderDeleteComponent,
+    ProjectDeleteComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

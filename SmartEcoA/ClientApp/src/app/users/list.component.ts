@@ -3,9 +3,11 @@ import { Component, OnInit, ViewChild, AfterViewInit, LOCALE_ID, Inject } from '
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
 
 import { UserService } from './user.service';
 import { User } from './user.model';
+import { UserDeleteComponent } from './delete.component';
 
 import { TranslateService } from '@ngx-translate/core';
 
@@ -21,9 +23,10 @@ export class UsersListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor(private userService: UserService,
+  constructor(private service: UserService,
     private translate: TranslateService,
-    @Inject(LOCALE_ID) protected locale: string) {
+    @Inject(LOCALE_ID) protected locale: string,
+    public deleteDialog: MatDialog) {
     this.dataSource.filterPredicate = (user: User, filter: string) => {
       return user.Email.toLowerCase().includes(filter.toLowerCase()) || user.Roles.join(' ').toLowerCase().includes(filter.toLowerCase());
     };
@@ -41,7 +44,7 @@ export class UsersListComponent implements OnInit, AfterViewInit {
   }
 
   public get() {
-    this.userService.get()
+    this.service.get()
       .subscribe(res => {
         this.dataSource.data = res as User[];
       })
@@ -52,14 +55,17 @@ export class UsersListComponent implements OnInit, AfterViewInit {
   }
 
   delete(Id) {
-    if (confirm(this.translate.instant('AreYouSureDeleteThisRecord'))) {
-      this.userService.delete(Id)
-        .subscribe(() => {
-          this.get();
-        },
-          err => {
-            console.log(err);
-          })
-    }
+    const deleteDialog = this.deleteDialog.open(UserDeleteComponent);
+    deleteDialog.afterClosed().subscribe(result => {
+      if (result) {
+        this.service.delete(Id)
+          .subscribe(() => {
+            this.get();
+          },
+            err => {
+              console.log(err);
+            })
+      }
+    });
   }
 }

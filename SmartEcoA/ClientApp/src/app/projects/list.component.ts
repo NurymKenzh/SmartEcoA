@@ -3,9 +3,11 @@ import { Component, OnInit, ViewChild, AfterViewInit, LOCALE_ID, Inject } from '
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
 
 import { ProjectService } from './project.service';
 import { Project } from './project.model';
+import { ProjectDeleteComponent } from './delete.component';
 
 import { TranslateService } from '@ngx-translate/core';
 
@@ -23,7 +25,8 @@ export class ProjectsListComponent implements OnInit, AfterViewInit {
 
   constructor(private service: ProjectService,
     private translate: TranslateService,
-    @Inject(LOCALE_ID) protected locale: string) {
+    @Inject(LOCALE_ID) protected locale: string,
+    public deleteDialog: MatDialog) {
     this.dataSource.filterPredicate = (data: Project, filter: string) => {
       return data.Name.toLowerCase().includes(filter);
     };
@@ -48,15 +51,18 @@ export class ProjectsListComponent implements OnInit, AfterViewInit {
   }
 
   delete(Id) {
-    if (confirm(this.translate.instant('AreYouSureDeleteThisRecord'))) {
-      this.service.delete(Id)
-        .subscribe(() => {
-          this.get();
-        },
-          err => {
-            console.log(err);
-          })
-    }
+    const deleteDialog = this.deleteDialog.open(ProjectDeleteComponent);
+    deleteDialog.afterClosed().subscribe(result => {
+      if (result) {
+        this.service.delete(Id)
+          .subscribe(() => {
+            this.get();
+          },
+            err => {
+              console.log(err);
+            })
+      }
+    });
   }
 
   public filter(filter: string) {
