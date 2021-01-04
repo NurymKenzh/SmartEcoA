@@ -82,6 +82,7 @@
     <None Remove="ClientApp\src\app\users\list.component.ts" />
     <None Remove="ClientApp\src\app\users\login.component.ts" />
     <None Remove="ClientApp\src\app\users\register.component.ts" />
+    <None Remove="ClientApp\src\app\users\registerinfo.component.ts" />
     <None Remove="ClientApp\src\app\users\user.model.ts" />
     <None Remove="ClientApp\src\app\users\user.service.ts" />
   </ItemGroup>
@@ -155,6 +156,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\users\list.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\users\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\users\register.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\users\registerinfo.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\users\user.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\users\user.service.ts" />
   </ItemGroup>

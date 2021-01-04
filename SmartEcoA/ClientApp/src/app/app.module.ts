@@ -46,6 +46,7 @@ import { AuthorizeGuard } from './authorize/authorize.guard';
 
 import { UserService } from './users/user.service';
 import { RegisterComponent } from './users/register.component';
+import { RegisterInfoComponent } from './users/registerinfo.component';
 import { LoginComponent } from './users/login.component';
 import { ChangePasswordComponent } from './users/changepassword.component';
 import { ChangePasswordInfoComponent } from './users/changepasswordinfo.component';
@@ -103,6 +104,7 @@ export function createTranslateLoader(http: HttpClient) {
     FetchDataComponent,
     LocaleIndexComponent,
     RegisterComponent,
+    RegisterInfoComponent,
     LoginComponent,
     ChangePasswordComponent,
     UsersIndexComponent,
@@ -220,6 +222,7 @@ export function createTranslateLoader(http: HttpClient) {
     }],
   entryComponents: [
     UserDeleteComponent,
+    RegisterInfoComponent,
     ChangePasswordInfoComponent,
     PollutionEnvironmentDeleteComponent,
     MeasuredParameterDeleteComponent,
