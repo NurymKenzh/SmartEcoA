@@ -1,6 +1,10 @@
 {
   "Paginator": {
-    "ItemsPerPage": "Элементов на странице:"
+    "ItemsPerPage": "Элементов на странице:",
+    "FirstPageLabel": "Первая страница",
+    "PreviousPageLabel": "Предыдущая страница",
+    "NextPageLabel": "Следующая страница",
+    "LastPageLabel": "Последняя страница"
   },
   "AreYouSureDeleteThisRecord": "Вы уверены, что хотите удалить эту запись?",
   "Users": {

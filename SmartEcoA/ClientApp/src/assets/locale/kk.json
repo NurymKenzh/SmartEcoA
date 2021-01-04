@@ -1,6 +1,10 @@
 {
   "Paginator": {
-    "ItemsPerPage": "Бір беттегі элементтер:"
+    "ItemsPerPage": "Бір беттегі элементтер:",
+    "FirstPageLabel": "Бірінші бет",
+    "PreviousPageLabel": "Алдыңғы бет",
+    "NextPageLabel": "Келесі бет",
+    "LastPageLabel": "Соңғы бет"
   },
   "AreYouSureDeleteThisRecord": "Сіз бұл жазбаны өшіресіз бе??",
   "Users": {

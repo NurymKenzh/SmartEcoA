@@ -1,6 +1,10 @@
 {
   "Paginator": {
-    "ItemsPerPage": "Items per page:"
+    "ItemsPerPage": "Items per page:",
+    "FirstPageLabel": "First page",
+    "PreviousPageLabel": "Previous page",
+    "NextPageLabel": "Next page",
+    "LastPageLabel": "Last page"
   },
   "AreYouSureDeleteThisRecord": "Are you sure to delete this record?",
   "Users": {
