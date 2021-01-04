@@ -143,13 +143,13 @@
         <source>Users</source><target state="new">Users</target>
         
         
-      <context-group purpose="location"><context context-type="sourcefile">app/users/index.component.html</context><context context-type="linenumber">2</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">4</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">2</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/users/index.component.html</context><context context-type="linenumber">2</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">7</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">5</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">4</context></context-group></trans-unit>
       <trans-unit id="PollutionEnvironments" datatype="html">
         <source>Pollution Environments</source><target state="new">Pollution Environments</target>
         
         
         
-      <context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">7</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">6</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/index.component.html</context><context context-type="linenumber">2</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">12</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">11</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/index.component.html</context><context context-type="linenumber">2</context></context-group></trans-unit>
       <trans-unit id="Create" datatype="html">
         <source>Create</source><target state="new">Create</target>
         
@@ -326,7 +326,7 @@
       <trans-unit id="MeasuredParameters" datatype="html">
         <source>Measured Parameters</source><target state="new">Measured Parameters</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">10</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">9</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/index.component.html</context><context context-type="linenumber">2</context></context-group></trans-unit><trans-unit id="MPCDailyAverage" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">15</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">14</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/index.component.html</context><context context-type="linenumber">2</context></context-group></trans-unit><trans-unit id="MPCDailyAverage" datatype="html">
         <source>MPC Daily Average</source><target state="new">MPC Daily Average</target>
         
       <context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/list.component.html</context><context context-type="linenumber">15</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/create.component.html</context><context context-type="linenumber">27</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/edit.component.html</context><context context-type="linenumber">27</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/details.component.html</context><context context-type="linenumber">7</context></context-group></trans-unit><trans-unit id="MPCMaxOneTime" datatype="html">
@@ -362,19 +362,16 @@
       <context-group purpose="location"><context context-type="sourcefile">app/users/delete.component.html</context><context context-type="linenumber">3</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/delete.component.html</context><context context-type="linenumber">3</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/delete.component.html</context><context context-type="linenumber">3</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/dataproviders/delete.component.html</context><context context-type="linenumber">3</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/projects/delete.component.html</context><context context-type="linenumber">3</context></context-group></trans-unit><trans-unit id="DataProviders" datatype="html">
         <source>Data Providers</source><target state="new">Data Providers</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">13</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">12</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/dataproviders/index.component.html</context><context context-type="linenumber">2</context></context-group></trans-unit><trans-unit id="Projects" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">18</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">17</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/dataproviders/index.component.html</context><context context-type="linenumber">2</context></context-group></trans-unit><trans-unit id="Projects" datatype="html">
         <source>Projects</source><target state="new">Projects</target>
+        
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">21</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">20</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/projects/index.component.html</context><context context-type="linenumber">2</context></context-group></trans-unit><trans-unit id="Directories" datatype="html">
+        <source>Directories</source><target state="new">Directories</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/administration/administration.component.html</context>
-          <context context-type="linenumber">16</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/administration/administration.component.html</context>
-          <context context-type="linenumber">15</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/projects/index.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit><trans-unit id="CreateNewDataProvider" datatype="html">
         <source>Create a new Data Provider</source><target state="new">Create a new Data Provider</target>
