@@ -1,0 +1,47 @@
+<a i18n-matTooltip="@@Create" class="btn" [routerLink]="['/posts/create']" matTooltip="Create"><i class="material-icons">add</i></a>
+
+<mat-form-field>
+  <input i18n-placeholder="@@Filter" matInput type="text" (keyup)="filter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+
+<table mat-table [dataSource]="dataSource" matSort class="table">
+  <tr>
+    <ng-container matColumnDef="Project">
+      <th i18n="@@Project" mat-header-cell *matHeaderCellDef mat-sort-header>Project</th>
+      <td mat-cell *matCellDef="let item">{{item.Project.Name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Name">
+      <th i18n="@@Name" mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let item">{{item.Name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="MN">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>MN</th>
+      <td mat-cell *matCellDef="let item">{{item.MN}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Information">
+      <th i18n="@@Information" mat-header-cell *matHeaderCellDef mat-sort-header>Information</th>
+      <td mat-cell *matCellDef="let item">{{item.Information}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="DataProvider">
+      <th i18n="@@DataProvider" mat-header-cell *matHeaderCellDef mat-sort-header>DataProvider</th>
+      <td mat-cell *matCellDef="let item">{{item.DataProvider.Name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="details-edit-delete">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let item">
+        <a i18n-matTooltip="@@Details" class="btn" [routerLink]="['/posts', item.Id]" matTooltip="Details"><i class="material-icons">info</i></a>
+        <a i18n-matTooltip="@@Edit" class="btn" [routerLink]="['/posts/edit', item.Id]" matTooltip="Edit"><i class="material-icons">edit</i></a>
+        <a i18n-matTooltip="@@Delete" class="btn" matTooltip="Delete" (click)="delete(item.Id)"><i class="material-icons">delete</i></a>
+      </td>
+    </ng-container>
+  </tr>
+  <tr mat-header-row *matHeaderRowDef="columns"></tr>
+  <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" [pageSize]="100" showFirstLastButtons></mat-paginator>

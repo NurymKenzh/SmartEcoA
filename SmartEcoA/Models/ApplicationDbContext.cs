@@ -18,5 +18,6 @@ namespace SmartEcoA.Models
         public DbSet<SmartEcoA.Models.MeasuredParameter> MeasuredParameter { get; set; }
         public DbSet<SmartEcoA.Models.DataProvider> DataProvider { get; set; }
         public DbSet<SmartEcoA.Models.Project> Project { get; set; }
+        public DbSet<SmartEcoA.Models.Post> Post { get; set; }
     }
 }

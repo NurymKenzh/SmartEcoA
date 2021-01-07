@@ -26,6 +26,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
 import 'hammerjs';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -56,6 +57,8 @@ import { UsersListComponent } from './users/list.component';
 import { UserDeleteComponent } from './users/delete.component';
 import { UserDetailsComponent } from './users/details.component';
 import { UserEditComponent } from './users/edit.component';
+
+import { OLService } from './ol/ol.service';
 
 import { AdministrationComponent } from './administration/administration.component';
 
@@ -90,6 +93,14 @@ import { ProjectDeleteComponent } from './projects/delete.component';
 import { ProjectCreateComponent } from './projects/create.component';
 import { ProjectEditComponent } from './projects/edit.component';
 import { ProjectDetailsComponent } from './projects/details.component';
+
+import { PostService } from './posts/post.service';
+import { PostsIndexComponent } from './posts/index.component';
+import { PostsListComponent } from './posts/list.component';
+import { PostDeleteComponent } from './posts/delete.component';
+import { PostCreateComponent } from './posts/create.component';
+import { PostEditComponent } from './posts/edit.component';
+import { PostDetailsComponent } from './posts/details.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/locale/', '.json');
@@ -139,7 +150,13 @@ export function createTranslateLoader(http: HttpClient) {
     ProjectDeleteComponent,
     ProjectCreateComponent,
     ProjectEditComponent,
-    ProjectDetailsComponent
+    ProjectDetailsComponent,
+    PostsIndexComponent,
+    PostsListComponent,
+    PostDeleteComponent,
+    PostCreateComponent,
+    PostEditComponent,
+    PostDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -175,6 +192,10 @@ export function createTranslateLoader(http: HttpClient) {
       { path: 'projects/create', component: ProjectCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'projects/edit/:id', component: ProjectEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'projects/:id', component: ProjectDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'posts', component: PostsIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'posts/create', component: PostCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'posts/edit/:id', component: PostEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'posts/:id', component: PostDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
     ]),
     BrowserAnimationsModule,
     ReactiveFormsModule,
@@ -199,6 +220,7 @@ export function createTranslateLoader(http: HttpClient) {
     MatTabsModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatSelectModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -208,11 +230,13 @@ export function createTranslateLoader(http: HttpClient) {
     })
   ],
   providers: [
+    OLService,
     UserService,
     PollutionEnvironmentService,
     MeasuredParameterService,
     DataProviderService,
     ProjectService,
+    PostService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizeInterceptor,
@@ -229,7 +253,8 @@ export function createTranslateLoader(http: HttpClient) {
     PollutionEnvironmentDeleteComponent,
     MeasuredParameterDeleteComponent,
     DataProviderDeleteComponent,
-    ProjectDeleteComponent],
+    ProjectDeleteComponent,
+    PostDeleteComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
