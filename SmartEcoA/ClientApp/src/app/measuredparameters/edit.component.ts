@@ -25,6 +25,7 @@ export class MeasuredParameterEditComponent implements OnInit {
       MPCDailyAverage: new FormControl(''),
       MPCMaxOneTime: new FormControl(''),
       OceanusCode: new FormControl(''),
+      OceanusCoefficient: new FormControl('', [Validators.required]),
       KazhydrometCode: new FormControl(''),
     });
     const id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -58,6 +59,7 @@ export class MeasuredParameterEditComponent implements OnInit {
         MPCDailyAverage: measuredparameterFormValue.MPCDailyAverage,
         MPCMaxOneTime: measuredparameterFormValue.MPCMaxOneTime,
         OceanusCode: measuredparameterFormValue.OceanusCode,
+        OceanusCoefficient: measuredparameterFormValue.OceanusCoefficient,
         KazhydrometCode: measuredparameterFormValue.KazhydrometCode
       }
       this.service.put(measuredparameter)

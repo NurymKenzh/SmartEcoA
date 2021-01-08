@@ -23,6 +23,7 @@ export class MeasuredParameterCreateComponent implements OnInit {
       MPCDailyAverage: new FormControl(''),
       MPCMaxOneTime: new FormControl(''),
       OceanusCode: new FormControl(''),
+      OceanusCoefficient: new FormControl(1, [Validators.required]),
       KazhydrometCode: new FormControl(''),
     });
   }
@@ -47,6 +48,7 @@ export class MeasuredParameterCreateComponent implements OnInit {
         MPCDailyAverage: measuredparameterFormValue.MPCDailyAverage,
         MPCMaxOneTime: measuredparameterFormValue.MPCMaxOneTime,
         OceanusCode: measuredparameterFormValue.OceanusCode,
+        OceanusCoefficient: measuredparameterFormValue.OceanusCoefficient,
         KazhydrometCode: measuredparameterFormValue.KazhydrometCode
       }
       this.service.post(measuredparameter)

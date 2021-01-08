@@ -36,6 +36,11 @@
       </mat-form-field>
       <br />
       <mat-form-field>
+        <input i18n-placeholder="@@OceanusCoefficient" matInput type="text" placeholder="Oceanus Coefficient" formControlName="OceanusCoefficient" id="oceanuscoefficient">
+        <mat-error i18n="@@OceanusCoefficientRequired" *ngIf="error('OceanusCoefficient', 'required')">Oceanus Coefficient is required</mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
         <input i18n-placeholder="@@KazhydrometCode" matInput type="text" placeholder="Kazhydromet Code" formControlName="KazhydrometCode" id="kazhydrometcode">
       </mat-form-field>
       <br />

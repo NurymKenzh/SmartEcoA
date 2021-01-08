@@ -7,5 +7,6 @@ export class MeasuredParameter {
   MPCDailyAverage: number;
   MPCMaxOneTime: number;
   OceanusCode: string;
+  OceanusCoefficient: number;
   KazhydrometCode: string;
 }

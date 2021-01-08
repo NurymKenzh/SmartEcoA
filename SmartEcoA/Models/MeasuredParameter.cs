@@ -40,6 +40,8 @@ namespace SmartEcoA.Models
 
         public string OceanusCode { get; set; }
 
+        public decimal OceanusCoefficient { get; set; }
+
         public string KazhydrometCode { get; set; }
     }
 }

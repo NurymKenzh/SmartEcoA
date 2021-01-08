@@ -409,11 +409,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/measuredparameters/create.component.html</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">50</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/measuredparameters/edit.component.html</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">50</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/dataproviders/delete.component.html</context>
@@ -600,7 +600,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/measuredparameters/details.component.html</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/dataproviders/details.component.html</context>
@@ -634,7 +634,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/measuredparameters/edit.component.html</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">49</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/dataproviders/edit.component.html</context>
@@ -754,7 +754,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/measuredparameters/create.component.html</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">49</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/dataproviders/list.component.html</context>
@@ -1198,6 +1198,28 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/measuredparameters/create.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/edit.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/details.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CreateNewMeasuredParameter" datatype="html">
+        <source>Create a new Measured Parameter</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/create.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="OceanusCoefficient" datatype="html">
+        <source>Oceanus Coefficient</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/create.component.html</context>
           <context context-type="linenumber">39</context>
         </context-group>
         <context-group purpose="location">
@@ -1209,11 +1231,15 @@
           <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="CreateNewMeasuredParameter" datatype="html">
-        <source>Create a new Measured Parameter</source>
+      <trans-unit id="OceanusCoefficientRequired" datatype="html">
+        <source>Oceanus Coefficient is required</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/measuredparameters/create.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/measuredparameters/edit.component.html</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="EditMeasuredParameter" datatype="html">
