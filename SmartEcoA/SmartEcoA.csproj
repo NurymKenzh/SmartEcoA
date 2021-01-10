@@ -66,6 +66,11 @@
     <None Remove="ClientApp\src\app\pollutionenvironments\list.component.ts" />
     <None Remove="ClientApp\src\app\pollutionenvironments\pollutionenvironment.model.ts" />
     <None Remove="ClientApp\src\app\pollutionenvironments\pollutionenvironment.service.ts" />
+    <None Remove="ClientApp\src\app\postdatas\details.component.ts" />
+    <None Remove="ClientApp\src\app\postdatas\index.component.ts" />
+    <None Remove="ClientApp\src\app\postdatas\list.component.ts" />
+    <None Remove="ClientApp\src\app\postdatas\postdata.model.ts" />
+    <None Remove="ClientApp\src\app\postdatas\postdata.service.ts" />
     <None Remove="ClientApp\src\app\posts\create.component.ts" />
     <None Remove="ClientApp\src\app\posts\delete.component.ts" />
     <None Remove="ClientApp\src\app\posts\details.component.ts" />
@@ -131,6 +136,21 @@
     <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\list.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\pollutionenvironment.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\pollutionenvironment.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\postdatas\details.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\postdatas\index.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\postdatas\list.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\postdatas\postdata.model.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\postdatas\postdata.service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\posts\create.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

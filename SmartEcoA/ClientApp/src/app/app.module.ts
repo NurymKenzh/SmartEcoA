@@ -27,6 +27,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
 import 'hammerjs';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -102,6 +104,11 @@ import { PostCreateComponent } from './posts/create.component';
 import { PostEditComponent } from './posts/edit.component';
 import { PostDetailsComponent } from './posts/details.component';
 
+import { PostDataService } from './postdatas/postdata.service';
+import { PostDatasIndexComponent } from './postdatas/index.component';
+import { PostDatasListComponent } from './postdatas/list.component';
+import { PostDataDetailsComponent } from './postdatas/details.component';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/locale/', '.json');
 }
@@ -156,7 +163,10 @@ export function createTranslateLoader(http: HttpClient) {
     PostDeleteComponent,
     PostCreateComponent,
     PostEditComponent,
-    PostDetailsComponent
+    PostDetailsComponent,
+    PostDatasIndexComponent,
+    PostDatasListComponent,
+    PostDataDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -196,6 +206,8 @@ export function createTranslateLoader(http: HttpClient) {
       { path: 'posts/create', component: PostCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'posts/edit/:id', component: PostEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'posts/:id', component: PostDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'postdatas', component: PostDatasIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'postdatas/:id', component: PostDataDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
     ]),
     BrowserAnimationsModule,
     ReactiveFormsModule,
@@ -221,6 +233,8 @@ export function createTranslateLoader(http: HttpClient) {
     MatDialogModule,
     MatSnackBarModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -230,6 +244,7 @@ export function createTranslateLoader(http: HttpClient) {
     })
   ],
   providers: [
+    MatNativeDateModule,
     OLService,
     UserService,
     PollutionEnvironmentService,
@@ -237,6 +252,7 @@ export function createTranslateLoader(http: HttpClient) {
     DataProviderService,
     ProjectService,
     PostService,
+    PostDataService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizeInterceptor,

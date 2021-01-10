@@ -1,0 +1,16 @@
+<mat-card>
+  <mat-card-title i18n="@@PostDataDetails">Post Data details</mat-card-title>
+  <mat-card-content>
+    <dl>
+      <dt i18n="@@DateTime">Date and Time</dt>
+      <dd>{{postdata?.DateTime}}</dd>
+      <dt i18n="@@IP">IP</dt>
+      <dd>{{postdata?.IP}}</dd>
+      <dt i18n="@@Data">Data</dt>
+      <dd>{{postdata?.Data}}</dd>
+    </dl>
+  </mat-card-content>
+  <mat-card-actions align="center">
+    <a i18n-matTooltip="@@Back" class="btn" [routerLink]="['/postdatas']" matTooltip="Back"><i class="material-icons">arrow_back</i></a>
+  </mat-card-actions>
+</mat-card>
