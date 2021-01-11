@@ -401,7 +401,7 @@
       </trans-unit><trans-unit id="Data" datatype="html">
         <source>Data</source><target state="new">Data</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">24</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/postdatas/list.component.html</context><context context-type="linenumber">25</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/postdatas/details.component.html</context><context context-type="linenumber">9</context></context-group></trans-unit><trans-unit id="CreateNewDataProvider" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/administration/administration.component.html</context><context context-type="linenumber">24</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/postdatas/list.component.html</context><context context-type="linenumber">25</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/postdatas/list.component.html</context><context context-type="linenumber">49</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/postdatas/details.component.html</context><context context-type="linenumber">9</context></context-group></trans-unit><trans-unit id="CreateNewDataProvider" datatype="html">
         <source>Create a new Data Provider</source><target state="new">Create a new Data Provider</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/dataproviders/create.component.html</context>
@@ -560,11 +560,11 @@
         <source>Date and Time</source><target state="new">Date and Time</target>
         
         
-      <context-group purpose="location"><context context-type="sourcefile">app/postdatas/list.component.html</context><context context-type="linenumber">15</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/postdatas/details.component.html</context><context context-type="linenumber">5</context></context-group></trans-unit><trans-unit id="IP" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/postdatas/list.component.html</context><context context-type="linenumber">15</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/postdatas/list.component.html</context><context context-type="linenumber">41</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/postdatas/details.component.html</context><context context-type="linenumber">5</context></context-group></trans-unit><trans-unit id="IP" datatype="html">
         <source>IP</source><target state="new">IP</target>
         
         
-      <context-group purpose="location"><context context-type="sourcefile">app/postdatas/list.component.html</context><context context-type="linenumber">20</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/postdatas/details.component.html</context><context context-type="linenumber">7</context></context-group></trans-unit><trans-unit id="PostDataDetails" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/postdatas/list.component.html</context><context context-type="linenumber">20</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/postdatas/list.component.html</context><context context-type="linenumber">45</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/postdatas/details.component.html</context><context context-type="linenumber">7</context></context-group></trans-unit><trans-unit id="PostDataDetails" datatype="html">
         <source>Post Data details</source><target state="new">Post Data details</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdatas/details.component.html</context>

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, LOCALE_ID, Inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -14,7 +15,14 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'postdatas',
   templateUrl: 'list.component.html',
-  styleUrls: ['list.component.css']
+  styleUrls: ['list.component.css'],
+  animations: [
+    trigger('expandTrigger', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*', 'border-bottom-style': 'solid' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ]
 })
 
 export class PostDatasListComponent implements OnInit, AfterViewInit {

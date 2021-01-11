@@ -9,7 +9,7 @@
   <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>
 
-<table mat-table [dataSource]="dataSource" matSort class="table">
+<table mat-table [dataSource]="dataSource" matSort class="table" multiTemplateDataRows>
   <tr>
     <ng-container matColumnDef="DateTime">
       <th i18n="@@DateTime" mat-header-cell *matHeaderCellDef mat-sort-header>Date and Time</th>
@@ -32,9 +32,32 @@
         <a i18n-matTooltip="@@Details" class="btn" [routerLink]="['/postdatas', item.Id]" matTooltip="Details"><i class="material-icons">info</i></a>
       </td>
     </ng-container>
+
+    <ng-container matColumnDef="expanded">
+      <td mat-cell *matCellDef="let item" [attr.colspan]="columns.length" class="expanded-td">
+        <div class="expanded-div" [@expandTrigger]="item == expandedItem ? 'expanded' : 'collapsed'">
+          <table class="table expanded-table">
+            <tr>
+              <th i18n="@@DateTime">Date and Time</th>
+              <td>{{item.DateTime}}</td>
+            </tr>
+            <tr>
+              <th i18n="@@IP">IP</th>
+              <td>{{item.IP}}</td>
+            </tr>
+            <tr>
+              <th i18n="@@Data">Data</th>
+              <td>{{item.Data}}</td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </ng-container>
   </tr>
+
   <tr mat-header-row *matHeaderRowDef="columns"></tr>
-  <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+  <tr mat-row *matRowDef="let item; columns: columns;" class="item-row" (click)="expandedItem = expandedItem === item ? null : item"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['expanded']" class="expanded-row"></tr>
 </table>
 
 <mat-paginator [pageSizeOptions]="[10, 25, 50, 100, 500, 1000]" [pageSize]="1000" showFirstLastButtons></mat-paginator>
