@@ -29,6 +29,7 @@ export class PostDatasListComponent implements OnInit, AfterViewInit {
   columns: string[] = ['DateTime', 'IP', 'Data', 'details'];
   dataSource = new MatTableDataSource<PostData>();
   date = new FormControl(new Date());
+  spinner = false;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -56,9 +57,11 @@ export class PostDatasListComponent implements OnInit, AfterViewInit {
   }
 
   public get() {
+    this.spinner = true;
     this.service.get(null, this.date.value)
       .subscribe(res => {
         this.dataSource.data = res as PostData[];
+        this.spinner = false;
       })
   }
 

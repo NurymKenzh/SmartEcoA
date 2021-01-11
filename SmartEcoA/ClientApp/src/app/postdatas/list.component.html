@@ -9,7 +9,9 @@
   <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>
 
-<table mat-table [dataSource]="dataSource" matSort class="table" multiTemplateDataRows>
+<mat-spinner [style.display]="spinner ? 'block' : 'none'"></mat-spinner>
+
+<table [style.display]="!spinner ? 'table' : 'none'" mat-table [dataSource]="dataSource" matSort class="table" multiTemplateDataRows>
   <tr>
     <ng-container matColumnDef="DateTime">
       <th i18n="@@DateTime" mat-header-cell *matHeaderCellDef mat-sort-header>Date and Time</th>
@@ -60,4 +62,4 @@
   <tr mat-row *matRowDef="let row; columns: ['expanded']" class="expanded-row"></tr>
 </table>
 
-<mat-paginator [pageSizeOptions]="[10, 25, 50, 100, 500, 1000]" [pageSize]="1000" showFirstLastButtons></mat-paginator>
+<mat-paginator [style.display]="!spinner ? 'block' : 'none'" [pageSizeOptions]="[10, 25, 50, 100, 500, 1000]" [pageSize]="1000" showFirstLastButtons></mat-paginator>

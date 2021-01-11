@@ -36,3 +36,7 @@ tr.expanded-row {
   .expanded-table tr:first-child th, tr:first-child td {
     border-top-style: none;
   }
+
+mat-spinner {
+  margin: 0 auto;
+}
