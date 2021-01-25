@@ -26,7 +26,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 
 export class PostDataDividedsListComponent implements OnInit, AfterViewInit {
-  columns: string[] = ['MN', 'OceanusCode', 'Value', 'details'];
+  columns: string[] = ['DateTime', 'MN', 'OceanusCode', 'Value', 'details'];
   dataSource = new MatTableDataSource<PostDataDivided>();
   date = new FormControl(new Date());
   spinner = false;
@@ -39,7 +39,8 @@ export class PostDataDividedsListComponent implements OnInit, AfterViewInit {
     @Inject(LOCALE_ID) protected locale: string,
     public deleteDialog: MatDialog) {
     this.dataSource.filterPredicate = (data: PostDataDivided, filter: string) => {
-      return data.MN.toLowerCase().includes(filter)
+      return data.PostData.DateTime.toString().includes(filter)
+        || data.MN.toLowerCase().includes(filter)
         || data.OceanusCode.toLowerCase().includes(filter)
         || data.Value.toString().includes(filter);
     };
@@ -52,6 +53,12 @@ export class PostDataDividedsListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'DateTime': return item.PostData.DateTime;
+        default: return item[property];
+      }
+    };
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }

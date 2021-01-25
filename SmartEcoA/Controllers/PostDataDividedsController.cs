@@ -31,11 +31,14 @@ namespace SmartEcoA.Controllers
             {
                 dateDay = new DateTime(date.Value.Year, date.Value.Month, date.Value.Day);
             }
-            return await _context.PostDataDivided
-                .Where(d => _context.PostData
+            List<long> postDataIds = _context.PostData
                     .Where(p => p.DateTime >= dateDay && p.DateTime < dateDay.AddDays(1))
                     .Select(p => p.Id)
-                    .Contains(d.Id))
+                    .ToList();
+            return await _context.PostDataDivided
+                .Where(pd => postDataIds
+                    .Contains(pd.PostDataId))
+                .Include(pd => pd.PostData)
                 .ToListAsync();
         }
 
@@ -44,7 +47,9 @@ namespace SmartEcoA.Controllers
         [Authorize(Roles = "Administrator, Moderator")]
         public async Task<ActionResult<PostDataDivided>> GetPostDataDivided(long id)
         {
-            var postDataDivided = await _context.PostDataDivided.FindAsync(id);
+            var postDataDivided = await _context.PostDataDivided
+                .Include(p => p.PostData)
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             if (postDataDivided == null)
             {

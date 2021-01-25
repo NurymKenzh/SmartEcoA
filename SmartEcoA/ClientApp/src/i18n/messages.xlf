@@ -553,7 +553,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdatadivideds/list.component.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Edit" datatype="html">
@@ -636,7 +636,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdatadivideds/details.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="EditUser" datatype="html">
@@ -1257,15 +1257,15 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdatadivideds/list.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">27</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdatadivideds/list.component.html</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">56</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdatadivideds/details.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="KazhydrometCode" datatype="html">
@@ -1668,6 +1668,18 @@
           <context context-type="sourcefile">app/postdatas/details.component.html</context>
           <context context-type="linenumber">5</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdatadivideds/list.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdatadivideds/list.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdatadivideds/details.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="IP" datatype="html">
         <source>IP</source>
@@ -1695,15 +1707,15 @@
         <source>Value</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdatadivideds/list.component.html</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">32</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdatadivideds/list.component.html</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">60</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdatadivideds/details.component.html</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="PostDataDividedDetails" datatype="html">
