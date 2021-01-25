@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,7 @@ using SmartEcoA.Models;
 
 namespace SmartEcoA.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("{language}/api/[controller]")]
     [ApiController]
     public class PostDataDividedsController : ControllerBase
     {
@@ -22,13 +23,25 @@ namespace SmartEcoA.Controllers
 
         // GET: api/PostDataDivideds
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PostDataDivided>>> GetPostDataDivided()
+        [Authorize(Roles = "Administrator, Moderator")]
+        public async Task<ActionResult<IEnumerable<PostDataDivided>>> GetPostDataDivided(DateTime? date)
         {
-            return await _context.PostDataDivided.ToListAsync();
+            DateTime dateDay = DateTime.Today;
+            if (date != null)
+            {
+                dateDay = new DateTime(date.Value.Year, date.Value.Month, date.Value.Day);
+            }
+            return await _context.PostDataDivided
+                .Where(d => _context.PostData
+                    .Where(p => p.DateTime >= dateDay && p.DateTime < dateDay.AddDays(1))
+                    .Select(p => p.Id)
+                    .Contains(d.Id))
+                .ToListAsync();
         }
 
         // GET: api/PostDataDivideds/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "Administrator, Moderator")]
         public async Task<ActionResult<PostDataDivided>> GetPostDataDivided(long id)
         {
             var postDataDivided = await _context.PostDataDivided.FindAsync(id);
@@ -45,6 +58,7 @@ namespace SmartEcoA.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [Authorize(Roles = "Administrator, Moderator")]
         public async Task<IActionResult> PutPostDataDivided(long id, PostDataDivided postDataDivided)
         {
             if (id != postDataDivided.Id)
@@ -77,6 +91,7 @@ namespace SmartEcoA.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [Authorize(Roles = "Administrator, Moderator")]
         public async Task<ActionResult<PostDataDivided>> PostPostDataDivided(PostDataDivided postDataDivided)
         {
             _context.PostDataDivided.Add(postDataDivided);
@@ -87,6 +102,7 @@ namespace SmartEcoA.Controllers
 
         // DELETE: api/PostDataDivideds/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrator, Moderator")]
         public async Task<ActionResult<PostDataDivided>> DeletePostDataDivided(long id)
         {
             var postDataDivided = await _context.PostDataDivided.FindAsync(id);

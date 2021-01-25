@@ -110,6 +110,11 @@ import { PostDatasIndexComponent } from './postdatas/index.component';
 import { PostDatasListComponent } from './postdatas/list.component';
 import { PostDataDetailsComponent } from './postdatas/details.component';
 
+import { PostDataDividedService } from './postdatadivideds/postdatadivided.service';
+import { PostDataDividedsIndexComponent } from './postdatadivideds/index.component';
+import { PostDataDividedsListComponent } from './postdatadivideds/list.component';
+import { PostDataDividedDetailsComponent } from './postdatadivideds/details.component';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/locale/', '.json');
 }
@@ -167,7 +172,10 @@ export function createTranslateLoader(http: HttpClient) {
     PostDetailsComponent,
     PostDatasIndexComponent,
     PostDatasListComponent,
-    PostDataDetailsComponent
+    PostDataDetailsComponent,
+    PostDataDividedsIndexComponent,
+    PostDataDividedsListComponent,
+    PostDataDividedDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -209,6 +217,8 @@ export function createTranslateLoader(http: HttpClient) {
       { path: 'posts/:id', component: PostDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'postdatas', component: PostDatasIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'postdatas/:id', component: PostDataDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'postdatadivideds', component: PostDataDividedsIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'postdatadivideds/:id', component: PostDataDividedDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
     ]),
     BrowserAnimationsModule,
     ReactiveFormsModule,
@@ -255,6 +265,7 @@ export function createTranslateLoader(http: HttpClient) {
     ProjectService,
     PostService,
     PostDataService,
+    PostDataDividedService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizeInterceptor,

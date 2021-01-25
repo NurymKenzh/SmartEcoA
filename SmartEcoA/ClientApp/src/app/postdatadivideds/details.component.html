@@ -1,0 +1,16 @@
+<mat-card>
+  <mat-card-title i18n="@@PostDataDividedDetails">Post Data Divided details</mat-card-title>
+  <mat-card-content>
+    <dl>
+      <dt>MN</dt>
+      <dd>{{postdatadivided?.MN}}</dd>
+      <dt i18n="@@OceanusCode">OceanusCode</dt>
+      <dd>{{postdatadivided?.OceanusCode}}</dd>
+      <dt i18n="@@Value">Value</dt>
+      <dd>{{postdatadivided?.Value}}</dd>
+    </dl>
+  </mat-card-content>
+  <mat-card-actions align="center">
+    <a i18n-matTooltip="@@Back" class="btn" [routerLink]="['/postdatadivideds']" matTooltip="Back"><i class="material-icons">arrow_back</i></a>
+  </mat-card-actions>
+</mat-card>

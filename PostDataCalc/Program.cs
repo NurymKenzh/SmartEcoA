@@ -51,7 +51,7 @@ namespace PostDataCalc
             {
                 lastPostDataDateTime = lastPostDataDateTime.Value.AddDays(1);
             }
-            else if (postDatas.Count() == 0 && (DateTime.Now - lastPostDataDateTime.Value).TotalHours > 72)
+            else if (postDatas.Count() == 0/* && (DateTime.Now - lastPostDataDateTime.Value).TotalHours > 72*/)
             {
                 return;
             }
