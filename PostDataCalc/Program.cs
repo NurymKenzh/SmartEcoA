@@ -30,7 +30,8 @@ namespace PostDataCalc
 
         static void Main(string[] args)
         {
-            while (true)
+            Console.WriteLine("Press ESC to stop!");
+            while (!(Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape))
             {
                 DividePostDatas();
             }
@@ -64,6 +65,8 @@ namespace PostDataCalc
             SavePostDataDivideds(postDataDivideds);
             // save date
             SaveLastPostDataDateTime(lastPostDataDateTime.Value);
+            Console.Clear();
+            Console.WriteLine("Press ESC to stop!");
             Log($"Last post data date time: {lastPostDataDateTime}");
         }
 
@@ -95,11 +98,15 @@ namespace PostDataCalc
 
         static void SavePostDataDivideds(List<PostDataDivided> PostDataDivideds)
         {
+            if (PostDataDivideds.Count() == 0)
+            {
+                return;
+            }
             using (var connection = new NpgsqlConnection(ConnectionString))
             {
                 connection.Open();
                 string insert = $"INSERT INTO public.\"PostDataDivided\"(\"PostDataId\", \"MN\", \"OceanusCode\", \"Value\") VALUES";
-                foreach(PostDataDivided postDataDivided in PostDataDivideds)
+                foreach (PostDataDivided postDataDivided in PostDataDivideds)
                 {
                     insert += $"({postDataDivided.PostDataId}," +
                         $" '{postDataDivided.MN}'," +
