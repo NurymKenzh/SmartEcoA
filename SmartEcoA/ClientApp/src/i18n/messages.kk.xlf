@@ -592,11 +592,21 @@
           <context context-type="sourcefile">app/postdatadivideds/details.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
+      </trans-unit><trans-unit id="PostData" datatype="html">
+        <source>Post Data</source><target state="new">Пост мәліметтері</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdatadivideds/details.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdatadivideds/details.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Back" datatype="html">
         <source>Back</source><target state="new">Артқа</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/users/details.component.html</context><context context-type="linenumber">14</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/details.component.html</context><context context-type="linenumber">10</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/details.component.html</context><context context-type="linenumber">20</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/dataproviders/details.component.html</context><context context-type="linenumber">10</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/projects/details.component.html</context><context context-type="linenumber">10</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/posts/details.component.html</context><context context-type="linenumber">66</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/postdatas/details.component.html</context><context context-type="linenumber">14</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/postdatadivideds/details.component.html</context><context context-type="linenumber">16</context></context-group></trans-unit><trans-unit id="EditUser" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/users/details.component.html</context><context context-type="linenumber">14</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/pollutionenvironments/details.component.html</context><context context-type="linenumber">10</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/measuredparameters/details.component.html</context><context context-type="linenumber">20</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/dataproviders/details.component.html</context><context context-type="linenumber">10</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/projects/details.component.html</context><context context-type="linenumber">10</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/posts/details.component.html</context><context context-type="linenumber">66</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/postdatas/details.component.html</context><context context-type="linenumber">14</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/postdatadivideds/details.component.html</context><context context-type="linenumber">18</context></context-group></trans-unit><trans-unit id="EditUser" datatype="html">
         <source>Edit user</source><target state="new">Пайдаланушыны өңдеу</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/users/edit.component.html</context>
