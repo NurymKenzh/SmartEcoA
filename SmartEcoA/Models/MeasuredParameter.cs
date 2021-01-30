@@ -24,7 +24,7 @@ namespace SmartEcoA.Models
                 {
                     case "en":
                         return NameEN;
-                    case "pl":
+                    case "ru":
                         return NameRU;
                     case "kk":
                         return NameKK;
