@@ -3,38 +3,73 @@
 
 <mat-tab-group>
   <mat-tab i18n-label="@@Posts" label="Monitoring Posts">
-    
+    <div class="grid-container">
+      <mat-grid-list cols="10" rowHeight="50px">
+
+        <mat-grid-tile [colspan]="10" [rowspan]="3">
+          <mat-card class="dashboard-card">
+            <mat-card-content class="dashboard-card-content">
+              <mat-form-field>
+                <mat-label i18n="@@Background">Background</mat-label>
+                <mat-select id="background" [formControl]="background" (selectionChange)="changeBackground($event.value)">
+                  <mat-option value="OSM">OpenStreetMap</mat-option>
+                  <mat-option value="BingAerialWithLabels">Bing Aerial</mat-option>
+                  <mat-option value="BingRoadStatic">Bing Road (static)</mat-option>
+                  <mat-option value="BingRoadDynamic">Bing Road (dynamic)</mat-option>
+                  <mat-option value="HERENormalDay">HERE Normal Day</mat-option>
+                  <mat-option value="HERENormalDayTransit">HERE Normal Day Transit</mat-option>
+                  <mat-option value="HERETerrainDay">HERE Terrain Day</mat-option>
+                  <mat-option value="HEREHybridDay">HERE Hybrid Day</mat-option>
+                  <mat-option value="StamenWatercolor">Stamen Watercolor</mat-option>
+                  <mat-option value="StamenTerrain">Stamen Terrain</mat-option>
+                  <mat-option value="StamenToner">Stamen Toner</mat-option>
+                  <mat-option value="ArcGIS">ArcGIS</mat-option>
+                  <mat-option value="ThunderforestOpenCycleMap">Thunderforest OpenCycleMap</mat-option>
+                  <mat-option value="ThunderforestTransport">Thunderforest Transport</mat-option>
+                  <mat-option value="ThunderforestLandscape">Thunderforest Landscape</mat-option>
+                  <mat-option value="ThunderforestOutdoors">Thunderforest Outdoors</mat-option>
+                  <mat-option value="ThunderforestTransportDark">Thunderforest Transport Dark</mat-option>
+                  <mat-option value="ThunderforestSpinalMap">Thunderforest Spinal Map</mat-option>
+                  <mat-option value="ThunderforestPioneer">Thunderforest Pioneer</mat-option>
+                  <mat-option value="ThunderforestMobileAtlas">Thunderforest Mobile Atlas</mat-option>
+                  <mat-option value="ThunderforestNeighbourhood">Thunderforest Neighbourhood</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="5" [rowspan]="10">
+          <mat-card class="dashboard-card">
+            <mat-card-content class="dashboard-card-content">
+              <div id="map" class="map"></div>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="5" [rowspan]="10">
+          <mat-card class="dashboard-card" style="overflow: auto;">
+            <!--<pollutionenvironments></pollutionenvironments>-->
+          </mat-card>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+    </div>
+  </mat-tab>
+  <mat-tab i18n-label="@@CarPosts" label="Car Posts">
+    <div class="grid-container">
+      <mat-grid-list cols="10" rowHeight="50px">
+
+        <mat-grid-tile [colspan]="10" [rowspan]="3">
+          <mat-card class="dashboard-card">
+            <mat-card-content class="dashboard-card-content">
+
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+    </div>
   </mat-tab>
 </mat-tab-group>
-<div class="grid-container">
-  <!--<h1 i18n="@@Dashboard" class="mat-h1">Dashboard</h1>-->
-  <mat-grid-list cols="2" rowHeight="500px">
 
-    <mat-grid-tile [colspan]="1" [rowspan]="1">
-      <mat-card class="dashboard-card">
-        <mat-card-content class="dashboard-card-content">
-          <div id="map" class="map" style="height: 440px; min-width: 300px;"></div>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-
-    <mat-grid-tile [colspan]="1" [rowspan]="1">
-      <mat-card class="dashboard-card" style="overflow: auto;">
-        <!--<mat-card-header>
-          <mat-card-title>
-            Title
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
-          </mat-card-title>
-        </mat-card-header>-->
-        <pollutionenvironments></pollutionenvironments>
-      </mat-card>
-    </mat-grid-tile>
-
-  </mat-grid-list>
-</div>
