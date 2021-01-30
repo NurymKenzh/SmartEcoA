@@ -1,0 +1,19 @@
+.column {
+  float: left;
+  padding: 10px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.map-container {
+  width: calc(100% - 260px);
+}
+
+.map {
+  height: 500px;
+  min-width: 500px;
+}

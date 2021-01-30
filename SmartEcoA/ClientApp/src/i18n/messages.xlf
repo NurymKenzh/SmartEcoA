@@ -353,6 +353,18 @@
           <context context-type="sourcefile">app/posts/list.component.html</context>
           <context context-type="linenumber">39</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/delete.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/delete.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/list.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="AreYouSureDeleteThisRecord" datatype="html">
         <source>Are you sure to delete this record?</source>
@@ -378,6 +390,10 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/posts/delete.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/delete.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
@@ -451,6 +467,18 @@
           <context context-type="sourcefile">app/posts/edit.component.html</context>
           <context context-type="linenumber">115</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/delete.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/create.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/edit.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Filter" datatype="html">
         <source>Filter</source>
@@ -485,6 +513,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdatadivideds/list.component.html</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/list.component.html</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Information" datatype="html">
@@ -555,6 +587,10 @@
           <context context-type="sourcefile">app/postdatadivideds/list.component.html</context>
           <context context-type="linenumber">39</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/list.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Edit" datatype="html">
         <source>Edit</source>
@@ -581,6 +617,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/posts/list.component.html</context>
           <context context-type="linenumber">38</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/list.component.html</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="UserDetails" datatype="html">
@@ -638,6 +678,10 @@
           <context context-type="sourcefile">app/postdatadivideds/details.component.html</context>
           <context context-type="linenumber">18</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/details.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="EditUser" datatype="html">
         <source>Edit user</source>
@@ -671,6 +715,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/posts/edit.component.html</context>
           <context context-type="linenumber">114</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/edit.component.html</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="PollutionEnvironments" datatype="html">
@@ -751,6 +799,10 @@
           <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/administration/administration.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/posts/index.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
@@ -785,23 +837,23 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Data" datatype="html">
-        <source>Data</source>
+      <trans-unit id="CarPosts" datatype="html">
+        <source>Car Posts</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/administration/administration.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">37</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/postdatas/list.component.html</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="sourcefile">app/administration/administration.component.html</context>
+          <context context-type="linenumber">36</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/postdatas/list.component.html</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="sourcefile">app/administration/administration.component.html</context>
+          <context context-type="linenumber">35</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/postdatas/details.component.html</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="sourcefile">app/carposts/index.component.html</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Create" datatype="html">
@@ -845,6 +897,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/posts/create.component.html</context>
           <context context-type="linenumber">114</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/list.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/create.component.html</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Name" datatype="html">
@@ -911,6 +971,22 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/posts/details.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/list.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/create.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/edit.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/details.component.html</context>
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
@@ -1014,6 +1090,14 @@
           <context context-type="sourcefile">app/posts/edit.component.html</context>
           <context context-type="linenumber">11</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/create.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/edit.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="NameEnglishRequired" datatype="html">
         <source>Name (English) is required</source>
@@ -1106,6 +1190,14 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/posts/edit.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/create.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/edit.component.html</context>
           <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
@@ -1367,6 +1459,14 @@
           <context context-type="sourcefile">app/posts/edit.component.html</context>
           <context context-type="linenumber">12</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/create.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/edit.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="EditDataProvider" datatype="html">
         <source>Edit Data Provider</source>
@@ -1469,6 +1569,18 @@
           <context context-type="sourcefile">app/posts/details.component.html</context>
           <context context-type="linenumber">13</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/create.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/edit.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/details.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="LatitudeRequired" datatype="html">
         <source>Latitude is required</source>
@@ -1479,6 +1591,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/posts/edit.component.html</context>
           <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/create.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/edit.component.html</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Longitude" datatype="html">
@@ -1495,6 +1615,18 @@
           <context context-type="sourcefile">app/posts/details.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/create.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/edit.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/details.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="LongitudeRequired" datatype="html">
         <source>Longitude is required</source>
@@ -1505,6 +1637,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/posts/edit.component.html</context>
           <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/create.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/edit.component.html</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="PhoneNumber" datatype="html">
@@ -1614,6 +1754,18 @@
           <context context-type="sourcefile">app/posts/details.component.html</context>
           <context context-type="linenumber">36</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/create.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/edit.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/details.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="EditPost" datatype="html">
         <source>Edit Monitoring Post</source>
@@ -1696,6 +1848,21 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Data" datatype="html">
+        <source>Data</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdatas/list.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdatas/list.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdatas/details.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="PostDataDetails" datatype="html">
         <source>Post Data details</source>
         <context-group purpose="location">
@@ -1734,6 +1901,27 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdatadivideds/details.component.html</context>
           <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CreateNewCarPost" datatype="html">
+        <source>Create a new Car Post</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/create.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="EditCarPost" datatype="html">
+        <source>Edit Car Post</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/edit.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CarPostDetails" datatype="html">
+        <source>Car Post details</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carposts/details.component.html</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
     </body>

@@ -1,0 +1,51 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/css/ol.css" type="text/css">
+<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
+
+<mat-card>
+  <mat-card-title i18n="@@CarPostDetails">Car Post details</mat-card-title>
+  <mat-card-content class="row">
+    <div class="column">
+      <dl>
+        <dt i18n="@@Name">Name</dt>
+        <dd>{{carpost?.Name}}</dd>
+        <dt i18n="@@Latitude">Latitude</dt>
+        <dd>{{carpost?.Latitude}}</dd>
+        <dt i18n="@@Longitude">Longitude</dt>
+        <dd>{{carpost?.Longitude}}</dd>
+      </dl>
+    </div>
+    <div class="column map-container">
+      <mat-form-field>
+        <mat-label i18n="@@Background">Background</mat-label>
+        <mat-select id="background" [formControl]="background" (selectionChange)="changeBackground($event.value)">
+          <mat-option value="OSM">OpenStreetMap</mat-option>
+          <mat-option value="BingAerialWithLabels">Bing Aerial</mat-option>
+          <mat-option value="BingRoadStatic">Bing Road (static)</mat-option>
+          <mat-option value="BingRoadDynamic">Bing Road (dynamic)</mat-option>
+          <mat-option value="HERENormalDay">HERE Normal Day</mat-option>
+          <mat-option value="HERENormalDayTransit">HERE Normal Day Transit</mat-option>
+          <mat-option value="HERETerrainDay">HERE Terrain Day</mat-option>
+          <mat-option value="HEREHybridDay">HERE Hybrid Day</mat-option>
+          <mat-option value="StamenWatercolor">Stamen Watercolor</mat-option>
+          <mat-option value="StamenTerrain">Stamen Terrain</mat-option>
+          <mat-option value="StamenToner">Stamen Toner</mat-option>
+          <mat-option value="ArcGIS">ArcGIS</mat-option>
+          <mat-option value="ThunderforestOpenCycleMap">Thunderforest OpenCycleMap</mat-option>
+          <mat-option value="ThunderforestTransport">Thunderforest Transport</mat-option>
+          <mat-option value="ThunderforestLandscape">Thunderforest Landscape</mat-option>
+          <mat-option value="ThunderforestOutdoors">Thunderforest Outdoors</mat-option>
+          <mat-option value="ThunderforestTransportDark">Thunderforest Transport Dark</mat-option>
+          <mat-option value="ThunderforestSpinalMap">Thunderforest Spinal Map</mat-option>
+          <mat-option value="ThunderforestPioneer">Thunderforest Pioneer</mat-option>
+          <mat-option value="ThunderforestMobileAtlas">Thunderforest Mobile Atlas</mat-option>
+          <mat-option value="ThunderforestNeighbourhood">Thunderforest Neighbourhood</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br />
+      <div id="map" class="map"></div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions align="center">
+    <a i18n-matTooltip="@@Back" class="btn" [routerLink]="['/carposts']" matTooltip="Back"><i class="material-icons">arrow_back</i></a>
+  </mat-card-actions>
+</mat-card>

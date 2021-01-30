@@ -22,5 +22,6 @@ namespace SmartEcoA.Models
         public DbSet<SmartEcoA.Models.PostData> PostData { get; set; }
         public DbSet<SmartEcoA.Models.PostDataDivided> PostDataDivided { get; set; }
         public DbSet<SmartEcoA.Models.Stat> Stat { get; set; }
+        public DbSet<SmartEcoA.Models.CarPost> CarPost { get; set; }
     }
 }

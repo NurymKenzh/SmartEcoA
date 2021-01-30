@@ -18,9 +18,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.10" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.10" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.10">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -39,6 +39,14 @@
     <None Remove="ClientApp\src\app\administration\administration.component.ts" />
     <None Remove="ClientApp\src\app\authorize\authorize.guard.ts" />
     <None Remove="ClientApp\src\app\authorize\authorize.interceptor.ts" />
+    <None Remove="ClientApp\src\app\carposts\carpost.model.ts" />
+    <None Remove="ClientApp\src\app\carposts\carpost.service.ts" />
+    <None Remove="ClientApp\src\app\carposts\create.component.ts" />
+    <None Remove="ClientApp\src\app\carposts\delete.component.ts" />
+    <None Remove="ClientApp\src\app\carposts\details.component.ts" />
+    <None Remove="ClientApp\src\app\carposts\edit.component.ts" />
+    <None Remove="ClientApp\src\app\carposts\index.component.ts" />
+    <None Remove="ClientApp\src\app\carposts\list.component.ts" />
     <None Remove="ClientApp\src\app\dataproviders\create.component.ts" />
     <None Remove="ClientApp\src\app\dataproviders\dataprovider.model.ts" />
     <None Remove="ClientApp\src\app\dataproviders\dataprovider.service.ts" />
@@ -110,6 +118,30 @@
     <TypeScriptCompile Include="ClientApp\src\app\administration\administration.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\authorize\authorize.guard.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\authorize\authorize.interceptor.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\carposts\carpost.model.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carposts\carpost.service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carposts\create.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carposts\delete.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carposts\details.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carposts\edit.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carposts\index.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carposts\list.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\dataproviders\create.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dataproviders\dataprovider.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dataproviders\dataprovider.service.ts" />
