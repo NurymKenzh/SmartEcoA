@@ -1,17 +1,26 @@
-.sidenav-container {
-  height: 100%;
-}
-
-.sidenav {
-  width: 200px;
-}
-
-.sidenav .mat-toolbar {
-  background: inherit;
-}
-
-.mat-toolbar.mat-primary {
-  position: sticky;
+.div-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
   top: 0;
-  z-index: 1;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.mobile .toolbar {
+  position: fixed;
+  z-index: 2;
+}
+
+h1.app-name {
+  margin-left: 8px;
+}
+
+.sidenav-container {
+  flex: 1;
+}
+
+.mobile .sidenav-container {
+  flex: 1 0 auto;
 }
