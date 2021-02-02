@@ -123,6 +123,14 @@ import { CarPostCreateComponent } from './carposts/create.component';
 import { CarPostEditComponent } from './carposts/edit.component';
 import { CarPostDetailsComponent } from './carposts/details.component';
 
+import { CarModelService } from './carmodels/carmodel.service';
+import { CarModelsIndexComponent } from './carmodels/index.component';
+import { CarModelsListComponent } from './carmodels/list.component';
+import { CarModelDeleteComponent } from './carmodels/delete.component';
+import { CarModelCreateComponent } from './carmodels/create.component';
+import { CarModelEditComponent } from './carmodels/edit.component';
+import { CarModelDetailsComponent } from './carmodels/details.component';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/locale/', '.json');
 }
@@ -190,6 +198,12 @@ export function createTranslateLoader(http: HttpClient) {
     CarPostCreateComponent,
     CarPostEditComponent,
     CarPostDetailsComponent,
+    CarModelsIndexComponent,
+    CarModelsListComponent,
+    CarModelDeleteComponent,
+    CarModelCreateComponent,
+    CarModelEditComponent,
+    CarModelDetailsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -237,6 +251,10 @@ export function createTranslateLoader(http: HttpClient) {
       { path: 'carposts/create', component: CarPostCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'carposts/edit/:id', component: CarPostEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'carposts/:id', component: CarPostDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'carmodels', component: CarModelsIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'carmodels/create', component: CarModelCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'carmodels/edit/:id', component: CarModelEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'carmodels/:id', component: CarModelDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
     ]),
     BrowserAnimationsModule,
     ReactiveFormsModule,
@@ -285,6 +303,7 @@ export function createTranslateLoader(http: HttpClient) {
     PostDataService,
     PostDataDividedService,
     CarPostService,
+    CarModelService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizeInterceptor,
@@ -303,7 +322,8 @@ export function createTranslateLoader(http: HttpClient) {
     DataProviderDeleteComponent,
     ProjectDeleteComponent,
     PostDeleteComponent,
-    CarPostDeleteComponent],
+    CarPostDeleteComponent,
+    CarModelDeleteComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

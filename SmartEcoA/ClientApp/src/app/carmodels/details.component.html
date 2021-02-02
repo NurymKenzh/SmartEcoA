@@ -1,0 +1,21 @@
+<mat-card>
+  <mat-card-title i18n="@@CarModelDetails">Car Model details</mat-card-title>
+  <mat-card-content>
+    <dl>
+      <dt i18n="@@Name">Name</dt>
+      <dd>{{carmodel?.Name}}</dd>
+      <dt i18n="@@Boost">Boost</dt>
+      <dd i18n="@@Yes" *ngIf="carmodel?.Boost==true">Yes</dd>
+      <dd i18n="@@No" *ngIf="carmodel?.Boost==false">No</dd>
+      <dt i18n="@@DFreeMark">DFreeMark</dt>
+      <dd>{{carmodel?.DFreeMark}}</dd>
+      <dt i18n="@@DMaxMark">DMaxMark</dt>
+      <dd>{{carmodel?.DMaxMark}}</dd>
+      <dt i18n="@@CarPost">CarPost</dt>
+      <dd>{{carmodel?.CarPost?.Name}}</dd>
+    </dl>
+  </mat-card-content>
+  <mat-card-actions align="center">
+    <a i18n-matTooltip="@@Back" class="btn" [routerLink]="['/carmodels']" matTooltip="Back"><i class="material-icons">arrow_back</i></a>
+  </mat-card-actions>
+</mat-card>

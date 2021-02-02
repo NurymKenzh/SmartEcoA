@@ -9,7 +9,8 @@ namespace PostDataCalc
     class Program
     {
         const string ConnectionString = "Host=localhost;Database=SmartEcoA;Username=postgres;Password=postgres;Port=5433",
-            LastPostDataDateTimeString = "LastPostDataDateTime";
+            LastPostDataDateTimeString = "LastPostDataDateTime",
+            LastPostDataDividedDateTimeString = "LastPostDataDividedDateTime";
 
         class PostData
         {
@@ -34,7 +35,46 @@ namespace PostDataCalc
             while (!(Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape))
             {
                 DividePostDatas();
+                AverageDividedPostDatas();
             }
+        }
+
+        static void AverageDividedPostDatas()
+        {
+            // get date
+            DateTime? lastPostDataDividedDateTime = GetLastPostDataDividedDateTime();
+            if (lastPostDataDividedDateTime == null)
+            {
+                return;
+            }
+            // get Measured Parameters
+
+        }
+
+        static DateTime? GetLastPostDataDividedDateTime()
+        {
+            DateTime? lastAveragedPostDataDateTime = null;
+            using (var connection = new NpgsqlConnection(ConnectionString))
+            {
+                connection.Open();
+                string lastAveragedPostDataDateTimeS = connection.Query<string>($"SELECT \"Value\" FROM public.\"Stat\" WHERE \"Name\" = '{LastPostDataDividedDateTimeString}' LIMIT 1;").FirstOrDefault();
+                if (string.IsNullOrEmpty(lastAveragedPostDataDateTimeS))
+                {
+                    lastAveragedPostDataDateTime = connection.Query<DateTime?>($"SELECT MIN(\"DateTime\") FROM public.\"PostData\";").FirstOrDefault().Value.AddSeconds(-1);
+                }
+                else
+                {
+                    lastAveragedPostDataDateTime = new DateTime(
+                        Convert.ToInt32(lastAveragedPostDataDateTimeS.Substring(0, 4)),
+                        Convert.ToInt32(lastAveragedPostDataDateTimeS.Substring(5, 2)),
+                        Convert.ToInt32(lastAveragedPostDataDateTimeS.Substring(8, 2)),
+                        Convert.ToInt32(lastAveragedPostDataDateTimeS.Substring(11, 2)),
+                        Convert.ToInt32(lastAveragedPostDataDateTimeS.Substring(14, 2)),
+                        Convert.ToInt32(lastAveragedPostDataDateTimeS.Substring(17, 2)));
+                }
+                connection.Close();
+            }
+            return lastAveragedPostDataDateTime;
         }
 
         static void DividePostDatas()

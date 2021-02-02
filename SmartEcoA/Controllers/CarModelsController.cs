@@ -12,51 +12,55 @@ namespace SmartEcoA.Controllers
 {
     [Route("{language}/api/[controller]")]
     [ApiController]
-    public class StatsController : ControllerBase
+    public class CarModelsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public StatsController(ApplicationDbContext context)
+        public CarModelsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Stats
+        // GET: api/CarModels
         [HttpGet]
         [Authorize(Roles = "Administrator, Moderator")]
-        public async Task<ActionResult<IEnumerable<Stat>>> GetStat()
+        public async Task<ActionResult<IEnumerable<CarModel>>> GetCarModel()
         {
-            return await _context.Stat.ToListAsync();
+            return await _context.CarModel
+                .Include(c => c.CarPost)
+                .ToListAsync();
         }
 
-        // GET: api/Stats/5
+        // GET: api/CarModels/5
         [HttpGet("{id}")]
         [Authorize(Roles = "Administrator, Moderator")]
-        public async Task<ActionResult<Stat>> GetStat(int id)
+        public async Task<ActionResult<CarModel>> GetCarModel(int id)
         {
-            var stat = await _context.Stat.FindAsync(id);
+            var carModel = await _context.CarModel
+                .Include(c => c.CarPost)
+                .FirstOrDefaultAsync(c => c.Id == id);
 
-            if (stat == null)
+            if (carModel == null)
             {
                 return NotFound();
             }
 
-            return stat;
+            return carModel;
         }
 
-        // PUT: api/Stats/5
+        // PUT: api/CarModels/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         [Authorize(Roles = "Administrator, Moderator")]
-        public async Task<IActionResult> PutStat(int id, Stat stat)
+        public async Task<IActionResult> PutCarModel(int id, CarModel carModel)
         {
-            if (id != stat.Id)
+            if (id != carModel.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(stat).State = EntityState.Modified;
+            _context.Entry(carModel).State = EntityState.Modified;
 
             try
             {
@@ -64,7 +68,7 @@ namespace SmartEcoA.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StatExists(id))
+                if (!CarModelExists(id))
                 {
                     return NotFound();
                 }
@@ -77,39 +81,39 @@ namespace SmartEcoA.Controllers
             return NoContent();
         }
 
-        // POST: api/Stats
+        // POST: api/CarModels
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         [Authorize(Roles = "Administrator, Moderator")]
-        public async Task<ActionResult<Stat>> PostStat(Stat stat)
+        public async Task<ActionResult<CarModel>> PostCarModel(CarModel carModel)
         {
-            _context.Stat.Add(stat);
+            _context.CarModel.Add(carModel);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetStat", new { id = stat.Id }, stat);
+            return CreatedAtAction("GetCarModel", new { id = carModel.Id }, carModel);
         }
 
-        // DELETE: api/Stats/5
+        // DELETE: api/CarModels/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Administrator, Moderator")]
-        public async Task<ActionResult<Stat>> DeleteStat(int id)
+        public async Task<ActionResult<CarModel>> DeleteCarModel(int id)
         {
-            var stat = await _context.Stat.FindAsync(id);
-            if (stat == null)
+            var carModel = await _context.CarModel.FindAsync(id);
+            if (carModel == null)
             {
                 return NotFound();
             }
 
-            _context.Stat.Remove(stat);
+            _context.CarModel.Remove(carModel);
             await _context.SaveChangesAsync();
 
-            return stat;
+            return carModel;
         }
 
-        private bool StatExists(int id)
+        private bool CarModelExists(int id)
         {
-            return _context.Stat.Any(e => e.Id == id);
+            return _context.CarModel.Any(e => e.Id == id);
         }
     }
 }
