@@ -1,4 +1,7 @@
-﻿using Dapper;
+﻿// in DB Stat table change LastPostDataDateTime = 2020-11-30 23:59:59
+// in DB Stat table change LastPostDataDividedDateTime = 2020-11-30 00:00:00
+
+using Dapper;
 using Npgsql;
 using System;
 using System.Collections.Generic;
@@ -12,7 +15,7 @@ namespace PostDataCalc
             LastPostDataDateTimeString = "LastPostDataDateTime",
             LastPostDataDividedDateTimeString = "LastPostDataDividedDateTime";
 
-        class PostData
+        public class PostData
         {
             public long Id { get; set; }
             public DateTime DateTime { get; set; }
@@ -29,6 +32,30 @@ namespace PostDataCalc
             public decimal Value { get; set; }
         }
 
+        public class PostDataAvg
+        {
+            public long Id { get; set; }
+            public DateTime DateTime { get; set; }
+            public decimal Value { get; set; }
+            public int MeasuredParameterId { get; set; }
+            public int PostId { get; set; }
+        }
+
+        public class MeasuredParameter
+        {
+            public int Id { get; set; }
+
+            public string OceanusCode { get; set; }
+
+            public decimal OceanusCoefficient { get; set; }
+        }
+
+        public class Post
+        {
+            public int Id { get; set; }
+            public string MN { get; set; }
+        }
+
         static void Main(string[] args)
         {
             Console.WriteLine("Press ESC to stop!");
@@ -42,13 +69,195 @@ namespace PostDataCalc
         static void AverageDividedPostDatas()
         {
             // get date
-            DateTime? lastPostDataDividedDateTime = GetLastPostDataDividedDateTime();
+            DateTime? lastPostDataDividedDateTime = GetLastPostDataDividedDateTime()?.AddSeconds(1);
             if (lastPostDataDividedDateTime == null)
             {
                 return;
             }
             // get Measured Parameters
+            MeasuredParameter[] measuredParameters = GetMeasuredParameters();
+            // get Posts
+            Post[] posts = GetPosts();
+            // select post data divided
+            List<PostDataDivided> postDataDivideds = SelectPostDataDivideds(lastPostDataDividedDateTime.Value);
+            if (postDataDivideds.Count() == 0 && (DateTime.Today - lastPostDataDividedDateTime.Value).TotalDays > 10)
+            {
+                lastPostDataDividedDateTime = GetStartDateTime20(lastPostDataDividedDateTime.Value.AddMinutes(20));
+            }
+            else if (postDataDivideds.Count() == 0/* && (DateTime.Now - lastPostDataDateTime.Value).TotalHours > 72*/)
+            {
+                return;
+            }
+            else
+            {
+                lastPostDataDividedDateTime = GetFinishDateTime20(lastPostDataDividedDateTime.Value);
+            }
+            // average divided post data
+            List<PostDataAvg> postDataAvgs = GetPostDataAvgs(
+                postDataDivideds,
+                lastPostDataDividedDateTime.Value,
+                measuredParameters,
+                posts);
+            // save averaged post data
+            SavePostDataAvgs(postDataAvgs);
+            // save date
+            SaveLastPostDataDividedDateTime(lastPostDataDividedDateTime.Value);
+            Log($"Last post data divided date time: {lastPostDataDividedDateTime}");
+        }
 
+        static void SaveLastPostDataDividedDateTime(DateTime lastPostDataDividedDateTime)
+        {
+            using (var connection = new NpgsqlConnection(ConnectionString))
+            {
+                connection.Open();
+                int lastDividedPostDataDateTimeCount = connection.Query<int>($"SELECT COUNT(*) FROM public.\"Stat\" WHERE \"Name\" = '{LastPostDataDividedDateTimeString}';").FirstOrDefault();
+                if (lastDividedPostDataDateTimeCount == 0)
+                {
+                    connection.Execute($"INSERT INTO public.\"Stat\"(\"Name\", \"Value\")" +
+                        $" VALUES ('{LastPostDataDividedDateTimeString}', '{lastPostDataDividedDateTime.ToString("yyyy-MM-dd HH:mm:ss")}');");
+                }
+                else
+                {
+                    connection.Execute($"UPDATE public.\"Stat\"" +
+                        $" SET \"Value\" = '{lastPostDataDividedDateTime.ToString("yyyy-MM-dd HH:mm:ss")}'" +
+                        $" WHERE \"Name\" = '{LastPostDataDividedDateTimeString}';");
+                }
+                connection.Close();
+            }
+        }
+
+        static void SavePostDataAvgs(List<PostDataAvg> PostDataAvgs)
+        {
+            if (PostDataAvgs.Count() == 0)
+            {
+                return;
+            }
+            using (var connection = new NpgsqlConnection(ConnectionString))
+            {
+                connection.Open();
+                string insert = $"INSERT INTO public.\"PostDataAvg\"(\"DateTime\", \"Value\", \"MeasuredParameterId\", \"PostId\") VALUES";
+                foreach (PostDataAvg postDataAvg in PostDataAvgs)
+                {
+                    insert += $"('{postDataAvg.DateTime.ToString("yyyy-MM-dd HH:mm:ss")}'," +
+                        $" {postDataAvg.Value}," +
+                        $" {postDataAvg.MeasuredParameterId}," +
+                        $" {postDataAvg.PostId}),";
+                }
+                insert = insert.Remove(insert.Length - 1, 1) + ";";
+                connection.Execute(insert);
+                connection.Close();
+            }
+        }
+
+        static List<PostDataAvg> GetPostDataAvgs(
+            List<PostDataDivided> PostDataDivideds,
+            DateTime DateTime,
+            MeasuredParameter[] MeasuredParameters,
+            Post[] Posts)
+        {
+            List<PostDataAvg> postDataAvgs = new List<PostDataAvg>();
+            List<string> mNs = PostDataDivideds.Select(p => p.MN).Distinct().ToList(),
+                oceanusCodes = PostDataDivideds.Select(p => p.OceanusCode).Distinct().ToList();
+            foreach(string mn in mNs)
+            {
+                foreach(string oceanusCode in oceanusCodes)
+                {
+                    int? measuredParameterId = MeasuredParameters.FirstOrDefault(m => m.OceanusCode == oceanusCode)?.Id,
+                        postId = Posts.FirstOrDefault(p => p.MN == mn)?.Id;
+                    int count = PostDataDivideds.Count(p => p.OceanusCode == oceanusCode && p.MN == mn);
+                    if (measuredParameterId != null && postId != null && count > 0)
+                    {
+                        postDataAvgs.Add(new PostDataAvg()
+                        {
+                            DateTime = DateTime,
+                            MeasuredParameterId = measuredParameterId.Value,
+                            PostId = postId.Value,
+                            Value = PostDataDivideds.Where(p => p.OceanusCode == oceanusCode && p.MN == mn).Average(p => p.Value)
+                        });
+                    }
+                }
+            }
+            return postDataAvgs;
+        }
+
+        static List<PostDataDivided> SelectPostDataDivideds(DateTime LastPostDataDateTime)
+        {
+            List<PostDataDivided> postDataDivideds = new List<PostDataDivided>();
+            using (var connection = new NpgsqlConnection(ConnectionString))
+            {
+                connection.Open();
+                postDataDivideds = connection.Query<PostDataDivided>(
+                    $"SELECT \"Id\", \"PostDataId\", \"MN\", \"OceanusCode\", \"Value\"" +
+                    $" FROM public.\"PostDataDivided\"" +
+                    $" WHERE \"PostDataId\" IN" +
+                    $" (SELECT \"Id\"" +
+                    $" FROM public.\"PostData\"" +
+                    $" WHERE \"DateTime\" > '{GetStartDateTime20(LastPostDataDateTime).ToString("yyyy-MM-dd HH:mm:ss")}'" +
+                    $" AND \"DateTime\" <= '{GetFinishDateTime20(LastPostDataDateTime).ToString("yyyy-MM-dd HH:mm:ss")}');")
+                    .ToList();
+                connection.Close();
+            }
+            return postDataDivideds;
+        }
+
+        static DateTime GetStartDateTime20(DateTime DateTime)
+        {
+            DateTime dateTime = DateTime;
+            if (DateTime.Minute < 20)
+            {
+                dateTime = new DateTime(DateTime.Year, DateTime.Month, DateTime.Day, DateTime.Hour, 0, 0);
+            }
+            else if (DateTime.Minute < 40)
+            {
+                dateTime = new DateTime(DateTime.Year, DateTime.Month, DateTime.Day, DateTime.Hour, 20, 0);
+            }
+            else
+            {
+                dateTime = new DateTime(DateTime.Year, DateTime.Month, DateTime.Day, DateTime.Hour, 40, 0);
+            }
+            return dateTime;
+        }
+
+        static DateTime GetFinishDateTime20(DateTime DateTime)
+        {
+            DateTime dateTime = DateTime;
+            if (DateTime.Minute >= 40)
+            {
+                dateTime = new DateTime(DateTime.Year, DateTime.Month, DateTime.Day, DateTime.Hour, 59, 59).AddSeconds(1);
+            }
+            else if (DateTime.Minute >= 20)
+            {
+                dateTime = new DateTime(DateTime.Year, DateTime.Month, DateTime.Day, DateTime.Hour, 39, 59).AddSeconds(1);
+            }
+            else
+            {
+                dateTime = new DateTime(DateTime.Year, DateTime.Month, DateTime.Day, DateTime.Hour, 19, 59).AddSeconds(1);
+            }
+            return dateTime;
+        }
+
+        static Post[] GetPosts()
+        {
+            Post[] posts = new Post[0];
+            using (var connection = new NpgsqlConnection(ConnectionString))
+            {
+                connection.Open();
+                posts = connection.Query<Post>("SELECT \"Id\", \"MN\" FROM public.\"Post\" WHERE \"MN\" <> '';").ToArray();
+                connection.Close();
+            }
+            return posts.ToArray();
+        }
+
+        static MeasuredParameter[] GetMeasuredParameters()
+        {
+            MeasuredParameter[] measuredParameters = new MeasuredParameter[0];
+            using (var connection = new NpgsqlConnection(ConnectionString))
+            {
+                connection.Open();
+                measuredParameters = connection.Query<MeasuredParameter>("SELECT \"Id\", \"OceanusCode\", \"OceanusCoefficient\" FROM public.\"MeasuredParameter\";").ToArray();
+                connection.Close();
+            }
+            return measuredParameters.ToArray();
         }
 
         static DateTime? GetLastPostDataDividedDateTime()
@@ -60,7 +269,7 @@ namespace PostDataCalc
                 string lastAveragedPostDataDateTimeS = connection.Query<string>($"SELECT \"Value\" FROM public.\"Stat\" WHERE \"Name\" = '{LastPostDataDividedDateTimeString}' LIMIT 1;").FirstOrDefault();
                 if (string.IsNullOrEmpty(lastAveragedPostDataDateTimeS))
                 {
-                    lastAveragedPostDataDateTime = connection.Query<DateTime?>($"SELECT MIN(\"DateTime\") FROM public.\"PostData\";").FirstOrDefault().Value.AddSeconds(-1);
+                    lastAveragedPostDataDateTime = connection.Query<DateTime?>($"SELECT MIN(\"DateTime\") FROM public.\"PostData\";").FirstOrDefault().Value;
                 }
                 else
                 {
