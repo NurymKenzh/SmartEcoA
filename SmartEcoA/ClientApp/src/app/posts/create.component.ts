@@ -52,12 +52,14 @@ export class PostCreateComponent implements OnInit {
     this.pollutionEnvironmentService.get()
       .subscribe(res => {
         this.pollutionenvironments = res as PollutionEnvironment[];
-        this.pollutionenvironments.sort((a, b) => (a.Name > b.Name) ? 1 : ((b.Name > a.Name) ? -1 : 0)); 
+        this.pollutionenvironments.sort((a, b) => (a.Name > b.Name) ? 1 : ((b.Name > a.Name) ? -1 : 0));
+        this.postForm.controls['PollutionEnvironmentId'].setValue(this.pollutionenvironments[0].Id);
       });
     this.dataProviderService.get()
       .subscribe(res => {
         this.dataproviders = res as DataProvider[];
-        this.dataproviders.sort((a, b) => (a.Name > b.Name) ? 1 : ((b.Name > a.Name) ? -1 : 0)); 
+        this.dataproviders.sort((a, b) => (a.Name > b.Name) ? 1 : ((b.Name > a.Name) ? -1 : 0));
+        this.postForm.controls['DataProviderId'].setValue(this.dataproviders[0].Id);
       });
     this.postForm = new FormGroup({
       Name: new FormControl('', [Validators.required, Validators.maxLength(50)]),

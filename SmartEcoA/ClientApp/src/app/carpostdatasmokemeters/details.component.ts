@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { CarModelService } from './carmodel.service';
-import { CarModel } from './carmodel.model';
+import { CarPostDataSmokeMeterService } from './carpostdatasmokemeter.service';
+import { CarPostDataSmokeMeter } from './carpostdatasmokemeter.model';
 
 @Component({
   templateUrl: 'details.component.html'
 })
 
-export class CarModelDetailsComponent implements OnInit {
-  public carmodel: CarModel;
+export class CarPostDataSmokeMeterDetailsComponent implements OnInit {
+  public carpostdatasmokemeter: CarPostDataSmokeMeter;
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
-    private service: CarModelService) { }
+    private service: CarPostDataSmokeMeterService) { }
 
   ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.service.get(id)
       .subscribe(res => {
-        this.carmodel = res as CarModel;
+        this.carpostdatasmokemeter = res as CarPostDataSmokeMeter;
       },
         (error => {
           console.log(error);
@@ -28,6 +28,6 @@ export class CarModelDetailsComponent implements OnInit {
   }
 
   public cancel() {
-    this.router.navigateByUrl('/carmodels');
+    this.router.navigateByUrl('/carpostdatasmokemeters');
   }
 }

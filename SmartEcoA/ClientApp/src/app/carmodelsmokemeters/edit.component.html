@@ -1,6 +1,6 @@
 <mat-card>
-  <mat-card-title i18n="@@CreateNewCarModel">Create a new Car Model</mat-card-title>
-  <form [formGroup]="carmodelForm" autocomplete="off" novalidate (ngSubmit)="create(carmodelForm.value)">
+  <mat-card-title i18n="@@EditCarModelSmokeMeter">Edit Car Model (Smoke Meter)</mat-card-title>
+  <form [formGroup]="carmodelsmokemeterForm" autocomplete="off" novalidate (ngSubmit)="save(carmodelsmokemeterForm.value)">
     <mat-card-content>
       <mat-form-field>
         <input i18n-placeholder="@@Name" matInput type="text" placeholder="Name" formControlName="Name" id="name">
@@ -31,14 +31,14 @@
           <input i18n-placeholder="@@DFreeMark" i18n-matTooltip="@@DFreeMark" matInput type="number" placeholder="DFreeMark" matTooltip="DFreeMark" formControlName="DFreeMark" id="dfreemark">
         </mat-form-field>
         <br />
-        <mat-form-field>
-          <input i18n-placeholder="@@DMaxMark" matInput type="number" placeholder="DMaxMark" formControlName="DMaxMark" id="dmaxmark">
+        <!--<mat-form-field>
+          <input matInput type="number" placeholder="DMaxMark" formControlName="DMaxMark" id="dmaxmark">
         </mat-form-field>
-        <br />
+        <br />-->
       </mat-expansion-panel>
     </mat-card-content>
     <mat-card-actions align="center">
-      <button i18n="@@Create" mat-raised-button color="primary" [disabled]="!carmodelForm.valid">Create</button>
+      <button i18n="@@Save" mat-raised-button color="primary" [disabled]="!carmodelsmokemeterForm.valid">Save</button>
       <button i18n="@@Cancel" type="button" mat-raised-button color="warn" (click)="cancel()">Cancel</button>
     </mat-card-actions>
   </form>

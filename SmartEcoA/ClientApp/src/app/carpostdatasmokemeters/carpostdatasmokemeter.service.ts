@@ -1,9 +1,9 @@
 import { Inject } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
-export class CarModelService {
+export class CarPostDataSmokeMeterService {
   private baseUrl: string;
-  private apiUrl = 'api/CarModels/';
+  private apiUrl = 'api/CarPostDataSmokeMeters/';
 
   constructor(private http: HttpClient,
     @Inject('BASE_URL') baseUrl: string) {
@@ -18,12 +18,12 @@ export class CarModelService {
     }
   }
 
-  post(carmodel) {
-    return this.http.post(this.baseUrl + this.apiUrl, carmodel);
+  post(carpostdatasmokemeter) {
+    return this.http.post(this.baseUrl + this.apiUrl, carpostdatasmokemeter);
   }
 
-  put(carmodel) {
-    return this.http.put(this.baseUrl + this.apiUrl + carmodel.Id, carmodel);
+  put(carpostdatasmokemeter) {
+    return this.http.put(this.baseUrl + this.apiUrl + carpostdatasmokemeter.Id, carpostdatasmokemeter);
   }
 
   delete(Id) {

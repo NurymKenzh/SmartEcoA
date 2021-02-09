@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: 'index.component.html'
 })
 
-export class CarModelsIndexComponent implements OnInit {
+export class CarPostDataSmokeMetersIndexComponent implements OnInit {
   constructor() { }
 
   ngOnInit() { }

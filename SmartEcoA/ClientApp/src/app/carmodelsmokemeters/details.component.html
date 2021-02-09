@@ -1,0 +1,21 @@
+<mat-card>
+  <mat-card-title i18n="@@CarModelSmokeMeterDetails">Car Model (Smoke Meter) details</mat-card-title>
+  <mat-card-content>
+    <dl>
+      <dt i18n="@@Name">Name</dt>
+      <dd>{{carmodelsmokemeter?.Name}}</dd>
+      <dt i18n="@@Boost">Boost</dt>
+      <dd i18n="@@Yes" *ngIf="carmodelsmokemeter?.Boost==true">Yes</dd>
+      <dd i18n="@@No" *ngIf="carmodelsmokemeter?.Boost==false">No</dd>
+      <dt i18n="@@DFreeMark">DFreeMark</dt>
+      <dd>{{carmodelsmokemeter?.DFreeMark}}</dd>
+      <!--<dt i18n="@@DMaxMark">DMaxMark</dt>
+      <dd>{{carmodelsmokemeter?.DMaxMark}}</dd>-->
+      <dt i18n="@@CarPost">Car Post</dt>
+      <dd>{{carmodelsmokemeter?.CarPost?.Name}}</dd>
+    </dl>
+  </mat-card-content>
+  <mat-card-actions align="center">
+    <a i18n-matTooltip="@@Back" class="btn" [routerLink]="['/carmodelsmokemeters']" matTooltip="Back"><i class="material-icons">arrow_back</i></a>
+  </mat-card-actions>
+</mat-card>

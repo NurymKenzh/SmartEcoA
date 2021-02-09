@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SmartEcoA.Models;
@@ -9,9 +10,10 @@ using SmartEcoA.Models;
 namespace SmartEcoA.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210202110457_CarPostData_20210202_00")]
+    partial class CarPostData_20210202_00
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -217,7 +219,7 @@ namespace SmartEcoA.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("SmartEcoA.Models.CarModelSmokeMeter", b =>
+            modelBuilder.Entity("SmartEcoA.Models.CarModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -243,7 +245,7 @@ namespace SmartEcoA.Migrations
 
                     b.HasIndex("CarPostId");
 
-                    b.ToTable("CarModelSmokeMeter");
+                    b.ToTable("CarModel");
                 });
 
             modelBuilder.Entity("SmartEcoA.Models.CarPost", b =>
@@ -267,14 +269,14 @@ namespace SmartEcoA.Migrations
                     b.ToTable("CarPost");
                 });
 
-            modelBuilder.Entity("SmartEcoA.Models.CarPostDataSmokeMeter", b =>
+            modelBuilder.Entity("SmartEcoA.Models.CarPostData", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("CarModelSmokeMeterId")
+                    b.Property<int>("CarModelId")
                         .HasColumnType("integer");
 
                     b.Property<decimal>("DFree")
@@ -300,9 +302,9 @@ namespace SmartEcoA.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CarModelSmokeMeterId");
+                    b.HasIndex("CarModelId");
 
-                    b.ToTable("CarPostDataSmokeMeter");
+                    b.ToTable("CarPostData");
                 });
 
             modelBuilder.Entity("SmartEcoA.Models.DataProvider", b =>
@@ -587,7 +589,7 @@ namespace SmartEcoA.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SmartEcoA.Models.CarModelSmokeMeter", b =>
+            modelBuilder.Entity("SmartEcoA.Models.CarModel", b =>
                 {
                     b.HasOne("SmartEcoA.Models.CarPost", "CarPost")
                         .WithMany()
@@ -596,11 +598,11 @@ namespace SmartEcoA.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SmartEcoA.Models.CarPostDataSmokeMeter", b =>
+            modelBuilder.Entity("SmartEcoA.Models.CarPostData", b =>
                 {
-                    b.HasOne("SmartEcoA.Models.CarModelSmokeMeter", "CarModelSmokeMeter")
+                    b.HasOne("SmartEcoA.Models.CarModel", "CarModel")
                         .WithMany()
-                        .HasForeignKey("CarModelSmokeMeterId")
+                        .HasForeignKey("CarModelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

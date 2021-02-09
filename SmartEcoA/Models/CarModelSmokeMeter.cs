@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SmartEcoA.Models
 {
-    public class CarModel
+    public class CarModelSmokeMeter
     {
         public int Id { get; set; }
 
@@ -23,7 +23,6 @@ namespace SmartEcoA.Models
         public decimal? DFreeMark { get; set; }
 
         // D_MAX
-        // максимыльные
         public decimal? DMaxMark { get; set; }
 
         // CONFIRM

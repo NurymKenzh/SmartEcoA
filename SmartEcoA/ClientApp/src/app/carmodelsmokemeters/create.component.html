@@ -1,6 +1,6 @@
 <mat-card>
-  <mat-card-title i18n="@@EditCarModel">Edit Car Model</mat-card-title>
-  <form [formGroup]="carmodelForm" autocomplete="off" novalidate (ngSubmit)="save(carmodelForm.value)">
+  <mat-card-title i18n="@@CreateNewCarModelSmokeMeter">Create a new Car Model (Smoke Meter)</mat-card-title>
+  <form [formGroup]="carmodelsmokemeterForm" autocomplete="off" novalidate (ngSubmit)="create(carmodelsmokemeterForm.value)">
     <mat-card-content>
       <mat-form-field>
         <input i18n-placeholder="@@Name" matInput type="text" placeholder="Name" formControlName="Name" id="name">
@@ -22,23 +22,23 @@
       </mat-form-field>
       <br />
       <mat-expansion-panel>
-        <mat-expansion-panel-header>
+        <mat-expansion-panel-header [collapsedHeight]="''" [expandedHeight]="''">
           <mat-panel-title>
             <span i18n="@@ApprovalMark">Has an approval mark</span>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-form-field>
-          <input matInput type="number" placeholder="DFreeMark" formControlName="DFreeMark" id="dfreemark">
+          <input i18n-placeholder="@@DFreeMark" i18n-matTooltip="@@DFreeMark" matInput type="number" placeholder="Maximum permissible values of the light absorption coefficient k indicated on the approval mark in free acceleration" matTooltip="Maximum permissible values of the light absorption coefficient k indicated on the approval mark in free acceleration" formControlName="DFreeMark" id="dfreemark">
         </mat-form-field>
         <br />
-        <mat-form-field>
-          <input matInput type="number" placeholder="DMaxMark" formControlName="DMaxMark" id="dmaxmark">
+        <!--<mat-form-field>
+          <input i18n-placeholder="@@DMaxMark" matInput type="number" placeholder="DMaxMark" formControlName="DMaxMark" id="dmaxmark">
         </mat-form-field>
-        <br />
+        <br />-->
       </mat-expansion-panel>
     </mat-card-content>
     <mat-card-actions align="center">
-      <button i18n="@@Save" mat-raised-button color="primary" [disabled]="!carmodelForm.valid">Save</button>
+      <button i18n="@@Create" mat-raised-button color="primary" [disabled]="!carmodelsmokemeterForm.valid">Create</button>
       <button i18n="@@Cancel" type="button" mat-raised-button color="warn" (click)="cancel()">Cancel</button>
     </mat-card-actions>
   </form>

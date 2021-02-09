@@ -30,6 +30,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDatetimepickerModule, MatNativeDatetimeModule } from "@mat-datetimepicker/core";
+//import { MatMomentDatetimeModule } from "@mat-datetimepicker/moment";
+//import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import 'hammerjs';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -123,13 +126,21 @@ import { CarPostCreateComponent } from './carposts/create.component';
 import { CarPostEditComponent } from './carposts/edit.component';
 import { CarPostDetailsComponent } from './carposts/details.component';
 
-import { CarModelService } from './carmodels/carmodel.service';
-import { CarModelsIndexComponent } from './carmodels/index.component';
-import { CarModelsListComponent } from './carmodels/list.component';
-import { CarModelDeleteComponent } from './carmodels/delete.component';
-import { CarModelCreateComponent } from './carmodels/create.component';
-import { CarModelEditComponent } from './carmodels/edit.component';
-import { CarModelDetailsComponent } from './carmodels/details.component';
+import { CarModelSmokeMeterService } from './carmodelsmokemeters/carmodelsmokemeter.service';
+import { CarModelSmokeMetersIndexComponent } from './carmodelsmokemeters/index.component';
+import { CarModelSmokeMetersListComponent } from './carmodelsmokemeters/list.component';
+import { CarModelSmokeMeterDeleteComponent } from './carmodelsmokemeters/delete.component';
+import { CarModelSmokeMeterCreateComponent } from './carmodelsmokemeters/create.component';
+import { CarModelSmokeMeterEditComponent } from './carmodelsmokemeters/edit.component';
+import { CarModelSmokeMeterDetailsComponent } from './carmodelsmokemeters/details.component';
+
+import { CarPostDataSmokeMeterService } from './carpostdatasmokemeters/carpostdatasmokemeter.service';
+import { CarPostDataSmokeMetersIndexComponent } from './carpostdatasmokemeters/index.component';
+import { CarPostDataSmokeMetersListComponent } from './carpostdatasmokemeters/list.component';
+import { CarPostDataSmokeMeterDeleteComponent } from './carpostdatasmokemeters/delete.component';
+import { CarPostDataSmokeMeterCreateComponent } from './carpostdatasmokemeters/create.component';
+import { CarPostDataSmokeMeterEditComponent } from './carpostdatasmokemeters/edit.component';
+import { CarPostDataSmokeMeterDetailsComponent } from './carpostdatasmokemeters/details.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/locale/', '.json');
@@ -198,12 +209,18 @@ export function createTranslateLoader(http: HttpClient) {
     CarPostCreateComponent,
     CarPostEditComponent,
     CarPostDetailsComponent,
-    CarModelsIndexComponent,
-    CarModelsListComponent,
-    CarModelDeleteComponent,
-    CarModelCreateComponent,
-    CarModelEditComponent,
-    CarModelDetailsComponent,
+    CarModelSmokeMetersIndexComponent,
+    CarModelSmokeMetersListComponent,
+    CarModelSmokeMeterDeleteComponent,
+    CarModelSmokeMeterCreateComponent,
+    CarModelSmokeMeterEditComponent,
+    CarModelSmokeMeterDetailsComponent,
+    CarPostDataSmokeMetersIndexComponent,
+    CarPostDataSmokeMetersListComponent,
+    CarPostDataSmokeMeterDeleteComponent,
+    CarPostDataSmokeMeterCreateComponent,
+    CarPostDataSmokeMeterEditComponent,
+    CarPostDataSmokeMeterDetailsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -251,10 +268,14 @@ export function createTranslateLoader(http: HttpClient) {
       { path: 'carposts/create', component: CarPostCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'carposts/edit/:id', component: CarPostEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'carposts/:id', component: CarPostDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
-      { path: 'carmodels', component: CarModelsIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
-      { path: 'carmodels/create', component: CarModelCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
-      { path: 'carmodels/edit/:id', component: CarModelEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
-      { path: 'carmodels/:id', component: CarModelDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'carmodelsmokemeters', component: CarModelSmokeMetersIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'carmodelsmokemeters/create', component: CarModelSmokeMeterCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'carmodelsmokemeters/edit/:id', component: CarModelSmokeMeterEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'carmodelsmokemeters/:id', component: CarModelSmokeMeterDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'carpostdatasmokemeters', component: CarPostDataSmokeMetersIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'carpostdatasmokemeters/create', component: CarPostDataSmokeMeterCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'carpostdatasmokemeters/edit/:id', component: CarPostDataSmokeMeterEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'carpostdatasmokemeters/:id', component: CarPostDataSmokeMeterDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
     ]),
     BrowserAnimationsModule,
     ReactiveFormsModule,
@@ -283,6 +304,9 @@ export function createTranslateLoader(http: HttpClient) {
     MatDatepickerModule,
     MatNativeDateModule,
     MatProgressSpinnerModule,
+    MatDatetimepickerModule,
+    MatNativeDatetimeModule,
+    //MatMomentDatetimeModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -303,7 +327,8 @@ export function createTranslateLoader(http: HttpClient) {
     PostDataService,
     PostDataDividedService,
     CarPostService,
-    CarModelService,
+    CarModelSmokeMeterService,
+    CarPostDataSmokeMeterService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizeInterceptor,
@@ -312,7 +337,9 @@ export function createTranslateLoader(http: HttpClient) {
     {
       provide: MatPaginatorIntl,
       useClass: Paginator
-    }],
+    },
+    //{ provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
+  ],
   entryComponents: [
     UserDeleteComponent,
     RegisterInfoComponent,
@@ -323,7 +350,8 @@ export function createTranslateLoader(http: HttpClient) {
     ProjectDeleteComponent,
     PostDeleteComponent,
     CarPostDeleteComponent,
-    CarModelDeleteComponent],
+    CarModelSmokeMeterDeleteComponent,
+    CarPostDataSmokeMeterDeleteComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

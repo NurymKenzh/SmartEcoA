@@ -12,55 +12,56 @@ namespace SmartEcoA.Controllers
 {
     [Route("{language}/api/[controller]")]
     [ApiController]
-    public class CarModelsController : ControllerBase
+    public class CarModelSmokeMetersController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public CarModelsController(ApplicationDbContext context)
+        public CarModelSmokeMetersController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/CarModels
+        // GET: api/CarModelSmokeMeters
         [HttpGet]
         [Authorize(Roles = "Administrator, Moderator")]
-        public async Task<ActionResult<IEnumerable<CarModel>>> GetCarModel()
+        public async Task<ActionResult<IEnumerable<CarModelSmokeMeter>>> GetCarModelSmokeMeter(int? carpostid)
         {
-            return await _context.CarModel
+            return await _context.CarModelSmokeMeter
+                .Where(c => c.CarPostId == carpostid || carpostid == null)
                 .Include(c => c.CarPost)
                 .ToListAsync();
         }
 
-        // GET: api/CarModels/5
+        // GET: api/CarModelSmokeMeters/5
         [HttpGet("{id}")]
         [Authorize(Roles = "Administrator, Moderator")]
-        public async Task<ActionResult<CarModel>> GetCarModel(int id)
+        public async Task<ActionResult<CarModelSmokeMeter>> GetCarModelSmokeMeter(int id)
         {
-            var carModel = await _context.CarModel
+            var carModelSmokeMeter = await _context.CarModelSmokeMeter
                 .Include(c => c.CarPost)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
-            if (carModel == null)
+            if (carModelSmokeMeter == null)
             {
                 return NotFound();
             }
 
-            return carModel;
+            return carModelSmokeMeter;
         }
 
-        // PUT: api/CarModels/5
+        // PUT: api/CarModelSmokeMeters/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         [Authorize(Roles = "Administrator, Moderator")]
-        public async Task<IActionResult> PutCarModel(int id, CarModel carModel)
+        public async Task<IActionResult> PutCarModelSmokeMeter(int id, CarModelSmokeMeter carModelSmokeMeter)
         {
-            if (id != carModel.Id)
+            if (id != carModelSmokeMeter.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(carModel).State = EntityState.Modified;
+            _context.Entry(carModelSmokeMeter).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +69,7 @@ namespace SmartEcoA.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CarModelExists(id))
+                if (!CarModelSmokeMeterExists(id))
                 {
                     return NotFound();
                 }
@@ -81,39 +82,39 @@ namespace SmartEcoA.Controllers
             return NoContent();
         }
 
-        // POST: api/CarModels
+        // POST: api/CarModelSmokeMeters
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         [Authorize(Roles = "Administrator, Moderator")]
-        public async Task<ActionResult<CarModel>> PostCarModel(CarModel carModel)
+        public async Task<ActionResult<CarModelSmokeMeter>> PostCarModelSmokeMeter(CarModelSmokeMeter carModelSmokeMeter)
         {
-            _context.CarModel.Add(carModel);
+            _context.CarModelSmokeMeter.Add(carModelSmokeMeter);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCarModel", new { id = carModel.Id }, carModel);
+            return CreatedAtAction("GetCarModelSmokeMeter", new { id = carModelSmokeMeter.Id }, carModelSmokeMeter);
         }
 
-        // DELETE: api/CarModels/5
+        // DELETE: api/CarModelSmokeMeters/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Administrator, Moderator")]
-        public async Task<ActionResult<CarModel>> DeleteCarModel(int id)
+        public async Task<ActionResult<CarModelSmokeMeter>> DeleteCarModelSmokeMeter(int id)
         {
-            var carModel = await _context.CarModel.FindAsync(id);
-            if (carModel == null)
+            var carModelSmokeMeter = await _context.CarModelSmokeMeter.FindAsync(id);
+            if (carModelSmokeMeter == null)
             {
                 return NotFound();
             }
 
-            _context.CarModel.Remove(carModel);
+            _context.CarModelSmokeMeter.Remove(carModelSmokeMeter);
             await _context.SaveChangesAsync();
 
-            return carModel;
+            return carModelSmokeMeter;
         }
 
-        private bool CarModelExists(int id)
+        private bool CarModelSmokeMeterExists(int id)
         {
-            return _context.CarModel.Any(e => e.Id == id);
+            return _context.CarModelSmokeMeter.Any(e => e.Id == id);
         }
     }
 }

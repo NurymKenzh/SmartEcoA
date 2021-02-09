@@ -1,6 +1,6 @@
 import { CarPost } from '../carposts/carpost.model';
 
-export class CarModel {
+export class CarModelSmokeMeter {
   Id: number;
   Name: string;
   Boost: boolean;
