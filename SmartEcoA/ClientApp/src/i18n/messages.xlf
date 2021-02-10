@@ -560,6 +560,10 @@
           <context context-type="linenumber">2</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/carposts/list.component.html</context>
           <context context-type="linenumber">4</context>
         </context-group>
@@ -639,6 +643,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdatadivideds/list.component.html</context>
           <context context-type="linenumber">39</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
+          <context context-type="linenumber">47</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/carposts/list.component.html</context>
@@ -746,6 +754,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdatadivideds/details.component.html</context>
           <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdataavgs/details.component.html</context>
+          <context context-type="linenumber">16</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/carposts/details.component.html</context>
@@ -926,19 +938,34 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="PostDataAvgs" datatype="html">
+        <source>Post Data Averaged</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/administration/administration.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/administration/administration.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdataavgs/index.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="CarPosts" datatype="html">
         <source>Car Posts</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/administration/administration.component.html</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">40</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/administration/administration.component.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">39</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/administration/administration.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">38</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/dashboard/dashboard.component.html</context>
@@ -953,11 +980,11 @@
         <source>Car Models (Smoke Meter)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/administration/administration.component.html</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">43</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/administration/administration.component.html</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">42</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/carmodelsmokemeters/index.component.html</context>
@@ -968,11 +995,11 @@
         <source>Car Posts Data (Smoke Meter)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/administration/administration.component.html</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">46</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/administration/administration.component.html</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">45</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/carpostdatasmokemeters/index.component.html</context>
@@ -2008,6 +2035,10 @@
           <context context-type="sourcefile">app/postdatadivideds/list.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="DateTime" datatype="html">
         <source>Date and Time</source>
@@ -2033,6 +2064,18 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdatadivideds/details.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdataavgs/details.component.html</context>
           <context context-type="linenumber">5</context>
         </context-group>
         <context-group purpose="location">
@@ -2091,6 +2134,18 @@
           <context context-type="sourcefile">app/postdatadivideds/details.component.html</context>
           <context context-type="linenumber">11</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdataavgs/details.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="PostDataDividedDetails" datatype="html">
         <source>Post Data Divided details</source>
@@ -2108,6 +2163,43 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdatadivideds/details.component.html</context>
           <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="MonitoringPost" datatype="html">
+        <source>Monitoring Post</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdataavgs/details.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="MeasuredParameter" datatype="html">
+        <source>Measured Parameter</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdataavgs/details.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PostDataAvgDetails" datatype="html">
+        <source>Post Data Averaged details</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdataavgs/details.component.html</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="CreateNewCarPost" datatype="html">

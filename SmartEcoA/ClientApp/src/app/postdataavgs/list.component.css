@@ -1,0 +1,42 @@
+.not-first {
+    padding-left: 15px;
+}
+
+tr.expanded-row {
+  height: 0;
+}
+
+.item-row {
+  cursor: pointer;
+}
+
+  .item-row td {
+    border-bottom-width: 0;
+    border-top-width: 0;
+  }
+
+.expanded-div {
+  overflow: hidden;
+  display: flex;
+  border-bottom-color: rgb(222, 226, 230);
+  border-bottom-width: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.expanded-td {
+  border-bottom-style: none;
+  padding: 0px !important;
+}
+
+.expanded-table {
+  margin: 0;
+}
+
+  .expanded-table tr:first-child th, tr:first-child td {
+    border-top-style: none;
+  }
+
+mat-spinner {
+  margin: 0 auto;
+}

@@ -1,0 +1,94 @@
+<mat-form-field>
+  <input i18n-placeholder="@@Filter" matInput type="text" (keyup)="filter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+
+<mat-form-field class="not-first">
+  <mat-label i18n="@@Date">Date</mat-label>
+  <input matInput [matDatepicker]="picker" [formControl]="Date" (dateChange)="changeParameter()">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+<mat-form-field class="not-first">
+  <mat-label i18n="@@MonitoringPost">Monitoring Post</mat-label>
+  <mat-select matInput [formControl]="PostId" id="postid" (selectionChange)="changeParameter()">
+    <mat-option></mat-option>
+    <mat-option *ngFor="let post of posts" [value]="post.Id">
+      {{post.Name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field class="not-first">
+  <mat-label i18n="@@MeasuredParameter">Measured Parameter</mat-label>
+  <mat-select matInput [formControl]="MeasuredParameterId" id="measuredparameterid" (selectionChange)="changeParameter()">
+    <mat-option></mat-option>
+    <mat-option *ngFor="let measuredparameter of measuredparameters" [value]="measuredparameter.Id">
+      {{measuredparameter.Name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-spinner [style.display]="spinner ? 'block' : 'none'"></mat-spinner>
+
+<table [style.display]="!spinner ? 'table' : 'none'" mat-table [dataSource]="dataSource" matSort class="table" multiTemplateDataRows>
+  <tr>
+    <ng-container matColumnDef="DateTime">
+      <th i18n="@@DateTime" mat-header-cell *matHeaderCellDef mat-sort-header>Date and Time</th>
+      <td mat-cell *matCellDef="let item">{{item.DateTime}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Post">
+      <th i18n="@@MonitoringPost" mat-header-cell *matHeaderCellDef mat-sort-header>Monitoring Post</th>
+      <td mat-cell *matCellDef="let item">{{item.Post.Name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="MeasuredParameter">
+      <th i18n="@@MeasuredParameter" mat-header-cell *matHeaderCellDef mat-sort-header>Measured Parameter</th>
+      <td mat-cell *matCellDef="let item">{{item.MeasuredParameter.Name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Value">
+      <th i18n="@@Value" mat-header-cell *matHeaderCellDef mat-sort-header>Value</th>
+      <td mat-cell *matCellDef="let item">{{item.Value}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="details">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let item">
+        <a i18n-matTooltip="@@Details" class="btn" [routerLink]="['/postdataavgs', item.Id]" matTooltip="Details"><i class="material-icons">info</i></a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expanded">
+      <td mat-cell *matCellDef="let item" [attr.colspan]="columns.length" class="expanded-td">
+        <div class="expanded-div" [@expandTrigger]="item == expandedItem ? 'expanded' : 'collapsed'">
+          <table class="table expanded-table">
+            <tr>
+              <th i18n="@@DateTime">Date and Time</th>
+              <td>{{item.DateTime}}</td>
+            </tr>
+            <tr>
+              <th i18n="@@MonitoringPost">Monitoring Post</th>
+              <td>{{item.Post.Name}}</td>
+            </tr>
+            <tr>
+              <th i18n="@@MeasuredParameter">Measured Parameter</th>
+              <td>{{item.MeasuredParameter.Name}}</td>
+            </tr>
+            <tr>
+              <th i18n="@@Value">Value</th>
+              <td>{{item.Value}}</td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </ng-container>
+  </tr>
+
+  <tr mat-header-row *matHeaderRowDef="columns"></tr>
+  <tr mat-row *matRowDef="let item; columns: columns;" class="item-row" (click)="expandedItem = expandedItem === item ? null : item"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['expanded']" class="expanded-row"></tr>
+</table>
+
+<mat-paginator [style.display]="!spinner ? 'block' : 'none'" [pageSizeOptions]="[10, 25, 50, 100, 500, 1000]" [pageSize]="1000" showFirstLastButtons></mat-paginator>

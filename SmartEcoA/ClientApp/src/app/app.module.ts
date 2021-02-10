@@ -118,6 +118,11 @@ import { PostDataDividedsIndexComponent } from './postdatadivideds/index.compone
 import { PostDataDividedsListComponent } from './postdatadivideds/list.component';
 import { PostDataDividedDetailsComponent } from './postdatadivideds/details.component';
 
+import { PostDataAvgService } from './postdataavgs/postdataavg.service';
+import { PostDataAvgsIndexComponent } from './postdataavgs/index.component';
+import { PostDataAvgsListComponent } from './postdataavgs/list.component';
+import { PostDataAvgDetailsComponent } from './postdataavgs/details.component';
+
 import { CarPostService } from './carposts/carpost.service';
 import { CarPostsIndexComponent } from './carposts/index.component';
 import { CarPostsListComponent } from './carposts/list.component';
@@ -203,6 +208,9 @@ export function createTranslateLoader(http: HttpClient) {
     PostDataDividedsIndexComponent,
     PostDataDividedsListComponent,
     PostDataDividedDetailsComponent,
+    PostDataAvgsIndexComponent,
+    PostDataAvgsListComponent,
+    PostDataAvgDetailsComponent,
     CarPostsIndexComponent,
     CarPostsListComponent,
     CarPostDeleteComponent,
@@ -264,6 +272,8 @@ export function createTranslateLoader(http: HttpClient) {
       { path: 'postdatas/:id', component: PostDataDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'postdatadivideds', component: PostDataDividedsIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'postdatadivideds/:id', component: PostDataDividedDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'postdataavgs', component: PostDataAvgsIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'postdataavgs/:id', component: PostDataAvgDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'carposts', component: CarPostsIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'carposts/create', component: CarPostCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'carposts/edit/:id', component: CarPostEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
@@ -326,6 +336,7 @@ export function createTranslateLoader(http: HttpClient) {
     PostService,
     PostDataService,
     PostDataDividedService,
+    PostDataAvgService,
     CarPostService,
     CarModelSmokeMeterService,
     CarPostDataSmokeMeterService,

@@ -2,7 +2,7 @@ import { PostData } from '../postdatas/postdata.model';
 
 export class PostDataDivided {
   Id: number;
-  PostDataId: number;
+  PostDataId: bigint;
   PostData: PostData;
   MN: string;
   OceanusCode: string;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,7 @@ using SmartEcoA.Models;
 
 namespace SmartEcoA.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("{language}/api/[controller]")]
     [ApiController]
     public class PostDataAvgsController : ControllerBase
     {
@@ -22,16 +23,41 @@ namespace SmartEcoA.Controllers
 
         // GET: api/PostDataAvgs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PostDataAvg>>> GetPostDataAvg()
+        [Authorize(Roles = "Administrator, Moderator")]
+        public async Task<ActionResult<IEnumerable<PostDataAvg>>> GetPostDataAvg(DateTime? Date,
+            int? PostId,
+            int? MeasuredParameterId)
         {
-            return await _context.PostDataAvg.ToListAsync();
+            DateTime dateDay = DateTime.Today;
+            if (Date != null)
+            {
+                dateDay = new DateTime(Date.Value.Year, Date.Value.Month, Date.Value.Day);
+            }
+            var postDataAvgs = await _context.PostDataAvg
+                .Where(p => p.DateTime >= dateDay && p.DateTime < dateDay.AddDays(1))
+                .Include(p => p.Post)
+                .Include(p => p.MeasuredParameter)
+                .ToListAsync();
+            if (PostId != null)
+            {
+                postDataAvgs = postDataAvgs.Where(p => p.PostId == PostId.Value).ToList();
+            }
+            if (MeasuredParameterId != null)
+            {
+                postDataAvgs = postDataAvgs.Where(p => p.MeasuredParameterId == MeasuredParameterId.Value).ToList();
+            }
+            return postDataAvgs;
         }
 
         // GET: api/PostDataAvgs/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "Administrator, Moderator")]
         public async Task<ActionResult<PostDataAvg>> GetPostDataAvg(long id)
         {
-            var postDataAvg = await _context.PostDataAvg.FindAsync(id);
+            var postDataAvg = await _context.PostDataAvg
+                .Include(p => p.Post)
+                .Include(p => p.MeasuredParameter)
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             if (postDataAvg == null)
             {
@@ -45,6 +71,7 @@ namespace SmartEcoA.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [Authorize(Roles = "Administrator, Moderator")]
         public async Task<IActionResult> PutPostDataAvg(long id, PostDataAvg postDataAvg)
         {
             if (id != postDataAvg.Id)
@@ -77,6 +104,7 @@ namespace SmartEcoA.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [Authorize(Roles = "Administrator, Moderator")]
         public async Task<ActionResult<PostDataAvg>> PostPostDataAvg(PostDataAvg postDataAvg)
         {
             _context.PostDataAvg.Add(postDataAvg);
@@ -87,6 +115,7 @@ namespace SmartEcoA.Controllers
 
         // DELETE: api/PostDataAvgs/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrator, Moderator")]
         public async Task<ActionResult<PostDataAvg>> DeletePostDataAvg(long id)
         {
             var postDataAvg = await _context.PostDataAvg.FindAsync(id);

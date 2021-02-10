@@ -1,0 +1,18 @@
+<mat-card>
+  <mat-card-title i18n="@@PostDataAvgDetails">Post Data Averaged details</mat-card-title>
+  <mat-card-content>
+    <dl>
+      <dt i18n="@@DateTime">Date and Time</dt>
+      <dd>{{postdataavg?.DateTime}}</dd>
+      <dt i18n="@@MeasuredParameter">Measured Parameter</dt>
+      <dd>{{postdataavg?.MeasuredParameter?.Name}}</dd>
+      <dt i18n="@@MonitoringPost">Monitoring Post</dt>
+      <dd>{{postdataavg?.Post?.Name}}</dd>
+      <dt i18n="@@Value">Value</dt>
+      <dd>{{postdataavg?.Value}}</dd>
+    </dl>
+  </mat-card-content>
+  <mat-card-actions align="center">
+    <a i18n-matTooltip="@@Back" class="btn" [routerLink]="['/postdataavgs']" matTooltip="Back"><i class="material-icons">arrow_back</i></a>
+  </mat-card-actions>
+</mat-card>

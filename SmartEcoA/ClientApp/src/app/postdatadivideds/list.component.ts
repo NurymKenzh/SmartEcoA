@@ -40,8 +40,8 @@ export class PostDataDividedsListComponent implements OnInit, AfterViewInit {
     public deleteDialog: MatDialog) {
     this.dataSource.filterPredicate = (data: PostDataDivided, filter: string) => {
       return data.PostData.DateTime.toString().includes(filter)
-        || data.MN.toLowerCase().includes(filter)
-        || data.OceanusCode.toLowerCase().includes(filter)
+        || (data.MN ? data.MN.toLowerCase().includes(filter) : false)
+        || (data.OceanusCode ? data.OceanusCode.toLowerCase().includes(filter) : false)
         || data.Value.toString().includes(filter);
     };
     translate.setDefaultLang(locale);

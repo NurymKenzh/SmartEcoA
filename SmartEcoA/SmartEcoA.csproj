@@ -90,6 +90,11 @@
     <None Remove="ClientApp\src\app\pollutionenvironments\list.component.ts" />
     <None Remove="ClientApp\src\app\pollutionenvironments\pollutionenvironment.model.ts" />
     <None Remove="ClientApp\src\app\pollutionenvironments\pollutionenvironment.service.ts" />
+    <None Remove="ClientApp\src\app\postdataavgs\details.component.ts" />
+    <None Remove="ClientApp\src\app\postdataavgs\index.component.ts" />
+    <None Remove="ClientApp\src\app\postdataavgs\list.component.ts" />
+    <None Remove="ClientApp\src\app\postdataavgs\postdataavg.model.ts" />
+    <None Remove="ClientApp\src\app\postdataavgs\postdataavg.service.ts" />
     <None Remove="ClientApp\src\app\postdatadivideds\details.component.ts" />
     <None Remove="ClientApp\src\app\postdatadivideds\index.component.ts" />
     <None Remove="ClientApp\src\app\postdatadivideds\list.component.ts" />
@@ -237,6 +242,21 @@
     <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\list.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\pollutionenvironment.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\pollutionenvironments\pollutionenvironment.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\postdataavgs\details.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\postdataavgs\index.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\postdataavgs\list.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\postdataavgs\postdataavg.service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\postdataavgs\postdataavg.model.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\postdatadivideds\details.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
