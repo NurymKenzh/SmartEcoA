@@ -112,7 +112,7 @@ namespace SmartEcoA.Controllers
                 var securityTokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(claims.ToArray()),
-                    Expires = DateTime.UtcNow.AddDays(1),
+                    Expires = DateTime.UtcNow.AddDays(30),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Startup.Configuration["JWTkey"].ToString())), SecurityAlgorithms.HmacSha256Signature)
                 };
                 var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
