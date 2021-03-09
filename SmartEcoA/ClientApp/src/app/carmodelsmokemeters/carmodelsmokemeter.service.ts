@@ -14,8 +14,12 @@ export class CarModelSmokeMeterService {
     if (Id) {
       return this.http.get(this.baseUrl + this.apiUrl + Id);
     } else {
-      let params = new HttpParams().set('carpostid', CarPostId);
-      return this.http.get(this.baseUrl + this.apiUrl, { params: params });
+      if (CarPostId) {
+        let params = new HttpParams().set('carpostid', CarPostId);
+        return this.http.get(this.baseUrl + this.apiUrl, { params: params });
+      } else {
+        return this.http.get(this.baseUrl + this.apiUrl);
+      }
     }
   }
 
