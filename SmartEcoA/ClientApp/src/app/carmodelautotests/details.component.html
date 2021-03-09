@@ -1,0 +1,41 @@
+<mat-card>
+  <mat-card-title i18n="@@CarModelAutoTestDetails">Car Model (Auto Test) details</mat-card-title>
+  <mat-card-content>
+    <dl>
+      <dt i18n="@@Name">Name</dt>
+      <dd>{{carmodelautotest?.Name}}</dd>
+      <dt i18n="@@EngineType">EngineType</dt>
+      <dd i18n="@@Petrol" *ngIf="carmodelautotest?.EngineType==0">Petrol</dd>
+      <dd i18n="@@Diesel" *ngIf="carmodelautotest?.EngineType==1">Diesel</dd>
+      <dt i18n="@@MIN_TAH" *ngIf="carmodelautotest?.EngineType==0">MIN_TAH</dt>
+      <dd *ngIf="carmodelautotest?.EngineType==0">{{carmodelautotest?.MIN_TAH}}</dd>
+      <dt i18n="@@DEL_MIN" *ngIf="carmodelautotest?.EngineType==0">DEL_MIN</dt>
+      <dd *ngIf="carmodelautotest?.EngineType==0">{{carmodelautotest?.DEL_MIN}}</dd>
+      <dt i18n="@@MAX_TAH" *ngIf="carmodelautotest?.EngineType==0">MAX_TAH</dt>
+      <dd *ngIf="carmodelautotest?.EngineType==0">{{carmodelautotest?.MAX_TAH}}</dd>
+      <dt i18n="@@DEL_MAX" *ngIf="carmodelautotest?.EngineType==0">DEL_MAX</dt>
+      <dd *ngIf="carmodelautotest?.EngineType==0">{{carmodelautotest?.DEL_MAX}}</dd>
+      <dt i18n="@@MIN_CO" *ngIf="carmodelautotest?.EngineType==0">MIN_CO</dt>
+      <dd *ngIf="carmodelautotest?.EngineType==0">{{carmodelautotest?.MIN_CO}}</dd>
+      <dt i18n="@@MAX_CO" *ngIf="carmodelautotest?.EngineType==0">MAX_CO</dt>
+      <dd *ngIf="carmodelautotest?.EngineType==0">{{carmodelautotest?.MAX_CO}}</dd>
+      <dt i18n="@@MIN_CH" *ngIf="carmodelautotest?.EngineType==0">MIN_CH</dt>
+      <dd *ngIf="carmodelautotest?.EngineType==0">{{carmodelautotest?.MIN_CH}}</dd>
+      <dt i18n="@@MAX_CH" *ngIf="carmodelautotest?.EngineType==0">MAX_CH</dt>
+      <dd *ngIf="carmodelautotest?.EngineType==0">{{carmodelautotest?.MAX_CH}}</dd>
+      <dt i18n="@@L_MIN" *ngIf="carmodelautotest?.EngineType==0">L_MIN</dt>
+      <dd *ngIf="carmodelautotest?.EngineType==0">{{carmodelautotest?.L_MIN}}</dd>
+      <dt i18n="@@L_MAX" *ngIf="carmodelautotest?.EngineType==0">L_MAX</dt>
+      <dd *ngIf="carmodelautotest?.EngineType==0">{{carmodelautotest?.L_MAX}}</dd>
+      <dt i18n="@@K_SVOB" *ngIf="carmodelautotest?.EngineType==1">K_SVOB</dt>
+      <dd *ngIf="carmodelautotest?.EngineType==1">{{carmodelautotest?.K_SVOB}}</dd>
+      <dt i18n="@@K_MAX" *ngIf="carmodelautotest?.EngineType==1">K_MAX</dt>
+      <dd *ngIf="carmodelautotest?.EngineType==1">{{carmodelautotest?.K_MAX}}</dd>
+      <dt i18n="@@CarPost">Car Post</dt>
+      <dd>{{carmodelautotest?.CarPost?.Name}}</dd>
+    </dl>
+  </mat-card-content>
+  <mat-card-actions align="center">
+    <a i18n-matTooltip="@@Back" class="btn" [routerLink]="['/carmodelautotests']" matTooltip="Back"><i class="material-icons">arrow_back</i></a>
+  </mat-card-actions>
+</mat-card>

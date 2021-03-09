@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SmartEcoA.Models;
@@ -9,9 +10,10 @@ using SmartEcoA.Models;
 namespace SmartEcoA.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210309055252_CarModelAutoTest_20210309_01")]
+    partial class CarModelAutoTest_20210309_01
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -227,43 +229,43 @@ namespace SmartEcoA.Migrations
                     b.Property<int>("CarPostId")
                         .HasColumnType("integer");
 
-                    b.Property<decimal?>("DEL_MAX")
+                    b.Property<decimal>("DEL_MAX")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("DEL_MIN")
+                    b.Property<decimal>("DEL_MIN")
                         .HasColumnType("numeric");
 
                     b.Property<decimal>("EngineType")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("K_MAX")
+                    b.Property<decimal>("K_MAX")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("K_SVOB")
+                    b.Property<decimal>("K_SVOB")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("L_MAX")
+                    b.Property<decimal>("L_MAX")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("L_MIN")
+                    b.Property<decimal>("L_MIN")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("MAX_CH")
+                    b.Property<decimal>("MAX_CH")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("MAX_CO")
+                    b.Property<decimal>("MAX_CO")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("MAX_TAH")
+                    b.Property<decimal>("MAX_TAH")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("MIN_CH")
+                    b.Property<decimal>("MIN_CH")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("MIN_CO")
+                    b.Property<decimal>("MIN_CO")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("MIN_TAH")
+                    b.Property<decimal>("MIN_TAH")
                         .HasColumnType("numeric");
 
                     b.Property<string>("Name")

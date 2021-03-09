@@ -39,6 +39,14 @@
     <None Remove="ClientApp\src\app\administration\administration.component.ts" />
     <None Remove="ClientApp\src\app\authorize\authorize.guard.ts" />
     <None Remove="ClientApp\src\app\authorize\authorize.interceptor.ts" />
+    <None Remove="ClientApp\src\app\carmodelautotests\carmodelautotest.model.ts" />
+    <None Remove="ClientApp\src\app\carmodelautotests\carmodelautotest.service.ts" />
+    <None Remove="ClientApp\src\app\carmodelautotests\create.component.ts" />
+    <None Remove="ClientApp\src\app\carmodelautotests\delete.component.ts" />
+    <None Remove="ClientApp\src\app\carmodelautotests\details.component.ts" />
+    <None Remove="ClientApp\src\app\carmodelautotests\edit.component.ts" />
+    <None Remove="ClientApp\src\app\carmodelautotests\index.component.ts" />
+    <None Remove="ClientApp\src\app\carmodelautotests\list.component.ts" />
     <None Remove="ClientApp\src\app\carmodelsmokemeters\carmodelsmokemeter.model.ts" />
     <None Remove="ClientApp\src\app\carmodelsmokemeters\carmodelsmokemeter.service.ts" />
     <None Remove="ClientApp\src\app\carmodelsmokemeters\create.component.ts" />
@@ -139,6 +147,30 @@
     <TypeScriptCompile Include="ClientApp\src\app\administration\administration.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\authorize\authorize.guard.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\authorize\authorize.interceptor.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\carmodelautotests\carmodelautotest.model.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carmodelautotests\carmodelautotest.service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carmodelautotests\create.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carmodelautotests\delete.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carmodelautotests\details.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carmodelautotests\edit.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carmodelautotests\index.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carmodelautotests\list.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\carmodelsmokemeters\carmodelsmokemeter.model.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

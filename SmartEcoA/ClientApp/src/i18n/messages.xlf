@@ -378,6 +378,18 @@
           <context context-type="sourcefile">app/carpostdatasmokemeters/list.component.html</context>
           <context context-type="linenumber">44</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/delete.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/delete.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/list.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="AreYouSureDeleteThisRecord" datatype="html">
         <source>Are you sure to delete this record?</source>
@@ -415,6 +427,10 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/carpostdatasmokemeters/delete.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/delete.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
@@ -524,6 +540,18 @@
           <context context-type="sourcefile">app/carpostdatasmokemeters/edit.component.html</context>
           <context context-type="linenumber">53</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/delete.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Filter" datatype="html">
         <source>Filter</source>
@@ -573,6 +601,10 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/carpostdatasmokemeters/list.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/list.component.html</context>
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
@@ -646,7 +678,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">59</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/carposts/list.component.html</context>
@@ -659,6 +691,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/carpostdatasmokemeters/list.component.html</context>
           <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/list.component.html</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Edit" datatype="html">
@@ -698,6 +734,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/carpostdatasmokemeters/list.component.html</context>
           <context context-type="linenumber">43</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/list.component.html</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="UserDetails" datatype="html">
@@ -771,6 +811,10 @@
           <context context-type="sourcefile">app/carpostdatasmokemeters/details.component.html</context>
           <context context-type="linenumber">23</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/details.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="EditUser" datatype="html">
         <source>Edit user</source>
@@ -816,6 +860,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/carpostdatasmokemeters/edit.component.html</context>
           <context context-type="linenumber">52</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="PollutionEnvironments" datatype="html">
@@ -1006,6 +1054,21 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="CarModelAutoTests" datatype="html">
+        <source>Car Models (Auto Test)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/administration/administration.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/administration/administration.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/index.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Background" datatype="html">
         <source>Background</source>
         <context-group purpose="location">
@@ -1102,6 +1165,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/carpostdatasmokemeters/create.component.html</context>
           <context context-type="linenumber">52</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/list.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Name" datatype="html">
@@ -1204,6 +1275,22 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/carpostdatasmokemeters/details.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/list.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/details.component.html</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
@@ -1323,6 +1410,14 @@
           <context context-type="sourcefile">app/carmodelsmokemeters/edit.component.html</context>
           <context context-type="linenumber">7</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="NameEnglishRequired" datatype="html">
         <source>Name (English) is required</source>
@@ -1431,6 +1526,14 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/carmodelsmokemeters/edit.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
@@ -1706,6 +1809,14 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/carmodelsmokemeters/edit.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
@@ -2068,11 +2179,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">37</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">68</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdataavgs/details.component.html</context>
@@ -2136,11 +2247,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">52</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">80</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdataavgs/details.component.html</context>
@@ -2169,11 +2280,15 @@
         <source>Monitoring Post</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">13</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
+          <context context-type="linenumber">72</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdataavgs/details.component.html</context>
@@ -2184,11 +2299,15 @@
         <source>Measured Parameter</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">23</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/postdataavgs/list.component.html</context>
+          <context context-type="linenumber">76</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/postdataavgs/details.component.html</context>
@@ -2257,6 +2376,22 @@
           <context context-type="sourcefile">app/carpostdatasmokemeters/details.component.html</context>
           <context context-type="linenumber">7</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/list.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/details.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="CreateNewCarModelSmokeMeter" datatype="html">
         <source>Create a new Car Model (Smoke Meter)</source>
@@ -2297,6 +2432,22 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/carpostdatasmokemeters/edit.component.html</context>
           <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ApprovalMark" datatype="html">
@@ -2522,6 +2673,348 @@
         <source>Car Post Data details (Smoke Meter)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/carpostdatasmokemeters/details.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CreateNewCarModelAutoTest" datatype="html">
+        <source>Create a new Car Model (Smoke Meter)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="EngineType" datatype="html">
+        <source>Engine Type</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/details.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Petrol" datatype="html">
+        <source>Petrol</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/details.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Diesel" datatype="html">
+        <source>Diesel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/details.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="MIN_TAH" datatype="html">
+        <source>Minimum revolutions, 1/min</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/details.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="DEL_MIN" datatype="html">
+        <source>Minimum revolutions, +/-, 1/min</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/details.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="MAX_TAH" datatype="html">
+        <source>Increased revolutions, 1/min</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/details.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="DEL_MAX" datatype="html">
+        <source>Increased revolutions, +/-, 1/min</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/details.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="MIN_CO" datatype="html">
+        <source>CO at minimum revolutions, %</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/details.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="MAX_CO" datatype="html">
+        <source>CO at increased revolutions, %</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/details.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="MIN_CH" datatype="html">
+        <source>CH at minimum revolutions, ppm</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/details.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="MAX_CH" datatype="html">
+        <source>CH at increased revolutions, ppm</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/details.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="L_MIN" datatype="html">
+        <source>λ minimum</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/details.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="L_MAX" datatype="html">
+        <source>λ maximum</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/details.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="K_SVOB" datatype="html">
+        <source>The attenuation index of the luminous flux K at free acceleration, 1/m</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/details.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="K_MAX" datatype="html">
+        <source>Luminous flux attenuation index K at maximum rotation frequency, 1/m</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/create.component.html</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/details.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="EditCarModelAutoTest" datatype="html">
+        <source>Edit Car Model (Auto Test)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/edit.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CarModelAutoTestDetails" datatype="html">
+        <source>Car Model (Auto Test) details</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/carmodelautotests/details.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
