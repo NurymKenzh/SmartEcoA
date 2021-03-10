@@ -155,6 +155,14 @@ import { CarModelAutoTestCreateComponent } from './carmodelautotests/create.comp
 import { CarModelAutoTestEditComponent } from './carmodelautotests/edit.component';
 import { CarModelAutoTestDetailsComponent } from './carmodelautotests/details.component';
 
+import { CarPostDataAutoTestService } from './carpostdataautotests/carpostdataautotest.service';
+import { CarPostDataAutoTestsIndexComponent } from './carpostdataautotests/index.component';
+import { CarPostDataAutoTestsListComponent } from './carpostdataautotests/list.component';
+import { CarPostDataAutoTestDeleteComponent } from './carpostdataautotests/delete.component';
+import { CarPostDataAutoTestCreateComponent } from './carpostdataautotests/create.component';
+import { CarPostDataAutoTestEditComponent } from './carpostdataautotests/edit.component';
+import { CarPostDataAutoTestDetailsComponent } from './carpostdataautotests/details.component';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/locale/', '.json');
 }
@@ -243,6 +251,12 @@ export function createTranslateLoader(http: HttpClient) {
     CarModelAutoTestCreateComponent,
     CarModelAutoTestEditComponent,
     CarModelAutoTestDetailsComponent,
+    CarPostDataAutoTestsIndexComponent,
+    CarPostDataAutoTestsListComponent,
+    CarPostDataAutoTestDeleteComponent,
+    CarPostDataAutoTestCreateComponent,
+    CarPostDataAutoTestEditComponent,
+    CarPostDataAutoTestDetailsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -304,6 +318,10 @@ export function createTranslateLoader(http: HttpClient) {
       { path: 'carmodelautotests/create', component: CarModelAutoTestCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'carmodelautotests/edit/:id', component: CarModelAutoTestEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'carmodelautotests/:id', component: CarModelAutoTestDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'carpostdataautotests', component: CarPostDataAutoTestsIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'carpostdataautotests/create', component: CarPostDataAutoTestCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'carpostdataautotests/edit/:id', component: CarPostDataAutoTestEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'carpostdataautotests/:id', component: CarPostDataAutoTestDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
     ]),
     BrowserAnimationsModule,
     ReactiveFormsModule,
@@ -359,6 +377,7 @@ export function createTranslateLoader(http: HttpClient) {
     CarModelSmokeMeterService,
     CarPostDataSmokeMeterService,
     CarModelAutoTestService,
+    CarPostDataAutoTestService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizeInterceptor,
@@ -382,7 +401,8 @@ export function createTranslateLoader(http: HttpClient) {
     CarPostDeleteComponent,
     CarModelSmokeMeterDeleteComponent,
     CarPostDataSmokeMeterDeleteComponent,
-    CarModelAutoTestDeleteComponent],
+    CarModelAutoTestDeleteComponent,
+    CarPostDataAutoTestDeleteComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
