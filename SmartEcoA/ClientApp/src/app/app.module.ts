@@ -163,6 +163,14 @@ import { CarPostDataAutoTestCreateComponent } from './carpostdataautotests/creat
 import { CarPostDataAutoTestEditComponent } from './carpostdataautotests/edit.component';
 import { CarPostDataAutoTestDetailsComponent } from './carpostdataautotests/details.component';
 
+import { CarPostAnalyticService } from './carpostanalytics/carpostanalytic.service';
+import { CarPostAnalyticsIndexComponent } from './carpostanalytics/index.component';
+import { CarPostAnalyticsListComponent } from './carpostanalytics/list.component';
+import { CarPostAnalyticDeleteComponent } from './carpostanalytics/delete.component';
+import { CarPostAnalyticCreateComponent } from './carpostanalytics/create.component';
+import { CarPostAnalyticEditComponent } from './carpostanalytics/edit.component';
+import { CarPostAnalyticDetailsComponent } from './carpostanalytics/details.component';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/locale/', '.json');
 }
@@ -257,6 +265,12 @@ export function createTranslateLoader(http: HttpClient) {
     CarPostDataAutoTestCreateComponent,
     CarPostDataAutoTestEditComponent,
     CarPostDataAutoTestDetailsComponent,
+    CarPostAnalyticsIndexComponent,
+    CarPostAnalyticsListComponent,
+    CarPostAnalyticDeleteComponent,
+    CarPostAnalyticCreateComponent,
+    CarPostAnalyticEditComponent,
+    CarPostAnalyticDetailsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -322,6 +336,10 @@ export function createTranslateLoader(http: HttpClient) {
       { path: 'carpostdataautotests/create', component: CarPostDataAutoTestCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'carpostdataautotests/edit/:id', component: CarPostDataAutoTestEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'carpostdataautotests/:id', component: CarPostDataAutoTestDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'carpostanalytics', component: CarPostAnalyticsIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'carpostanalytics/create', component: CarPostAnalyticCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'carpostanalytics/edit/:id', component: CarPostAnalyticEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'carpostanalytics/:id', component: CarPostAnalyticDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
     ]),
     BrowserAnimationsModule,
     ReactiveFormsModule,
@@ -378,6 +396,7 @@ export function createTranslateLoader(http: HttpClient) {
     CarPostDataSmokeMeterService,
     CarModelAutoTestService,
     CarPostDataAutoTestService,
+    CarPostAnalyticService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizeInterceptor,
@@ -402,7 +421,8 @@ export function createTranslateLoader(http: HttpClient) {
     CarModelSmokeMeterDeleteComponent,
     CarPostDataSmokeMeterDeleteComponent,
     CarModelAutoTestDeleteComponent,
-    CarPostDataAutoTestDeleteComponent],
+    CarPostDataAutoTestDeleteComponent,
+    CarPostAnalyticDeleteComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,18 @@
+<mat-card>
+  <mat-card-title i18n="@@CarPostAnalyticDetails">Car Post Analytic details</mat-card-title>
+  <mat-card-content>
+    <dl>
+      <dt i18n="@@Date">Date</dt>
+      <dd>{{carpostanalytic?.Date | date:'yyyy-MM-dd'}}</dd>
+      <dt i18n="@@Measurement">Measurements count</dt>
+      <dd>{{carpostanalytic?.Measurement}}</dd>
+      <dt i18n="@@Exceeding">Exceeding count</dt>
+      <dd>{{carpostanalytic?.Exceeding}}</dd>
+      <dt i18n="@@CarPost">Car Post</dt>
+      <dd>{{carpostanalytic?.CarPost?.Name}}</dd>
+    </dl>
+  </mat-card-content>
+  <mat-card-actions align="center">
+    <a i18n-matTooltip="@@Back" class="btn" [routerLink]="['/carpostanalytics']" matTooltip="Back"><i class="material-icons">arrow_back</i></a>
+  </mat-card-actions>
+</mat-card>
