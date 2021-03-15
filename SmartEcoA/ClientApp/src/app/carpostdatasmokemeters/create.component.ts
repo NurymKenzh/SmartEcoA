@@ -37,8 +37,8 @@ export class CarPostDataSmokeMeterCreateComponent implements OnInit, AfterViewIn
       DateTime: new FormControl(new Date(), [Validators.required]),
       Number: new FormControl('', [Validators.maxLength(10)]),
       RunIn: new FormControl(false, [Validators.required]),
-      DFree: new FormControl('', [Validators.required]),
-      NDFree: new FormControl('', [Validators.required]),
+      DFree: new FormControl(''),
+      NDFree: new FormControl(''),
       CarPostId: new FormControl('', [Validators.required]),
       CarModelSmokeMeterId: new FormControl('', [Validators.required]),
     });
@@ -74,9 +74,9 @@ export class CarPostDataSmokeMeterCreateComponent implements OnInit, AfterViewIn
         Number: carpostdatasmokemeterFormValue.Number,
         RunIn: carpostdatasmokemeterFormValue.RunIn,
         DFree: carpostdatasmokemeterFormValue.DFree,
-        DMax: 0,
+        DMax: null,
         NDFree: carpostdatasmokemeterFormValue.NDFree,
-        NDMax: 0,
+        NDMax: null,
         CarModelSmokeMeterId: carpostdatasmokemeterFormValue.CarModelSmokeMeterId,
         CarModelSmokeMeter: null,
       }
