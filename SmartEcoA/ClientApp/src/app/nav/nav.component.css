@@ -1,26 +1,22 @@
-.div-container {
-  display: flex;
-  flex-direction: column;
+.nav-container {
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: 60px;
+  bottom: 0px;
   left: 0;
   right: 0;
+  flex: 1;
 }
 
-.mobile .toolbar {
+.nav-sidenav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-header {
   position: fixed;
-  z-index: 2;
 }
 
 h1.app-name {
   margin-left: 8px;
-}
-
-.sidenav-container {
-  flex: 1;
-}
-
-.mobile .sidenav-container {
-  flex: 1 0 auto;
 }
