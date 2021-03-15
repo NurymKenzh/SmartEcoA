@@ -1,7 +1,15 @@
+<style>
+  a.app-name {
+    margin-left: 8px;
+    color: white;
+  }
+</style>
+
 <ng-container>
   <mat-toolbar color="primary" class="nav-header">
     <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
-    <h1 class="app-name">SmartEcoA (2021.03.15)</h1>
+    <a class="app-name nav-link" [routerLink]="['/']"><h1>SmartEcoA</h1></a>
+    <h1>(version 2021.03.15)</h1>
   </mat-toolbar>
 
   <mat-sidenav-container class="nav-container">
