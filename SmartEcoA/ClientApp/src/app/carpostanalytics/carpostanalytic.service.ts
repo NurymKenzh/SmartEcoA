@@ -10,11 +10,19 @@ export class CarPostAnalyticService {
     this.baseUrl = baseUrl;
   }
 
-  public get(Id?) {
+  public get(Id?, CarPostId?, Date?) {
     if (Id) {
       return this.http.get(this.baseUrl + this.apiUrl + Id);
     } else {
-      return this.http.get(this.baseUrl + this.apiUrl);
+      if (CarPostId && Date) {
+        let params = new HttpParams()
+          .set('carpostid', CarPostId)
+          .set('date', Date);
+        return this.http.get(this.baseUrl + this.apiUrl, { params: params });
+      }
+      else {
+        return this.http.get(this.baseUrl + this.apiUrl);
+      }
     }
   }
 

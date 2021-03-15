@@ -24,9 +24,14 @@ namespace SmartEcoA.Controllers
         // GET: api/CarPostAnalytics
         [HttpGet]
         [Authorize(Roles = "Administrator, Moderator")]
-        public async Task<ActionResult<IEnumerable<CarPostAnalytic>>> GetCarPostAnalytic()
+        public async Task<ActionResult<IEnumerable<CarPostAnalytic>>> GetCarPostAnalytic(
+            int? carpostid,
+            DateTime? date)
         {
+            date = date == null ? date : new DateTime(date.Value.Year, date.Value.Month, date.Value.Day);
             return await _context.CarPostAnalytic
+                .Where(c => c.CarPostId == carpostid || carpostid == null)
+                .Where(c => c.Date == date || date == null)
                 .Include(c => c.CarPost)
                 .ToListAsync();
         }
@@ -88,6 +93,9 @@ namespace SmartEcoA.Controllers
         [Authorize(Roles = "Administrator, Moderator")]
         public async Task<ActionResult<CarPostAnalytic>> PostCarPostAnalytic(CarPostAnalytic carPostAnalytic)
         {
+            carPostAnalytic.Date = new DateTime(carPostAnalytic.Date.Year,
+                carPostAnalytic.Date.Month,
+                carPostAnalytic.Date.Day);
             _context.CarPostAnalytic.Add(carPostAnalytic);
             await _context.SaveChangesAsync();
 

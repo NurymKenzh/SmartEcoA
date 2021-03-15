@@ -2,7 +2,7 @@
 <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
 
 <mat-tab-group>
-  <mat-tab i18n-label="@@Posts" label="Monitoring Posts">
+  <mat-tab i18n-label="@@CarPosts" label="Car Posts">
     <div class="grid-container">
       <mat-grid-list cols="10" rowHeight="50px">
 
@@ -49,14 +49,21 @@
 
         <mat-grid-tile [colspan]="5" [rowspan]="10">
           <mat-card class="dashboard-card" style="overflow: auto;">
-            <!--<pollutionenvironments></pollutionenvironments>-->
+            <dl>
+              <dt i18n="@@CarPost">Car Post</dt>
+              <dd>{{carpostanalytic?.CarPost?.Name}}</dd>
+              <dt i18n="@@Measurement">Measurements count</dt>
+              <dd>{{carpostanalytic?.Measurement}}</dd>
+              <dt i18n="@@Exceeding">Exceeding count</dt>
+              <dd>{{carpostanalytic?.Exceeding}}</dd>
+            </dl>
           </mat-card>
         </mat-grid-tile>
 
       </mat-grid-list>
     </div>
   </mat-tab>
-  <mat-tab i18n-label="@@CarPosts" label="Car Posts">
+  <mat-tab i18n-label="@@Posts" label="Monitoring Posts">
     <div class="grid-container">
       <mat-grid-list cols="10" rowHeight="50px">
 
