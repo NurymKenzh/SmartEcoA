@@ -1,0 +1,64 @@
+<mat-card>
+  <mat-card-title i18n="@@CarPostDataAutoTestDetails">Car Post Data details (Auto Test)</mat-card-title>
+  <mat-card-content>
+    <dl>
+      <dt i18n="@@Name">Date and Time</dt>
+      <dd>{{carpostdataautotest?.DateTime}}</dd>
+      <dt i18n="@@CarPost">Car Post</dt>
+      <dd>{{carpostdataautotest?.CarModelAutoTest?.CarPost?.Name}}</dd>
+      <dt i18n="@@CarModelAutoTest">Car Model (Auto Test)</dt>
+      <dd>{{carpostdataautotest?.CarModelAutoTest?.Name}}</dd>
+      <dt i18n="@@Number">Number</dt>
+      <dd>{{carpostdataautotest?.Number}}</dd>
+      <dt i18n="@@DOPOL1">DOPOL1</dt>
+      <dd>{{carpostdataautotest?.DOPOL1}}</dd>
+      <dt i18n="@@DOPOL2">DOPOL2</dt>
+      <dd>{{carpostdataautotest?.DOPOL2}}</dd>
+      <dt i18n="@@MIN_TAH">MIN_TAH</dt>
+      <dd>{{carpostdataautotest?.MIN_TAH}}</dd>
+      <dt i18n="@@MIN_CO">MIN_CO</dt>
+      <dd>{{carpostdataautotest?.MIN_CO}}</dd>
+      <dt i18n="@@MIN_CH">MIN_CH</dt>
+      <dd>{{carpostdataautotest?.MIN_CH}}</dd>
+      <dt i18n="@@MIN_CO2">MIN_CO2</dt>
+      <dd>{{carpostdataautotest?.MIN_CO2}}</dd>
+      <dt i18n="@@MIN_O2">MIN_O2</dt>
+      <dd>{{carpostdataautotest?.MIN_O2}}</dd>
+      <dt i18n="@@MIN_L">MIN_L</dt>
+      <dd>{{carpostdataautotest?.MIN_L}}</dd>
+      <dt i18n="@@MAX_TAH">MAX_TAH</dt>
+      <dd>{{carpostdataautotest?.MAX_TAH}}</dd>
+      <dt i18n="@@MAX_CO">MAX_CO</dt>
+      <dd>{{carpostdataautotest?.MAX_CO}}</dd>
+      <dt i18n="@@MAX_CH">MAX_CH</dt>
+      <dd>{{carpostdataautotest?.MAX_CH}}</dd>
+      <dt i18n="@@MAX_CO2">MAX_CO2</dt>
+      <dd>{{carpostdataautotest?.MAX_CO2}}</dd>
+      <dt i18n="@@MAX_O2">MAX_O2</dt>
+      <dd>{{carpostdataautotest?.MAX_O2}}</dd>
+      <dt i18n="@@MAX_L">MAX_L</dt>
+      <dd>{{carpostdataautotest?.MAX_L}}</dd>
+      <dt i18n="@@ZAV_NOMER">ZAV_NOMER</dt>
+      <dd>{{carpostdataautotest?.ZAV_NOMER}}</dd>
+      <dt i18n="@@K_1">K_1</dt>
+      <dd>{{carpostdataautotest?.K_1}}</dd>
+      <dt i18n="@@K_2">K_2</dt>
+      <dd>{{carpostdataautotest?.K_2}}</dd>
+      <dt i18n="@@K_3">K_3</dt>
+      <dd>{{carpostdataautotest?.K_3}}</dd>
+      <dt i18n="@@K_4">K_4</dt>
+      <dd>{{carpostdataautotest?.K_4}}</dd>
+      <dt i18n="@@K_SVOB">K_SVOB</dt>
+      <dd>{{carpostdataautotest?.K_SVOB}}</dd>
+      <dt i18n="@@K_MAX">K_MAX</dt>
+      <dd>{{carpostdataautotest?.K_MAX}}</dd>
+      <dt i18n="@@MIN_NO">MIN_NO</dt>
+      <dd>{{carpostdataautotest?.MIN_NO}}</dd>
+      <dt i18n="@@MAX_NO">MAX_NO</dt>
+      <dd>{{carpostdataautotest?.MAX_NO}}</dd>
+    </dl>
+  </mat-card-content>
+  <mat-card-actions align="center">
+    <a i18n-matTooltip="@@Back" class="btn" [routerLink]="['/carpostdataautotests']" matTooltip="Back"><i class="material-icons">arrow_back</i></a>
+  </mat-card-actions>
+</mat-card>

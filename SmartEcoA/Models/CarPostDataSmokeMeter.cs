@@ -22,18 +22,18 @@ namespace SmartEcoA.Models
         // D_FREE
         // Дымность, 1/м
         // Свободное ускорение
-        public decimal DFree { get; set; }
+        public decimal? DFree { get; set; }
 
         // D_MAX
-        public decimal DMax { get; set; }
+        public decimal? DMax { get; set; }
 
         // N_D_FREE
         // Дымность, 1/м
         // Норма
-        public decimal NDFree { get; set; }
+        public decimal? NDFree { get; set; }
 
         // N_D_MAX
-        public decimal NDMax { get; set; }
+        public decimal? NDMax { get; set; }
 
         public int? CarModelSmokeMeterId { get; set; }
 

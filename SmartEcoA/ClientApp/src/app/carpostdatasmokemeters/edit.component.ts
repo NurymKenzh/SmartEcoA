@@ -32,8 +32,8 @@ export class CarPostDataSmokeMeterEditComponent implements OnInit {
       DateTime: new FormControl('', [Validators.required]),
       Number: new FormControl('', [Validators.maxLength(10)]),
       RunIn: new FormControl('', [Validators.required]),
-      DFree: new FormControl('', [Validators.required]),
-      NDFree: new FormControl('', [Validators.required]),
+      DFree: new FormControl(''),
+      NDFree: new FormControl(''),
       CarPostId: new FormControl('', [Validators.required]),
       CarModelSmokeMeterId: new FormControl('', [Validators.required]),
     });
@@ -82,9 +82,9 @@ export class CarPostDataSmokeMeterEditComponent implements OnInit {
         Number: carpostdatasmokemeterFormValue.Number,
         RunIn: carpostdatasmokemeterFormValue.RunIn,
         DFree: carpostdatasmokemeterFormValue.DFree,
-        DMax: 0,
+        DMax: null,
         NDFree: carpostdatasmokemeterFormValue.NDFree,
-        NDMax: 0,
+        NDMax: null,
         CarModelSmokeMeterId: carpostdatasmokemeterFormValue.CarModelSmokeMeterId,
         CarModelSmokeMeter: null,
       }

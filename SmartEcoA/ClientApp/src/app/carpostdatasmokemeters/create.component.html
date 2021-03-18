@@ -38,13 +38,11 @@
       <mat-checkbox i18n="@@RunIn" matInput formControlName="RunIn" id="runin">Run In</mat-checkbox>
       <br />
       <mat-form-field>
-        <input i18n-placeholder="@@DFree" matInput type="text" placeholder="Smoke, 1/m (free acceleration)" formControlName="DFree" id="dfree">
-        <mat-error i18n="@@DFreeRequired" *ngIf="error('DFree', 'required')">Smoke, 1/m (free acceleration) is required</mat-error>
+        <input i18n-placeholder="@@DFree" matInput type="number" placeholder="Smoke, 1/m (free acceleration)" formControlName="DFree" id="dfree">
       </mat-form-field>
       <br />
       <mat-form-field>
-        <input i18n-placeholder="@@NDFree" matInput type="text" placeholder="Smoke, 1/m (norm)" formControlName="NDFree" id="ndfree">
-        <mat-error i18n="@@NDFreeRequired" *ngIf="error('NDFree', 'required')">Smoke, 1/m (norm) is required</mat-error>
+        <input i18n-placeholder="@@NDFree" matInput type="number" placeholder="Smoke, 1/m (norm)" formControlName="NDFree" id="ndfree">
       </mat-form-field>
       <br />
     </mat-card-content>

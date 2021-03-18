@@ -28,5 +28,6 @@ namespace SmartEcoA.Models
         public DbSet<SmartEcoA.Models.CarPostDataSmokeMeter> CarPostDataSmokeMeter { get; set; }
         public DbSet<SmartEcoA.Models.CarModelAutoTest> CarModelAutoTest { get; set; }
         public DbSet<SmartEcoA.Models.CarPostDataAutoTest> CarPostDataAutoTest { get; set; }
+        public DbSet<SmartEcoA.Models.CarPostAnalytic> CarPostAnalytic { get; set; }
     }
 }

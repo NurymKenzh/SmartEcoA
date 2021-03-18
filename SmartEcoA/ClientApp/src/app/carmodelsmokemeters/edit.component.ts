@@ -9,7 +9,8 @@ import { CarPostService } from '../carposts/carpost.service';
 import { CarPost } from '../carposts/carpost.model';
 
 @Component({
-  templateUrl: 'edit.component.html'
+  templateUrl: 'edit.component.html',
+  styleUrls: ['edit.component.css']
 })
 
 export class CarModelSmokeMeterEditComponent implements OnInit {

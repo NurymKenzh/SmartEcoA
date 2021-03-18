@@ -39,6 +39,14 @@
     <None Remove="ClientApp\src\app\administration\administration.component.ts" />
     <None Remove="ClientApp\src\app\authorize\authorize.guard.ts" />
     <None Remove="ClientApp\src\app\authorize\authorize.interceptor.ts" />
+    <None Remove="ClientApp\src\app\carmodelautotests\carmodelautotest.model.ts" />
+    <None Remove="ClientApp\src\app\carmodelautotests\carmodelautotest.service.ts" />
+    <None Remove="ClientApp\src\app\carmodelautotests\create.component.ts" />
+    <None Remove="ClientApp\src\app\carmodelautotests\delete.component.ts" />
+    <None Remove="ClientApp\src\app\carmodelautotests\details.component.ts" />
+    <None Remove="ClientApp\src\app\carmodelautotests\edit.component.ts" />
+    <None Remove="ClientApp\src\app\carmodelautotests\index.component.ts" />
+    <None Remove="ClientApp\src\app\carmodelautotests\list.component.ts" />
     <None Remove="ClientApp\src\app\carmodelsmokemeters\carmodelsmokemeter.model.ts" />
     <None Remove="ClientApp\src\app\carmodelsmokemeters\carmodelsmokemeter.service.ts" />
     <None Remove="ClientApp\src\app\carmodelsmokemeters\create.component.ts" />
@@ -47,6 +55,22 @@
     <None Remove="ClientApp\src\app\carmodelsmokemeters\edit.component.ts" />
     <None Remove="ClientApp\src\app\carmodelsmokemeters\index.component.ts" />
     <None Remove="ClientApp\src\app\carmodelsmokemeters\list.component.ts" />
+    <None Remove="ClientApp\src\app\carpostanalytics\carpostanalytic.model.ts" />
+    <None Remove="ClientApp\src\app\carpostanalytics\carpostanalytic.service.ts" />
+    <None Remove="ClientApp\src\app\carpostanalytics\create.component.ts" />
+    <None Remove="ClientApp\src\app\carpostanalytics\delete.component.ts" />
+    <None Remove="ClientApp\src\app\carpostanalytics\details.component.ts" />
+    <None Remove="ClientApp\src\app\carpostanalytics\edit.component.ts" />
+    <None Remove="ClientApp\src\app\carpostanalytics\index.component.ts" />
+    <None Remove="ClientApp\src\app\carpostanalytics\list.component.ts" />
+    <None Remove="ClientApp\src\app\carpostdataautotests\carpostdataautotest.model.ts" />
+    <None Remove="ClientApp\src\app\carpostdataautotests\carpostdataautotest.service.ts" />
+    <None Remove="ClientApp\src\app\carpostdataautotests\create.component.ts" />
+    <None Remove="ClientApp\src\app\carpostdataautotests\delete.component.ts" />
+    <None Remove="ClientApp\src\app\carpostdataautotests\details.component.ts" />
+    <None Remove="ClientApp\src\app\carpostdataautotests\edit.component.ts" />
+    <None Remove="ClientApp\src\app\carpostdataautotests\index.component.ts" />
+    <None Remove="ClientApp\src\app\carpostdataautotests\list.component.ts" />
     <None Remove="ClientApp\src\app\carpostdatasmokemeters\carpostdatasmokemeter.model.ts" />
     <None Remove="ClientApp\src\app\carpostdatasmokemeters\carpostdatasmokemeter.service.ts" />
     <None Remove="ClientApp\src\app\carpostdatasmokemeters\create.component.ts" />
@@ -139,6 +163,30 @@
     <TypeScriptCompile Include="ClientApp\src\app\administration\administration.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\authorize\authorize.guard.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\authorize\authorize.interceptor.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\carmodelautotests\carmodelautotest.model.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carmodelautotests\carmodelautotest.service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carmodelautotests\create.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carmodelautotests\delete.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carmodelautotests\details.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carmodelautotests\edit.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carmodelautotests\index.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carmodelautotests\list.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\carmodelsmokemeters\carmodelsmokemeter.model.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -161,6 +209,54 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\carmodelsmokemeters\list.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carpostanalytics\carpostanalytic.service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carpostanalytics\carpostanalytic.model.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carpostanalytics\create.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carpostanalytics\delete.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carpostanalytics\details.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carpostanalytics\edit.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carpostanalytics\index.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carpostanalytics\list.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carpostdataautotests\carpostdataautotest.model.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carpostdataautotests\carpostdataautotest.service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carpostdataautotests\create.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carpostdataautotests\delete.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carpostdataautotests\details.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carpostdataautotests\edit.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carpostdataautotests\index.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\carpostdataautotests\list.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\carpostdatasmokemeters\carpostdatasmokemeter.service.ts">
