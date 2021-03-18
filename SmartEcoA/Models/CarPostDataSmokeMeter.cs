@@ -35,7 +35,7 @@ namespace SmartEcoA.Models
         // N_D_MAX
         public decimal NDMax { get; set; }
 
-        public int CarModelSmokeMeterId { get; set; }
+        public int? CarModelSmokeMeterId { get; set; }
 
         public CarModelSmokeMeter CarModelSmokeMeter { get; set; }
     }

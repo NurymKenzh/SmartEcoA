@@ -109,7 +109,7 @@ namespace SmartEcoA.Models
         // NO при повышенных оборотах
         public decimal MAX_NO { get; set; }
 
-        public int CarModelAutoTestId { get; set; }
+        public int? CarModelAutoTestId { get; set; }
 
         public CarModelAutoTest CarModelAutoTest { get; set; }
     }
