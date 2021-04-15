@@ -6,7 +6,7 @@ namespace CarPostsServer.ClientModels
 {
     public class ClientJsonData
     {
-        public int? CarPostId { get; set; }
+        //public int? CarPostId { get; set; }
         public List<ClientCarModelSmokeMeter> carModelSmokeMeters { get; set; }
         public List<ClientCarPostDataSmokeMeter> carPostDataSmokeMeters { get; set; }
         public List<ClientCarModelAutoTest> carModelAutoTests { get; set; }

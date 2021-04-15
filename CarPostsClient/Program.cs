@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -17,8 +18,9 @@ namespace CarPostsClient
 {
     class Program
     {
-        private const int port = 8888;
-        private const string server = "127.0.0.1";
+        private const int port = 8089;
+        private const string server = "185.125.44.116";
+        //private const string server = "127.0.0.1";
         public static IConfigurationRoot _config;
 
         static void Main(string[] args)
@@ -37,42 +39,49 @@ namespace CarPostsClient
 
                     while (true)
                     {
-                        JsonData jsonData = new JsonData();
-                        jsonData.carModelSmokeMeters = CreateModelSmokeMeter();
-                        jsonData.carPostDataSmokeMeters = CreateDataSmokeMeter();
-                        jsonData.carModelAutoTests = CreateModelAutoTest();
-                        jsonData.carPostDataAutoTests = CreateDataAutoTest();
-                        var carPostId = _config.GetSection("CarPostId").Value;
-                        if (!String.IsNullOrEmpty(carPostId))
+                        //Sending CarPostId to Server
+                        SendCarPostId(stream);
+
+                        //Wait response from Server
+                        dynamic obj = new ExpandoObject();
+                        byte[] dataResponse = new byte[256];
+                        while (true)
                         {
-                            jsonData.CarPostId = Convert.ToInt32(carPostId);
+                            StringBuilder builder = new StringBuilder();
+                            int bytes = 0;
+                            do
+                            {
+                                bytes = stream.Read(dataResponse, 0, dataResponse.Length);
+                                builder.Append(Encoding.Unicode.GetString(dataResponse, 0, bytes));
+                            }
+                            while (stream.DataAvailable);
+
+                            if (builder.Length != 0)
+                            {
+                                string jsonString = builder.ToString();
+                                obj = JsonConvert.DeserializeObject(jsonString);
+                                break;
+                            }
                         }
+                        //Check error CarPostId
+                        if (!String.IsNullOrEmpty((string)obj.Error))
+                        {
+                            throw new Exception((string)obj.Error);
+                        }
+
+                        JsonData jsonData = new JsonData();
+                        jsonData.carModelSmokeMeters = CreateModelSmokeMeter((string)obj.carModelSmokeMeterName);
+                        jsonData.carPostDataSmokeMeters = CreateDataSmokeMeter((DateTime?)obj.carPostDataSmokeMeterDate);
+                        jsonData.carModelAutoTests = CreateModelAutoTest((string)obj.carModelAutoTestName);
+                        jsonData.carPostDataAutoTests = CreateDataAutoTest((DateTime?)obj.carPostDataAutoTestDate);
                         string json = JsonConvert.SerializeObject(jsonData);
 
-                        if (jsonData.carModelSmokeMeters.Count != 0 && jsonData.carPostDataSmokeMeters.Count != 0
-                            && jsonData.carModelAutoTests.Count != 0 && jsonData.carPostDataAutoTests.Count != 0)
+                        if (jsonData.carModelSmokeMeters.Count != 0 || jsonData.carPostDataSmokeMeters.Count != 0
+                            || jsonData.carModelAutoTests.Count != 0 || jsonData.carPostDataAutoTests.Count != 0)
                         {
                             //Sending data to the server
-                            byte[] data = Encoding.UTF8.GetBytes(json);
+                            var data = Encoding.UTF8.GetBytes(json);
                             stream.Write(data, 0, data.Length);
-
-                            //Rewriting of last taken data in appsetting.json
-                            if (jsonData.carModelSmokeMeters.Count != 0)
-                            {
-                                UpdateAppSetting("DateTimeLastData:SmokeMeterModel", $"{jsonData.carModelSmokeMeters.LastOrDefault()?.MODEL}");
-                            }
-                            if (jsonData.carPostDataSmokeMeters.Count != 0)
-                            {
-                                UpdateAppSetting("DateTimeLastData:SmokeMeterData", $"{jsonData.carPostDataSmokeMeters.LastOrDefault()?.DATA.ToShortDateString()} {jsonData.carPostDataSmokeMeters.LastOrDefault()?.TIME}");
-                            }
-                            if (jsonData.carModelAutoTests.Count != 0)
-                            {
-                                UpdateAppSetting("DateTimeLastData:AutoTestModel", $"{jsonData.carModelAutoTests.LastOrDefault()?.MODEL}");
-                            }
-                            if (jsonData.carPostDataAutoTests.Count != 0)
-                            {
-                                UpdateAppSetting("DateTimeLastData:AutoTestData", $"{jsonData.carPostDataAutoTests.LastOrDefault()?.DATA.ToShortDateString()} {jsonData.carPostDataAutoTests.LastOrDefault()?.TIME}");
-                            }
 
                             Console.WriteLine($"{DateTime.Now} >> Data send successful{Environment.NewLine}");
                         }
@@ -105,21 +114,32 @@ namespace CarPostsClient
             }
         }
 
-        private static List<CarModelSmokeMeter> CreateModelSmokeMeter()
+        private static void SendCarPostId(NetworkStream stream)
+        {
+            var carPostId = _config.GetSection("CarPostId").Value ?? "";
+            dynamic obj = new ExpandoObject();
+            obj.CarPostId = carPostId;
+            string json = JsonConvert.SerializeObject(obj);
+
+            //Sending data to the server
+            var data = Encoding.UTF8.GetBytes(json);
+            stream.Write(data, 0, data.Length);
+        }
+
+        private static List<CarModelSmokeMeter> CreateModelSmokeMeter(string smokeMeterModel)
         {
             List<CarModelSmokeMeter> carModelSmokeMeters = new List<CarModelSmokeMeter>();
             try
             {
+                var provider = IntPtr.Size == 8 ? "Microsoft.ACE.OLEDB.12.0" : "Microsoft.Jet.OLEDB.4.0";
                 var smokeMeterModelPath = _config.GetConnectionString("SmokeMeterModelPath");
-                var smokeMeterModel = _config.GetSection("DateTimeLastData").GetSection("SmokeMeterModel").Value;
-                string connectionString = $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={smokeMeterModelPath};Extended Properties=dBase IV;";
-                DataTable dataTable = new DataTable();
+                string connectionString = $"Provider={provider};Data Source='{smokeMeterModelPath}';Extended Properties=dBase IV;";
 
                 using (OleDbConnection connection = new OleDbConnection(connectionString))
                 {
                     connection.Open();
                     var carModelSmokeMetersv = connection.Query<CarModelSmokeMeter>(
-                        $"SELECT * FROM model").AsQueryable();
+                        $"SELECT * FROM model.dbf").AsQueryable();
                     carModelSmokeMeters = carModelSmokeMetersv
                         .ToList();
                     var indexModel = carModelSmokeMeters.FindIndex(c => c.MODEL == smokeMeterModel);
@@ -138,19 +158,17 @@ namespace CarPostsClient
             return carModelSmokeMeters;
         }
 
-        private static List<CarPostDataSmokeMeter> CreateDataSmokeMeter()
+        private static List<CarPostDataSmokeMeter> CreateDataSmokeMeter(DateTime? smokeMeterDataDateTime)
         {
             List<CarPostDataSmokeMeter> carPostDataSmokeMeters = new List<CarPostDataSmokeMeter>();
             try
             {
+                var provider = IntPtr.Size == 8 ? "Microsoft.ACE.OLEDB.12.0" : "Microsoft.Jet.OLEDB.4.0";
                 var smokeMeterDataPath = _config.GetConnectionString("SmokeMeterDataPath");
-                var smokeMeterDataDateTime = _config.GetSection("DateTimeLastData").GetSection("SmokeMeterData").Value;
-                string connectionString = $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={smokeMeterDataPath};Extended Properties=dBase IV;";
-                DataTable dataTable = new DataTable();
+                string connectionString = $"Provider={provider};Data Source={smokeMeterDataPath};Extended Properties=dBase IV;";
 
                 var lastTime = Convert.ToDateTime(smokeMeterDataDateTime).ToString("HH:mm:ss");
                 var lastDate = Convert.ToDateTime(smokeMeterDataDateTime).ToString("MM/dd/yyyy");
-                var a = new DateTime().Date;
                 using (OleDbConnection connection = new OleDbConnection(connectionString))
                 {
                     connection.Open();
@@ -170,15 +188,14 @@ namespace CarPostsClient
             return carPostDataSmokeMeters;
         }
 
-        private static List<CarModelAutoTest> CreateModelAutoTest()
+        private static List<CarModelAutoTest> CreateModelAutoTest(string autoTestModel)
         {
             List<CarModelAutoTest> carModelAutoTests = new List<CarModelAutoTest>();
             try
             {
+                var provider = IntPtr.Size == 8 ? "Microsoft.ACE.OLEDB.12.0" : "Microsoft.Jet.OLEDB.4.0";
                 var autoTestModelPath = _config.GetConnectionString("AutoTestModelPath");
-                var autoTestModel = _config.GetSection("DateTimeLastData").GetSection("AutoTestModel").Value;
-                string connectionString = $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={autoTestModelPath};Extended Properties=dBase IV;";
-                DataTable dataTable = new DataTable();
+                string connectionString = $"Provider={provider};Data Source={autoTestModelPath};Extended Properties=dBase IV;";
 
                 using (OleDbConnection connection = new OleDbConnection(connectionString))
                 {
@@ -203,15 +220,14 @@ namespace CarPostsClient
             return carModelAutoTests;
         }
 
-        private static List<CarPostDataAutoTest> CreateDataAutoTest()
+        private static List<CarPostDataAutoTest> CreateDataAutoTest(DateTime? autoTestDataDateTime)
         {
             List<CarPostDataAutoTest> carPostDataAutoTests = new List<CarPostDataAutoTest>();
             try
             {
+                var provider = IntPtr.Size == 8 ? "Microsoft.ACE.OLEDB.12.0" : "Microsoft.Jet.OLEDB.4.0";
                 var autoTestDataPath = _config.GetConnectionString("AutoTestDataPath");
-                var autoTestDataDateTime = _config.GetSection("DateTimeLastData").GetSection("AutoTestData").Value;
-                string connectionString = $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={autoTestDataPath};Extended Properties=dBase IV;";
-                DataTable dataTable = new DataTable();
+                string connectionString = $"Provider={provider};Data Source={autoTestDataPath};Extended Properties=dBase IV;";
 
                 var lastTime = Convert.ToDateTime(autoTestDataDateTime).ToString("HH:mm:ss");
                 var lastDate = Convert.ToDateTime(autoTestDataDateTime).ToString("dd.MM.yyyy");
@@ -247,52 +263,6 @@ namespace CarPostsClient
             catch (Exception ex)
             {
                 Console.WriteLine($"{DateTime.Now} >> Error set file configuration >> {ex.Message}{Environment.NewLine}");
-            }
-        }
-
-        private static void UpdateAppSetting<T>(string sectionPathKey, T value)
-        {
-            try
-            {
-                var filePath = Path.Combine(AppContext.BaseDirectory, "appsettings.json");
-                string json = File.ReadAllText(filePath);
-                dynamic jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
-
-                SetValueRecursively(sectionPathKey, jsonObj, value);
-
-                string output = Newtonsoft.Json.JsonConvert.SerializeObject(jsonObj, Newtonsoft.Json.Formatting.Indented);
-                File.WriteAllText(filePath, output);
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"{DateTime.Now} >> Error writing app settings >> {ex.Message}{Environment.NewLine}");
-            }
-        }
-
-        private static void SetValueRecursively<T>(string sectionPathKey, dynamic jsonObj, T value)
-        {
-            try
-            {
-                // split the string at the first ':' character
-                var remainingSections = sectionPathKey.Split(":", 2);
-
-                var currentSection = remainingSections[0];
-                if (remainingSections.Length > 1)
-                {
-                    // continue with the procress, moving down the tree
-                    var nextSection = remainingSections[1];
-                    SetValueRecursively(nextSection, jsonObj[currentSection], value);
-                }
-                else
-                {
-                    // we've got to the end of the tree, set the value
-                    jsonObj[currentSection] = value;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"{DateTime.Now} >> Error search \"{sectionPathKey}\" section >> {ex.Message}{Environment.NewLine}");
             }
         }
     }

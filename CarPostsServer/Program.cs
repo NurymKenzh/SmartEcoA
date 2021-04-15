@@ -8,13 +8,15 @@ namespace CarPostsServer
 {
     class Program
     {
-        const int port = 8888;
+        const int port = 8089;
         static TcpListener listener;
         static void Main(string[] args)
         {
             try
             {
-                listener = new TcpListener(IPAddress.Parse("127.0.0.1"), port);
+                IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Any, port);
+                //listener = new TcpListener(IPAddress.Parse("127.0.0.1"), port);
+                listener = new TcpListener(iPEndPoint);
                 listener.Start();
                 Console.WriteLine("Program started!");
 

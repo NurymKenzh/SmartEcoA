@@ -6,7 +6,6 @@ namespace CarPostsClient.Models
 {
     public class JsonData
     {
-        public int? CarPostId { get; set; }
         public List<CarModelSmokeMeter> carModelSmokeMeters { get; set; }
         public List<CarPostDataSmokeMeter> carPostDataSmokeMeters { get; set; }
         public List<CarModelAutoTest> carModelAutoTests { get; set; }
