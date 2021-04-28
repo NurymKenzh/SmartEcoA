@@ -3736,6 +3736,12 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="StartDate" datatype="html">
+        <source>Start Date</source>
+      </trans-unit>
+      <trans-unit id="EndDate" datatype="html">
+        <source>End Date</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

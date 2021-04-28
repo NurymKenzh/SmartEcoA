@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
+using Newtonsoft.Json.Linq;
 using SmartEcoA.Models;
 
 namespace SmartEcoA.Controllers
@@ -110,6 +112,84 @@ namespace SmartEcoA.Controllers
         private bool CarPostExists(int id)
         {
             return _context.CarPost.Any(e => e.Id == id);
+        }
+
+        public class ReportCarPost
+        {
+            public string CarPostName { get; set; }
+            public string EngineFuel { get; set; }
+            public int AmountMeasurements { get; set; }
+            public int AmountExceedances { get; set; }
+        }
+
+        [HttpPost]
+        [Route("Report")]
+        [Authorize(Roles = "Administrator, Moderator")]
+        public ActionResult<IEnumerable<ReportCarPost>> Report(
+            [FromBody] JObject content)
+        {
+            dynamic datas = content;
+            DateTime? StartDate = datas.startDate;
+            DateTime? EndDate = datas.endDate;
+            List<int> CarPostsId = datas.carPostsId.ToObject<List<int>>();
+
+            List<ReportCarPost> reportCarPosts = new List<ReportCarPost>();
+            if (StartDate != null && EndDate != null && CarPostsId.Count != 0)
+            {
+                foreach (var carPostId in CarPostsId)
+                {
+                    var carPostName = _context.CarPost
+                        .Where(c => c.Id == carPostId)
+                        .FirstOrDefault()?.Name;
+
+                    //gasoline
+                    var carPostDataAutoTest = _context.CarPostDataAutoTest
+                        .Include(d => d.CarModelAutoTest)
+                        .Where(d => d.DateTime >= StartDate && d.DateTime <= EndDate)
+                        .Join(_context.CarModelAutoTest.Where(m => CarPostsId.Contains(m.CarPostId)), d => d.CarModelAutoTestId, m => m.Id, (d, m) => d)
+                        .ToList();
+                    if (carPostDataAutoTest.Count != 0)
+                    {
+                        var amountExceedGasoline = carPostDataAutoTest
+                            .Where(c => c.MIN_TAH > c.CarModelAutoTest.MIN_TAH || c.MAX_TAH > c.CarModelAutoTest.MAX_TAH || c.MIN_CO > c.CarModelAutoTest.MIN_CO || 
+                                c.MAX_CO > c.CarModelAutoTest.MAX_CO || c.MIN_CH > c.CarModelAutoTest.MIN_CH || c.MAX_CH > c.CarModelAutoTest.MAX_CH || 
+                                c.MIN_L > c.CarModelAutoTest.L_MIN || c.MAX_L > c.CarModelAutoTest.L_MAX || c.K_SVOB > c.CarModelAutoTest.K_SVOB ||
+                                c.K_MAX > c.CarModelAutoTest.K_MAX)
+                            .Count();
+
+                        ReportCarPost reportCarPost = new ReportCarPost
+                        {
+                            CarPostName = carPostName,
+                            EngineFuel = "бензин",
+                            AmountMeasurements = carPostDataAutoTest.Count(),
+                            AmountExceedances = amountExceedGasoline
+                        };
+                        reportCarPosts.Add(reportCarPost);
+                    }
+                    //diesel
+                    var carPostDataSmokeMeter = _context.CarPostDataSmokeMeter
+                        .Include(d => d.CarModelSmokeMeter)
+                        .Where(d => d.DateTime >= StartDate && d.DateTime <= EndDate)
+                        .Join(_context.CarModelSmokeMeter.Where(m => CarPostsId.Contains(m.CarPostId)), d => d.CarModelSmokeMeterId, m => m.Id, (d, m) => d)
+                        .ToList();
+                    if (carPostDataSmokeMeter.Count != 0)
+                    {
+                        var amountExceedDiesel = carPostDataSmokeMeter
+                            .Where(c => c.DFree > c.CarModelSmokeMeter.DFreeMark || c.DMax > c.CarModelSmokeMeter.DMaxMark)
+                            .Count();
+
+                        ReportCarPost reportCarPost = new ReportCarPost
+                        {
+                            CarPostName = carPostName,
+                            EngineFuel = "дизель",
+                            AmountMeasurements = carPostDataSmokeMeter.Count(),
+                            AmountExceedances = amountExceedDiesel
+                        };
+                        reportCarPosts.Add(reportCarPost);
+                    }
+                }
+            }
+            return reportCarPosts;
         }
     }
 }

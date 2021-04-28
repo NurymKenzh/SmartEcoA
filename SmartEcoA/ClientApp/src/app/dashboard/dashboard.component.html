@@ -6,7 +6,7 @@
     <div class="grid-container">
       <mat-grid-list cols="10" rowHeight="50px">
 
-        <mat-grid-tile [colspan]="10" [rowspan]="3">
+        <mat-grid-tile [colspan]="10" [rowspan]="5">
           <mat-card class="dashboard-card">
             <mat-card-content class="dashboard-card-content">
               <mat-form-field>
@@ -33,6 +33,29 @@
                   <mat-option value="ThunderforestPioneer">Thunderforest Pioneer</mat-option>
                   <mat-option value="ThunderforestMobileAtlas">Thunderforest Mobile Atlas</mat-option>
                   <mat-option value="ThunderforestNeighbourhood">Thunderforest Neighbourhood</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field class="not-first">
+                <mat-label i18n="@@StartDate">Start Date</mat-label>
+                <input matInput [matDatepicker]="picker1" [formControl]="startDate" (dateChange)="changeDate()">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field class="not-first">
+                <mat-label i18n="@@EndDate">End Date</mat-label>
+                <input matInput [matDatepicker]="picker2" [min]="startDate.value" [formControl]="endDate" (dateChange)="changeDate()">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field class="not-first">
+                <mat-label i18n="@@CarPosts">Car Posts</mat-label>
+                <mat-select multiple (selectionChange)="changeCarPosts($event)">
+                  <mat-option *ngFor="let carPost of selectedCarPosts" [value]="carPost.Id">
+                    {{carPost.Name}}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
             </mat-card-content>

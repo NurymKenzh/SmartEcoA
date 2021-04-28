@@ -1,11 +1,15 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
+import { MatTableDataSource } from '@angular/material/table';
+
 import { CarPost } from '../carposts/carpost.model';
 import { CarPostService } from '../carposts/carpost.service';
 
 import { CarPostAnalytic } from '../carpostanalytics/carpostanalytic.model';
 import { CarPostAnalyticService } from '../carpostanalytics/carpostanalytic.service';
+
+import { Report } from './report.model';
 
 import { OLService } from '../ol/ol.service';
 import Map from 'ol/Map';
@@ -25,10 +29,25 @@ export class DashboardComponent implements AfterViewInit {
   background = new FormControl('OSM');
   carposts: CarPost[];
   carpostanalytic = new CarPostAnalytic();
+  startDate = new FormControl(new Date());
+  endDate = new FormControl(new Date());
+  public allCarPosts;
+  public selectedCarPosts = [];
+  public carPostsId = [];
+  spinner = false;
+  dataCarPosts = new MatTableDataSource<Report>();
 
   constructor(private olservice: OLService,
     private carpostservice: CarPostService,
     public carpostanalyticservice: CarPostAnalyticService) { }
+
+  ngOnInit() {
+    this.carpostservice.get()
+      .subscribe(res => {
+        this.allCarPosts = res as CarPost;
+        this.allCarPosts.forEach(carPost => this.selectedCarPosts.push({ 'Id': carPost.Id, 'Name': carPost.Name, 'Selected': false }));
+      })
+  }
 
   ngAfterViewInit() {
     this.olservice.olmap();
@@ -74,5 +93,24 @@ export class DashboardComponent implements AfterViewInit {
 
   changeBackground(background) {
     this.olservice.changeBackground(background);
+  }
+
+  public get() {
+    this.spinner = true;
+    this.carpostservice.report(this.startDate.value, this.endDate.value, this.carPostsId)
+      .subscribe(res => {
+        this.dataCarPosts.data = res as Report[];
+        console.log(this.dataCarPosts.data);
+        this.spinner = false;
+      })
+  }
+
+  changeDate() {
+    this.get();
+  }
+
+  changeCarPosts(carPosts) {
+    this.carPostsId = carPosts.value;
+    this.get();
   }
 }

@@ -1,5 +1,5 @@
 import { Inject } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams  } from "@angular/common/http";
 
 export class CarPostService {
   private baseUrl: string;
@@ -29,4 +29,13 @@ export class CarPostService {
   delete(Id) {
     return this.http.delete(this.baseUrl + this.apiUrl + Id);
   }
+
+  public report(startDate?, endDate?, carPostsId?) {
+    let body = {
+      startDate: `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}`,
+      endDate: `${endDate.getFullYear()}-${endDate.getMonth() + 1}-${endDate.getDate()} 23:59:59`,
+      carPostsId: carPostsId
+    };
+    return this.http.post(this.baseUrl + this.apiUrl + 'Report', body);
+  } 
 }

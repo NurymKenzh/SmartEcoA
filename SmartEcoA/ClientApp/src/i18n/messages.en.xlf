@@ -1217,6 +1217,14 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="StartDate" datatype="html">
+        <source>StartDate</source>
+        <target state="final">Start date</target>
+      </trans-unit>
+      <trans-unit id="EndDate" datatype="html">
+        <source>EndDate</source>
+        <target state="final">End date</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

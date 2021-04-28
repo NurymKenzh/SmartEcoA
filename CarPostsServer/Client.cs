@@ -29,11 +29,12 @@ namespace CarPostsServer
             {
                 Console.WriteLine($"{DateTime.Now} >> Client {ip} connection{Environment.NewLine}");
                 stream = _tcpClient.GetStream();
-                byte[] data = new byte[256];
+                byte[] data = new byte[_tcpClient.ReceiveBufferSize];
                 string CarPostId = null;
                 int carPostId = -1;
                 while (true)
                 {
+                    data = new byte[_tcpClient.ReceiveBufferSize];
                     StringBuilder builder = new StringBuilder();
                     int bytes = 0;
                     do

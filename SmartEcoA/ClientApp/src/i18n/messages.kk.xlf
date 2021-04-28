@@ -1217,6 +1217,14 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="StartDate" datatype="html">
+        <source>StartDate</source>
+        <target state="final">Басталатын күн</target>
+      </trans-unit>
+      <trans-unit id="EndDate" datatype="html">
+        <source>EndDate</source>
+        <target state="final">Соңғы күн</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
