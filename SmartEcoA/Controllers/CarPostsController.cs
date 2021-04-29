@@ -146,7 +146,7 @@ namespace SmartEcoA.Controllers
                     var carPostDataAutoTest = _context.CarPostDataAutoTest
                         .Include(d => d.CarModelAutoTest)
                         .Where(d => d.DateTime >= StartDate && d.DateTime <= EndDate)
-                        .Join(_context.CarModelAutoTest.Where(m => /*m.CarPostId == carPostId*/CarPostsId.Contains(carPostId)), d => d.CarModelAutoTestId, m => m.Id, (d, m) => d)
+                        .Join(_context.CarModelAutoTest.Where(m => m.CarPostId == carPostId), d => d.CarModelAutoTestId, m => m.Id, (d, m) => d)
                         .ToList();
                     if (carPostDataAutoTest.Count != 0)
                     {
@@ -170,7 +170,7 @@ namespace SmartEcoA.Controllers
                     var carPostDataSmokeMeter = _context.CarPostDataSmokeMeter
                         .Include(d => d.CarModelSmokeMeter)
                         .Where(d => d.DateTime >= StartDate && d.DateTime <= EndDate)
-                        .Join(_context.CarModelSmokeMeter.Where(m => /*m.CarPostId == carPostId*/CarPostsId.Contains(carPostId)), d => d.CarModelSmokeMeterId, m => m.Id, (d, m) => d)
+                        .Join(_context.CarModelSmokeMeter.Where(m => m.CarPostId == carPostId), d => d.CarModelSmokeMeterId, m => m.Id, (d, m) => d)
                         .ToList();
                     if (carPostDataSmokeMeter.Count != 0)
                     {

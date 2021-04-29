@@ -171,6 +171,9 @@ import { CarPostAnalyticCreateComponent } from './carpostanalytics/create.compon
 import { CarPostAnalyticEditComponent } from './carpostanalytics/edit.component';
 import { CarPostAnalyticDetailsComponent } from './carpostanalytics/details.component';
 
+import { MatTableExporterModule } from 'mat-table-exporter';
+import { NgxPrintModule } from 'ngx-print';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/locale/', '.json');
 }
@@ -270,7 +273,7 @@ export function createTranslateLoader(http: HttpClient) {
     CarPostAnalyticDeleteComponent,
     CarPostAnalyticCreateComponent,
     CarPostAnalyticEditComponent,
-    CarPostAnalyticDetailsComponent,
+    CarPostAnalyticDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -370,6 +373,8 @@ export function createTranslateLoader(http: HttpClient) {
     MatProgressSpinnerModule,
     MatDatetimepickerModule,
     MatNativeDatetimeModule,
+    MatTableExporterModule,
+    NgxPrintModule,
     //MatMomentDatetimeModule,
     TranslateModule.forRoot({
       loader: {
