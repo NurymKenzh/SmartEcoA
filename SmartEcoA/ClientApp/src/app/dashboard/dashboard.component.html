@@ -70,7 +70,7 @@
           </mat-card>
         </mat-grid-tile>
 
-        <mat-grid-tile [colspan]="5" [rowspan]="10">
+        <!--<mat-grid-tile [colspan]="5" [rowspan]="10">
           <mat-card class="dashboard-card" style="overflow: auto;">
             <dl>
               <dt i18n="@@CarPost">Car Post</dt>
@@ -80,6 +80,36 @@
               <dt i18n="@@Exceeding">Exceeding count</dt>
               <dd>{{carpostanalytic?.Exceeding}}</dd>
             </dl>
+          </mat-card>
+        </mat-grid-tile>-->
+
+        <mat-grid-tile [colspan]="5" [rowspan]="10">
+          <mat-card class="dashboard-card" style="overflow: auto;">
+            <table mat-table [dataSource]="dataCarPosts" matSort class="table">
+              <tr>
+                <ng-container matColumnDef="CarPostName">
+                  <th i18n="@@CarPost" mat-header-cell *matHeaderCellDef mat-sort-header>Car Post</th>
+                  <td mat-cell *matCellDef="let item">{{item.CarPostName}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="EngineFuel">
+                  <th i18n="@@EngineFuel" mat-header-cell *matHeaderCellDef mat-sort-header>Engine Fuel</th>
+                  <td mat-cell *matCellDef="let item">{{item.EngineFuel}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="AmountMeasurements">
+                  <th i18n="@@AmountMeasurements" mat-header-cell *matHeaderCellDef mat-sort-header>Amount Measurements</th>
+                  <td mat-cell *matCellDef="let item">{{item.AmountMeasurements}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="AmountExceedances">
+                  <th i18n="@@AmountExceedances" mat-header-cell *matHeaderCellDef mat-sort-header>Amount Exceedances</th>
+                  <td mat-cell *matCellDef="let item">{{item.AmountExceedances}}</td>
+                </ng-container>
+              </tr>
+              <tr mat-header-row *matHeaderRowDef="columns"></tr>
+              <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+            </table>
           </mat-card>
         </mat-grid-tile>
 

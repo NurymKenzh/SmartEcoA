@@ -35,6 +35,7 @@ export class DashboardComponent implements AfterViewInit {
   public selectedCarPosts = [];
   public carPostsId = [];
   spinner = false;
+  columns: string[] = ['CarPostName', 'EngineFuel', 'AmountMeasurements', 'AmountExceedances'];
   dataCarPosts = new MatTableDataSource<Report>();
 
   constructor(private olservice: OLService,
@@ -59,23 +60,23 @@ export class DashboardComponent implements AfterViewInit {
     });
     this.olservice.map.addLayer(Layer_select_pasturepol);
 
-    this.olservice.map.on("singleclick", function (evt) {
-      this.carpostanalytic = new CarPostAnalytic();
-      evt.map.forEachFeatureAtPixel(evt.pixel, function (feature, layer) {
-        this.carpostanalytic.CarPost = new CarPost();
-        this.carpostanalytic.CarPost.Name = feature.get('name');
-        this.carpostanalyticservice.get(null, feature.get('id'), new Date().toLocaleString())
-          .subscribe(res => {
-            if (res.length) {
-              this.carpostanalytic = res[0];
-            }
-          },
-            (error => {
-              console.log(error);
-            })
-          );
-      }.bind(this));
-    }.bind(this));
+    //this.olservice.map.on("singleclick", function (evt) {
+    //  this.carpostanalytic = new CarPostAnalytic();
+    //  evt.map.forEachFeatureAtPixel(evt.pixel, function (feature, layer) {
+    //    this.carpostanalytic.CarPost = new CarPost();
+    //    this.carpostanalytic.CarPost.Name = feature.get('name');
+    //    this.carpostanalyticservice.get(null, feature.get('id'), new Date().toLocaleString())
+    //      .subscribe(res => {
+    //        if (res.length) {
+    //          this.carpostanalytic = res[0];
+    //        }
+    //      },
+    //        (error => {
+    //          console.log(error);
+    //        })
+    //      );
+    //  }.bind(this));
+    //}.bind(this));
 
     this.carpostservice.get()
       .subscribe(res => {
