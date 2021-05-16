@@ -25,7 +25,7 @@ namespace SmartEcoA.Controllers
 
         // GET: api/CarPosts
         [HttpGet]
-        [Authorize(Roles = "Administrator, Moderator")]
+        [Authorize(Roles = "Administrator, Moderator, Customer")]
         public async Task<ActionResult<IEnumerable<CarPost>>> GetCarPost()
         {
             return await _context.CarPost.ToListAsync();
@@ -124,7 +124,7 @@ namespace SmartEcoA.Controllers
 
         [HttpPost]
         [Route("Report")]
-        [Authorize(Roles = "Administrator, Moderator")]
+        [Authorize(Roles = "Administrator, Moderator, Customer")]
         public ActionResult<IEnumerable<ReportCarPost>> Report(
             [FromBody] JObject content)
         {
