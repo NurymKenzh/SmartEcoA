@@ -43,3 +43,7 @@
 .custom-scroll-bar::-webkit-scrollbar-thumb{
     background: rgba(0,0,0,.26);
 }
+
+button:not(:first-child) {
+  margin: 0px 0px 0px 8px;
+}
