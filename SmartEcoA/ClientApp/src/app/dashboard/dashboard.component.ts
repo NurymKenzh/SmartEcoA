@@ -149,7 +149,6 @@ export class DashboardComponent implements AfterViewInit {
     this.carpostservice.report(this.startDate.value, this.endDate.value, this.carPostsId)
       .subscribe(res => {
         this.dataCarPosts.data = res as Report[];
-        console.log(this.dataCarPosts.data);
         this.spinner = false;
       })
   }
