@@ -58,5 +58,7 @@ namespace CarPostsClient.Models
                 model = Encoding.GetEncoding(1251).GetString(Encoding.GetEncoding(866).GetBytes(value));
             }
         }
+
+        public int Version { get; set; }
     }
 }
