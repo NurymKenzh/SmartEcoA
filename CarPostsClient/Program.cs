@@ -131,9 +131,9 @@ namespace CarPostsClient
             List<CarModelSmokeMeter> carModelSmokeMeters = new List<CarModelSmokeMeter>();
             try
             {
-                var provider = IntPtr.Size == 8 ? "Microsoft.ACE.OLEDB.12.0" : "Microsoft.Jet.OLEDB.4.0";
-                var smokeMeterModelPath = _config.GetConnectionString("SmokeMeterModelPath");
-                string connectionString = $"Provider={provider};Data Source='{smokeMeterModelPath}';Extended Properties=dBase IV;";
+                var provider = "Microsoft.Jet.OLEDB.4.0";
+                var smokeMeterPath = _config.GetConnectionString("SmokeMeterPath");
+                string connectionString = $"Provider={provider};Data Source='{smokeMeterPath}';Extended Properties=dBase IV;";
 
                 using (OleDbConnection connection = new OleDbConnection(connectionString))
                 {
@@ -163,9 +163,9 @@ namespace CarPostsClient
             List<CarPostDataSmokeMeter> carPostDataSmokeMeters = new List<CarPostDataSmokeMeter>();
             try
             {
-                var provider = IntPtr.Size == 8 ? "Microsoft.ACE.OLEDB.12.0" : "Microsoft.Jet.OLEDB.4.0";
-                var smokeMeterDataPath = _config.GetConnectionString("SmokeMeterDataPath");
-                string connectionString = $"Provider={provider};Data Source={smokeMeterDataPath};Extended Properties=dBase IV;";
+                var provider = "Microsoft.Jet.OLEDB.4.0";
+                var smokeMeterPath = _config.GetConnectionString("SmokeMeterPath");
+                string connectionString = $"Provider={provider};Data Source={smokeMeterPath};Extended Properties=dBase IV;";
 
                 var lastTime = Convert.ToDateTime(smokeMeterDataDateTime).ToString("HH:mm:ss");
                 var lastDate = Convert.ToDateTime(smokeMeterDataDateTime).ToString("MM/dd/yyyy");
@@ -193,23 +193,51 @@ namespace CarPostsClient
             List<CarModelAutoTest> carModelAutoTests = new List<CarModelAutoTest>();
             try
             {
-                var provider = IntPtr.Size == 8 ? "Microsoft.ACE.OLEDB.12.0" : "Microsoft.Jet.OLEDB.4.0";
-                var autoTestModelPath = _config.GetConnectionString("AutoTestModelPath");
-                string connectionString = $"Provider={provider};Data Source={autoTestModelPath};Extended Properties=dBase IV;";
+                //var provider = IntPtr.Size == 8 ? "Microsoft.ACE.OLEDB.12.0" : "Microsoft.Jet.OLEDB.4.0";
+                var provider = "Microsoft.Jet.OLEDB.4.0";
+                var autoTestPath = _config.GetConnectionString("AutoTestPath");
 
-                using (OleDbConnection connection = new OleDbConnection(connectionString))
+                //Version 1 (model.dbf)
+                if(File.Exists(Path.Combine(autoTestPath, "model.dbf")))
                 {
-                    connection.Open();
-                    var carModelAutoTestsv = connection.Query<CarModelAutoTest>(
-                        $"SELECT * FROM model").AsQueryable();
-                    carModelAutoTests = carModelAutoTestsv
-                        .ToList();
-                    var indexModel = carModelAutoTests.FindIndex(c => c.MODEL == autoTestModel);
-                    if (indexModel != -1)
+                    string connectionString = $"Provider={provider};Data Source={autoTestPath};Extended Properties=dBase IV;";
+
+                    using (OleDbConnection connection = new OleDbConnection(connectionString))
                     {
-                        carModelAutoTests = carModelAutoTests.Skip(indexModel + 1).Take(carModelAutoTests.Count - indexModel + 1).ToList();
+                        connection.Open();
+                        var carModelAutoTestsv = connection.Query<CarModelAutoTest>(
+                            $"SELECT * FROM model").AsQueryable();
+                        carModelAutoTests = carModelAutoTestsv
+                            .ToList();
+                        carModelAutoTests.ForEach(c => c.Version = 1);
+                        var indexModel = carModelAutoTests.FindIndex(c => c.MODEL == autoTestModel);
+                        if (indexModel != -1)
+                        {
+                            carModelAutoTests = carModelAutoTests.Skip(indexModel + 1).Take(carModelAutoTests.Count - indexModel + 1).ToList();
+                        }
+                        connection.Close();
                     }
-                    connection.Close();
+                }
+                //Version 2 (models.DB)
+                else
+                {
+                    string connectionString = $"Provider={provider};Data Source={autoTestPath};Persist Security Info=False;Extended Properties=\"Paradox 7.x; HDR=YES\"";
+
+                    using (OleDbConnection connection = new OleDbConnection(connectionString))
+                    {
+                        connection.Open();
+                        var carModelAutoTestsv = connection.Query<CarModelAutoTest>(
+                            $"SELECT * FROM models").AsQueryable();
+                        carModelAutoTests = carModelAutoTestsv
+                            .ToList();
+                        carModelAutoTests.ForEach(c => c.Version = 2);
+                        var indexModel = carModelAutoTests.FindIndex(c => c.MODEL == autoTestModel);
+                        if (indexModel != -1)
+                        {
+                            carModelAutoTests = carModelAutoTests.Skip(indexModel + 1).Take(carModelAutoTests.Count - indexModel + 1).ToList();
+                        }
+                        connection.Close();
+                    }
                 }
             }
             catch (Exception ex)
@@ -225,21 +253,44 @@ namespace CarPostsClient
             List<CarPostDataAutoTest> carPostDataAutoTests = new List<CarPostDataAutoTest>();
             try
             {
-                var provider = IntPtr.Size == 8 ? "Microsoft.ACE.OLEDB.12.0" : "Microsoft.Jet.OLEDB.4.0";
-                var autoTestDataPath = _config.GetConnectionString("AutoTestDataPath");
-                string connectionString = $"Provider={provider};Data Source={autoTestDataPath};Extended Properties=dBase IV;";
-
+                var provider = "Microsoft.Jet.OLEDB.4.0";
+                var autoTestPath = _config.GetConnectionString("AutoTestPath");
                 var lastTime = Convert.ToDateTime(autoTestDataDateTime).ToString("HH:mm:ss");
                 var lastDate = Convert.ToDateTime(autoTestDataDateTime).ToString("dd.MM.yyyy");
-                using (OleDbConnection connection = new OleDbConnection(connectionString))
+
+                //Version 1 (model.dbf)
+                if (File.Exists(Path.Combine(autoTestPath, "data.dbf")))
                 {
-                    connection.Open();
-                    var carPostDataAutoTestsv = connection.Query<CarPostDataAutoTest>(
-                        $"SELECT * FROM data").AsQueryable();
-                    carPostDataAutoTests = carPostDataAutoTestsv
-                        .Where(c => Convert.ToDateTime($"{c.DATA.ToShortDateString()} {c.TIME}") > Convert.ToDateTime(autoTestDataDateTime))
-                        .ToList();
-                    connection.Close();
+                    string connectionString = $"Provider={provider};Data Source={autoTestPath};Extended Properties=dBase IV;";
+
+                    using (OleDbConnection connection = new OleDbConnection(connectionString))
+                    {
+                        connection.Open();
+                        var carPostDataAutoTestsv = connection.Query<CarPostDataAutoTest>(
+                            $"SELECT * FROM data").AsQueryable();
+                        carPostDataAutoTests = carPostDataAutoTestsv
+                            .Where(c => Convert.ToDateTime($"{c.DATA.ToShortDateString()} {c.TIME}") > Convert.ToDateTime(autoTestDataDateTime))
+                            .ToList();
+                        carPostDataAutoTests.ForEach(c => c.Version = 1);
+                        connection.Close();
+                    }
+                }
+                //Version 2 (models.DB)
+                else
+                {
+                    string connectionString = $"Provider={provider};Data Source={autoTestPath};Persist Security Info=False;Extended Properties=\"Paradox 7.x; HDR=YES\"";
+
+                    using (OleDbConnection connection = new OleDbConnection(connectionString))
+                    {
+                        connection.Open();
+                        var carPostDataAutoTestsv = connection.Query<CarPostDataAutoTest>(
+                            $"SELECT * FROM reports").AsQueryable();
+                        carPostDataAutoTests = carPostDataAutoTestsv
+                            .Where(c => Convert.ToDateTime($"{c.DATA.ToShortDateString()} {c.TIME}") > Convert.ToDateTime(autoTestDataDateTime))
+                            .ToList();
+                        carPostDataAutoTests.ForEach(c => c.Version = 2);
+                        connection.Close();
+                    }
                 }
             }
             catch (Exception ex)
