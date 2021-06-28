@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SmartEcoA.Models;
@@ -9,9 +10,10 @@ using SmartEcoA.Models;
 namespace SmartEcoA.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210624133348_CarModelAutoTest_20210624_00")]
+    partial class CarModelAutoTest_20210624_00
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -233,7 +235,7 @@ namespace SmartEcoA.Migrations
                     b.Property<decimal?>("DEL_MIN")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("EngineType")
+                    b.Property<decimal>("EngineType")
                         .HasColumnType("numeric");
 
                     b.Property<decimal?>("K_MAX")
@@ -380,9 +382,6 @@ namespace SmartEcoA.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<decimal?>("ATNUM")
-                        .HasColumnType("numeric");
-
                     b.Property<int?>("CarModelAutoTestId")
                         .HasColumnType("integer");
 
@@ -428,9 +427,6 @@ namespace SmartEcoA.Migrations
                     b.Property<decimal?>("MAX_NO")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("MAX_NOx")
-                        .HasColumnType("numeric");
-
                     b.Property<decimal?>("MAX_O2")
                         .HasColumnType("numeric");
 
@@ -452,9 +448,6 @@ namespace SmartEcoA.Migrations
                     b.Property<decimal?>("MIN_NO")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("MIN_NOx")
-                        .HasColumnType("numeric");
-
                     b.Property<decimal?>("MIN_O2")
                         .HasColumnType("numeric");
 
@@ -463,9 +456,6 @@ namespace SmartEcoA.Migrations
 
                     b.Property<string>("Number")
                         .HasColumnType("text");
-
-                    b.Property<int?>("Version")
-                        .HasColumnType("integer");
 
                     b.Property<decimal?>("ZAV_NOMER")
                         .HasColumnType("numeric");

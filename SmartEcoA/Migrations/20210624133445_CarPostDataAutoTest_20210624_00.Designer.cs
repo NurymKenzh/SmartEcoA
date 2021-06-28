@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SmartEcoA.Models;
@@ -9,9 +10,10 @@ using SmartEcoA.Models;
 namespace SmartEcoA.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210624133445_CarPostDataAutoTest_20210624_00")]
+    partial class CarPostDataAutoTest_20210624_00
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -233,7 +235,7 @@ namespace SmartEcoA.Migrations
                     b.Property<decimal?>("DEL_MIN")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("EngineType")
+                    b.Property<decimal>("EngineType")
                         .HasColumnType("numeric");
 
                     b.Property<decimal?>("K_MAX")

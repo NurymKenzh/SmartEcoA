@@ -26,7 +26,8 @@ namespace CarPostsClient.Models
             set
             {
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                nomer = Encoding.GetEncoding(1251).GetString(Encoding.GetEncoding(866).GetBytes(value));
+                //nomer = Encoding.GetEncoding(1251).GetString(Encoding.GetEncoding(866).GetBytes(value)); //for provider "Microsoft.ACE.OLEDB.12.0"
+                nomer = Encoding.GetEncoding(1251).GetString(Encoding.GetEncoding(1252).GetBytes(value)); // for  provider "Microsoft.Jet.OLEDB.4.0"
             }
         }
         public string MODEL
@@ -38,7 +39,8 @@ namespace CarPostsClient.Models
             set
             {
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                model = Encoding.GetEncoding(1251).GetString(Encoding.GetEncoding(866).GetBytes(value));
+                //model = Encoding.GetEncoding(1251).GetString(Encoding.GetEncoding(866).GetBytes(value)); //for provider "Microsoft.ACE.OLEDB.12.0"
+                model = Encoding.GetEncoding(1251).GetString(Encoding.GetEncoding(1252).GetBytes(value)); // for  provider "Microsoft.Jet.OLEDB.4.0"
             }
         }
     }

@@ -7,17 +7,11 @@ namespace CarPostsServer.ClientModels
     public class ClientJsonData
     {
         //public int? CarPostId { get; set; }
-        public List<ClientCarModelSmokeMeter> carModelSmokeMeters { get; set; }
-        public List<ClientCarPostDataSmokeMeter> carPostDataSmokeMeters { get; set; }
-        public List<ClientCarModelAutoTest> carModelAutoTests { get; set; }
-        public List<ClientCarPostDataAutoTest> carPostDataAutoTests { get; set; }
-
-        public ClientJsonData()
-        {
-            carPostDataSmokeMeters = new List<ClientCarPostDataSmokeMeter>();
-            carPostDataAutoTests = new List<ClientCarPostDataAutoTest>();
-            carModelSmokeMeters = new List<ClientCarModelSmokeMeter>();
-            carModelAutoTests = new List<ClientCarModelAutoTest>();
-        }
+        public ClientCarModelSmokeMeter carModelSmokeMeter { get; set; }
+        public ClientCarPostDataSmokeMeter carPostDataSmokeMeter { get; set; }
+        public ClientCarModelAutoTestV1 carModelAutoTestV1 { get; set; }
+        public ClientCarPostDataAutoTestV1 carPostDataAutoTestV1 { get; set; }
+        public ClientCarModelAutoTestV2 carModelAutoTestV2 { get; set; }
+        public ClientCarPostDataAutoTestV2 carPostDataAutoTestV2 { get; set; }
     }
 }

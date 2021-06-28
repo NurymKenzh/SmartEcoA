@@ -34,5 +34,10 @@ namespace CarPostsServer.ServerModels
         public decimal? MIN_NO { get; set; }
         public decimal? MAX_NO { get; set; }
         public int? CarModelAutoTestId { get; set; }
+        public int Version { get; set; }
+
+        public decimal? ATNUM { get; set; }
+        public decimal? MIN_NOx { get; set; }
+        public decimal? MAX_NOx { get; set; }
     }
 }

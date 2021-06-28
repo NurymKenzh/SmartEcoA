@@ -36,7 +36,7 @@ export class DashboardComponent implements AfterViewInit {
   public selectedCarPosts = [];
   public carPostsId = [];
   spinner = false;
-  columns: string[] = ['CarPostName', 'EngineFuel', 'AmountMeasurements', 'AmountExceedances'];
+  columns: string[] = ['CarPostName', 'EngineFuel', 'AmountMeasurements', 'AmountExceedances', 'Version'];
   dataCarPosts = new MatTableDataSource<Report>();
 
   constructor(private olservice: OLService,

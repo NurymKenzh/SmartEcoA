@@ -16,7 +16,7 @@ namespace SmartEcoA.Models
         // DVIG
         // Тип двигателя
         // 0 - бензиновый, 1 - дизельный
-        public decimal EngineType { get; set; }
+        public decimal? EngineType { get; set; }
 
         // Порог ограничения выхлопа
         // бензиновый
@@ -70,6 +70,14 @@ namespace SmartEcoA.Models
         // K_MAX
         // Показатель ослабления светового потока K при максимальной частоте вращения, 1/м
         public decimal? K_MAX { get; set; }
+
+        public decimal? MIN_CO2 { get; set; }
+        public decimal? MIN_O2 { get; set; }
+        public decimal? MIN_NOx { get; set; }
+        public decimal? MAX_CO2 { get; set; }
+        public decimal? MAX_O2 { get; set; }
+        public decimal? MAX_NOx { get; set; }
+        public int? Version { get; set; }
 
         public int CarPostId { get; set; }
 

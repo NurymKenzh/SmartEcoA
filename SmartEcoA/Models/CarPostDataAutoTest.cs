@@ -111,6 +111,11 @@ namespace SmartEcoA.Models
         // NO при повышенных оборотах
         public decimal? MAX_NO { get; set; }
 
+        public decimal? ATNUM { get; set; }
+        public decimal? MIN_NOx { get; set; }
+        public decimal? MAX_NOx { get; set; }
+        public int? Version { get; set; }
+
         public int? CarModelAutoTestId { get; set; }
 
         public CarModelAutoTest CarModelAutoTest { get; set; }
