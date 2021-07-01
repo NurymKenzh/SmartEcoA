@@ -54,6 +54,10 @@ export class CarPostDataAutoTestEditComponent implements OnInit {
       K_MAX: new FormControl(''),
       MIN_NO: new FormControl(''),
       MAX_NO: new FormControl(''),
+      ATNUM: new FormControl(''),
+      MIN_NOx: new FormControl(''),
+      MAX_NOx: new FormControl(''),
+      Version: new FormControl(''),
       CarPostId: new FormControl('', [Validators.required]),
       CarModelAutoTestId: new FormControl('', [Validators.required]),
     });
@@ -123,6 +127,10 @@ export class CarPostDataAutoTestEditComponent implements OnInit {
         K_MAX: carpostdataautotestFormValue.K_MAX,
         MIN_NO: carpostdataautotestFormValue.MIN_NO,
         MAX_NO: carpostdataautotestFormValue.MAX_NO,
+        ATNUM: carpostdataautotestFormValue.ATNUM,
+        MIN_NOx: carpostdataautotestFormValue.MIN_NOx,
+        MAX_NOx: carpostdataautotestFormValue.MAX_NOx,
+        Version: carpostdataautotestFormValue.Version,
         CarModelAutoTestId: carpostdataautotestFormValue.CarModelAutoTestId,
         CarModelAutoTest: null,
       }

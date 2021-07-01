@@ -43,6 +43,13 @@ export class CarModelAutoTestEditComponent implements OnInit {
       L_MAX: new FormControl(''),
       K_SVOB: new FormControl(''),
       K_MAX: new FormControl(''),
+      MIN_CO2: new FormControl(''),
+      MIN_O2: new FormControl(''),
+      MIN_NOx: new FormControl(''),
+      MAX_CO2: new FormControl(''),
+      MAX_O2: new FormControl(''),
+      MAX_NOx: new FormControl(''),
+      Version: new FormControl(''),
       CarPostId: new FormControl('', [Validators.required]),
     });
     const id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -83,6 +90,13 @@ export class CarModelAutoTestEditComponent implements OnInit {
         L_MAX: carmodelautotestFormValue.L_MAX,
         K_SVOB: carmodelautotestFormValue.K_SVOB,
         K_MAX: carmodelautotestFormValue.K_MAX,
+        MIN_CO2: carmodelautotestFormValue.MIN_CO2,
+        MIN_O2: carmodelautotestFormValue.MIN_O2,
+        MIN_NOx: carmodelautotestFormValue.MIN_NOx,
+        MAX_CO2: carmodelautotestFormValue.MAX_CO2,
+        MAX_O2: carmodelautotestFormValue.MAX_O2,
+        MAX_NOx: carmodelautotestFormValue.MAX_NOx,
+        Version: carmodelautotestFormValue.Version,
         CarPostId: carmodelautotestFormValue.CarPostId,
         CarPost: null,
       }

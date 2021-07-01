@@ -27,6 +27,10 @@ export class CarPostDataAutoTest {
   K_MAX: number;
   MIN_NO: number;
   MAX_NO: number;
+  ATNUM: number;
+  MIN_NOx: number;
+  MAX_NOx: number;
+  Version: number;
   CarModelAutoTestId: bigint;
   CarModelAutoTest: CarModelAutoTest;
 }

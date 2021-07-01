@@ -7,6 +7,8 @@
       <dt i18n="@@EngineType">EngineType</dt>
       <dd i18n="@@Petrol" *ngIf="carmodelautotest?.EngineType==0">Petrol</dd>
       <dd i18n="@@Diesel" *ngIf="carmodelautotest?.EngineType==1">Diesel</dd>
+      <dt i18n="@@Version" *ngIf="carmodelautotest?.EngineType==0">Version</dt>
+      <dd *ngIf="carmodelautotest?.EngineType==0">{{carmodelautotest?.Version}}</dd>
       <dt i18n="@@MIN_TAH" *ngIf="carmodelautotest?.EngineType==0">MIN_TAH</dt>
       <dd *ngIf="carmodelautotest?.EngineType==0">{{carmodelautotest?.MIN_TAH}}</dd>
       <dt i18n="@@DEL_MIN" *ngIf="carmodelautotest?.EngineType==0">DEL_MIN</dt>
@@ -27,6 +29,18 @@
       <dd *ngIf="carmodelautotest?.EngineType==0">{{carmodelautotest?.L_MIN}}</dd>
       <dt i18n="@@L_MAX" *ngIf="carmodelautotest?.EngineType==0">L_MAX</dt>
       <dd *ngIf="carmodelautotest?.EngineType==0">{{carmodelautotest?.L_MAX}}</dd>
+      <dt i18n="@@MIN_CO2" *ngIf="carmodelautotest?.EngineType==0">MIN_CO2</dt>
+      <dd *ngIf="carmodelautotest?.EngineType==0">{{carmodelautotest?.MIN_CO2}}</dd>
+      <dt i18n="@@MIN_O2" *ngIf="carmodelautotest?.EngineType==0">MIN_O2</dt>
+      <dd *ngIf="carmodelautotest?.EngineType==0">{{carmodelautotest?.MIN_O2}}</dd>
+      <dt i18n="@@MIN_NOx" *ngIf="carmodelautotest?.EngineType==0">MIN_NOx</dt>
+      <dd *ngIf="carmodelautotest?.EngineType==0">{{carmodelautotest?.MIN_NOx}}</dd>
+      <dt i18n="@@MAX_CO2" *ngIf="carmodelautotest?.EngineType==0">MAX_CO2</dt>
+      <dd *ngIf="carmodelautotest?.EngineType==0">{{carmodelautotest?.MAX_CO2}}</dd>
+      <dt i18n="@@MAX_O2" *ngIf="carmodelautotest?.EngineType==0">MAX_O2</dt>
+      <dd *ngIf="carmodelautotest?.EngineType==0">{{carmodelautotest?.MAX_O2}}</dd>
+      <dt i18n="@@MAX_NOx" *ngIf="carmodelautotest?.EngineType==0">MAX_NOx</dt>
+      <dd *ngIf="carmodelautotest?.EngineType==0">{{carmodelautotest?.MAX_NOx}}</dd>
       <dt i18n="@@K_SVOB" *ngIf="carmodelautotest?.EngineType==1">K_SVOB</dt>
       <dd *ngIf="carmodelautotest?.EngineType==1">{{carmodelautotest?.K_SVOB}}</dd>
       <dt i18n="@@K_MAX" *ngIf="carmodelautotest?.EngineType==1">K_MAX</dt>

@@ -111,9 +111,18 @@ namespace SmartEcoA.Models
         // NO при повышенных оборотах
         public decimal? MAX_NO { get; set; }
 
+
         public decimal? ATNUM { get; set; }
+
+        // MIN_NOx
+        // NOx при минимальных оборотах, ppm
         public decimal? MIN_NOx { get; set; }
+
+        // MAX_NOx
+        // NOx при повышенных оборотах, ppm
         public decimal? MAX_NOx { get; set; }
+
+        // Версия приложения AutoTest
         public int? Version { get; set; }
 
         public int? CarModelAutoTestId { get; set; }
