@@ -1,5 +1,17 @@
 <mat-card>
-  <mat-card-title i18n="@@PostDataAvgDetails">Post Data Averaged details</mat-card-title>
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a> /
+  <a i18n-matTooltip="@@Posts" class="btn" [routerLink]="['/administration/posts']" matTooltip="Monitoring Posts">
+    <span i18n="@@Posts">Monitoring Posts</span>
+  </a> /
+  <a i18n-matTooltip="@@PostDataAvgs" [routerLink]="['/postdataavgs']" class="btn" matTooltip="Post Data Averaged">
+    <span i18n="@@PostDataAvgs">Post Data Averaged</span>
+  </a> /
+  <a i18n-matTooltip="@@PostDataAvgDetails" class="btn" matTooltip="Post Data Averaged details">
+    <span i18n="@@PostDataAvgDetails">Post Data Averaged details</span>
+  </a>
+  <br />
   <mat-card-content>
     <dl>
       <dt i18n="@@DateTime">Date and Time</dt>

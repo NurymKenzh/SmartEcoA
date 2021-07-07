@@ -1,5 +1,17 @@
 <mat-card>
-  <mat-card-title i18n="@@EditCarPostDataSmokeMeter">Edit Car Post Data (Smoke Meter)</mat-card-title>
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a> /
+  <a i18n-matTooltip="@@CarPosts" class="btn" [routerLink]="['/administration/carposts']" matTooltip="Car Posts">
+    <span i18n="@@CarPosts">Car Posts</span>
+  </a> /
+  <a i18n-matTooltip="@@CarPostDataSmokeMeters" [routerLink]="['/carpostdatasmokemeters']" class="btn" matTooltip="Car Post Data (Smoke Meter)">
+    <span i18n="@@CarPostDataSmokeMeters">Car Post Data (Smoke Meter)</span>
+  </a> /
+  <a i18n-matTooltip="@@EditCarPostDataSmokeMeter" class="btn" matTooltip="Edit Car Post Data (Smoke Meter)">
+    <span i18n="@@EditCarPostDataSmokeMeter">Edit Car Post Data (Smoke Meter)</span>
+  </a>
+  <br />
   <form [formGroup]="carpostdatasmokemeterForm" autocomplete="off" novalidate (ngSubmit)="save(carpostdatasmokemeterForm.value)">
     <mat-card-content>
       <mat-form-field>

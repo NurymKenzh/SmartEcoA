@@ -1,5 +1,17 @@
 <mat-card>
-  <mat-card-title i18n="@@PostDataDividedDetails">Post Data Divided details</mat-card-title>
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a> /
+  <a i18n-matTooltip="@@Posts" class="btn" [routerLink]="['/administration/posts']" matTooltip="Monitoring Posts">
+    <span i18n="@@Posts">Monitoring Posts</span>
+  </a> /
+  <a i18n-matTooltip="@@PostDataDivideds" [routerLink]="['/postdatadivideds']" class="btn" matTooltip="Post Data Divided">
+    <span i18n="@@PostDataDivideds">Post Data Divided</span>
+  </a> /
+  <a i18n-matTooltip="@@PostDataDividedDetails" class="btn" matTooltip="Post Data Divided details">
+    <span i18n="@@PostDataDividedDetails">Post Data Divided details</span>
+  </a>
+  <br />
   <mat-card-content>
     <dl>
       <dt i18n="@@DateTime">DateTime</dt>

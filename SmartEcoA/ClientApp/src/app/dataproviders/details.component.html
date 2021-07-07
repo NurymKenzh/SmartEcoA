@@ -1,5 +1,17 @@
 <mat-card>
-  <mat-card-title i18n="@@DataProviderDetails">Data Provider details</mat-card-title>
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a> /
+  <a i18n-matTooltip="@@Directories" class="btn" [routerLink]="['/administration/directories']" matTooltip="Directories">
+    <span i18n="@@Directories">Directories</span>
+  </a> /
+  <a i18n-matTooltip="@@DataProviders" [routerLink]="['/dataproviders']" class="btn" matTooltip="Data Providers">
+    <span i18n="@@DataProviders">Data Providers</span>
+  </a> /
+  <a i18n-matTooltip="@@DataProviderDetails" class="btn" matTooltip="Data Provider details">
+    <span i18n="@@DataProviderDetails">Data Provider details</span>
+  </a>
+  <br />
   <mat-card-content>
     <dl>
       <dt i18n="@@Name">Name</dt>

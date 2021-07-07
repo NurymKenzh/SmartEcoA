@@ -1,5 +1,17 @@
 <mat-card>
-  <mat-card-title i18n="@@EditDataProvider">Edit Data Provider</mat-card-title>
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a> /
+  <a i18n-matTooltip="@@Directories" class="btn" [routerLink]="['/administration/directories']" matTooltip="Directories">
+    <span i18n="@@Directories">Directories</span>
+  </a> /
+  <a i18n-matTooltip="@@DataProviders" [routerLink]="['/dataproviders']" class="btn" matTooltip="Data Providers">
+    <span i18n="@@DataProviders">Data Providers</span>
+  </a> /
+  <a i18n-matTooltip="@@EditDataProvider" class="btn" matTooltip="Edit Data Provider">
+    <span i18n="@@EditDataProvider">Edit Data Provider</span>
+  </a>
+  <br />
   <form [formGroup]="dataproviderForm" autocomplete="off" novalidate (ngSubmit)="save(dataproviderForm.value)">
     <mat-card-content>
       <mat-form-field>

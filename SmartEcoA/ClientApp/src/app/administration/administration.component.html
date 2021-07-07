@@ -1,58 +1,20 @@
-<h1 i18n="@@Administration"></h1>
+<div class="jumbtron">
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a>
+  <br />
 
-<mat-tab-group>
-  <mat-tab i18n-label="@@Users" label="Users" *ngIf="userService.allowedRole(['Administrator'])">
-    <a i18n-matTooltip="@@Users" class="btn" [routerLink]="['/users']" matTooltip="Users">
-      <i class="material-icons">people_alt</i>
-      <span i18n="@@Users">Users</span>
-    </a>
-  </mat-tab>
-  <mat-tab i18n-label="@@Directories" label="Directories">
-    <a i18n-matTooltip="@@PollutionEnvironments" class="btn" [routerLink]="['/pollutionenvironments']" matTooltip="Pollution Environments">
-      <span i18n="@@PollutionEnvironments">Pollution Environments</span>
-    </a>
-    <a i18n-matTooltip="@@MeasuredParameters" class="btn" [routerLink]="['/measuredparameters']" matTooltip="Measured Parameters">
-      <span i18n="@@MeasuredParameters">Measured Parameters</span>
-    </a>
-    <a i18n-matTooltip="@@DataProviders" class="btn" [routerLink]="['/dataproviders']" matTooltip="Data Providers">
-      <span i18n="@@DataProviders">Data Providers</span>
-    </a>
-    <a i18n-matTooltip="@@Projects" class="btn" [routerLink]="['/projects']" matTooltip="Projects">
-      <span i18n="@@Projects">Projects</span>
-    </a>
-  </mat-tab>
-  <mat-tab i18n-label="@@Posts" label="Monitoring Posts">
-    <a i18n-matTooltip="@@Posts" class="btn" [routerLink]="['/posts']" matTooltip="Monitoring Posts">
-      <span i18n="@@Posts">Monitoring Posts</span>
-    </a>
-    <a i18n-matTooltip="@@PostDatas" class="btn" [routerLink]="['/postdatas']" matTooltip="Posts Data">
-      <span i18n="@@PostDatas">Posts Data</span>
-    </a>
-    <a i18n-matTooltip="@@PostDataDivideds" class="btn" [routerLink]="['/postdatadivideds']" matTooltip="Post Data Divided">
-      <span i18n="@@PostDataDivideds">Post Data Divided</span>
-    </a>
-    <a i18n-matTooltip="@@PostDataAvgs" class="btn" [routerLink]="['/postdataavgs']" matTooltip="Post Data Averaged">
-      <span i18n="@@PostDataAvgs">Post Data Averaged</span>
-    </a>
-  </mat-tab>
-  <mat-tab i18n-label="@@CarPosts" label="Car Posts">
-    <a i18n-matTooltip="@@CarPosts" class="btn" [routerLink]="['/carposts']" matTooltip="Car Posts">
-      <span i18n="@@CarPosts">Car Posts</span>
-    </a>
-    <a i18n-matTooltip="@@CarModelSmokeMeters" class="btn" [routerLink]="['/carmodelsmokemeters']" matTooltip="Car Models (Smoke Meter)">
-      <span i18n="@@CarModelSmokeMeters">Car Models (Smoke Meter)</span>
-    </a>
-    <a i18n-matTooltip="@@CarPostDataSmokeMeters" class="btn" [routerLink]="['/carpostdatasmokemeters']" matTooltip="Car Posts Data (Smoke Meter)">
-      <span i18n="@@CarPostDataSmokeMeters">Car Posts Data (Smoke Meter)</span>
-    </a>
-    <a i18n-matTooltip="@@CarModelAutoTests" class="btn" [routerLink]="['/carmodelautotests']" matTooltip="Car Models (Auto Test)">
-      <span i18n="@@CarModelAutoTests">Car Models (Auto Test)</span>
-    </a>
-    <a i18n-matTooltip="@@CarPostDataAutoTests" class="btn" [routerLink]="['/carpostdataautotests']" matTooltip="Car Posts Data (Auto Test)">
-      <span i18n="@@CarPostDataAutoTests">Car Posts Data (Auto Test)</span>
-    </a>
-    <a i18n-matTooltip="@@CarPostAnalytics" class="btn" [routerLink]="['/carpostanalytics']" matTooltip="Car Post Analytics">
-      <span i18n="@@CarPostAnalytics">Car Post Analytics</span>
-    </a>
-  </mat-tab>
-</mat-tab-group>
+  <a i18n-matTooltip="@@Users" class="btn" [routerLink]="['/users']" matTooltip="Users" *ngIf="userService.allowedRole(['Administrator'])">
+    <i class="material-icons">people_alt</i>
+    <span i18n="@@Users">Users</span>
+  </a>
+  <a i18n-matTooltip="@@Directories" class="btn" [routerLink]="['/administration/directories']" matTooltip="Directories">
+    <span i18n="@@Directories">Directories</span>
+  </a>
+  <a i18n-matTooltip="@@Posts" class="btn" [routerLink]="['/administration/posts']" matTooltip="Monitoring Posts">
+    <span i18n="@@Posts">Monitoring Posts</span>
+  </a>
+  <a i18n-matTooltip="@@CarPosts" class="btn" [routerLink]="['/administration/carposts']" matTooltip="Car Posts">
+    <span i18n="@@CarPosts">Car Posts</span>
+  </a>
+</div>

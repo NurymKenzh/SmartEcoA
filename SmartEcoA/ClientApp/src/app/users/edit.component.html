@@ -1,5 +1,14 @@
 <mat-card>
-  <mat-card-title i18n="@@EditUser">Edit user</mat-card-title>
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a> /
+  <a i18n-matTooltip="@@Users" class="btn" [routerLink]="['/users']" matTooltip="Users">
+    <span i18n="@@Users">Users</span>
+  </a> /
+  <a i18n-matTooltip="@@EditUser" class="btn" matTooltip="EditUser">
+    <span i18n="@@EditUser">Edit user</span>
+  </a>
+  <br />
   <form [formGroup]="userForm" autocomplete="off" novalidate (ngSubmit)="save(userForm.getRawValue())">
     <mat-card-content>
       <mat-form-field>

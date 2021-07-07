@@ -1,4 +1,10 @@
 <div class="jumbtron">
-  <h1 i18n="@@Users">Users</h1>
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a> /
+  <a i18n-matTooltip="@@Users" class="btn" matTooltip="Users">
+    <span i18n="@@Users">Users</span>
+  </a>
+  <br />
   <users></users>
 </div>
