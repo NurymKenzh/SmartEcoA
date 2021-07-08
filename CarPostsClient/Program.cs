@@ -358,7 +358,12 @@ namespace CarPostsClient
                     {
                         carPostDataAutoTest.Version = 2;
                         var carModeAutoTest = connection.Query<CarModelAutoTestV2>(
-                        $"SELECT * FROM models as m WHERE m.Index = {carPostDataAutoTest.Model}").FirstOrDefault();
+                            $"SELECT * FROM models as m WHERE m.Index = {carPostDataAutoTest.Model}").FirstOrDefault();
+                        if (carModeAutoTest == null && carPostDataAutoTest.Model == 0)
+                        {
+                            carModeAutoTest = connection.Query<CarModelAutoTestV2>(
+                            $"SELECT * FROM models as m WHERE m.Index is null").LastOrDefault();
+                        }
                         carPostDataAutoTest.ModelName = carModeAutoTest.Name;
                     }
                     connection.Close();
