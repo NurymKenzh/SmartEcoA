@@ -1,4 +1,13 @@
 <div class="jumbtron">
-  <h1 i18n="@@MeasuredParameters">Measured Parameters</h1>
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a> /
+  <a i18n-matTooltip="@@Directories" class="btn" [routerLink]="['/administration/directories']" matTooltip="Directories">
+    <span i18n="@@Directories">Directories</span>
+  </a> /
+  <a i18n-matTooltip="@@MeasuredParameters" class="btn" matTooltip="Measured Parameters">
+    <span i18n="@@MeasuredParameters">Measured Parameters</span>
+  </a>
+  <br />
   <measuredparameters></measuredparameters>
 </div>

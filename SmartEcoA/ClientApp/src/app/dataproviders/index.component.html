@@ -1,4 +1,13 @@
 <div class="jumbtron">
-  <h1 i18n="@@DataProviders">Data Providers</h1>
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a> /
+  <a i18n-matTooltip="@@Directories" class="btn" [routerLink]="['/administration/directories']" matTooltip="Directories">
+    <span i18n="@@Directories">Directories</span>
+  </a> /
+  <a i18n-matTooltip="@@DataProviders" class="btn" matTooltip="Data Providers">
+    <span i18n="@@DataProviders">Data Providers</span>
+  </a>
+  <br />
   <dataproviders></dataproviders>
 </div>

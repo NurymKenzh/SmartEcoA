@@ -37,6 +37,9 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\administration\administration.component.ts" />
+    <None Remove="ClientApp\src\app\administration\carposts.component.ts" />
+    <None Remove="ClientApp\src\app\administration\directories.component.ts" />
+    <None Remove="ClientApp\src\app\administration\posts.component.ts" />
     <None Remove="ClientApp\src\app\authorize\authorize.guard.ts" />
     <None Remove="ClientApp\src\app\authorize\authorize.interceptor.ts" />
     <None Remove="ClientApp\src\app\carmodelautotests\carmodelautotest.model.ts" />
@@ -161,6 +164,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\administration\carposts.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\administration\posts.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\administration\directories.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\administration\administration.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\authorize\authorize.guard.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\authorize\authorize.interceptor.ts" />

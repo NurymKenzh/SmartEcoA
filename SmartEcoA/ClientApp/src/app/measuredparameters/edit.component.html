@@ -1,5 +1,17 @@
 <mat-card>
-  <mat-card-title i18n="@@EditMeasuredParameter">Edit Measured Parameter</mat-card-title>
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a> /
+  <a i18n-matTooltip="@@Directories" class="btn" [routerLink]="['/administration/directories']" matTooltip="Directories">
+    <span i18n="@@Directories">Directories</span>
+  </a> /
+  <a i18n-matTooltip="@@MeasuredParameters" [routerLink]="['/measuredparameters']" class="btn" matTooltip="Measured Parameters">
+    <span i18n="@@MeasuredParameters">Measured Parameters</span>
+  </a> /
+  <a i18n-matTooltip="@@EditMeasuredParameter" class="btn" matTooltip="Edit Measured Parameter">
+    <span i18n="@@EditMeasuredParameter">Edit Measured Parameter</span>
+  </a>
+  <br />
   <form [formGroup]="measuredparameterForm" autocomplete="off" novalidate (ngSubmit)="save(measuredparameterForm.value)">
     <mat-card-content>
       <mat-form-field>

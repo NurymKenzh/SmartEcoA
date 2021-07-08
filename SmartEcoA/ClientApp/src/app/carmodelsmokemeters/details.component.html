@@ -1,5 +1,17 @@
 <mat-card>
-  <mat-card-title i18n="@@CarModelSmokeMeterDetails">Car Model (Smoke Meter) details</mat-card-title>
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a> /
+  <a i18n-matTooltip="@@CarPosts" class="btn" [routerLink]="['/administration/carposts']" matTooltip="Car Posts">
+    <span i18n="@@CarPosts">Car Posts</span>
+  </a> /
+  <a i18n-matTooltip="@@CarModelSmokeMeters" [routerLink]="['/carmodelsmokemeters']" class="btn" matTooltip="Car Models (Smoke Meter)">
+    <span i18n="@@CarModelSmokeMeters">Car Models (Smoke Meter)</span>
+  </a> /
+  <a i18n-matTooltip="@@CarModelSmokeMeterDetails" class="btn" matTooltip="Car Model (Smoke Meter) details">
+    <span i18n="@@CarModelSmokeMeterDetails">Car Model (Smoke Meter) details</span>
+  </a>
+  <br />
   <mat-card-content>
     <dl>
       <dt i18n="@@Name">Name</dt>

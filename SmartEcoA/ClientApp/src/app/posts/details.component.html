@@ -2,7 +2,19 @@
 <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
 
 <mat-card>
-  <mat-card-title i18n="@@PostDetails">Monitoring Post details</mat-card-title>
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a> /
+  <a i18n-matTooltip="@@Posts" class="btn" [routerLink]="['/administration/posts']" matTooltip="Monitoring Posts">
+    <span i18n="@@Posts">Monitoring Posts</span>
+  </a> /
+  <a i18n-matTooltip="@@Posts" [routerLink]="['/posts']" class="btn" matTooltip="Monitoring Posts">
+    <span i18n="@@Posts">Monitoring Posts</span>
+  </a> /
+  <a i18n-matTooltip="@@PostDetails" class="btn" matTooltip="Monitoring Post details">
+    <span i18n="@@PostDetails">Monitoring Post details</span>
+  </a>
+  <br />
   <mat-card-content class="row">
     <div class="column">
       <dl>

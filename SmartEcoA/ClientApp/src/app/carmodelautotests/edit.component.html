@@ -1,5 +1,17 @@
 <mat-card>
-  <mat-card-title i18n="@@EditCarModelAutoTest">Edit Car Model (Auto Test)</mat-card-title>
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a> /
+  <a i18n-matTooltip="@@CarPosts" class="btn" [routerLink]="['/administration/carposts']" matTooltip="Car Posts">
+    <span i18n="@@CarPosts">Car Posts</span>
+  </a> /
+  <a i18n-matTooltip="@@CarModelAutoTests" [routerLink]="['/carmodelautotests']" class="btn" matTooltip="Car Models (Auto Test)">
+    <span i18n="@@CarModelAutoTests">Car Models (Auto Test)</span>
+  </a> /
+  <a i18n-matTooltip="@@EditCarModelAutoTest" class="btn" matTooltip="Edit Car Model (Auto Test)">
+    <span i18n="@@EditCarModelAutoTest">Edit Car Model (Auto Test)</span>
+  </a>
+  <br />
   <form [formGroup]="carmodelautotestForm" autocomplete="off" novalidate (ngSubmit)="save(carmodelautotestForm.value)">
     <mat-card-content>
       <mat-form-field>

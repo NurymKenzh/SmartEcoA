@@ -1,4 +1,13 @@
 <div class="jumbtron">
-  <h1 i18n="@@PostDataDivideds">Post Data Divided</h1>
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a> /
+  <a i18n-matTooltip="@@Posts" class="btn" [routerLink]="['/administration/posts']" matTooltip="Monitoring Posts">
+    <span i18n="@@Posts">Monitoring Posts</span>
+  </a> /
+  <a i18n-matTooltip="@@PostDataDivideds" class="btn" matTooltip="Post Data Divided">
+    <span i18n="@@PostDataDivideds">Post Data Divided</span>
+  </a>
+  <br />
   <postdatadivideds></postdatadivideds>
 </div>

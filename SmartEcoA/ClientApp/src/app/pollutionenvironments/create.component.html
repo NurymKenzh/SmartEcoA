@@ -1,5 +1,17 @@
 <mat-card>
-  <mat-card-title i18n="@@CreateNewPollutionEnvironment">Create a new Pollution Environment</mat-card-title>
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a> /
+  <a i18n-matTooltip="@@Directories" class="btn" [routerLink]="['/administration/directories']" matTooltip="Directories">
+    <span i18n="@@Directories">Directories</span>
+  </a> /
+  <a i18n-matTooltip="@@PollutionEnvironments" [routerLink]="['/pollutionenvironments']" class="btn" matTooltip="Pollution Environments">
+    <span i18n="@@PollutionEnvironments">Pollution Environments</span>
+  </a> /
+  <a i18n-matTooltip="@@CreateNewPollutionEnvironment" class="btn" matTooltip="Create a new Pollution Environment">
+    <span i18n="@@CreateNewPollutionEnvironment">Create a new Pollution Environment</span>
+  </a>
+  <br />
   <form [formGroup]="pollutionenvironmentForm" autocomplete="off" novalidate (ngSubmit)="create(pollutionenvironmentForm.value)">
     <mat-card-content>
       <mat-form-field>

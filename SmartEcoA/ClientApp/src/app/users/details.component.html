@@ -1,5 +1,14 @@
 <mat-card>
-  <mat-card-title i18n="@@UserDetails">User details</mat-card-title>
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a> /
+  <a i18n-matTooltip="@@Users" class="btn" [routerLink]="['/users']" matTooltip="Users">
+    <span i18n="@@Users">Users</span>
+  </a> /
+  <a i18n-matTooltip="@@UserDetails" class="btn" matTooltip="UserDetails">
+    <span i18n="@@UserDetails">User details</span>
+  </a>
+  <br />
   <mat-card-content>
     <dl>
       <dt i18n="@@UserEmail">User email</dt>

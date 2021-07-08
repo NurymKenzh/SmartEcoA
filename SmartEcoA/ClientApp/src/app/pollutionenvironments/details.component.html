@@ -1,5 +1,17 @@
 <mat-card>
-  <mat-card-title i18n="@@PollutionEnvironmentDetails">Pollution Environment details</mat-card-title>
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a> /
+  <a i18n-matTooltip="@@Directories" class="btn" [routerLink]="['/administration/directories']" matTooltip="Directories">
+    <span i18n="@@Directories">Directories</span>
+  </a> /
+  <a i18n-matTooltip="@@PollutionEnvironments" [routerLink]="['/pollutionenvironments']" class="btn" matTooltip="Pollution Environments">
+    <span i18n="@@PollutionEnvironments">Pollution Environments</span>
+  </a> /
+  <a i18n-matTooltip="@@PollutionEnvironmentDetails" class="btn" matTooltip="Pollution Environment details">
+    <span i18n="@@PollutionEnvironmentDetails">Pollution Environment details</span>
+  </a>
+  <br />
   <mat-card-content>
     <dl>
       <dt i18n="@@Name">Name</dt>

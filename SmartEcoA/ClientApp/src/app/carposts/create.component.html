@@ -2,7 +2,19 @@
 <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
 
 <mat-card>
-  <mat-card-title i18n="@@CreateNewCarPost">Create a new Car Post</mat-card-title>
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a> /
+  <a i18n-matTooltip="@@CarPosts" class="btn" [routerLink]="['/administration/carposts']" matTooltip="Car Posts">
+    <span i18n="@@CarPosts">Car Posts</span>
+  </a> /
+  <a i18n-matTooltip="@@CarPosts" [routerLink]="['/carposts']" class="btn" matTooltip="Car Posts">
+    <span i18n="@@CarPosts">Car Posts</span>
+  </a> /
+  <a i18n-matTooltip="@@CreateNewCarPost" class="btn" matTooltip="Create a new Car Post">
+    <span i18n="@@CreateNewCarPost">Create a new Car Post</span>
+  </a>
+  <br />
   <form [formGroup]="carpostForm" autocomplete="off" novalidate (ngSubmit)="create(carpostForm.value)">
     <mat-card-content class="row">
       <div class="column">
