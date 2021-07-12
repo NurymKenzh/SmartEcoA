@@ -1,7 +1,8 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 import { CarPost } from '../carposts/carpost.model';
 import { CarPostService } from '../carposts/carpost.service';
@@ -39,6 +40,8 @@ export class DashboardComponent implements AfterViewInit {
   columns: string[] = ['CarPostName', 'EngineFuel', 'AmountMeasurements', 'AmountExceedances', 'Version'];
   dataCarPosts = new MatTableDataSource<Report>();
 
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
   constructor(private olservice: OLService,
     private carpostservice: CarPostService,
     public carpostanalyticservice: CarPostAnalyticService) { }
@@ -52,6 +55,8 @@ export class DashboardComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.dataCarPosts.sort = this.sort;
+
     this.olservice.olmap();
 
     var createCarPostTextStyle = function (feature) {
