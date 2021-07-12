@@ -72,6 +72,8 @@ import { CarPostsComponent } from './administration/carposts.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardCarPostsComponent } from './dashboard/dashboardcarposts.component';
 
+import { ReportsComponent } from './reports/reports.component';
+
 import { PollutionEnvironmentService } from './pollutionenvironments/pollutionenvironment.service';
 import { PollutionEnvironmentsIndexComponent } from './pollutionenvironments/index.component';
 import { PollutionEnvironmentsListComponent } from './pollutionenvironments/list.component';
@@ -207,6 +209,7 @@ export function createTranslateLoader(http: HttpClient) {
     CarPostsComponent,
     DashboardComponent,
     DashboardCarPostsComponent,
+    ReportsComponent,
     PollutionEnvironmentsIndexComponent,
     PollutionEnvironmentsListComponent,
     PollutionEnvironmentDeleteComponent,
@@ -305,6 +308,7 @@ export function createTranslateLoader(http: HttpClient) {
       { path: 'administration/carposts', component: CarPostsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'dashboard', component: DashboardComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
       { path: 'dashboard/dashboardcarposts', component: DashboardCarPostsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
+      { path: 'reports', component: ReportsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
       { path: 'pollutionenvironments', component: PollutionEnvironmentsIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'pollutionenvironments/create', component: PollutionEnvironmentCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'pollutionenvironments/edit/:id', component: PollutionEnvironmentEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
