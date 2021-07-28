@@ -104,7 +104,6 @@ export class DashboardCarPostsComponent implements AfterViewInit {
       });
     }
 
-    this.olservice.map
     var Source_select_pasturepol = new VectorSource({});
     var Layer_select_pasturepol = new VectorLayer({
       source: Source_select_pasturepol,
@@ -142,6 +141,7 @@ export class DashboardCarPostsComponent implements AfterViewInit {
 
           Source_select_pasturepol.addFeature(polyFeature);
         });
+        this.olservice.map.getView().fit(Source_select_pasturepol.getExtent());
       });
   }
 
