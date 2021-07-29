@@ -13,12 +13,12 @@
 
     <ng-container matColumnDef="CarPost">
       <th i18n="@@CarPost" mat-header-cell *matHeaderCellDef mat-sort-header>Car Post</th>
-      <td mat-cell *matCellDef="let item">{{item.CarModelAutoTest.CarPost.Name}}</td>
+      <td mat-cell *matCellDef="let item">{{item.CarModelAutoTest?.CarPost?.Name}}</td>
     </ng-container>
 
     <ng-container matColumnDef="CarModelAutoTest">
       <th i18n="@@CarModelAutoTest" mat-header-cell *matHeaderCellDef mat-sort-header>Car Model (Auto Test)</th>
-      <td mat-cell *matCellDef="let item">{{item.CarModelAutoTest.Name}}</td>
+      <td mat-cell *matCellDef="let item">{{item.CarModelAutoTest?.Name}}</td>
     </ng-container>
 
     <ng-container matColumnDef="Number">

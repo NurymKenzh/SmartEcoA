@@ -178,16 +178,16 @@ namespace SmartEcoA.Controllers
                 docText = new Regex("CarNumber").Replace(docText, carPostDataAutoTest.Number);
                 docText = new Regex("MIN_TAH").Replace(docText, carPostDataAutoTest.MIN_TAH.HasValue ? carPostDataAutoTest.MIN_TAH.Value.ToString() : string.Empty);
                 docText = new Regex("MAX_TAH").Replace(docText, carPostDataAutoTest.MAX_TAH.HasValue ? carPostDataAutoTest.MAX_TAH.Value.ToString() : string.Empty);
-                docText = new Regex("MIN_CO").Replace(docText, carPostDataAutoTest.MIN_CO.HasValue ? carPostDataAutoTest.MIN_CO.Value.ToString() : string.Empty);
-                docText = new Regex("MAX_CO").Replace(docText, carPostDataAutoTest.MAX_CO.HasValue ? carPostDataAutoTest.MAX_CO.Value.ToString() : string.Empty);
-                docText = new Regex("MIN_CH").Replace(docText, carPostDataAutoTest.MIN_CH.HasValue ? carPostDataAutoTest.MIN_CH.Value.ToString() : string.Empty);
-                docText = new Regex("MAX_CH").Replace(docText, carPostDataAutoTest.MAX_CH.HasValue ? carPostDataAutoTest.MAX_CH.Value.ToString() : string.Empty);
+                docText = new Regex("MIN_CO_").Replace(docText, carPostDataAutoTest.MIN_CO.HasValue ? carPostDataAutoTest.MIN_CO.Value.ToString() : string.Empty);
+                docText = new Regex("MAX_CO_").Replace(docText, carPostDataAutoTest.MAX_CO.HasValue ? carPostDataAutoTest.MAX_CO.Value.ToString() : string.Empty);
+                docText = new Regex("MIN_CH_").Replace(docText, carPostDataAutoTest.MIN_CH.HasValue ? carPostDataAutoTest.MIN_CH.Value.ToString() : string.Empty);
+                docText = new Regex("MAX_CH_").Replace(docText, carPostDataAutoTest.MAX_CH.HasValue ? carPostDataAutoTest.MAX_CH.Value.ToString() : string.Empty);
                 docText = new Regex("MIN_CO2").Replace(docText, carPostDataAutoTest.MIN_CO2.HasValue ? carPostDataAutoTest.MIN_CO2.Value.ToString() : string.Empty);
                 docText = new Regex("MAX_CO2").Replace(docText, carPostDataAutoTest.MAX_CO2.HasValue ? carPostDataAutoTest.MAX_CO2.Value.ToString() : string.Empty);
-                docText = new Regex("MIN_O2").Replace(docText, carPostDataAutoTest.MIN_O2.HasValue ? carPostDataAutoTest.MIN_O2.Value.ToString() : string.Empty);
-                docText = new Regex("MAX_O2").Replace(docText, carPostDataAutoTest.MAX_O2.HasValue ? carPostDataAutoTest.MAX_O2.Value.ToString() : string.Empty);
-                docText = new Regex("MIN_NO").Replace(docText, carPostDataAutoTest.MIN_NO.HasValue ? carPostDataAutoTest.MIN_NO.Value.ToString() : string.Empty);
-                docText = new Regex("MAX_NO").Replace(docText, carPostDataAutoTest.MAX_NO.HasValue ? carPostDataAutoTest.MAX_NO.Value.ToString() : string.Empty);
+                docText = new Regex("MIN_O2_").Replace(docText, carPostDataAutoTest.MIN_O2.HasValue ? carPostDataAutoTest.MIN_O2.Value.ToString() : string.Empty);
+                docText = new Regex("MAX_O2_").Replace(docText, carPostDataAutoTest.MAX_O2.HasValue ? carPostDataAutoTest.MAX_O2.Value.ToString() : string.Empty);
+                docText = new Regex("MIN_NO_").Replace(docText, carPostDataAutoTest.MIN_NO.HasValue ? carPostDataAutoTest.MIN_NO.Value.ToString() : string.Empty);
+                docText = new Regex("MAX_NO_").Replace(docText, carPostDataAutoTest.MAX_NO.HasValue ? carPostDataAutoTest.MAX_NO.Value.ToString() : string.Empty);
 
                 using (StreamWriter sw = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.Create)))
                 {

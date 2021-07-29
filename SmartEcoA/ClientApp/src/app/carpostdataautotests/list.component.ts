@@ -28,9 +28,9 @@ export class CarPostDataAutoTestsListComponent implements OnInit, AfterViewInit 
     @Inject(LOCALE_ID) protected locale: string,
     public deleteDialog: MatDialog) {
     this.dataSource.filterPredicate = (data: CarPostDataAutoTest, filter: string) => {
-      return data.CarModelAutoTest.CarPost.Name.toLowerCase().includes(filter)
+      return (data.CarModelAutoTest ? (data.CarModelAutoTest.CarPost ? data.CarModelAutoTest.CarPost.Name.toLowerCase().includes(filter) : true) : true)
         || data.CarModelAutoTest.Name.toLowerCase().includes(filter)
-        || data.Number.toLowerCase().includes(filter);
+        || (data.Number ? data.Number.toLowerCase().includes(filter) : true);
     };
     translate.setDefaultLang(locale);
     translate.use(locale);
