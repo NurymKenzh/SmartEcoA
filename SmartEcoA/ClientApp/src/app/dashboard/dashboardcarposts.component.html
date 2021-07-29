@@ -116,11 +116,6 @@
                   <th i18n="@@AmountExceedances" mat-header-cell *matHeaderCellDef mat-sort-header>Amount Exceedances</th>
                   <td mat-cell *matCellDef="let item" class="pl-5">{{item.AmountExceedances}}</td>
                 </ng-container>
-
-                <ng-container matColumnDef="Version">
-                  <th i18n="@@Version" mat-header-cell *matHeaderCellDef mat-sort-header>Version</th>
-                  <td mat-cell *matCellDef="let item" class="pl-5">{{item.Version}}</td>
-                </ng-container>
               </tr>
               <tr mat-header-row *matHeaderRowDef="columns"></tr>
               <tr mat-row *matRowDef="let row; columns: columns;"></tr>

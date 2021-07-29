@@ -1,5 +1,9 @@
 .no-href {
-  cursor: pointer;
   color: blue;
-  text-decoration: underline;
 }
+
+  .no-href:hover {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+  }

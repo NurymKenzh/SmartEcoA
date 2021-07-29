@@ -29,7 +29,7 @@
     <ng-container matColumnDef="FileName">
       <th i18n="@@FileName" mat-header-cell *matHeaderCellDef mat-sort-header>File Name</th>
       <td mat-cell *matCellDef="let item">
-        <a class=".no-href" i18n-matTooltip="@@Download" matTooltip="Download" (click)="download(item.Id, item.FileName)">{{item.FileName}}</a>
+        <a class="no-href" i18n-matTooltip="@@Download" matTooltip="Download" (click)="download(item.Id, item.FileName)">{{item.FileName}}</a>
       </td>
     </ng-container>
 

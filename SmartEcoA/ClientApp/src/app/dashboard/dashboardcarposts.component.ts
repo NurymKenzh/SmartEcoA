@@ -37,7 +37,7 @@ export class DashboardCarPostsComponent implements AfterViewInit {
   public selectedCarPosts = [];
   public carPostsId = [];
   spinner = false;
-  columns: string[] = ['CarPostName', 'EngineFuel', 'AmountMeasurements', 'AmountExceedances', 'Version'];
+  columns: string[] = ['CarPostName', 'EngineFuel', 'AmountMeasurements', 'AmountExceedances'];
   dataCarPosts = new MatTableDataSource<Report>();
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
