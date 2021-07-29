@@ -74,6 +74,14 @@ import { DashboardCarPostsComponent } from './dashboard/dashboardcarposts.compon
 
 import { ReportsComponent } from './reports/reports.component';
 
+import { ReportService } from './reports/report.service';
+import { ReportsListComponent } from './reports/list.component';
+import { ReportDeleteComponent } from './reports/delete.component';
+import { ReportCreateComponent } from './reports/create.component';
+import { ReportCreateCarPostsComponent } from './reports/createcarposts.component';
+import { ReportCreateCarPostDataAutoTestProtocolComponent } from './reports/createcarpostdataautotestprotocol.component';
+import { ReportDetailsComponent } from './reports/details.component';
+
 import { PollutionEnvironmentService } from './pollutionenvironments/pollutionenvironment.service';
 import { PollutionEnvironmentsIndexComponent } from './pollutionenvironments/index.component';
 import { PollutionEnvironmentsListComponent } from './pollutionenvironments/list.component';
@@ -210,6 +218,12 @@ export function createTranslateLoader(http: HttpClient) {
     DashboardComponent,
     DashboardCarPostsComponent,
     ReportsComponent,
+    ReportsListComponent,
+    ReportCreateComponent,
+    ReportCreateCarPostsComponent,
+    ReportCreateCarPostDataAutoTestProtocolComponent,
+    ReportDeleteComponent,
+    ReportDetailsComponent,
     PollutionEnvironmentsIndexComponent,
     PollutionEnvironmentsListComponent,
     PollutionEnvironmentDeleteComponent,
@@ -309,6 +323,10 @@ export function createTranslateLoader(http: HttpClient) {
       { path: 'dashboard', component: DashboardComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
       { path: 'dashboard/dashboardcarposts', component: DashboardCarPostsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
       { path: 'reports', component: ReportsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
+      { path: 'reports/create', component: ReportCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
+      { path: 'reports/create/carposts', component: ReportCreateCarPostsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
+      { path: 'reports/create/carposts/createcarpostdataautotestprotocol', component: ReportCreateCarPostDataAutoTestProtocolComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
+      { path: 'reports/:id', component: ReportDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'pollutionenvironments', component: PollutionEnvironmentsIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'pollutionenvironments/create', component: PollutionEnvironmentCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'pollutionenvironments/edit/:id', component: PollutionEnvironmentEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
@@ -404,6 +422,7 @@ export function createTranslateLoader(http: HttpClient) {
     MatNativeDateModule,
     OLService,
     UserService,
+    ReportService,
     PollutionEnvironmentService,
     MeasuredParameterService,
     DataProviderService,
@@ -433,6 +452,7 @@ export function createTranslateLoader(http: HttpClient) {
     UserDeleteComponent,
     RegisterInfoComponent,
     ChangePasswordInfoComponent,
+    ReportDeleteComponent,
     PollutionEnvironmentDeleteComponent,
     MeasuredParameterDeleteComponent,
     DataProviderDeleteComponent,

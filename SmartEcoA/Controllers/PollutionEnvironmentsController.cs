@@ -12,7 +12,7 @@ namespace SmartEcoA.Controllers
 {
     [Route("{language}/api/[controller]")]
     [ApiController]
-    public class PollutionEnvironmentsController : ControllerBase
+    public class PollutionEnvironmentsController : OnActionExecutingController
     {
         private readonly ApplicationDbContext _context;
 

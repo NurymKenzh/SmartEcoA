@@ -24,12 +24,26 @@ namespace SmartEcoA.Controllers
         // GET: api/CarPostDataAutoTests
         [HttpGet]
         [Authorize(Roles = "Administrator, Moderator")]
-        public async Task<ActionResult<IEnumerable<CarPostDataAutoTest>>> GetCarPostDataAutoTest()
+        public async Task<ActionResult<IEnumerable<CarPostDataAutoTest>>> GetCarPostDataAutoTest(
+            int? CarPostId,
+            DateTime? Date)
         {
-            return await _context.CarPostDataAutoTest
-                .Include(c => c.CarModelAutoTest)
-                .Include(c => c.CarModelAutoTest.CarPost)
-                .ToListAsync();
+            if(CarPostId != null && Date != null)
+            {
+                return await _context.CarPostDataAutoTest
+                    .Where(c => c.DateTime.Year == Date.Value.Year && c.DateTime.Month == Date.Value.Month && c.DateTime.Day == Date.Value.Day)
+                    .Include(c => c.CarModelAutoTest)
+                    .Where(c => c.CarModelAutoTest.CarPostId == CarPostId)
+                    .Include(c => c.CarModelAutoTest.CarPost)
+                    .ToListAsync();
+            }
+            else
+            {
+                return await _context.CarPostDataAutoTest
+                    .Include(c => c.CarModelAutoTest)
+                    .Include(c => c.CarModelAutoTest.CarPost)
+                    .ToListAsync();
+            }
         }
 
         // GET: api/CarPostDataAutoTests/5

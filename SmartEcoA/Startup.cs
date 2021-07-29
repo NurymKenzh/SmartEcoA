@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -29,7 +30,14 @@ namespace SmartEcoA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsAllowAllOrigins", builder =>
+                    builder.WithOrigins("*")
+                           .WithHeaders("*")
+                           .WithMethods("*")
+                           .WithExposedHeaders("Content-Disposition"));
+            });
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
@@ -45,6 +53,8 @@ namespace SmartEcoA
             })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddLocalization(opts => { opts.ResourcesPath = "Resources"; });
 
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
@@ -171,7 +181,7 @@ namespace SmartEcoA
                 }
             });
 
-            CreateRoles(serviceProvider).Wait();
+            //CreateRoles(serviceProvider).Wait();
         }
 
         private async Task CreateRoles(IServiceProvider serviceProvider)

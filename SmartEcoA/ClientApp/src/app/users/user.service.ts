@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { Role, User } from './user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -111,6 +112,16 @@ export class UserService {
 
   getAuthorizedUserInfo() {
     return this.httpClient.get(this.baseUrl + this.apiUrl + 'GetAuthorizedUserInfo');
+  }
+
+  getAuthorizedUser() {
+    var user: User;
+    user = {
+      Id: JSON.parse(window.atob(localStorage.getItem('token').split('.')[1])).Id,
+      Email: JSON.parse(window.atob(localStorage.getItem('token').split('.')[1])).Email,
+      Roles: []
+    };
+    return user;
   }
 
   getAuthorizedUserEmail() {

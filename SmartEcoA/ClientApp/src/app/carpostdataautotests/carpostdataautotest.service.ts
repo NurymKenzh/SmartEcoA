@@ -1,5 +1,5 @@
 import { Inject } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 export class CarPostDataAutoTestService {
   private baseUrl: string;
@@ -10,10 +10,17 @@ export class CarPostDataAutoTestService {
     this.baseUrl = baseUrl;
   }
 
-  public get(Id?) {
-    if (Id) {
+  public get(Id?, CarPostId?, Date?) {
+    if (Id && !CarPostId && !Date) {
       return this.http.get(this.baseUrl + this.apiUrl + Id);
-    } else {
+    }
+    else if (!Id && CarPostId && Date) {
+      let params = new HttpParams()
+        .set('CarPostId', CarPostId)
+        .set('Date', `${Date.getFullYear()}-${Date.getMonth() + 1}-${Date.getDate()}`);
+      return this.http.get(this.baseUrl + this.apiUrl, { params: params });
+    }
+    else {
       return this.http.get(this.baseUrl + this.apiUrl);
     }
   }

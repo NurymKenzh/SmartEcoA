@@ -12,7 +12,7 @@ namespace SmartEcoA.Controllers
 {
     [Route("{language}/api/[controller]")]
     [ApiController]
-    public class MeasuredParametersController : ControllerBase
+    public class MeasuredParametersController : OnActionExecutingController
     {
         private readonly ApplicationDbContext _context;
 

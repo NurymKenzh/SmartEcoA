@@ -14,13 +14,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.13.0" />
     <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="3.1.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.10" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.10" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.11" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.12" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.12">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.15" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.15">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -150,6 +151,14 @@
     <None Remove="ClientApp\src\app\projects\list.component.ts" />
     <None Remove="ClientApp\src\app\projects\project.model.ts" />
     <None Remove="ClientApp\src\app\projects\project.service.ts" />
+    <None Remove="ClientApp\src\app\reports\create.component.ts" />
+    <None Remove="ClientApp\src\app\reports\createcarpostdataautotestprotocol.component.ts" />
+    <None Remove="ClientApp\src\app\reports\createcarposts.component.ts" />
+    <None Remove="ClientApp\src\app\reports\delete.component.ts" />
+    <None Remove="ClientApp\src\app\reports\details.component.ts" />
+    <None Remove="ClientApp\src\app\reports\list.component.ts" />
+    <None Remove="ClientApp\src\app\reports\report.model.ts" />
+    <None Remove="ClientApp\src\app\reports\report.service.ts" />
     <None Remove="ClientApp\src\app\reports\reports.component.ts" />
     <None Remove="ClientApp\src\app\users\changepassword.component.ts" />
     <None Remove="ClientApp\src\app\users\changepasswordinfo.component.ts" />
@@ -442,6 +451,14 @@
     <TypeScriptCompile Include="ClientApp\src\app\projects\list.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\reports\createcarpostdataautotestprotocol.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\reports\createcarposts.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\reports\create.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\reports\delete.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\reports\details.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\reports\list.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\reports\report.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\reports\report.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\reports\reports.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\users\changepassword.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\users\changepasswordinfo.component.ts" />
@@ -461,6 +478,30 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\icons\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\Controllers\SharedResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SharedResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Controllers\SharedResources.kk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Controllers\SharedResources.ru.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Controllers\SharedResources.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Controllers\SharedResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SharedResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

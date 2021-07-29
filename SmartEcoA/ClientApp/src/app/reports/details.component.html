@@ -1,0 +1,30 @@
+<mat-card>
+  <a i18n-matTooltip="@@Reports" class="btn" [routerLink]="['/reports']" matTooltip="Reports">
+    <span i18n="@@Reports">Reports</span>
+  </a> /
+  <a i18n-matTooltip="@@ReportDetails" class="btn" matTooltip="Report details">
+    <span i18n="@@ReportDetails">Report details</span>
+  </a>
+  <br />
+
+  <mat-card-content>
+    <dl>
+      <dt i18n="@@Name">Name</dt>
+      <dd>{{report?.Name}}</dd>
+      <dt i18n="@@User">User</dt>
+      <dd>{{report?.ApplicationUser.Email}}</dd>
+      <dt i18n="@@DateTime">DateTime</dt>
+      <dd>{{report?.DateTime}}</dd>
+      <dt i18n="@@InputParameters">InputParameters</dt>
+      <dd>{{report?.InputParameters}}</dd>
+      <dt i18n="@@FileName">FileName</dt>
+      <dd>
+        <a class=".no-href" i18n-matTooltip="@@Download" matTooltip="Download" (click)="download(report?.Id, report?.FileName)">{{report?.FileName}}</a>
+      </dd>
+    </dl>
+  </mat-card-content>
+
+  <mat-card-actions align="center">
+    <a i18n-matTooltip="@@Back" class="btn" [routerLink]="['/reports']" matTooltip="Back"><i class="material-icons">arrow_back</i></a>
+  </mat-card-actions>
+</mat-card>
