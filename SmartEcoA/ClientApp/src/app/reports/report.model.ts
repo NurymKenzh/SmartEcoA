@@ -13,5 +13,7 @@ export class Report {
   InputParametersKK: string;
   Inputs: string;
   DateTime?: Date;
+  CarPostStartDate?: Date;
+  CarPostEndDate?: Date;
   FileName: string;
 }

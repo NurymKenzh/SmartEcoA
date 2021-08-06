@@ -8,25 +8,25 @@ import { Report } from './report.model';
 import { CarPost } from '../carposts/carpost.model';
 import { CarPostService } from '../carposts/carpost.service';
 
-import { CarPostDataAutoTest } from '../carpostdataautotests/carpostdataautotest.model';
-import { CarPostDataAutoTestService } from '../carpostdataautotests/carpostdataautotest.service';
+import { CarPostDataSmokeMeter } from '../carpostdatasmokemeters/carpostdatasmokemeter.model';
+import { CarPostDataSmokeMeterService } from '../carpostdatasmokemeters/carpostdatasmokemeter.service';
 
 @Component({
-  templateUrl: 'createcarpostdataautotestprotocol.component.html',
-  styleUrls: ['createcarpostdataautotestprotocol.component.css'],
+  templateUrl: 'createcarpostdatasmokemeterprotocol.component.html',
+  styleUrls: ['createcarpostdatasmokemeterprotocol.component.css'],
 })
 
-export class ReportCreateCarPostDataAutoTestProtocolComponent implements OnInit {
+export class ReportCreateCarPostDataSmokeMeterProtocolComponent implements OnInit {
   public reportForm: FormGroup;
   carposts: CarPost[];
   CarPostDate = new FormControl(new Date());
   CarPostId = new FormControl('');
-  carpostdataautotests: CarPostDataAutoTest[];
+  carpostdatasmokemeters: CarPostDataSmokeMeter[];
 
   constructor(private router: Router,
     private service: ReportService,
     private carPostService: CarPostService,
-    private carPostDataAutoTestService: CarPostDataAutoTestService) { }
+    private carPostDataSmokeMeterService: CarPostDataSmokeMeterService) { }
 
   ngOnInit() {
     this.carPostService.get()
@@ -34,19 +34,19 @@ export class ReportCreateCarPostDataAutoTestProtocolComponent implements OnInit 
         this.carposts = res as CarPost[];
         this.carposts.sort((a, b) => (a.Name > b.Name) ? 1 : ((b.Name > a.Name) ? -1 : 0));
         this.CarPostId.setValue(this.carposts[0] ? this.carposts[0].Id : null);
-        this.CarPostDataAutoTestsUpdate();
+        this.CarPostDataSmokeMetersUpdate();
       });
     this.reportForm = new FormGroup({
-      CarPostDataAutoTestId: new FormControl('', [Validators.required])
+      CarPostDataSmokeMeterId: new FormControl('', [Validators.required])
     });
   }
 
-  public CarPostDataAutoTestsUpdate() {
-    this.carPostDataAutoTestService.get(null, this.CarPostId.value, this.CarPostDate.value)
+  public CarPostDataSmokeMetersUpdate() {
+    this.carPostDataSmokeMeterService.get(null, this.CarPostId.value, this.CarPostDate.value)
       .subscribe(res => {
-        this.carpostdataautotests = res as CarPostDataAutoTest[];
-        this.carpostdataautotests.sort((a, b) => (a.DateTime > b.DateTime) ? 1 : ((b.DateTime > a.DateTime) ? -1 : 0));
-        this.reportForm.controls["CarPostDataAutoTestId"].setValue(this.carpostdataautotests[0] ? this.carpostdataautotests[0].Id : null);
+        this.carpostdatasmokemeters = res as CarPostDataSmokeMeter[];
+        this.carpostdatasmokemeters.sort((a, b) => (a.DateTime > b.DateTime) ? 1 : ((b.DateTime > a.DateTime) ? -1 : 0));
+        this.reportForm.controls["CarPostDataSmokeMeterId"].setValue(this.carpostdatasmokemeters[0] ? this.carpostdatasmokemeters[0].Id : null);
       });
   }
 
@@ -65,14 +65,14 @@ export class ReportCreateCarPostDataAutoTestProtocolComponent implements OnInit 
         Id: 0,
         ApplicationUser: null,
         Name: null,
-        NameEN: 'Report of measurements of harmful emissions in the exhaust gases of a motor vehicle',
-        NameRU: 'Протокол измерений вредных выбросов в отработавших газах автотранспортного средства',
-        NameKK: 'Автокөліктің пайдаланылған газдарындағы зиянды шығарындыларды өлшеу туралы есеп',
+        NameEN: 'Report of measurements of harmful emissions in the exhaust gases of a motor vehicle (Diesel)',
+        NameRU: 'Протокол измерений вредных выбросов в отработавших газах автотранспортного средства (Дизель)',
+        NameKK: 'Автокөліктің пайдаланылған газдарындағы зиянды шығарындыларды өлшеу туралы есеп (Дизель)',
         InputParameters: null,
         InputParametersEN: null,
         InputParametersRU: null,
         InputParametersKK: null,
-        Inputs: `CarPostDataAutoTestId=${this.reportForm.controls["CarPostDataAutoTestId"].value}`,
+        Inputs: `CarPostDataSmokeMeterId=${this.reportForm.controls["CarPostDataSmokeMeterId"].value}`,
         DateTime: null,
         CarPostStartDate: null,
         CarPostEndDate: null,

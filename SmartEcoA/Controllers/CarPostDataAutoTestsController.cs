@@ -28,22 +28,21 @@ namespace SmartEcoA.Controllers
             int? CarPostId,
             DateTime? Date)
         {
-            if(CarPostId != null && Date != null)
-            {
-                return await _context.CarPostDataAutoTest
-                    .Where(c => c.DateTime.Year == Date.Value.Year && c.DateTime.Month == Date.Value.Month && c.DateTime.Day == Date.Value.Day)
-                    .Include(c => c.CarModelAutoTest)
-                    .Where(c => c.CarModelAutoTest.CarPostId == CarPostId)
-                    .Include(c => c.CarModelAutoTest.CarPost)
-                    .ToListAsync();
-            }
-            else
-            {
-                return await _context.CarPostDataAutoTest
+            var carPostDataAutoTest = _context.CarPostDataAutoTest
                     .Include(c => c.CarModelAutoTest)
                     .Include(c => c.CarModelAutoTest.CarPost)
-                    .ToListAsync();
+                    .Where(c => true);
+
+            if (Date != null)
+            {
+                carPostDataAutoTest = carPostDataAutoTest.Where(c => c.DateTime.Year == Date.Value.Year && c.DateTime.Month == Date.Value.Month && c.DateTime.Day == Date.Value.Day);
             }
+            if (CarPostId != null)
+            {
+                carPostDataAutoTest = carPostDataAutoTest.Where(c => c.CarModelAutoTest.CarPostId == CarPostId);
+            }
+
+            return await carPostDataAutoTest.ToListAsync();
         }
 
         // GET: api/CarPostDataAutoTests/5

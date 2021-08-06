@@ -129,6 +129,12 @@
   <data name="Date" xml:space="preserve">
     <value>Күн</value>
   </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Басталатын күн</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Аяқталу күн</value>
+  </data>
   <data name="Time" xml:space="preserve">
     <value>Уақыт</value>
   </data>

@@ -80,6 +80,9 @@ import { ReportDeleteComponent } from './reports/delete.component';
 import { ReportCreateComponent } from './reports/create.component';
 import { ReportCreateCarPostsComponent } from './reports/createcarposts.component';
 import { ReportCreateCarPostDataAutoTestProtocolComponent } from './reports/createcarpostdataautotestprotocol.component';
+import { ReportCreateCarPostDataSmokeMeterProtocolComponent } from './reports/createcarpostdatasmokemeterprotocol.component';
+import { ReportCreateCarPostDataSmokeMeterLogComponent } from './reports/createcarpostdatasmokemeterlog.component';
+import { ReportCreateCarPostDataAutoTestLogComponent } from './reports/createcarpostdataautotestlog.component';
 import { ReportDetailsComponent } from './reports/details.component';
 
 import { PollutionEnvironmentService } from './pollutionenvironments/pollutionenvironment.service';
@@ -222,6 +225,9 @@ export function createTranslateLoader(http: HttpClient) {
     ReportCreateComponent,
     ReportCreateCarPostsComponent,
     ReportCreateCarPostDataAutoTestProtocolComponent,
+    ReportCreateCarPostDataSmokeMeterProtocolComponent,
+    ReportCreateCarPostDataSmokeMeterLogComponent,
+    ReportCreateCarPostDataAutoTestLogComponent,
     ReportDeleteComponent,
     ReportDetailsComponent,
     PollutionEnvironmentsIndexComponent,
@@ -326,6 +332,9 @@ export function createTranslateLoader(http: HttpClient) {
       { path: 'reports/create', component: ReportCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
       { path: 'reports/create/carposts', component: ReportCreateCarPostsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
       { path: 'reports/create/carposts/createcarpostdataautotestprotocol', component: ReportCreateCarPostDataAutoTestProtocolComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
+      { path: 'reports/create/carposts/createcarpostdatasmokemeterprotocol', component: ReportCreateCarPostDataSmokeMeterProtocolComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
+      { path: 'reports/create/carposts/createcarpostdatasmokemeterlog', component: ReportCreateCarPostDataSmokeMeterLogComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
+      { path: 'reports/create/carposts/createcarpostdataautotestlog', component: ReportCreateCarPostDataAutoTestLogComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
       { path: 'reports/:id', component: ReportDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'pollutionenvironments', component: PollutionEnvironmentsIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'pollutionenvironments/create', component: PollutionEnvironmentCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },

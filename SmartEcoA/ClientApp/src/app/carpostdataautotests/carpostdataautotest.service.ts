@@ -14,9 +14,9 @@ export class CarPostDataAutoTestService {
     if (Id && !CarPostId && !Date) {
       return this.http.get(this.baseUrl + this.apiUrl + Id);
     }
-    else if (!Id && CarPostId && Date) {
+    else if (!Id && CarPostId || Date) {
       let params = new HttpParams()
-        .set('CarPostId', CarPostId)
+        .set('CarPostId', CarPostId ? CarPostId : '')
         .set('Date', `${Date.getFullYear()}-${Date.getMonth() + 1}-${Date.getDate()}`);
       return this.http.get(this.baseUrl + this.apiUrl, { params: params });
     }

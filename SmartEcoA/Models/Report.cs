@@ -69,6 +69,10 @@ namespace SmartEcoA.Models
 
         public DateTime? DateTime { get; set; }
 
+        public DateTime? CarPostStartDate { get; set; }
+
+        public DateTime? CarPostEndDate { get; set; }
+
         public string FileName { get; set; }
     }
 }

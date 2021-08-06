@@ -152,7 +152,10 @@
     <None Remove="ClientApp\src\app\projects\project.model.ts" />
     <None Remove="ClientApp\src\app\projects\project.service.ts" />
     <None Remove="ClientApp\src\app\reports\create.component.ts" />
+    <None Remove="ClientApp\src\app\reports\createcarpostdataautotestlog.component.ts" />
     <None Remove="ClientApp\src\app\reports\createcarpostdataautotestprotocol.component.ts" />
+    <None Remove="ClientApp\src\app\reports\createcarpostdatasmokemeterlog.component.ts" />
+    <None Remove="ClientApp\src\app\reports\createcarpostdatasmokemeterprotocol.component.ts" />
     <None Remove="ClientApp\src\app\reports\createcarposts.component.ts" />
     <None Remove="ClientApp\src\app\reports\delete.component.ts" />
     <None Remove="ClientApp\src\app\reports\details.component.ts" />
@@ -451,6 +454,9 @@
     <TypeScriptCompile Include="ClientApp\src\app\projects\list.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\reports\createcarpostdataautotestlog.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\reports\createcarpostdatasmokemeterlog.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\reports\createcarpostdatasmokemeterprotocol.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\reports\createcarpostdataautotestprotocol.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\reports\createcarposts.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\reports\create.component.ts" />

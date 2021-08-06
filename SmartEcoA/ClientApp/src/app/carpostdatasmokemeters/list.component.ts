@@ -10,15 +10,22 @@ import { CarPostDataSmokeMeter } from './carpostdatasmokemeter.model';
 import { CarPostDataSmokeMeterDeleteComponent } from './delete.component';
 
 import { TranslateService } from '@ngx-translate/core';
+import { FormControl } from '@angular/forms';
+import { CarPost } from '../carposts/carpost.model';
+import { CarPostService } from '../carposts/carpost.service';
 
 @Component({
   selector: 'carpostdatasmokemeters',
-  templateUrl: 'list.component.html'
+  templateUrl: 'list.component.html',
+  styleUrls: ['list.component.css']
 })
 
 export class CarPostDataSmokeMetersListComponent implements OnInit, AfterViewInit {
   columns: string[] = ['DateTime', 'CarPost', 'CarModelSmokeMeter', 'Number', 'DFree', 'NDFree', 'details-edit-delete'];
   dataSource = new MatTableDataSource<CarPostDataSmokeMeter>();
+  Date = new FormControl(new Date());
+  CarPostId = new FormControl();
+  carposts: CarPost[];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -26,7 +33,8 @@ export class CarPostDataSmokeMetersListComponent implements OnInit, AfterViewIni
   constructor(private service: CarPostDataSmokeMeterService,
     private translate: TranslateService,
     @Inject(LOCALE_ID) protected locale: string,
-    public deleteDialog: MatDialog) {
+    public deleteDialog: MatDialog,
+    private carpostService: CarPostService) {
     this.dataSource.filterPredicate = (data: CarPostDataSmokeMeter, filter: string) => {
       return data.CarModelSmokeMeter.CarPost.Name.toLowerCase().includes(filter)
         || data.CarModelSmokeMeter.Name.toLowerCase().includes(filter)
@@ -37,6 +45,11 @@ export class CarPostDataSmokeMetersListComponent implements OnInit, AfterViewIni
   }
 
   ngOnInit() {
+    this.carpostService.get()
+      .subscribe(res => {
+        this.carposts = res as CarPost[];
+        this.carposts.sort((a, b) => (a.Name > b.Name) ? 1 : ((b.Name > a.Name) ? -1 : 0));
+      });
     this.get();
   }
 
@@ -53,7 +66,7 @@ export class CarPostDataSmokeMetersListComponent implements OnInit, AfterViewIni
   }
 
   public get() {
-    this.service.get()
+    this.service.get(null, this.CarPostId.value, this.Date.value)
       .subscribe(res => {
         this.dataSource.data = res as CarPostDataSmokeMeter[];
       })
@@ -76,5 +89,9 @@ export class CarPostDataSmokeMetersListComponent implements OnInit, AfterViewIni
 
   public filter(filter: string) {
     this.dataSource.filter = filter.trim().toLocaleLowerCase();
+  }
+
+  changeParameter() {
+    this.get();
   }
 }

@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -36,19 +37,36 @@ namespace SmartEcoA.Controllers
         // GET: api/Reports
         [HttpGet]
         [Authorize(Roles = "Administrator, Moderator, Customer")]
-        public async Task<ActionResult<IEnumerable<Report>>> GetReport()
+        public async Task<ActionResult<IEnumerable<Report>>> GetReport(DateTime? Date)
         {
             string ApplicationUserId = User.Claims.First(c => c.Type == "Id").Value;
             ApplicationUser applicationUser = await _context.Users.FindAsync(ApplicationUserId);
             var roles = await _userManager.GetRolesAsync(applicationUser);
             if(roles.Contains("Administrator") || roles.Contains("Moderator"))
             {
+                if (Date != null)
+                {
+                    return await _context.Report
+                        .Include(r => r.ApplicationUser)
+                        .Where(r => r.DateTime.Value.Year == Date.Value.Year && r.DateTime.Value.Month == Date.Value.Month && r.DateTime.Value.Day == Date.Value.Day)
+                        .ToListAsync();
+                }
+
                 return await _context.Report
                     .Include(r => r.ApplicationUser)
                     .ToListAsync();
             }
             else
             {
+                if (Date != null)
+                {
+                    return await _context.Report
+                        .Where(r => r.ApplicationUserId == ApplicationUserId)
+                        .Include(r => r.ApplicationUser)
+                        .Where(r => r.DateTime.Value.Year == Date.Value.Year && r.DateTime.Value.Month == Date.Value.Month && r.DateTime.Value.Day == Date.Value.Day)
+                        .ToListAsync();
+                }
+
                 return await _context.Report
                     .Where(r => r.ApplicationUserId == ApplicationUserId)
                     .Include(r => r.ApplicationUser)
@@ -122,6 +140,18 @@ namespace SmartEcoA.Controllers
                 case "Report of measurements of harmful emissions in the exhaust gases of a motor vehicle":
                     report = CreateCarPostDataAutoTestProtocol(report);
                     break;
+                // CarPostDataSmokeMeterProtocol
+                case "Report of measurements of harmful emissions in the exhaust gases of a motor vehicle (Diesel)":
+                    report = CreateCarPostDataSmokeMeterProtocol(report);
+                    break;
+                // CarPostDataSmokeMeterLog
+                case "Vehicle Emission Test Results Log (Diesel)":
+                    report = CreateCarPostDataSmokeMeterLog(report);
+                    break;
+                // CarPostDataAutoTestLog
+                case "Vehicle Emission Test Results Log (Gasoline)":
+                    report = CreateCarPostDataAutoTestLog(report);
+                    break;
             }
             _context.Report.Add(report);
             await _context.SaveChangesAsync();
@@ -189,6 +219,199 @@ namespace SmartEcoA.Controllers
                 docText = new Regex("MIN_NO_").Replace(docText, carPostDataAutoTest.MIN_NO.HasValue ? carPostDataAutoTest.MIN_NO.Value.ToString() : string.Empty);
                 docText = new Regex("MAX_NO_").Replace(docText, carPostDataAutoTest.MAX_NO.HasValue ? carPostDataAutoTest.MAX_NO.Value.ToString() : string.Empty);
 
+                using (StreamWriter sw = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.Create)))
+                {
+                    sw.Write(docText);
+                }
+            }
+            return report;
+        }
+
+        private Report CreateCarPostDataSmokeMeterProtocol(Report report)
+        {
+            string userReportFolder = Path.Combine(Startup.Configuration["ReportsFolder"].ToString(), report.ApplicationUserId);
+            if (!Directory.Exists(userReportFolder))
+            {
+                Directory.CreateDirectory(userReportFolder);
+            }
+            report.FileName = $"{report.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name}.docx";
+            string reportFileNameFull = Path.Combine(userReportFolder, report.FileName);
+
+            int carPostDataSmokeMeterId = Convert.ToInt32(report.Inputs.Split('=')[1]);
+            CarPostDataSmokeMeter carPostDataSmokeMeter = _context.CarPostDataSmokeMeter.FirstOrDefault(c => c.Id == carPostDataSmokeMeterId);
+            CarModelSmokeMeter carModelSmokeMeter = _context.CarModelSmokeMeter.FirstOrDefault(c => c.Id == carPostDataSmokeMeter.CarModelSmokeMeterId);
+            CarPost carPost = _context.CarPost.FirstOrDefault(c => c.Id == carModelSmokeMeter.CarPostId);
+
+            report.InputParametersEN = $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["Date"]}={carPostDataSmokeMeter.DateTime.ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPost"]}={carPost.Name};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarNumber"]}={carPostDataSmokeMeter.Number};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarModel"]}={carModelSmokeMeter.Name};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["Time"]}={carPostDataSmokeMeter.DateTime.ToString("HH:mm:ss")};";
+            report.InputParametersRU = $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["Date"]}={carPostDataSmokeMeter.DateTime.ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarPost"]}={carPost.Name};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarNumber"]}={carPostDataSmokeMeter.Number};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarModel"]}={carModelSmokeMeter.Name};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["Time"]}={carPostDataSmokeMeter.DateTime.ToString("HH:mm:ss")};";
+            report.InputParametersKK = $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["Date"]}={carPostDataSmokeMeter.DateTime.ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarPost"]}={carPost.Name};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarNumber"]}={carPostDataSmokeMeter.Number};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarModel"]}={carModelSmokeMeter.Name};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["Time"]}={carPostDataSmokeMeter.DateTime.ToString("HH:mm:ss")};";
+
+            string reportTemplateFileNameFull = Path.Combine(Startup.Configuration["ReportsTeplatesFolder"].ToString(), report.NameRU);
+            reportTemplateFileNameFull = Path.ChangeExtension(reportTemplateFileNameFull, "docx");
+            System.IO.File.Copy(reportTemplateFileNameFull, reportFileNameFull);
+
+            using (WordprocessingDocument wordDoc = WordprocessingDocument.Open(reportFileNameFull, true))
+            {
+                string docText = null;
+                using (StreamReader sr = new StreamReader(wordDoc.MainDocumentPart.GetStream()))
+                {
+                    docText = sr.ReadToEnd();
+                }
+
+                docText = new Regex("CarPostName").Replace(docText, carPost.Name);
+                docText = new Regex("Time").Replace(docText, carPostDataSmokeMeter.DateTime.ToString("HH:mm:ss"));
+                docText = new Regex("CarModelName").Replace(docText, carModelSmokeMeter.Name);
+                docText = new Regex("CarNumber").Replace(docText, carPostDataSmokeMeter.Number);
+                docText = new Regex(@"\b(DFree)\b").Replace(docText, carPostDataSmokeMeter.DFree.HasValue ? carPostDataSmokeMeter.DFree.Value.ToString() : string.Empty);
+                docText = new Regex(@"\b(NDFree)\b").Replace(docText, carPostDataSmokeMeter.NDFree.HasValue ? carPostDataSmokeMeter.NDFree.Value.ToString() : string.Empty);
+
+                using (StreamWriter sw = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.Create)))
+                {
+                    sw.Write(docText);
+                }
+            }
+            return report;
+        }
+
+        private Report CreateCarPostDataSmokeMeterLog(Report report)
+        {
+            string userReportFolder = Path.Combine(Startup.Configuration["ReportsFolder"].ToString(), report.ApplicationUserId);
+            if (!Directory.Exists(userReportFolder))
+            {
+                Directory.CreateDirectory(userReportFolder);
+            }
+            report.FileName = $"{report.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name}.docx";
+            string reportFileNameFull = Path.Combine(userReportFolder, report.FileName);
+
+            int carPostId = Convert.ToInt32(report.Inputs.Split('=')[1]);
+            CarPost carPost = _context.CarPost.FirstOrDefault(c => c.Id == carPostId);
+            List<CarPostDataSmokeMeter> carPostDataSmokeMeters = _context.CarPostDataSmokeMeter
+                .Include(c => c.CarModelSmokeMeter)
+                .Where(c => c.CarModelSmokeMeter.CarPostId == carPost.Id && report.CarPostStartDate <= c.DateTime && c.DateTime <= report.CarPostEndDate)
+                .OrderBy(c => c.DateTime)
+                .ToList();
+
+            report.InputParametersEN = $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["StartDate"]}={Convert.ToDateTime(report.CarPostStartDate).ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["EndDate"]}={Convert.ToDateTime(report.CarPostEndDate).ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPost"]}={carPost.Name};";
+            report.InputParametersRU = $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["StartDate"]}={Convert.ToDateTime(report.CarPostStartDate).ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["EndDate"]}={Convert.ToDateTime(report.CarPostEndDate).ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarPost"]}={carPost.Name};";
+            report.InputParametersKK = $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["StartDate"]}={Convert.ToDateTime(report.CarPostStartDate).ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["EndDate"]}={Convert.ToDateTime(report.CarPostEndDate).ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarPost"]}={carPost.Name};";
+
+            string reportTemplateFileNameFull = Path.Combine(Startup.Configuration["ReportsTeplatesFolder"].ToString(), report.NameRU);
+            reportTemplateFileNameFull = Path.ChangeExtension(reportTemplateFileNameFull, "docx");
+            System.IO.File.Copy(reportTemplateFileNameFull, reportFileNameFull);
+
+            using (WordprocessingDocument wordDoc = WordprocessingDocument.Open(reportFileNameFull, true))
+            {
+                Body body = wordDoc.MainDocumentPart.Document.Body;
+                Table table = body.Elements<Table>().First();
+                for (int i = 0; i < carPostDataSmokeMeters.Count; i++)
+                {
+                    table.Append(
+                        new TableRow(
+                            new TableCell(new Paragraph(new Run(new Text($"{i + 1}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].DateTime.ToString("dd.MM.yyyy")}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].DateTime.ToString("HH:mm:ss")}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].CarModelSmokeMeter.Name}")))),
+                            new TableCell(new Paragraph(new Run(new Text(string.Empty)))),
+                            new TableCell(new Paragraph(new Run(new Text(string.Empty)))),
+                            new TableCell(new Paragraph(new Run(new Text(string.Empty)))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].Number}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].DFree}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].NDFree}")))),
+                            new TableCell(new Paragraph(new Run(new Text(string.Empty))))));
+                }
+
+                string docText = null;
+                using (StreamReader sr = new StreamReader(wordDoc.MainDocumentPart.GetStream()))
+                {
+                    docText = sr.ReadToEnd();
+                }
+                using (StreamWriter sw = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.Create)))
+                {
+                    sw.Write(docText);
+                }
+            }
+            return report;
+        }
+
+        private Report CreateCarPostDataAutoTestLog(Report report)
+        {
+            string userReportFolder = Path.Combine(Startup.Configuration["ReportsFolder"].ToString(), report.ApplicationUserId);
+            if (!Directory.Exists(userReportFolder))
+            {
+                Directory.CreateDirectory(userReportFolder);
+            }
+            report.FileName = $"{report.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name}.docx";
+            string reportFileNameFull = Path.Combine(userReportFolder, report.FileName);
+
+            int carPostId = Convert.ToInt32(report.Inputs.Split('=')[1]);
+            CarPost carPost = _context.CarPost.FirstOrDefault(c => c.Id == carPostId);
+            List<CarPostDataAutoTest> carPostDataAutoTests = _context.CarPostDataAutoTest
+                .Include(c => c.CarModelAutoTest)
+                .Where(c => c.CarModelAutoTest.CarPostId == carPost.Id && report.CarPostStartDate <= c.DateTime && c.DateTime <= report.CarPostEndDate)
+                .OrderBy(c => c.DateTime)
+                .ToList();
+
+            report.InputParametersEN = $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["StartDate"]}={Convert.ToDateTime(report.CarPostStartDate).ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["EndDate"]}={Convert.ToDateTime(report.CarPostEndDate).ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPost"]}={carPost.Name};";
+            report.InputParametersRU = $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["StartDate"]}={Convert.ToDateTime(report.CarPostStartDate).ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["EndDate"]}={Convert.ToDateTime(report.CarPostEndDate).ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarPost"]}={carPost.Name};";
+            report.InputParametersKK = $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["StartDate"]}={Convert.ToDateTime(report.CarPostStartDate).ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["EndDate"]}={Convert.ToDateTime(report.CarPostEndDate).ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarPost"]}={carPost.Name};";
+
+            string reportTemplateFileNameFull = Path.Combine(Startup.Configuration["ReportsTeplatesFolder"].ToString(), report.NameRU);
+            reportTemplateFileNameFull = Path.ChangeExtension(reportTemplateFileNameFull, "docx");
+            System.IO.File.Copy(reportTemplateFileNameFull, reportFileNameFull);
+
+            using (WordprocessingDocument wordDoc = WordprocessingDocument.Open(reportFileNameFull, true))
+            {
+                Body body = wordDoc.MainDocumentPart.Document.Body;
+                Table table = body.Elements<Table>().First();
+                for (int i = 0; i < carPostDataAutoTests.Count; i++)
+                {
+                    table.Append(
+                        new TableRow(
+                            new TableCell(new Paragraph(new Run(new Text($"{i + 1}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].DateTime.ToString("dd.MM.yyyy")}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].DateTime.ToString("HH:mm:ss")}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].CarModelAutoTest.Name}")))),
+                            new TableCell(new Paragraph(new Run(new Text(string.Empty)))),
+                            new TableCell(new Paragraph(new Run(new Text(string.Empty)))),
+                            new TableCell(new Paragraph(new Run(new Text(string.Empty)))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].Number}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MIN_CO}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MIN_CH}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MIN_CO2}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MIN_O2}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MIN_NO}")))),
+                            new TableCell(new Paragraph(new Run(new Text(string.Empty))))));
+                }
+
+                string docText = null;
+                using (StreamReader sr = new StreamReader(wordDoc.MainDocumentPart.GetStream()))
+                {
+                    docText = sr.ReadToEnd();
+                }
                 using (StreamWriter sw = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.Create)))
                 {
                     sw.Write(docText);

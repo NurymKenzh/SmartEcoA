@@ -11,16 +11,18 @@ import { Report } from './report.model';
 import { ReportDeleteComponent } from './delete.component';
 
 import { TranslateService } from '@ngx-translate/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'reports',
   templateUrl: 'list.component.html',
-  styleUrls: ['list.component.css'],
+  styleUrls: ['list.component.css']
 })
 
 export class ReportsListComponent implements OnInit, AfterViewInit {
   columns: string[] = ['Name', 'Email', 'DateTime', 'InputParameters', 'FileName', 'details-delete'];
   dataSource = new MatTableDataSource<Report>();
+  Date = new FormControl(new Date());
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -47,7 +49,7 @@ export class ReportsListComponent implements OnInit, AfterViewInit {
   }
 
   public get() {
-    this.service.get()
+    this.service.get(null, this.Date.value)
       .subscribe(res => {
         this.dataSource.data = res as Report[];
       })
@@ -74,5 +76,9 @@ export class ReportsListComponent implements OnInit, AfterViewInit {
 
   public filter(filter: string) {
     this.dataSource.filter = filter.trim().toLocaleLowerCase();
+  }
+
+  changeParameter() {
+    this.get();
   }
 }

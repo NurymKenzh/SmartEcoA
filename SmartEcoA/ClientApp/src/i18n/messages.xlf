@@ -552,6 +552,30 @@
           <context context-type="linenumber">2</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterprotocol.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterprotocol.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterlog.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterlog.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdataautotestlog.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdataautotestlog.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/reports/details.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
@@ -1002,6 +1026,18 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/reports/createcarpostdataautotestprotocol.component.html</context>
           <context context-type="linenumber">46</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterprotocol.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterlog.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdataautotestlog.component.html</context>
+          <context context-type="linenumber">43</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/delete.component.html</context>
@@ -1866,6 +1902,30 @@
           <context context-type="linenumber">8</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterprotocol.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterprotocol.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterlog.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterlog.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdataautotestlog.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdataautotestlog.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/carposts/index.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
@@ -2365,6 +2425,10 @@
           <context context-type="linenumber">17</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterprotocol.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/carpostdatasmokemeters/index.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
@@ -2532,12 +2596,28 @@
           <context context-type="sourcefile">app/dashboard/dashboardcarposts.component.html</context>
           <context context-type="linenumber">46</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterlog.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdataautotestlog.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="EndDate" datatype="html">
         <source>End Date</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/dashboard/dashboardcarposts.component.html</context>
           <context context-type="linenumber">53</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterlog.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdataautotestlog.component.html</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Print" datatype="html">
@@ -2556,6 +2636,18 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/reports/createcarpostdataautotestprotocol.component.html</context>
           <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterprotocol.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterlog.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdataautotestlog.component.html</context>
+          <context context-type="linenumber">31</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/carmodelsmokemeters/list.component.html</context>
@@ -2668,6 +2760,18 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/reports/createcarpostdataautotestprotocol.component.html</context>
           <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterprotocol.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterlog.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdataautotestlog.component.html</context>
+          <context context-type="linenumber">42</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pollutionenvironments/list.component.html</context>
@@ -3014,6 +3118,30 @@
           <context context-type="sourcefile">app/reports/createcarpostdataautotestprotocol.component.html</context>
           <context context-type="linenumber">5</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterprotocol.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterprotocol.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterlog.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterlog.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdataautotestlog.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdataautotestlog.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="CreateCarPostDataAutoTestProtocol" datatype="html">
         <source>Create Report of measurements of harmful emissions in the exhaust gases of a motor vehicle</source>
@@ -3034,10 +3162,71 @@
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="CreateCarPostDataSmokeMeterProtocol" datatype="html">
+        <source>Create Report of measurements of harmful emissions in the exhaust gases of a motor vehicle (Diesel)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarposts.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarposts.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterprotocol.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterprotocol.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CreateCarPostDataSmokeMeterLog" datatype="html">
+        <source>Create Log of vehicle emissions test results (Diesel)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarposts.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarposts.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterlog.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterlog.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CreateCarPostDataAutoTestLog" datatype="html">
+        <source>Create Log of vehicle emissions test results (Gasoline)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarposts.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarposts.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdataautotestlog.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdataautotestlog.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Date" datatype="html">
         <source>Date</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/reports/createcarpostdataautotestprotocol.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterprotocol.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
@@ -3073,6 +3262,13 @@
         <source>Car Post Data (Auto Test) is required</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/reports/createcarpostdataautotestprotocol.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CarPostDataSmokeMeterRequired" datatype="html">
+        <source>Car Post Data (Smoke Meter) is required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostdatasmokemeterprotocol.component.html</context>
           <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>

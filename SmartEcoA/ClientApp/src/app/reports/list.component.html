@@ -1,7 +1,14 @@
 <a i18n-matTooltip="@@Create" class="btn" [routerLink]="['/reports/create']" matTooltip="Create"><i class="material-icons">add</i></a>
 
-<mat-form-field>
+<mat-form-field class="not-first">
   <input i18n-placeholder="@@Filter" matInput type="text" (keyup)="filter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+
+<mat-form-field class="not-first">
+  <mat-label i18n="@@Date">Date</mat-label>
+  <input matInput [matDatepicker]="picker" [formControl]="Date" (dateChange)="changeParameter()">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>
 
 <table mat-table [dataSource]="dataSource" matSort class="table">

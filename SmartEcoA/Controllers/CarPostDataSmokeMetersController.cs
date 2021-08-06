@@ -24,12 +24,42 @@ namespace SmartEcoA.Controllers
         // GET: api/CarPostDataSmokeMeters
         [HttpGet]
         [Authorize(Roles = "Administrator, Moderator")]
-        public async Task<ActionResult<IEnumerable<CarPostDataSmokeMeter>>> GetCarPostDataSmokeMeter()
+        public async Task<ActionResult<IEnumerable<CarPostDataSmokeMeter>>> GetCarPostDataSmokeMeter(
+            int? CarPostId,
+            DateTime? Date)
         {
-            return await _context.CarPostDataSmokeMeter
-                .Include(c => c.CarModelSmokeMeter)
-                .Include(c => c.CarModelSmokeMeter.CarPost)
-                .ToListAsync();
+            var carPostDataSmokeMeter = _context.CarPostDataSmokeMeter
+                    .Include(c => c.CarModelSmokeMeter)
+                    .Include(c => c.CarModelSmokeMeter.CarPost)
+                    .Where(c => true);
+
+            if (Date != null)
+            {
+                carPostDataSmokeMeter = carPostDataSmokeMeter.Where(c => c.DateTime.Year == Date.Value.Year && c.DateTime.Month == Date.Value.Month && c.DateTime.Day == Date.Value.Day);
+            }
+            if (CarPostId != null)
+            {
+                carPostDataSmokeMeter = carPostDataSmokeMeter.Where(c => c.CarModelSmokeMeter.CarPostId == CarPostId);
+            }
+
+            return await carPostDataSmokeMeter.ToListAsync();
+
+            //if (CarPostId != null && Date != null)
+            //{
+            //    return await _context.CarPostDataSmokeMeter
+            //        .Where(c => c.DateTime.Year == Date.Value.Year && c.DateTime.Month == Date.Value.Month && c.DateTime.Day == Date.Value.Day)
+            //        .Include(c => c.CarModelSmokeMeter)
+            //        .Where(c => c.CarModelSmokeMeter.CarPostId == CarPostId)
+            //        .Include(c => c.CarModelSmokeMeter.CarPost)
+            //        .ToListAsync();
+            //}
+            //else
+            //{
+            //    return await _context.CarPostDataSmokeMeter
+            //        .Include(c => c.CarModelSmokeMeter)
+            //        .Include(c => c.CarModelSmokeMeter.CarPost)
+            //        .ToListAsync();
+            //}
         }
 
         // GET: api/CarPostDataSmokeMeters/5
