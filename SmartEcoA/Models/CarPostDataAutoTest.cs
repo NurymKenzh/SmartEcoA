@@ -9,7 +9,7 @@ namespace SmartEcoA.Models
     {
         public long Id { get; set; }
 
-        public DateTime DateTime { get; set; }
+        public DateTime? DateTime { get; set; }
 
         // NOMER
         // Номерной знак
@@ -111,22 +111,45 @@ namespace SmartEcoA.Models
         // NO при повышенных оборотах
         public decimal? MAX_NO { get; set; }
 
-
-        public decimal? ATNUM { get; set; }
-
-        // MIN_NOx
-        // NOx при минимальных оборотах, ppm
-        public decimal? MIN_NOx { get; set; }
-
-        // MAX_NOx
-        // NOx при повышенных оборотах, ppm
-        public decimal? MAX_NOx { get; set; }
-
-        // Версия приложения AutoTest
-        public int? Version { get; set; }
-
         public int? CarModelAutoTestId { get; set; }
 
         public CarModelAutoTest CarModelAutoTest { get; set; }
+
+
+        //Дополнительные поля из таблицы dop_info
+
+        // TEMP
+        // Температура, °C
+        public decimal? Temperature { get; set; }
+
+        // PRESS
+        // Атм. давление, мм рт.ст.
+        public decimal? Pressure { get; set; }
+
+        // N_AUTOTEST
+        // Газоанализатор: заводской номер
+        public decimal? GasSerialNumber { get; set; }
+
+        // D_AUTOTEST
+        // Газоанализатор: дата проверки
+        public DateTime? GasCheckDate { get; set; }
+
+        // N_METEO
+        // Метеоскоп: заводской номер
+        public decimal? MeteoSerialNumber { get; set; }
+
+        // D_METEO
+        // Метеоскоп: дата проверки
+        public DateTime? MeteoCheckDate { get; set; }
+
+        // NUM_TEST
+        // Номер испытания
+        public decimal? TestNumber { get; set; }
+
+        // ID_TESTER
+        // Тестировщик
+        public int? TesterId { get; set; }
+
+        public Tester Tester { get; set; }
     }
 }

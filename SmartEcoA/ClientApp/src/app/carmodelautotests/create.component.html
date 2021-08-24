@@ -22,6 +22,19 @@
       </mat-form-field>
       <br />
       <mat-form-field>
+        <mat-label i18n="@@TypeEcoClass">Type Eco Class</mat-label>
+        <mat-select formControlName="TypeEcoClassId" id="typeecoclassid">
+          <mat-option *ngFor="let typeecoclass of typeecoclasses" [value]="typeecoclass.Id">
+            {{typeecoclass.Name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@Category" matInput type="text" placeholder="Category" formControlName="Category" id="category">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
         <mat-label i18n="@@EngineType">Engine Type</mat-label>
         <mat-select formControlName="EngineType" id="enginetype">
           <mat-option [value]="0" i18n="@@Petrol">Petrol</mat-option>
@@ -41,10 +54,6 @@
       </mat-form-field>
       <br />
       <div *ngIf="carmodelautotestForm.controls['EngineType'].value==0">
-        <mat-form-field>
-          <input i18n-placeholder="@@Version" i18n-matTooltip="@@Version" matInput type="number" placeholder="AutoTest application version" matTooltip="AutoTest application version" formControlName="Version" id="version">
-        </mat-form-field>
-        <br />
         <mat-form-field>
           <input i18n-placeholder="@@MIN_TAH" i18n-matTooltip="@@MIN_TAH" matInput type="number" placeholder="Minimum revolutions, 1/min" matTooltip="Minimum revolutions, 1/min" formControlName="MIN_TAH" id="min_tah">
         </mat-form-field>
@@ -83,30 +92,6 @@
         <br />
         <mat-form-field>
           <input i18n-placeholder="@@L_MAX" i18n-matTooltip="@@L_MAX" matInput type="number" placeholder="λ maximum" matTooltip="λ maximum" formControlName="L_MAX" id="l_max">
-        </mat-form-field>
-        <br />
-        <mat-form-field>
-          <input i18n-placeholder="@@MIN_CO2" i18n-matTooltip="@@MIN_CO2" matInput type="number" placeholder="CO2 at minimum revolutions, %" matTooltip="CO2 at minimum revolutions, %" formControlName="MIN_CO2" id="min_co2">
-        </mat-form-field>
-        <br />
-        <mat-form-field>
-          <input i18n-placeholder="@@MIN_O2" i18n-matTooltip="@@MIN_O2" matInput type="number" placeholder="O2 at minimum revolutions, %" matTooltip="O2 at minimum revolutions, %" formControlName="MIN_O2" id="min_o2">
-        </mat-form-field>
-        <br />
-        <mat-form-field>
-          <input i18n-placeholder="@@MIN_NOx" i18n-matTooltip="@@MIN_NOx" matInput type="number" placeholder="NOx at minimum revolutions, ppm" matTooltip="NOx at minimum revolutions, ppm" formControlName="MIN_NOx" id="min_nox">
-        </mat-form-field>
-        <br />
-        <mat-form-field>
-          <input i18n-placeholder="@@MAX_CO2" i18n-matTooltip="@@MAX_CO2" matInput type="number" placeholder="CO2 at increased revolutions, %" matTooltip="CO2 at increased revolutions, %" formControlName="MAX_CO2" id="max_co2">
-        </mat-form-field>
-        <br />
-        <mat-form-field>
-          <input i18n-placeholder="@@MAX_O2" i18n-matTooltip="@@MAX_O2" matInput type="number" placeholder="O2 at increased revolutions, %" matTooltip="O2 at increased revolutions, %" formControlName="MAX_O2" id="max_o2">
-        </mat-form-field>
-        <br />
-        <mat-form-field>
-          <input i18n-placeholder="@@MAX_NOx" i18n-matTooltip="@@MAX_NOx" matInput type="number" placeholder="NOx at increased revolutions, ppm" matTooltip="NOx at increased revolutions, ppm" formControlName="MAX_NOx" id="max_nox">
         </mat-form-field>
       </div>
       <div *ngIf="carmodelautotestForm.controls['EngineType'].value==1">

@@ -8,6 +8,9 @@ import { CarModelAutoTest } from './carmodelautotest.model';
 import { CarPostService } from '../carposts/carpost.service';
 import { CarPost } from '../carposts/carpost.model';
 
+import { TypeEcoClassService } from '../typeecoclasses/typeecoclass.service';
+import { TypeEcoClass } from '../typeecoclasses/typeecoclass.model';
+
 @Component({
   templateUrl: 'create.component.html',
   styleUrls: ['create.component.css']
@@ -16,10 +19,12 @@ import { CarPost } from '../carposts/carpost.model';
 export class CarModelAutoTestCreateComponent implements OnInit {
   public carmodelautotestForm: FormGroup;
   carposts: CarPost[];
+  typeecoclasses: TypeEcoClass[];
 
   constructor(private router: Router,
     private service: CarModelAutoTestService,
-    private carPostService: CarPostService) { }
+    private carPostService: CarPostService,
+    private typeEcoClassService: TypeEcoClassService) { }
 
   ngOnInit() {
     this.carPostService.get()
@@ -28,9 +33,17 @@ export class CarModelAutoTestCreateComponent implements OnInit {
         this.carposts.sort((a, b) => (a.Name > b.Name) ? 1 : ((b.Name > a.Name) ? -1 : 0));
         this.carmodelautotestForm.controls["CarPostId"].setValue(this.carposts[0].Id);
       });
+    this.typeEcoClassService.get()
+      .subscribe(res => {
+        this.typeecoclasses = res as TypeEcoClass[];
+        this.typeecoclasses.sort((a, b) => (a.Name > b.Name) ? 1 : ((b.Name > a.Name) ? -1 : 0));
+        this.carmodelautotestForm.controls["TypeEcoClassId"].setValue(this.typeecoclasses[0].Id);
+      });
     this.carmodelautotestForm = new FormGroup({
       Name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       EngineType: new FormControl(0),
+      TypeEcoClassId: new FormControl('', [Validators.required]),
+      Category: new FormControl(''),
       MIN_TAH: new FormControl(''),
       DEL_MIN: new FormControl(''),
       MAX_TAH: new FormControl(''),
@@ -43,13 +56,6 @@ export class CarModelAutoTestCreateComponent implements OnInit {
       L_MAX: new FormControl(''),
       K_SVOB: new FormControl(''),
       K_MAX: new FormControl(''),
-      MIN_CO2: new FormControl(''),
-      MIN_O2: new FormControl(''),
-      MIN_NOx: new FormControl(''),
-      MAX_CO2: new FormControl(''),
-      MAX_O2: new FormControl(''),
-      MAX_NOx: new FormControl(''),
-      Version: new FormControl(''),
       CarPostId: new FormControl('', [Validators.required]),
     });
   }
@@ -68,6 +74,9 @@ export class CarModelAutoTestCreateComponent implements OnInit {
       const carmodelautotest: CarModelAutoTest = {
         Id: 0,
         Name: carmodelautotestFormValue.Name,
+        TypeEcoClassId: carmodelautotestFormValue.TypeEcoClassId,
+        TypeEcoClass: null,
+        Category: carmodelautotestFormValue.Category,
         EngineType: carmodelautotestFormValue.EngineType,
         MIN_TAH: carmodelautotestFormValue.MIN_TAH,
         DEL_MIN: carmodelautotestFormValue.DEL_MIN,
@@ -81,13 +90,6 @@ export class CarModelAutoTestCreateComponent implements OnInit {
         L_MAX: carmodelautotestFormValue.L_MAX,
         K_SVOB: carmodelautotestFormValue.K_SVOB,
         K_MAX: carmodelautotestFormValue.K_MAX,
-        MIN_CO2: carmodelautotestFormValue.MIN_CO2,
-        MIN_O2: carmodelautotestFormValue.MIN_O2,
-        MIN_NOx: carmodelautotestFormValue.MIN_NOx,
-        MAX_CO2: carmodelautotestFormValue.MAX_CO2,
-        MAX_O2: carmodelautotestFormValue.MAX_O2,
-        MAX_NOx: carmodelautotestFormValue.MAX_NOx,
-        Version: carmodelautotestFormValue.Version,
         CarPostId: carmodelautotestFormValue.CarPostId,
         CarPost: null,
       }

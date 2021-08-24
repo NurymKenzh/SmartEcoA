@@ -227,6 +227,9 @@ namespace SmartEcoA.Migrations
                     b.Property<int>("CarPostId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Category")
+                        .HasColumnType("text");
+
                     b.Property<decimal?>("DEL_MAX")
                         .HasColumnType("numeric");
 
@@ -254,15 +257,6 @@ namespace SmartEcoA.Migrations
                     b.Property<decimal?>("MAX_CO")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("MAX_CO2")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal?>("MAX_NOx")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal?>("MAX_O2")
-                        .HasColumnType("numeric");
-
                     b.Property<decimal?>("MAX_TAH")
                         .HasColumnType("numeric");
 
@@ -272,27 +266,20 @@ namespace SmartEcoA.Migrations
                     b.Property<decimal?>("MIN_CO")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("MIN_CO2")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal?>("MIN_NOx")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal?>("MIN_O2")
-                        .HasColumnType("numeric");
-
                     b.Property<decimal?>("MIN_TAH")
                         .HasColumnType("numeric");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int?>("Version")
+                    b.Property<int?>("TypeEcoClassId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CarPostId");
+
+                    b.HasIndex("TypeEcoClassId");
 
                     b.ToTable("CarModelAutoTest");
                 });
@@ -380,9 +367,6 @@ namespace SmartEcoA.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<decimal?>("ATNUM")
-                        .HasColumnType("numeric");
-
                     b.Property<int?>("CarModelAutoTestId")
                         .HasColumnType("integer");
 
@@ -392,8 +376,14 @@ namespace SmartEcoA.Migrations
                     b.Property<string>("DOPOL2")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("DateTime")
+                    b.Property<DateTime?>("DateTime")
                         .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("GasCheckDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<decimal?>("GasSerialNumber")
+                        .HasColumnType("numeric");
 
                     b.Property<decimal?>("K_1")
                         .HasColumnType("numeric");
@@ -428,9 +418,6 @@ namespace SmartEcoA.Migrations
                     b.Property<decimal?>("MAX_NO")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("MAX_NOx")
-                        .HasColumnType("numeric");
-
                     b.Property<decimal?>("MAX_O2")
                         .HasColumnType("numeric");
 
@@ -452,19 +439,31 @@ namespace SmartEcoA.Migrations
                     b.Property<decimal?>("MIN_NO")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal?>("MIN_NOx")
-                        .HasColumnType("numeric");
-
                     b.Property<decimal?>("MIN_O2")
                         .HasColumnType("numeric");
 
                     b.Property<decimal?>("MIN_TAH")
                         .HasColumnType("numeric");
 
+                    b.Property<DateTime?>("MeteoCheckDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<decimal?>("MeteoSerialNumber")
+                        .HasColumnType("numeric");
+
                     b.Property<string>("Number")
                         .HasColumnType("text");
 
-                    b.Property<int?>("Version")
+                    b.Property<decimal?>("Pressure")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("Temperature")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("TestNumber")
+                        .HasColumnType("numeric");
+
+                    b.Property<int?>("TesterId")
                         .HasColumnType("integer");
 
                     b.Property<decimal?>("ZAV_NOMER")
@@ -473,6 +472,8 @@ namespace SmartEcoA.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CarModelAutoTestId");
+
+                    b.HasIndex("TesterId");
 
                     b.ToTable("CarPostDataAutoTest");
                 });
@@ -796,6 +797,75 @@ namespace SmartEcoA.Migrations
                     b.ToTable("Stat");
                 });
 
+            modelBuilder.Entity("SmartEcoA.Models.Tester", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tester");
+                });
+
+            modelBuilder.Entity("SmartEcoA.Models.TypeEcoClass", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<decimal?>("DEL_MAX")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("DEL_MIN")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("EngineType")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("K_MAX")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("K_SVOB")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("L_MAX")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("L_MIN")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("MAX_CH")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("MAX_CO")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("MAX_TAH")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("MIN_CH")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("MIN_CO")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("MIN_TAH")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TypeEcoClass");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -854,6 +924,10 @@ namespace SmartEcoA.Migrations
                         .HasForeignKey("CarPostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("SmartEcoA.Models.TypeEcoClass", "TypeEcoClass")
+                        .WithMany()
+                        .HasForeignKey("TypeEcoClassId");
                 });
 
             modelBuilder.Entity("SmartEcoA.Models.CarModelSmokeMeter", b =>
@@ -879,6 +953,10 @@ namespace SmartEcoA.Migrations
                     b.HasOne("SmartEcoA.Models.CarModelAutoTest", "CarModelAutoTest")
                         .WithMany()
                         .HasForeignKey("CarModelAutoTestId");
+
+                    b.HasOne("SmartEcoA.Models.Tester", "Tester")
+                        .WithMany()
+                        .HasForeignKey("TesterId");
                 });
 
             modelBuilder.Entity("SmartEcoA.Models.CarPostDataSmokeMeter", b =>

@@ -54,12 +54,16 @@ export class CarPostDataAutoTestEditComponent implements OnInit {
       K_MAX: new FormControl(''),
       MIN_NO: new FormControl(''),
       MAX_NO: new FormControl(''),
-      ATNUM: new FormControl(''),
-      MIN_NOx: new FormControl(''),
-      MAX_NOx: new FormControl(''),
-      Version: new FormControl(''),
       CarPostId: new FormControl('', [Validators.required]),
       CarModelAutoTestId: new FormControl('', [Validators.required]),
+      Temperature: new FormControl(''),
+      Pressure: new FormControl(''),
+      GasSerialNumber: new FormControl(''),
+      GasCheckDate: new FormControl(new Date()),
+      MeteoSerialNumber: new FormControl(''),
+      MeteoCheckDate: new FormControl(new Date()),
+      TestNumber: new FormControl(''),
+      TesterId: new FormControl(''),
     });
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.service.get(id)
@@ -67,6 +71,8 @@ export class CarPostDataAutoTestEditComponent implements OnInit {
         this.carpostdataautotestForm.patchValue(res as CarPostDataAutoTest);
         this.carpostdataautotestForm.controls["DateTime"].setValue(new Date(res['DateTime']));
         this.carpostdataautotestForm.controls["CarPostId"].setValue(res['CarModelAutoTest']['CarPostId']);
+        this.carpostdataautotestForm.controls["GasCheckDate"].setValue(new Date(res['GasCheckDate']));
+        this.carpostdataautotestForm.controls["MeteoCheckDate"].setValue(new Date(res['MeteoCheckDate']));
         this.carPostService.get()
           .subscribe(res => {
             this.carposts = res as CarPost[];
@@ -102,7 +108,8 @@ export class CarPostDataAutoTestEditComponent implements OnInit {
     if (this.carpostdataautotestForm.valid) {
       const carpostdataautotest: CarPostDataAutoTest = {
         Id: carpostdataautotestFormValue.Id,
-        DateTime: carpostdataautotestFormValue.DateTime.toLocaleString(),
+        DateTime: new Date(Date.UTC(carpostdataautotestFormValue.DateTime.getFullYear(), carpostdataautotestFormValue.DateTime.getMonth(), carpostdataautotestFormValue.DateTime.getDate(),
+          carpostdataautotestFormValue.DateTime.getHours(), carpostdataautotestFormValue.DateTime.getMinutes(), carpostdataautotestFormValue.DateTime.getSeconds())),
         Number: carpostdataautotestFormValue.Number,
         DOPOL1: carpostdataautotestFormValue.DOPOL1,
         DOPOL2: carpostdataautotestFormValue.DOPOL2,
@@ -127,12 +134,19 @@ export class CarPostDataAutoTestEditComponent implements OnInit {
         K_MAX: carpostdataautotestFormValue.K_MAX,
         MIN_NO: carpostdataautotestFormValue.MIN_NO,
         MAX_NO: carpostdataautotestFormValue.MAX_NO,
-        ATNUM: carpostdataautotestFormValue.ATNUM,
-        MIN_NOx: carpostdataautotestFormValue.MIN_NOx,
-        MAX_NOx: carpostdataautotestFormValue.MAX_NOx,
-        Version: carpostdataautotestFormValue.Version,
         CarModelAutoTestId: carpostdataautotestFormValue.CarModelAutoTestId,
         CarModelAutoTest: null,
+        Temperature: carpostdataautotestFormValue.Temperature,
+        Pressure: carpostdataautotestFormValue.Pressure,
+        GasSerialNumber: carpostdataautotestFormValue.GasSerialNumber,
+        GasCheckDate: new Date(Date.UTC(carpostdataautotestFormValue.GasCheckDate.getFullYear(), carpostdataautotestFormValue.GasCheckDate.getMonth(), carpostdataautotestFormValue.GasCheckDate.getDate(),
+          carpostdataautotestFormValue.GasCheckDate.getHours(), carpostdataautotestFormValue.GasCheckDate.getMinutes(), carpostdataautotestFormValue.GasCheckDate.getSeconds())),
+        MeteoSerialNumber: carpostdataautotestFormValue.MeteoSerialNumber,
+        MeteoCheckDate: new Date(Date.UTC(carpostdataautotestFormValue.MeteoCheckDate.getFullYear(), carpostdataautotestFormValue.MeteoCheckDate.getMonth(), carpostdataautotestFormValue.MeteoCheckDate.getDate(),
+          carpostdataautotestFormValue.MeteoCheckDate.getHours(), carpostdataautotestFormValue.MeteoCheckDate.getMinutes(), carpostdataautotestFormValue.MeteoCheckDate.getSeconds())),
+        TestNumber: carpostdataautotestFormValue.TestNumber,
+        TesterId: carpostdataautotestFormValue.TesterId,
+        Tester: null,
       }
       this.service.put(carpostdataautotest)
         .subscribe(() => {

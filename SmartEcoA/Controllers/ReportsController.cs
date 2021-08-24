@@ -174,21 +174,21 @@ namespace SmartEcoA.Controllers
             CarModelAutoTest carModelAutoTest = _context.CarModelAutoTest.FirstOrDefault(c => c.Id == carPostDataAutoTest.CarModelAutoTestId);
             CarPost carPost = _context.CarPost.FirstOrDefault(c => c.Id == carModelAutoTest.CarPostId);
 
-            report.InputParametersEN = $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["Date"]}={carPostDataAutoTest.DateTime.ToString("yyyy-MM-dd")};" +
+            report.InputParametersEN = $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["Date"]}={carPostDataAutoTest.DateTime.Value.ToString("yyyy-MM-dd")};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPost"]}={carPost.Name};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarNumber"]}={carPostDataAutoTest.Number};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarModel"]}={carModelAutoTest.Name};" +
-                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["Time"]}={carPostDataAutoTest.DateTime.ToString("HH:mm:ss")};";
-            report.InputParametersRU = $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["Date"]}={carPostDataAutoTest.DateTime.ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["Time"]}={carPostDataAutoTest.DateTime.Value.ToString("HH:mm:ss")};";
+            report.InputParametersRU = $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["Date"]}={carPostDataAutoTest.DateTime.Value.ToString("yyyy-MM-dd")};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarPost"]}={carPost.Name};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarNumber"]}={carPostDataAutoTest.Number};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarModel"]}={carModelAutoTest.Name};" +
-                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["Time"]}={carPostDataAutoTest.DateTime.ToString("HH:mm:ss")};";
-            report.InputParametersKK = $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["Date"]}={carPostDataAutoTest.DateTime.ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["Time"]}={carPostDataAutoTest.DateTime.Value.ToString("HH:mm:ss")};";
+            report.InputParametersKK = $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["Date"]}={carPostDataAutoTest.DateTime.Value.ToString("yyyy-MM-dd")};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarPost"]}={carPost.Name};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarNumber"]}={carPostDataAutoTest.Number};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarModel"]}={carModelAutoTest.Name};" +
-                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["Time"]}={carPostDataAutoTest.DateTime.ToString("HH:mm:ss")};";
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["Time"]}={carPostDataAutoTest.DateTime.Value.ToString("HH:mm:ss")};";
 
             string reportTemplateFileNameFull = Path.Combine(Startup.Configuration["ReportsTeplatesFolder"].ToString(), report.NameRU);
             reportTemplateFileNameFull = Path.ChangeExtension(reportTemplateFileNameFull, "docx");
@@ -203,7 +203,7 @@ namespace SmartEcoA.Controllers
                 }
 
                 docText = new Regex("CarPostName").Replace(docText, carPost.Name);
-                docText = new Regex("Time").Replace(docText, carPostDataAutoTest.DateTime.ToString("HH:mm:ss"));
+                docText = new Regex("Time").Replace(docText, carPostDataAutoTest.DateTime.Value.ToString("HH:mm:ss"));
                 docText = new Regex("CarModelName").Replace(docText, carModelAutoTest.Name);
                 docText = new Regex("CarNumber").Replace(docText, carPostDataAutoTest.Number);
                 docText = new Regex("MIN_TAH").Replace(docText, carPostDataAutoTest.MIN_TAH.HasValue ? carPostDataAutoTest.MIN_TAH.Value.ToString() : string.Empty);
@@ -392,8 +392,8 @@ namespace SmartEcoA.Controllers
                     table.Append(
                         new TableRow(
                             new TableCell(new Paragraph(new Run(new Text($"{i + 1}")))),
-                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].DateTime.ToString("dd.MM.yyyy")}")))),
-                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].DateTime.ToString("HH:mm:ss")}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].DateTime.Value.ToString("dd.MM.yyyy")}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].DateTime.Value.ToString("HH:mm:ss")}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].CarModelAutoTest.Name}")))),
                             new TableCell(new Paragraph(new Run(new Text(string.Empty)))),
                             new TableCell(new Paragraph(new Run(new Text(string.Empty)))),

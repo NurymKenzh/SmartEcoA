@@ -13,13 +13,22 @@ namespace SmartEcoA.Models
         // Модель
         public string Name { get; set; }
 
+        // ID_ECOLOG
+        // Тип экологической классификации
+        public int? TypeEcoClassId { get; set; }
+        public TypeEcoClass TypeEcoClass { get; set; }
+
+        // CATEGORY
+        // Категория автомобиля
+        public string Category { get; set; }
+
         // DVIG
         // Тип двигателя
-        // 0 - бензиновый, 1 - дизельный
+        // 0 - бензиновый, 1 - дизельный, 2 - газовый
         public decimal? EngineType { get; set; }
 
         // Порог ограничения выхлопа
-        // бензиновый
+        // бензиновый, газовый
 
         // MIN_TAH
         // Минимальные обороты, 1/мин
@@ -70,33 +79,6 @@ namespace SmartEcoA.Models
         // K_MAX
         // Показатель ослабления светового потока K при максимальной частоте вращения, 1/м
         public decimal? K_MAX { get; set; }
-
-        // MIN_CO2
-        // CO2 при минимальных оборотах, %
-        public decimal? MIN_CO2 { get; set; }
-
-        // MIN_O2
-        // O2 при минимальных оборотах, %
-        public decimal? MIN_O2 { get; set; }
-
-        // MIN_NOx
-        // NOx при минимальных оборотах, ppm
-        public decimal? MIN_NOx { get; set; }
-
-        // MAX_CO2
-        // CO2 при повышенных оборотах, %
-        public decimal? MAX_CO2 { get; set; }
-
-        // MAX_O2
-        // O2 при повышенных оборотах, %
-        public decimal? MAX_O2 { get; set; }
-
-        // MAX_NOx
-        // NOx при повышенных оборотах, ppm
-        public decimal? MAX_NOx { get; set; }
-
-        // Версия приложения AutoTest
-        public int? Version { get; set; }
 
         public int CarPostId { get; set; }
 

@@ -1,0 +1,29 @@
+<mat-card>
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a> /
+  <a i18n-matTooltip="@@CarPosts" class="btn" [routerLink]="['/administration/carposts']" matTooltip="Car Posts">
+    <span i18n="@@CarPosts">Car Posts</span>
+  </a> /
+  <a i18n-matTooltip="@@Testers" [routerLink]="['/testers']" class="btn" matTooltip="Testers">
+    <span i18n="@@Testers">Testers</span>
+  </a> /
+  <a i18n-matTooltip="@@EditTester" class="btn" matTooltip="Edit Tester">
+    <span i18n="@@EditTester">Edit Tester</span>
+  </a>
+  <br />
+  <form [formGroup]="testerForm" autocomplete="off" novalidate (ngSubmit)="save(testerForm.value)">
+    <mat-card-content>
+      <mat-form-field>
+        <input i18n-placeholder="@@Name" matInput type="text" placeholder="Name" formControlName="Name" id="name">
+        <mat-hint i18n="@@NotMore50Characters">Not more than 50 characters long.</mat-hint>
+        <mat-error i18n="@@NameRequired" *ngIf="error('Name', 'required')">Name is required</mat-error>
+        <mat-error i18n="@@More50Characters" *ngIf="error('Name', 'maxlength')">You have more than 50 characters</mat-error>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions align="center">
+      <button i18n="@@Save" mat-raised-button color="primary" [disabled]="!testerForm.valid">Save</button>
+      <button i18n="@@Cancel" type="button" mat-raised-button color="warn" (click)="cancel()">Cancel</button>
+    </mat-card-actions>
+  </form>
+</mat-card>

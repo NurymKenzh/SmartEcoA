@@ -4,8 +4,9 @@ using System.Text;
 
 namespace CarPostsServer.ClientModels
 {
-    public class ClientCarPostDataAutoTestV1
+    public class ClientCarPostDataAutoTest
     {
+        public int ID { get; set; }
         public DateTime DATA { get; set; }
         public string TIME { get; set; }
         public string DOPOL1 { get; set; }
@@ -33,32 +34,23 @@ namespace CarPostsServer.ClientModels
         public decimal MAX_NO { get; set; }
         public string NOMER { get; set; }
         public string MODEL { get; set; }
-        public int Version { get; set; }
+
+        public DopInfo DopInfo { get; set; }
     }
 
-    public class ClientCarPostDataAutoTestV2
+    public class DopInfo
     {
-        public int Index { get; set; }
-        public DateTime Date { get; set; }
-        public DateTime Time { get; set; }
-        public decimal ATNum { get; set; }
-        public decimal MinTax { get; set; }
-        public decimal MinCO { get; set; }
-        public decimal MinCH { get; set; }
-        public decimal MinCO2 { get; set; }
-        public decimal MinO2 { get; set; }
-        public decimal MinNOx { get; set; }
-        public decimal MinLambda { get; set; }
-        public decimal MaxTax { get; set; }
-        public decimal MaxCO { get; set; }
-        public decimal MaxCH { get; set; }
-        public decimal MaxCO2 { get; set; }
-        public decimal MaxO2 { get; set; }
-        public decimal MaxNOx { get; set; }
-        public decimal MaxLambda { get; set; }
-        public string GovNumber { get; set; }
-        public int Model { get; set; }
-        public int Version { get; set; }
-        public string ModelName { get; set; }
+        public int ID { get; set; }
+        public decimal TEMP { get; set; }
+        public decimal PRESS { get; set; }
+        public long N_AUTOTEST { get; set; }
+        public DateTime D_AUTOTEST { get; set; }
+        public long N_METEO { get; set; }
+        public DateTime D_METEO { get; set; }
+        public int ID_TESTER { get; set; }
+        public long NUM_TEST { get; set; }
+
+        //доп. поле для сервера
+        public string TesterName { get; set; }
     }
 }

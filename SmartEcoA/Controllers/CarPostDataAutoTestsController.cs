@@ -31,11 +31,12 @@ namespace SmartEcoA.Controllers
             var carPostDataAutoTest = _context.CarPostDataAutoTest
                     .Include(c => c.CarModelAutoTest)
                     .Include(c => c.CarModelAutoTest.CarPost)
+                    .Include(c => c.Tester)
                     .Where(c => true);
 
             if (Date != null)
             {
-                carPostDataAutoTest = carPostDataAutoTest.Where(c => c.DateTime.Year == Date.Value.Year && c.DateTime.Month == Date.Value.Month && c.DateTime.Day == Date.Value.Day);
+                carPostDataAutoTest = carPostDataAutoTest.Where(c => c.DateTime.Value.Year == Date.Value.Year && c.DateTime.Value.Month == Date.Value.Month && c.DateTime.Value.Day == Date.Value.Day);
             }
             if (CarPostId != null)
             {
@@ -53,6 +54,7 @@ namespace SmartEcoA.Controllers
             var carPostDataAutoTest = await _context.CarPostDataAutoTest
                 .Include(c => c.CarModelAutoTest)
                 .Include(c => c.CarModelAutoTest.CarPost)
+                .Include(c => c.Tester)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (carPostDataAutoTest == null)

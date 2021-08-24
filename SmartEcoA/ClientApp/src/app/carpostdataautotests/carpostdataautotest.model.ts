@@ -1,4 +1,5 @@
 import { CarModelAutoTest } from '../carmodelautotests/carmodelautotest.model';
+import { Tester } from '../testers/tester.model';
 
 export class CarPostDataAutoTest {
   Id: number;
@@ -27,10 +28,15 @@ export class CarPostDataAutoTest {
   K_MAX: number;
   MIN_NO: number;
   MAX_NO: number;
-  ATNUM: number;
-  MIN_NOx: number;
-  MAX_NOx: number;
-  Version: number;
   CarModelAutoTestId: bigint;
   CarModelAutoTest: CarModelAutoTest;
+  Temperature: number;
+  Pressure: number;
+  GasSerialNumber: number;
+  GasCheckDate: Date;
+  MeteoSerialNumber: number;
+  MeteoCheckDate: Date;
+  TestNumber: number;
+  TesterId: bigint;
+  Tester: Tester;
 }

@@ -180,6 +180,22 @@ import { CarPostDataAutoTestCreateComponent } from './carpostdataautotests/creat
 import { CarPostDataAutoTestEditComponent } from './carpostdataautotests/edit.component';
 import { CarPostDataAutoTestDetailsComponent } from './carpostdataautotests/details.component';
 
+import { TypeEcoClassService } from './typeecoclasses/typeecoclass.service';
+import { TypeEcoClassesIndexComponent } from './typeecoclasses/index.component';
+import { TypeEcoClassesListComponent } from './typeecoclasses/list.component';
+import { TypeEcoClassDeleteComponent } from './typeecoclasses/delete.component';
+import { TypeEcoClassCreateComponent } from './typeecoclasses/create.component';
+import { TypeEcoClassEditComponent } from './typeecoclasses/edit.component';
+import { TypeEcoClassDetailsComponent } from './typeecoclasses/details.component';
+
+import { TesterService } from './testers/tester.service';
+import { TestersIndexComponent } from './testers/index.component';
+import { TestersListComponent } from './testers/list.component';
+import { TesterDeleteComponent } from './testers/delete.component';
+import { TesterCreateComponent } from './testers/create.component';
+import { TesterEditComponent } from './testers/edit.component';
+import { TesterDetailsComponent } from './testers/details.component';
+
 import { CarPostAnalyticService } from './carpostanalytics/carpostanalytic.service';
 import { CarPostAnalyticsIndexComponent } from './carpostanalytics/index.component';
 import { CarPostAnalyticsListComponent } from './carpostanalytics/list.component';
@@ -299,6 +315,18 @@ export function createTranslateLoader(http: HttpClient) {
     CarPostDataAutoTestCreateComponent,
     CarPostDataAutoTestEditComponent,
     CarPostDataAutoTestDetailsComponent,
+    TypeEcoClassesIndexComponent,
+    TypeEcoClassesListComponent,
+    TypeEcoClassDeleteComponent,
+    TypeEcoClassCreateComponent,
+    TypeEcoClassEditComponent,
+    TypeEcoClassDetailsComponent,
+    TestersIndexComponent,
+    TestersListComponent,
+    TesterDeleteComponent,
+    TesterCreateComponent,
+    TesterEditComponent,
+    TesterDetailsComponent,
     CarPostAnalyticsIndexComponent,
     CarPostAnalyticsListComponent,
     CarPostAnalyticDeleteComponent,
@@ -382,6 +410,14 @@ export function createTranslateLoader(http: HttpClient) {
       { path: 'carpostdataautotests/create', component: CarPostDataAutoTestCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'carpostdataautotests/edit/:id', component: CarPostDataAutoTestEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'carpostdataautotests/:id', component: CarPostDataAutoTestDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'typeecoclasses', component: TypeEcoClassesIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'typeecoclasses/create', component: TypeEcoClassCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'typeecoclasses/edit/:id', component: TypeEcoClassEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'typeecoclasses/:id', component: TypeEcoClassDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'testers', component: TestersIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'testers/create', component: TesterCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'testers/edit/:id', component: TesterEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'testers/:id', component: TesterDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'carpostanalytics', component: CarPostAnalyticsIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'carpostanalytics/create', component: CarPostAnalyticCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'carpostanalytics/edit/:id', component: CarPostAnalyticEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
@@ -445,6 +481,8 @@ export function createTranslateLoader(http: HttpClient) {
     CarPostDataSmokeMeterService,
     CarModelAutoTestService,
     CarPostDataAutoTestService,
+    TypeEcoClassService,
+    TesterService,
     CarPostAnalyticService,
     {
       provide: HTTP_INTERCEPTORS,
@@ -472,6 +510,8 @@ export function createTranslateLoader(http: HttpClient) {
     CarPostDataSmokeMeterDeleteComponent,
     CarModelAutoTestDeleteComponent,
     CarPostDataAutoTestDeleteComponent,
+    TypeEcoClassDeleteComponent,
+    TesterDeleteComponent,
     CarPostAnalyticDeleteComponent],
   bootstrap: [AppComponent]
 })

@@ -48,10 +48,6 @@
       </mat-form-field>
       <br />
       <mat-form-field>
-        <input i18n-placeholder="@@Version" matInput type="number" placeholder="AutoTest application version" formControlName="Version" id="version">
-      </mat-form-field>
-      <br />
-      <mat-form-field>
         <input i18n-placeholder="@@DOPOL1" matInput type="text" placeholder="Additional field 1" formControlName="DOPOL1" id="dopol1">
       </mat-form-field>
       <br />
@@ -144,15 +140,44 @@
       </mat-form-field>
       <br />
       <mat-form-field>
-        <input i18n-placeholder="@@ATNUM" matInput type="number" placeholder="ATNUM" formControlName="ATNUM" id="atnum">
+        <input i18n-placeholder="@@Temperature" matInput type="number" placeholder="Temperature, °C" formControlName="Temperature" id="temperature">
       </mat-form-field>
       <br />
       <mat-form-field>
-        <input i18n-placeholder="@@MIN_NOx" matInput type="number" placeholder="NOx at minimum speed" formControlName="MIN_NOx" id="min_nox">
+        <input i18n-placeholder="@@Pressure" matInput type="number" placeholder="Atmospheric pressure, mm Hg" formControlName="Pressure" id="pressure">
       </mat-form-field>
       <br />
       <mat-form-field>
-        <input i18n-placeholder="@@MAX_NOx" matInput type="number" placeholder="NOx at high rpm" formControlName="MAX_NOx" id="max_nox">
+        <input i18n-placeholder="@@GasSerialNumber" matInput type="number" placeholder="Gas analyzer: serial number" formControlName="GasSerialNumber" id="gasserialnumber">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input matInput formControlName="GasCheckDate" [matDatetimepicker]="GasCheckDate" required autocomplete="false">
+        <mat-datetimepicker-toggle [for]="GasCheckDate" matSuffix></mat-datetimepicker-toggle>
+        <mat-datetimepicker #GasCheckDate type="datetime" timeInterval="1"></mat-datetimepicker>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@MeteoSerialNumber" matInput type="number" placeholder="Meteoscope: serial number" formControlName="MeteoSerialNumber" id="meteoserialnumber">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input matInput formControlName="MeteoCheckDate" [matDatetimepicker]="MeteoCheckDate" required autocomplete="false">
+        <mat-datetimepicker-toggle [for]="MeteoCheckDate" matSuffix></mat-datetimepicker-toggle>
+        <mat-datetimepicker #MeteoCheckDate type="datetime" timeInterval="1"></mat-datetimepicker>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@TestNumber" matInput type="number" placeholder="Test number" formControlName="TestNumber" id="testnumber">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label i18n="@@Tester">Tester</mat-label>
+        <mat-select formControlName="TesterId" id="testerid">
+          <mat-option *ngFor="let tester of testers" [value]="tester.Id">
+            {{tester.Name}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
       <br />
     </mat-card-content>

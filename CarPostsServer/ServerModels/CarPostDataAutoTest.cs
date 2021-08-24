@@ -7,8 +7,7 @@ namespace CarPostsServer.ServerModels
     public class CarPostDataAutoTest
     {
         public long Id { get; set; }
-
-        public DateTime DateTime { get; set; }
+        public DateTime? DateTime { get; set; }
         public string Number { get; set; }
         public string DOPOL1 { get; set; }
         public string DOPOL2 { get; set; }
@@ -33,11 +32,18 @@ namespace CarPostsServer.ServerModels
         public decimal? K_MAX { get; set; }
         public decimal? MIN_NO { get; set; }
         public decimal? MAX_NO { get; set; }
-        public int? CarModelAutoTestId { get; set; }
-        public int Version { get; set; }
 
-        public decimal? ATNUM { get; set; }
-        public decimal? MIN_NOx { get; set; }
-        public decimal? MAX_NOx { get; set; }
+        public int? CarModelAutoTestId { get; set; }
+
+
+        //Дополнительные поля из таблицы dop_info
+        public decimal? Temperature { get; set; }
+        public decimal? Pressure { get; set; }
+        public decimal? GasSerialNumber { get; set; }
+        public DateTime? GasCheckDate { get; set; }
+        public decimal? MeteoSerialNumber { get; set; }
+        public DateTime? MeteoCheckDate { get; set; }
+        public decimal? TestNumber { get; set; }
+        public int? TesterId { get; set; }
     }
 }

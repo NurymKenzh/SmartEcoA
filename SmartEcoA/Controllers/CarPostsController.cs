@@ -120,7 +120,6 @@ namespace SmartEcoA.Controllers
             public string EngineFuel { get; set; }
             public int AmountMeasurements { get; set; }
             public int AmountExceedances { get; set; }
-            public int? Version { get; set; }
         }
 
         [HttpPost]
@@ -151,46 +150,21 @@ namespace SmartEcoA.Controllers
                         .ToList();
                     if (carPostDataAutoTest.Count != 0)
                     {
-                        int? version = carPostDataAutoTest.FirstOrDefault().Version;
-                        if (version == 1 || version == null)
-                        {
-                            var amountExceedGasoline = carPostDataAutoTest
+                        var amountExceedGasoline = carPostDataAutoTest
                                 .Where(c => c.MIN_TAH > c.CarModelAutoTest.MIN_TAH || c.MAX_TAH > c.CarModelAutoTest.MAX_TAH || c.MIN_CO > c.CarModelAutoTest.MIN_CO ||
                                     c.MAX_CO > c.CarModelAutoTest.MAX_CO || c.MIN_CH > c.CarModelAutoTest.MIN_CH || c.MAX_CH > c.CarModelAutoTest.MAX_CH ||
                                     c.MIN_L > c.CarModelAutoTest.L_MIN || c.MAX_L > c.CarModelAutoTest.L_MAX || c.K_SVOB > c.CarModelAutoTest.K_SVOB ||
                                     c.K_MAX > c.CarModelAutoTest.K_MAX)
                                 .Count();
 
-                            ReportCarPost reportCarPost = new ReportCarPost
-                            {
-                                CarPostName = carPostName,
-                                EngineFuel = "бензин",
-                                AmountMeasurements = carPostDataAutoTest.Count(),
-                                AmountExceedances = amountExceedGasoline,
-                                Version = 1
-                            };
-                            reportCarPosts.Add(reportCarPost);
-                        }
-                        else if (version == 2)
+                        ReportCarPost reportCarPost = new ReportCarPost
                         {
-                            var amountExceedGasoline = carPostDataAutoTest
-                                .Where(c => c.MIN_TAH > c.CarModelAutoTest.MIN_TAH || c.MAX_TAH > c.CarModelAutoTest.MAX_TAH || c.MIN_CO > c.CarModelAutoTest.MIN_CO ||
-                                    c.MAX_CO > c.CarModelAutoTest.MAX_CO || c.MIN_CH > c.CarModelAutoTest.MIN_CH || c.MAX_CH > c.CarModelAutoTest.MAX_CH ||
-                                    c.MIN_L > c.CarModelAutoTest.L_MIN || c.MAX_L > c.CarModelAutoTest.L_MAX || c.MIN_CO2 > c.CarModelAutoTest.MIN_CO2 ||
-                                    c.MAX_CO2 > c.CarModelAutoTest.MAX_CO2 || c.MIN_O2 > c.CarModelAutoTest.MIN_O2 || c.MAX_O2 > c.CarModelAutoTest.MAX_O2 ||
-                                    c.MIN_NOx > c.CarModelAutoTest.MIN_NOx || c.MAX_NOx > c.CarModelAutoTest.MAX_NOx)
-                                .Count();
-
-                            ReportCarPost reportCarPost = new ReportCarPost
-                            {
-                                CarPostName = carPostName,
-                                EngineFuel = "бензин",
-                                AmountMeasurements = carPostDataAutoTest.Count(),
-                                AmountExceedances = amountExceedGasoline,
-                                Version = 2
-                            };
-                            reportCarPosts.Add(reportCarPost);
-                        }
+                            CarPostName = carPostName,
+                            EngineFuel = "бензин",
+                            AmountMeasurements = carPostDataAutoTest.Count(),
+                            AmountExceedances = amountExceedGasoline
+                        };
+                        reportCarPosts.Add(reportCarPost);
                     }
                     //diesel
                     var carPostDataSmokeMeter = _context.CarPostDataSmokeMeter

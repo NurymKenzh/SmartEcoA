@@ -163,6 +163,22 @@
     <None Remove="ClientApp\src\app\reports\report.model.ts" />
     <None Remove="ClientApp\src\app\reports\report.service.ts" />
     <None Remove="ClientApp\src\app\reports\reports.component.ts" />
+    <None Remove="ClientApp\src\app\testers\create.component.ts" />
+    <None Remove="ClientApp\src\app\testers\delete.component.ts" />
+    <None Remove="ClientApp\src\app\testers\details.component.ts" />
+    <None Remove="ClientApp\src\app\testers\edit.component.ts" />
+    <None Remove="ClientApp\src\app\testers\index.component.ts" />
+    <None Remove="ClientApp\src\app\testers\list.component.ts" />
+    <None Remove="ClientApp\src\app\testers\tester.model.ts" />
+    <None Remove="ClientApp\src\app\testers\tester.service.ts" />
+    <None Remove="ClientApp\src\app\typeecoclasses\create.component.ts" />
+    <None Remove="ClientApp\src\app\typeecoclasses\delete.component.ts" />
+    <None Remove="ClientApp\src\app\typeecoclasses\details.component.ts" />
+    <None Remove="ClientApp\src\app\typeecoclasses\edit.component.ts" />
+    <None Remove="ClientApp\src\app\typeecoclasses\index.component.ts" />
+    <None Remove="ClientApp\src\app\typeecoclasses\list.component.ts" />
+    <None Remove="ClientApp\src\app\typeecoclasses\typeecoclass.model.ts" />
+    <None Remove="ClientApp\src\app\typeecoclasses\typeecoclass.service.ts" />
     <None Remove="ClientApp\src\app\users\changepassword.component.ts" />
     <None Remove="ClientApp\src\app\users\changepasswordinfo.component.ts" />
     <None Remove="ClientApp\src\app\users\delete.component.ts" />
@@ -466,6 +482,54 @@
     <TypeScriptCompile Include="ClientApp\src\app\reports\report.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\reports\report.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\reports\reports.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\testers\create.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\testers\delete.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\testers\details.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\testers\edit.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\testers\index.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\testers\list.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\testers\tester.model.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\testers\tester.service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\typeecoclasses\typeecoclass.model.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\typeecoclasses\typeecoclass.service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\typeecoclasses\create.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\typeecoclasses\delete.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\typeecoclasses\details.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\typeecoclasses\edit.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\typeecoclasses\index.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\typeecoclasses\list.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\users\changepassword.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\users\changepasswordinfo.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\users\delete.component.ts">

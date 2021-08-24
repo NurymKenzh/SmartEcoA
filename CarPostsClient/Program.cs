@@ -70,44 +70,24 @@ namespace CarPostsClient
                         }
 
                         JsonData jsonData = new JsonData();
-                        jsonData.carModelSmokeMeter = CreateModelSmokeMeter((string)obj.carModelSmokeMeterName);
 
-                        //Version 1 (model.dbf)
-                        if (File.Exists(Path.Combine(_config.GetConnectionString("AutoTestPath"), "model.dbf")))
-                        {
-                            jsonData.carModelAutoTestV1 = CreateModelAutoTestV1((string)obj.carModelAutoTestName);
-                        }
-                        //Version 2 (models.DB)
-                        else
-                        {
-                            jsonData.carModelAutoTestV2 = CreateModelAutoTestV2((string)obj.carModelAutoTestName);
-                        }
+                        jsonData.carModelSmokeMeter = CreateModelSmokeMeter((string)obj.carModelSmokeMeterName);
+                        jsonData.carModelAutoTest = CreateModelAutoTest((string)obj.carModelAutoTestName);
 
                         if (jsonData.carModelSmokeMeter == null)
                         {
                             jsonData.carPostDataSmokeMeter = CreateDataSmokeMeter((DateTime?)obj.carPostDataSmokeMeterDate);
                         }
-                        //Version 1 (data.dbf)
-                        if (File.Exists(Path.Combine(_config.GetConnectionString("AutoTestPath"), "data.dbf")))
+                        if (jsonData.carModelAutoTest == null)
                         {
-                            if (jsonData.carModelAutoTestV1 == null)
-                            {
-                                jsonData.carPostDataAutoTestV1 = CreateDataAutoTestV1((DateTime?)obj.carPostDataAutoTestDate);
-                            }
+                            jsonData.carPostDataAutoTest = CreateDataAutoTest((DateTime?)obj.carPostDataAutoTestDate);
+                            jsonData.tester = CreateTester((string)obj.testerName);
                         }
-                        //Version 2 (reports.DB)
-                        else
-                        {
-                            if (jsonData.carModelAutoTestV2 == null)
-                            {
-                                jsonData.carPostDataAutoTestV2 = CreateDataAutoTestV2((DateTime?)obj.carPostDataAutoTestDate);
-                            }
-                        }
+
                         string json = JsonConvert.SerializeObject(jsonData);
 
                         if (jsonData.carModelSmokeMeter != null || jsonData.carPostDataSmokeMeter != null
-                            || jsonData.carModelAutoTestV1 != null || jsonData.carPostDataAutoTestV1 != null
-                            || jsonData.carModelAutoTestV2 != null || jsonData.carPostDataAutoTestV2 != null)
+                            || jsonData.carModelAutoTest != null || jsonData.carPostDataAutoTest != null)
                         {
                             //Sending data to the server
                             var data = Encoding.UTF8.GetBytes(json);
@@ -222,11 +202,11 @@ namespace CarPostsClient
             return null;
         }
 
-        private static CarModelAutoTestV1 CreateModelAutoTestV1(string autoTestModel)
+        private static CarModelAutoTest CreateModelAutoTest(string autoTestModel)
         {
             try
             {
-                CarModelAutoTestV1 carModelAutoTest = null;
+                CarModelAutoTest carModelAutoTest = null;
                 //var provider = IntPtr.Size == 8 ? "Microsoft.ACE.OLEDB.12.0" : "Microsoft.Jet.OLEDB.4.0";
                 var provider = "Microsoft.Jet.OLEDB.4.0";
                 var autoTestPath = _config.GetConnectionString("AutoTestPath");
@@ -236,17 +216,28 @@ namespace CarPostsClient
                 using (OleDbConnection connection = new OleDbConnection(connectionString))
                 {
                     connection.Open();
-                    var carModelAutoTests = connection.Query<CarModelAutoTestV1>(
-                        $"SELECT * FROM model").ToList();
-                    carModelAutoTests.ForEach(c => c.Version = 1);
+                    var carModelAutoTests = connection.Query<CarModelAutoTest>(
+                        $"SELECT * FROM model").OrderBy(c => c.ID).ToList();
                     var indexModel = carModelAutoTests.FindIndex(c => c.MODEL == autoTestModel);
                     if (indexModel != -1)
                     {
                         carModelAutoTest = carModelAutoTests.Skip(indexModel + 1).FirstOrDefault();
+                        if (carModelAutoTest != null)
+                        {
+                            var typeEco = connection.Query<TypeEco>(
+                            $"SELECT * FROM type_eco as m WHERE m.ID = {carModelAutoTest.ID_ECOLOG}").FirstOrDefault();
+                            carModelAutoTest.TypeEcoName = typeEco.NAME;
+                        }
                     }
                     else
                     {
                         carModelAutoTest = carModelAutoTests.FirstOrDefault();
+                        if (carModelAutoTest != null)
+                        {
+                            var typeEco = connection.Query<TypeEco>(
+                            $"SELECT * FROM type_eco as m WHERE m.ID = {carModelAutoTest.ID_ECOLOG}").FirstOrDefault();
+                            carModelAutoTest.TypeEcoName = typeEco.NAME;
+                        }
                     }
                     connection.Close();
                 }
@@ -260,49 +251,11 @@ namespace CarPostsClient
             return null;
         }
 
-        private static CarModelAutoTestV2 CreateModelAutoTestV2(string autoTestModel)
+        private static CarPostDataAutoTest CreateDataAutoTest(DateTime? autoTestDataDateTime)
         {
             try
             {
-                CarModelAutoTestV2 carModelAutoTest = null;
-                //var provider = IntPtr.Size == 8 ? "Microsoft.ACE.OLEDB.12.0" : "Microsoft.Jet.OLEDB.4.0";
-                var provider = "Microsoft.Jet.OLEDB.4.0";
-                var autoTestPath = _config.GetConnectionString("AutoTestPath");
-
-                string connectionString = $"Provider={provider};Data Source={autoTestPath};Persist Security Info=False;Extended Properties=\"Paradox 7.x; HDR=YES\"";
-
-                using (OleDbConnection connection = new OleDbConnection(connectionString))
-                {
-                    connection.Open();
-                    var carModelAutoTests = connection.Query<CarModelAutoTestV2>(
-                        $"SELECT * FROM models").ToList();
-                    carModelAutoTests.ForEach(c => c.Version = 2);
-                    var indexModel = carModelAutoTests.FindIndex(c => c.Name == autoTestModel);
-                    if (indexModel != -1)
-                    {
-                        carModelAutoTest = carModelAutoTests.Skip(indexModel + 1).FirstOrDefault();
-                    }
-                    else
-                    {
-                        carModelAutoTest = carModelAutoTests.FirstOrDefault();
-                    }
-                    connection.Close();
-                }
-                return carModelAutoTest;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"{DateTime.Now} >> Error create model autotest >> {ex.Message}{Environment.NewLine}");
-            }
-
-            return null;
-        }
-
-        private static CarPostDataAutoTestV1 CreateDataAutoTestV1(DateTime? autoTestDataDateTime)
-        {
-            try
-            {
-                CarPostDataAutoTestV1 carPostDataAutoTest = null;
+                CarPostDataAutoTest carPostDataAutoTest = null;
                 var provider = "Microsoft.Jet.OLEDB.4.0";
                 var autoTestPath = _config.GetConnectionString("AutoTestPath");
                 var lastTime = Convert.ToDateTime(autoTestDataDateTime).ToString("HH:mm:ss");
@@ -313,14 +266,25 @@ namespace CarPostsClient
                 using (OleDbConnection connection = new OleDbConnection(connectionString))
                 {
                     connection.Open();
-                    carPostDataAutoTest = connection.Query<CarPostDataAutoTestV1>(
-                        $"SELECT * FROM data")
+                    carPostDataAutoTest = connection.Query<CarPostDataAutoTest>(
+                        $"SELECT * FROM Main")
                         .ToList()
                         .Where(c => Convert.ToDateTime($"{c.DATA.ToShortDateString()} {c.TIME}") > Convert.ToDateTime(autoTestDataDateTime))
                         .FirstOrDefault();
                     if (carPostDataAutoTest != null)
                     {
-                        carPostDataAutoTest.Version = 1;
+                        var dopInfo = connection.Query<DopInfo>(
+                            $"SELECT * FROM dop_info as m WHERE m.ID = {carPostDataAutoTest.ID}").FirstOrDefault();
+                        if (dopInfo != null)
+                        {
+                            var tester = connection.Query<Tester>(
+                                $"SELECT * FROM tester as m WHERE m.ID = {dopInfo.ID_TESTER}").FirstOrDefault();
+                            if (tester != null)
+                            {
+                                dopInfo.TesterName = tester.NAME;
+                            }
+                            carPostDataAutoTest.DopInfo = dopInfo;
+                        }
                     }
                     connection.Close();
                 }
@@ -334,45 +298,38 @@ namespace CarPostsClient
             return null;
         }
 
-        private static CarPostDataAutoTestV2 CreateDataAutoTestV2(DateTime? autoTestDataDateTime)
+        private static Tester CreateTester(string testerName)
         {
             try
             {
-                CarPostDataAutoTestV2 carPostDataAutoTest = null;
+                Tester tester = null;
+                //var provider = IntPtr.Size == 8 ? "Microsoft.ACE.OLEDB.12.0" : "Microsoft.Jet.OLEDB.4.0";
                 var provider = "Microsoft.Jet.OLEDB.4.0";
                 var autoTestPath = _config.GetConnectionString("AutoTestPath");
-                var lastTime = Convert.ToDateTime(autoTestDataDateTime).ToString("HH:mm:ss");
-                var lastDate = Convert.ToDateTime(autoTestDataDateTime).ToString("dd.MM.yyyy");
 
-                string connectionString = $"Provider={provider};Data Source={autoTestPath};Persist Security Info=False;Extended Properties=\"Paradox 7.x; HDR=YES\"";
+                string connectionString = $"Provider={provider};Data Source={autoTestPath};Extended Properties=dBase IV;";
 
                 using (OleDbConnection connection = new OleDbConnection(connectionString))
                 {
                     connection.Open();
-                    carPostDataAutoTest = connection.Query<CarPostDataAutoTestV2>(
-                        $"SELECT * FROM reports")
-                        .ToList()
-                        .Where(c => Convert.ToDateTime($"{c.Date.ToShortDateString()} {c.Time.TimeOfDay}") > Convert.ToDateTime(autoTestDataDateTime))
-                        .FirstOrDefault();
-                    if (carPostDataAutoTest != null)
+                    var testers = connection.Query<Tester>(
+                        $"SELECT * FROM tester").OrderBy(t => t.ID).ToList();
+                    var indexModel = testers.FindIndex(c => c.NAME == testerName);
+                    if (indexModel != -1)
                     {
-                        carPostDataAutoTest.Version = 2;
-                        var carModeAutoTest = connection.Query<CarModelAutoTestV2>(
-                            $"SELECT * FROM models as m WHERE m.Index = {carPostDataAutoTest.Model}").FirstOrDefault();
-                        if (carModeAutoTest == null && carPostDataAutoTest.Model == 0)
-                        {
-                            carModeAutoTest = connection.Query<CarModelAutoTestV2>(
-                            $"SELECT * FROM models as m WHERE m.Index is null").LastOrDefault();
-                        }
-                        carPostDataAutoTest.ModelName = carModeAutoTest.Name;
+                        tester = testers.Skip(indexModel + 1).FirstOrDefault();
+                    }
+                    else
+                    {
+                        tester = testers.FirstOrDefault();
                     }
                     connection.Close();
                 }
-                return carPostDataAutoTest;
+                return tester;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"{DateTime.Now} >> Error create data autotest >> {ex.Message}");
+                Console.WriteLine($"{DateTime.Now} >> Error create model autotest >> {ex.Message}{Environment.NewLine}");
             }
 
             return null;

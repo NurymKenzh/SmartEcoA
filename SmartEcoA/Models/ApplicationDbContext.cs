@@ -30,5 +30,7 @@ namespace SmartEcoA.Models
         public DbSet<SmartEcoA.Models.CarPostDataAutoTest> CarPostDataAutoTest { get; set; }
         public DbSet<SmartEcoA.Models.CarPostAnalytic> CarPostAnalytic { get; set; }
         public DbSet<SmartEcoA.Models.Report> Report { get; set; }
+        public DbSet<SmartEcoA.Models.TypeEcoClass> TypeEcoClass { get; set; }
+        public DbSet<SmartEcoA.Models.Tester> Tester { get; set; }
     }
 }

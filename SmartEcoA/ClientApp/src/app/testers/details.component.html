@@ -1,0 +1,24 @@
+<mat-card>
+  <a i18n-matTooltip="@@Administration" class="btn" [routerLink]="['/administration']" matTooltip="Administration">
+    <span i18n="@@Administration">Administration</span>
+  </a> /
+  <a i18n-matTooltip="@@CarPosts" class="btn" [routerLink]="['/administration/carposts']" matTooltip="Car Posts">
+    <span i18n="@@CarPosts">Car Posts</span>
+  </a> /
+  <a i18n-matTooltip="@@Testers" [routerLink]="['/testers']" class="btn" matTooltip="Testers">
+    <span i18n="@@Testers">Testers</span>
+  </a> /
+  <a i18n-matTooltip="@@TesterDetails" class="btn" matTooltip="Tester details">
+    <span i18n="@@TesterDetails">Tester details</span>
+  </a>
+  <br />
+  <mat-card-content>
+    <dl>
+      <dt i18n="@@Name">Name</dt>
+      <dd>{{tester?.Name}}</dd>
+    </dl>
+  </mat-card-content>
+  <mat-card-actions align="center">
+    <a i18n-matTooltip="@@Back" class="btn" [routerLink]="['/testers']" matTooltip="Back"><i class="material-icons">arrow_back</i></a>
+  </mat-card-actions>
+</mat-card>

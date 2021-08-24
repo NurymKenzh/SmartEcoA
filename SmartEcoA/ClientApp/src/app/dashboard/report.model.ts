@@ -3,5 +3,4 @@ export class Report {
   EngineFuel: string;
   AmountMeasurements: number;
   AmountExceedances: number;
-  Version?: number;
 }

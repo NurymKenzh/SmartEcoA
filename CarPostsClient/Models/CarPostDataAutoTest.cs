@@ -4,11 +4,12 @@ using System.Text;
 
 namespace CarPostsClient.Models
 {
-    public class CarPostDataAutoTestV1
+    public class CarPostDataAutoTest
     {
         private string model;
         private string nomer;
 
+        public int ID { get; set; }
         public DateTime DATA { get; set; }
         public string TIME { get; set; }
         public string DOPOL1 { get; set; }
@@ -61,47 +62,22 @@ namespace CarPostsClient.Models
             }
         }
 
-        public int Version { get; set; }
+        public DopInfo DopInfo { get; set; }
     }
 
-    public class CarPostDataAutoTestV2
+    public class DopInfo
     {
-        private string govNumber;
+        public int ID { get; set; }
+        public decimal TEMP { get; set; }
+        public decimal PRESS { get; set; }
+        public long N_AUTOTEST { get; set; }
+        public DateTime D_AUTOTEST { get; set; }
+        public long N_METEO { get; set; }
+        public DateTime D_METEO { get; set; }
+        public int ID_TESTER { get; set; }
+        public long NUM_TEST { get; set; }
 
-        public int Index { get; set; }
-        public DateTime Date { get; set; }
-        public DateTime Time { get; set; }
-        public decimal ATNum { get; set; }
-        public decimal MinTax { get; set; }
-        public decimal MinCO { get; set; }
-        public decimal MinCH { get; set; }
-        public decimal MinCO2 { get; set; }
-        public decimal MinO2 { get; set; }
-        public decimal MinNOx { get; set; }
-        public decimal MinLambda { get; set; }
-        public decimal MaxTax { get; set; }
-        public decimal MaxCO { get; set; }
-        public decimal MaxCH { get; set; }
-        public decimal MaxCO2 { get; set; }
-        public decimal MaxO2 { get; set; }
-        public decimal MaxNOx { get; set; }
-        public decimal MaxLambda { get; set; }
-        public string GovNumber
-        {
-            get
-            {
-                return govNumber;
-            }
-            set
-            {
-                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                //govHumber = Encoding.GetEncoding(1251).GetString(Encoding.GetEncoding(866).GetBytes(value)); //for provider "Microsoft.ACE.OLEDB.12.0"
-                govNumber = Encoding.GetEncoding(1251).GetString(Encoding.GetEncoding(1252).GetBytes(value)); // for  provider "Microsoft.Jet.OLEDB.4.0"
-            }
-        }
-        public int Model { get; set; }
-
-        public int Version { get; set; }
-        public string ModelName { get; set; }
+        //доп. поле для сервера
+        public string TesterName { get; set; }
     }
 }

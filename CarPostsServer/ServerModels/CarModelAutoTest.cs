@@ -8,6 +8,8 @@ namespace CarPostsServer.ServerModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int? TypeEcoClassId { get; set; }
+        public string Category { get; set; }
         public decimal? EngineType { get; set; }
         public decimal? MIN_TAH { get; set; }
         public decimal? DEL_MIN { get; set; }
@@ -21,14 +23,7 @@ namespace CarPostsServer.ServerModels
         public decimal? L_MAX { get; set; }
         public decimal? K_SVOB { get; set; }
         public decimal? K_MAX { get; set; }
-        public int CarPostId { get; set; }
-        public int Version { get; set; }
 
-        public decimal? MIN_CO2 { get; set; }
-        public decimal? MIN_O2 { get; set; }
-        public decimal? MIN_NOx { get; set; }
-        public decimal? MAX_CO2 { get; set; }
-        public decimal? MAX_O2 { get; set; }
-        public decimal? MAX_NOx { get; set; }
+        public int CarPostId { get; set; }
     }
 }
