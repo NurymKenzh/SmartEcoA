@@ -57,6 +57,7 @@ export class CarModelAutoTestCreateComponent implements OnInit {
       K_SVOB: new FormControl(''),
       K_MAX: new FormControl(''),
       CarPostId: new FormControl('', [Validators.required]),
+      ParadoxId: new FormControl(''),
     });
   }
 
@@ -92,6 +93,7 @@ export class CarModelAutoTestCreateComponent implements OnInit {
         K_MAX: carmodelautotestFormValue.K_MAX,
         CarPostId: carmodelautotestFormValue.CarPostId,
         CarPost: null,
+        ParadoxId: carmodelautotestFormValue.ParadoxId,
       }
       this.service.post(carmodelautotest)
         .subscribe(() => {

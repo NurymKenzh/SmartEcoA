@@ -56,6 +56,7 @@ export class CarModelAutoTestEditComponent implements OnInit {
       K_SVOB: new FormControl(''),
       K_MAX: new FormControl(''),
       CarPostId: new FormControl('', [Validators.required]),
+      ParadoxId: new FormControl(''),
     });
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.service.get(id)
@@ -100,6 +101,7 @@ export class CarModelAutoTestEditComponent implements OnInit {
         K_MAX: carmodelautotestFormValue.K_MAX,
         CarPostId: carmodelautotestFormValue.CarPostId,
         CarPost: null,
+        ParadoxId: carmodelautotestFormValue.ParadoxId,
       }
       this.service.put(carmodelautotest)
         .subscribe(() => {

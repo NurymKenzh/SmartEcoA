@@ -103,6 +103,9 @@
           <input i18n-placeholder="@@K_MAX" i18n-matTooltip="@@K_MAX" matInput type="number" placeholder="Luminous flux attenuation index K at maximum rotation frequency, 1/m" matTooltip="Luminous flux attenuation index K at maximum rotation frequency, 1/m" formControlName="K_MAX" id="k_max">
         </mat-form-field>
       </div>
+      <mat-form-field hidden="hidden">
+        <input matInput type="number" formControlName="ParadoxId" id="paradoxid">
+      </mat-form-field>
     </mat-card-content>
     <mat-card-actions align="center">
       <button i18n="@@Create" mat-raised-button color="primary" [disabled]="!carmodelautotestForm.valid">Create</button>
