@@ -399,11 +399,11 @@ namespace SmartEcoA.Controllers
                             new TableCell(new Paragraph(new Run(new Text(string.Empty)))),
                             new TableCell(new Paragraph(new Run(new Text(string.Empty)))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].Number}")))),
-                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MIN_CO}")))),
-                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MIN_CH}")))),
-                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MIN_CO2}")))),
-                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MIN_O2}")))),
-                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MIN_NO}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MAX_CO}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MAX_CH}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MAX_CO2}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MAX_O2}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MAX_NO}")))),
                             new TableCell(new Paragraph(new Run(new Text(string.Empty))))));
                 }
 
