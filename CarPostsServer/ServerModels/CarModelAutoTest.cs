@@ -25,5 +25,6 @@ namespace CarPostsServer.ServerModels
         public decimal? K_MAX { get; set; }
 
         public int CarPostId { get; set; }
+        public int? ParadoxId { get; set; }
     }
 }

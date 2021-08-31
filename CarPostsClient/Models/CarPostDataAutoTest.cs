@@ -61,6 +61,7 @@ namespace CarPostsClient.Models
                 model = Encoding.GetEncoding(1251).GetString(Encoding.GetEncoding(1252).GetBytes(value)); // for  provider "Microsoft.Jet.OLEDB.4.0"
             }
         }
+        public int ID_MODEL { get; set; }
 
         public DopInfo DopInfo { get; set; }
     }

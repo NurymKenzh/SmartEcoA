@@ -83,5 +83,6 @@ namespace SmartEcoA.Models
         public int CarPostId { get; set; }
 
         public CarPost CarPost { get; set; }
+        public int? ParadoxId { get; set; }
     }
 }

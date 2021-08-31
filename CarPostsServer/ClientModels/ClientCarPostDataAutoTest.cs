@@ -34,6 +34,7 @@ namespace CarPostsServer.ClientModels
         public decimal MAX_NO { get; set; }
         public string NOMER { get; set; }
         public string MODEL { get; set; }
+        public int ID_MODEL { get; set; }
 
         public DopInfo DopInfo { get; set; }
     }

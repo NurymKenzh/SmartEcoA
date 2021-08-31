@@ -22,4 +22,5 @@ export class CarModelAutoTest {
   K_MAX: number;
   CarPostId: bigint;
   CarPost: CarPost;
+  ParadoxId: number;
 }

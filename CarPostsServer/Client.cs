@@ -97,7 +97,7 @@ namespace CarPostsServer
         private string GetLastData(int carPostId)
         {
             string carModelSmokeMeterName = string.Empty;
-            string carModelAutoTestName = string.Empty;
+            int? carModelAutoTestId = null;
             DateTime? carPostDataAutoTestDate = new DateTime();
             DateTime? carPostDataSmokeMeterDate = new DateTime();
             string testerName = string.Empty;
@@ -113,12 +113,12 @@ namespace CarPostsServer
                         $"LIMIT 1", commandTimeout: 86400);
                     carModelSmokeMeterName = carModelSmokeMetersv.FirstOrDefault() == null ? carModelSmokeMeterName : carModelSmokeMetersv.FirstOrDefault().Name;
 
-                    var carModelAutoTestsv = connection.Query<CarModelAutoTest>($"SELECT \"Id\", \"Name\", \"CarPostId\" " +
+                    var carModelAutoTestsv = connection.Query<CarModelAutoTest>($"SELECT \"Id\", \"Name\", \"ParadoxId\", \"CarPostId\" " +
                         $"FROM public.\"CarModelAutoTest\" " +
                         $"WHERE \"CarPostId\" = {carPostId} " +
                         $"ORDER BY \"Id\" DESC " +
                         $"LIMIT 1", commandTimeout: 86400);
-                    carModelAutoTestName = carModelAutoTestsv.FirstOrDefault() == null ? carModelAutoTestName : carModelAutoTestsv.FirstOrDefault().Name;
+                    carModelAutoTestId = carModelAutoTestsv.FirstOrDefault() == null ? carModelAutoTestId : carModelAutoTestsv.FirstOrDefault().ParadoxId;
 
                     var carPostDataAutoTestsv = connection.Query<CarPostDataAutoTest>($"SELECT * " +
                         $"FROM public.\"CarPostDataAutoTest\" as datas " +
@@ -149,7 +149,7 @@ namespace CarPostsServer
 
                 dynamic obj = new ExpandoObject();
                 obj.carModelSmokeMeterName = carModelSmokeMeterName;
-                obj.carModelAutoTestName = carModelAutoTestName;
+                obj.carModelAutoTestId = carModelAutoTestId;
                 obj.carPostDataAutoTestDate = carPostDataAutoTestDate;
                 obj.carPostDataSmokeMeterDate = carPostDataSmokeMeterDate;
                 string json = JsonConvert.SerializeObject(obj);
@@ -253,6 +253,7 @@ namespace CarPostsServer
                         carModelAutoTest.K_SVOB = Convert.ToDecimal(clientJsonData.carModelAutoTest.K_SVOB);
                         carModelAutoTest.K_MAX = Convert.ToDecimal(clientJsonData.carModelAutoTest.K_MAX);
                         carModelAutoTest.CarPostId = carPostId;
+                        carModelAutoTest.ParadoxId = clientJsonData.carModelAutoTest.ID;
 
                         Console.WriteLine($"{DateTime.Now} >> CarPost {carPostId}: Get model autotest finished{Environment.NewLine}");
                     }
@@ -268,7 +269,7 @@ namespace CarPostsServer
                         {
                             connection.Open();
                             string execute = $"INSERT INTO public.\"CarModelAutoTest\"(\"CarPostId\", \"Name\", \"TypeEcoClassId\", \"Category\", \"EngineType\", \"MIN_TAH\", " +
-                                $"\"DEL_MIN\", \"MAX_TAH\", \"DEL_MAX\", \"MIN_CO\", \"MAX_CO\", \"MIN_CH\", \"MAX_CH\", \"L_MIN\", \"L_MAX\", \"K_SVOB\", \"K_MAX\")" +
+                                $"\"DEL_MIN\", \"MAX_TAH\", \"DEL_MAX\", \"MIN_CO\", \"MAX_CO\", \"MIN_CH\", \"MAX_CH\", \"L_MIN\", \"L_MAX\", \"K_SVOB\", \"K_MAX\", \"ParadoxId\")" +
                                     $"VALUES({carModelAutoTest.CarPostId.ToString()}," +
                                     $"'{carModelAutoTest.Name}'," +
                                     $"{carModelAutoTest.TypeEcoClassId.ToString()}," +
@@ -285,7 +286,8 @@ namespace CarPostsServer
                                     $"{carModelAutoTest.L_MIN.ToString().Replace(",", ".")}," +
                                     $"{carModelAutoTest.L_MAX.ToString().Replace(",", ".")}," +
                                     $"{carModelAutoTest.K_SVOB.ToString().Replace(",", ".")}," +
-                                    $"{carModelAutoTest.K_MAX.ToString().Replace(",", ".")}); ";
+                                    $"{carModelAutoTest.K_MAX.ToString().Replace(",", ".")}," +
+                                    $"{(carModelAutoTest.ParadoxId != null ? carModelAutoTest.ParadoxId.ToString() : "null")}); ";
                             connection.Execute(execute);
                             connection.Close();
                         }
@@ -375,9 +377,9 @@ namespace CarPostsServer
                     Tester tester = null;
                     using (var connection = new NpgsqlConnection("Host=localhost;Database=SmartEcoA;Username=postgres;Password=postgres;Port=5433"))
                     {
-                        var carModelAutoTestsv = connection.Query<CarModelAutoTest>($"SELECT \"Id\", \"Name\", \"CarPostId\" " +
+                        var carModelAutoTestsv = connection.Query<CarModelAutoTest>($"SELECT \"Id\", \"Name\", \"ParadoxId\", \"CarPostId\" " +
                             $"FROM public.\"CarModelAutoTest\" " +
-                            $"WHERE \"CarPostId\" = {carPostId} AND \"Name\" = '{clientJsonData.carPostDataAutoTest.MODEL}' " +
+                            $"WHERE \"CarPostId\" = {carPostId} AND \"ParadoxId\" = '{clientJsonData.carPostDataAutoTest.ID_MODEL}' " +
                             $"ORDER BY \"Id\"", commandTimeout: 86400);
                         carModelAutoTest = carModelAutoTestsv.FirstOrDefault();
 

@@ -72,7 +72,7 @@ namespace CarPostsClient
                         JsonData jsonData = new JsonData();
 
                         jsonData.carModelSmokeMeter = CreateModelSmokeMeter((string)obj.carModelSmokeMeterName);
-                        jsonData.carModelAutoTest = CreateModelAutoTest((string)obj.carModelAutoTestName);
+                        jsonData.carModelAutoTest = CreateModelAutoTest((int?)obj.carModelAutoTestId);
 
                         if (jsonData.carModelSmokeMeter == null)
                         {
@@ -202,7 +202,7 @@ namespace CarPostsClient
             return null;
         }
 
-        private static CarModelAutoTest CreateModelAutoTest(string autoTestModel)
+        private static CarModelAutoTest CreateModelAutoTest(int? autoTestModelId)
         {
             try
             {
@@ -218,10 +218,9 @@ namespace CarPostsClient
                     connection.Open();
                     var carModelAutoTests = connection.Query<CarModelAutoTest>(
                         $"SELECT * FROM model").OrderBy(c => c.ID).ToList();
-                    var indexModel = carModelAutoTests.FindIndex(c => c.MODEL == autoTestModel);
-                    if (indexModel != -1)
+                    if (autoTestModelId != null)
                     {
-                        carModelAutoTest = carModelAutoTests.Skip(indexModel + 1).FirstOrDefault();
+                        carModelAutoTest = carModelAutoTests.Where(c => c.ID == autoTestModelId + 1).FirstOrDefault();
                         if (carModelAutoTest != null)
                         {
                             var typeEco = connection.Query<TypeEco>(
@@ -239,6 +238,27 @@ namespace CarPostsClient
                             carModelAutoTest.TypeEcoName = typeEco.NAME;
                         }
                     }
+                    //var indexModel = carModelAutoTests.FindIndex(c => c.ID == autoTestModelId);
+                    //if (indexModel != -1)
+                    //{
+                    //    carModelAutoTest = carModelAutoTests.Skip(indexModel + 1).FirstOrDefault();
+                    //    if (carModelAutoTest != null)
+                    //    {
+                    //        var typeEco = connection.Query<TypeEco>(
+                    //        $"SELECT * FROM type_eco as m WHERE m.ID = {carModelAutoTest.ID_ECOLOG}").FirstOrDefault();
+                    //        carModelAutoTest.TypeEcoName = typeEco.NAME;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    carModelAutoTest = carModelAutoTests.FirstOrDefault();
+                    //    if (carModelAutoTest != null)
+                    //    {
+                    //        var typeEco = connection.Query<TypeEco>(
+                    //        $"SELECT * FROM type_eco as m WHERE m.ID = {carModelAutoTest.ID_ECOLOG}").FirstOrDefault();
+                    //        carModelAutoTest.TypeEcoName = typeEco.NAME;
+                    //    }
+                    //}
                     connection.Close();
                 }
                 return carModelAutoTest;
