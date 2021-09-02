@@ -103,6 +103,16 @@ namespace SmartEcoA.Controllers
                 return NotFound();
             }
 
+            // Delete CarPostDataAutoTest, CarModelAutoTest
+            List<CarModelAutoTest> carModelAutoTests = _context.CarModelAutoTest.Where(c => c.CarPostId == id).ToList();
+            _context.CarPostDataAutoTest.RemoveRange(_context.CarPostDataAutoTest.Where(c => carModelAutoTests.Contains(c.CarModelAutoTest)));
+            _context.CarModelAutoTest.RemoveRange(carModelAutoTests);
+
+            // Delete CarPostDataSmokeMeter, CarModelSmokeMeter
+            List<CarModelSmokeMeter> carModelSmokeMeters = _context.CarModelSmokeMeter.Where(c => c.CarPostId == id).ToList();
+            _context.CarPostDataSmokeMeter.RemoveRange(_context.CarPostDataSmokeMeter.Where(c => carModelSmokeMeters.Contains(c.CarModelSmokeMeter)));
+            _context.CarModelSmokeMeter.RemoveRange(carModelSmokeMeters);
+
             _context.CarPost.Remove(carPost);
             await _context.SaveChangesAsync();
 
