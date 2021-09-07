@@ -13,9 +13,9 @@ namespace SmartEcoA.Models
 
         public PostData PostData { get; set; }
 
-        //public long PostDataAvgId { get; set; }
+        public long? PostDataAvgId { get; set; }
 
-        //public PostDataAvg PostDataAvg { get; set; }
+        public PostDataAvg PostDataAvg { get; set; }
 
         public string MN { get; set; }
 

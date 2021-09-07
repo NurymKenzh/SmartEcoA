@@ -45,7 +45,7 @@ namespace Server
             DateTime dateTimeMax = postDatas.Max(p => p.DateTime);
             SaveLastReceivedPostDataDateTime(dateTimeMax);
             // log
-            Logger.Log($"Получено {postDatas.Count()} данных с постов с {lastReceivedPostDataDateTime.ToString("yyyy-MM-dd HH:mm:ss")} по {dateTimeMax.ToString("yyyy-MM-dd HH:mm:ss")}");
+            Logger.Log($"Получено {postDatas.Count().ToString("N0")} данных с постов с {lastReceivedPostDataDateTime.ToString("yyyy-MM-dd HH:mm:ss")} по {dateTimeMax.ToString("yyyy-MM-dd HH:mm:ss")}");
         }
 
         private DateTime GetLastReceivedPostDataDateTime()

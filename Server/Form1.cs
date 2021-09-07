@@ -16,7 +16,7 @@ namespace Server
         const string PostsDataConnectionString = "Host=localhost;Database=PostsData;Username=postgres;Password=postgres;Port=5432;CommandTimeout=0;Keepalive=0;",
             SmartEcoAConnectionString = "Host=localhost;Database=SmartEcoA;Username=postgres;Password=postgres;Port=5433;CommandTimeout=0;Keepalive=0;",
             LastReceivedPostDataDateTimeString = "LastReceivedPostDataDateTime",
-            LastPostDataDateTimeString = "LastPostDataDateTime";
+            LastPostDataDividedDateTimeString = "LastPostDataDividedDateTime";
 
         public FormMain()
         {
@@ -25,7 +25,7 @@ namespace Server
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            backgroundWorkerGetPostsData.RunWorkerAsync();
+            //backgroundWorkerGetPostsData.RunWorkerAsync();
             backgroundWorkerDividePostDatas.RunWorkerAsync();
         }
 
@@ -33,10 +33,11 @@ namespace Server
         {
             while (!backgroundWorkerGetPostsData.CancellationPending)
             {
-                PostDataReceiver postDataReceiver = new PostDataReceiver(PostsDataConnectionString,
-                SmartEcoAConnectionString,
-                LastReceivedPostDataDateTimeString,
-                textBoxGetPostsData);
+                PostDataReceiver postDataReceiver = new PostDataReceiver(
+                    PostsDataConnectionString,
+                    SmartEcoAConnectionString,
+                    LastReceivedPostDataDateTimeString,
+                    textBoxGetPostsData);
                 postDataReceiver.GetPostDatas();
                 Thread.Sleep(new TimeSpan(0, 0, 10));
             }
@@ -46,10 +47,12 @@ namespace Server
         {
             while (!backgroundWorkerDividePostDatas.CancellationPending)
             {
-                PostDataDivider postDataDivider = new PostDataDivider(SmartEcoAConnectionString,
-                LastPostDataDateTimeString);
+                PostDataDivider postDataDivider = new PostDataDivider(
+                    SmartEcoAConnectionString,
+                    LastPostDataDividedDateTimeString,
+                    textBoxDividePostsDatas);
                 postDataDivider.DividePostDatas();
-                Thread.Sleep(new TimeSpan(0, 0, 10));
+                Thread.Sleep(new TimeSpan(0, 10, 10));
             }
         }
     }
