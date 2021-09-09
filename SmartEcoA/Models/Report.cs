@@ -74,5 +74,7 @@ namespace SmartEcoA.Models
         public DateTime? CarPostEndDate { get; set; }
 
         public string FileName { get; set; }
+
+        public bool PDF { get; set; }
     }
 }

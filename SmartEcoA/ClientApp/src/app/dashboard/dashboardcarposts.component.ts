@@ -1,6 +1,8 @@
 import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
+import { MatOption, MatSelect } from "@angular/material";
+
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
@@ -39,8 +41,10 @@ export class DashboardCarPostsComponent implements AfterViewInit {
   spinner = false;
   columns: string[] = ['CarPostName', 'EngineFuel', 'AmountMeasurements', 'AmountExceedances'];
   dataCarPosts = new MatTableDataSource<Report>();
+  Layer_select_pasturepol = new VectorLayer();
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('multiselect', { static: true }) multiselect: MatSelect;
 
   constructor(private olservice: OLService,
     private carpostservice: CarPostService,
@@ -92,6 +96,19 @@ export class DashboardCarPostsComponent implements AfterViewInit {
       });
     };
 
+      function styleSelectPostFunction(feature) {
+        return new Style({
+          image: new Icon({
+            anchor: [0.5, 0.5],
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'fraction',
+            src: '../images/icons/outline_emoji_transportation_black_24dp_select.png',
+            scale: 1.2,
+          }),
+          text: createCarPostTextStyle(feature),
+        });
+    }
+
     function carPostStyleFunction(feature) {
       return new Style({
         image: new Icon({
@@ -105,11 +122,11 @@ export class DashboardCarPostsComponent implements AfterViewInit {
     }
 
     var Source_select_pasturepol = new VectorSource({});
-    var Layer_select_pasturepol = new VectorLayer({
+    this.Layer_select_pasturepol = new VectorLayer({
       source: Source_select_pasturepol,
       style: carPostStyleFunction,
     });
-    this.olservice.map.addLayer(Layer_select_pasturepol);
+    this.olservice.map.addLayer(this.Layer_select_pasturepol);
 
     //this.olservice.map.on("singleclick", function (evt) {
     //  this.carpostanalytic = new CarPostAnalytic();
@@ -128,6 +145,43 @@ export class DashboardCarPostsComponent implements AfterViewInit {
     //      );
     //  }.bind(this));
     //}.bind(this));
+
+    this.olservice.map.on("singleclick", function (evt) {
+      evt.map.forEachFeatureAtPixel(evt.pixel, function (feature, layer) {
+        var id = feature.get('id');
+        this.multiselect.options.forEach((item: MatOption) => {
+          if (item.value == id) {
+            if (!item.selected) {
+              selectCarPost(item, feature)
+            } else {
+              deselectCarPost(item, feature)
+            }
+          }
+        });
+      }.bind(this));
+    }.bind(this));
+
+    function selectCarPost(item, feature) {
+      feature.setStyle(styleSelectPostFunction(feature));
+      feature.getStyle().getText().getFill().setColor('#2914e7');
+      item.select();
+    }
+
+    function deselectCarPost(item, feature) {
+      feature.setStyle(carPostStyleFunction(feature));
+      item.deselect();
+    }
+
+    this.olservice.map.on("pointermove", function (evt) {
+      var hit = this.forEachFeatureAtPixel(evt.pixel, function (feature, layer) {
+        return true;
+      });
+      if (hit) {
+        this.getTargetElement().style.cursor = 'pointer';
+      } else {
+        this.getTargetElement().style.cursor = '';
+      }
+    });
 
     this.carpostservice.get()
       .subscribe(res => {
@@ -163,7 +217,88 @@ export class DashboardCarPostsComponent implements AfterViewInit {
   }
 
   changeCarPosts(carPosts) {
+    var source = this.Layer_select_pasturepol.getSource();
+    var features = source.getFeatures();
+    this.selectCarPostsOnMap(features, carPosts);
     this.carPostsId = carPosts.value;
     this.get();
   }
+
+  selectCarPostsOnMap(features, carPosts) {
+    features.forEach(feature => {
+      if (carPosts.value.find(x => x == feature.get('id')) != undefined) {
+        feature.setStyle(this.styleSelectPostFunction(feature));
+        feature.getStyle().getText().getFill().setColor('#2914e7');
+      }
+      else {
+        feature.setStyle(this.carPostStyleFunction(feature));
+      }
+    })
+  }
+
+
+  createCarPostTextStyle(feature) {
+  var align = 'center';
+  var baseline = 'middle';
+  var size = '12px';
+  var height = 1;
+  var offsetX = 0;
+  var offsetY = -12;
+  var weight = 'normal';
+  var placement = 'point';
+  var maxAngle = undefined;
+  var overflow = false;
+  var rotation = 0;
+  var font = weight + ' ' + size + '/' + height + ' ' + 'Arial';
+  var fillColor = '#000000';
+  var outlineColor = '#ffffff';
+  var outlineWidth = 3;
+
+  return new Text({
+    textAlign: align == '' ? undefined : align,
+    textBaseline: baseline,
+    font: font,
+    text: feature.get('Name'),
+    fill: new Fill({ color: fillColor }),
+    stroke: new Stroke({ color: outlineColor, width: outlineWidth }),
+    offsetX: offsetX,
+    offsetY: offsetY,
+    placement: placement,
+    maxAngle: maxAngle,
+    overflow: overflow,
+    rotation: rotation,
+  });
+};
+
+  styleSelectPostFunction(feature) {
+    return new Style({
+      image: new Icon({
+        anchor: [0.5, 0.5],
+        anchorXUnits: 'fraction',
+        anchorYUnits: 'fraction',
+        src: '../images/icons/outline_emoji_transportation_black_24dp_select.png',
+        scale: 1.2,
+      }),
+      text: this.createCarPostTextStyle(feature),
+    });
+  }
+
+  carPostStyleFunction(feature) {
+    return new Style({
+      image: new Icon({
+        anchor: [0.5, 0.5],
+        anchorXUnits: 'fraction',
+        anchorYUnits: 'fraction',
+        src: '../images/icons/outline_emoji_transportation_black_24dp.png',
+      }),
+      text: this.createCarPostTextStyle(feature),
+    });
+  }
+
+  //public CarPostSelectedOnList() {
+  //  this.allCarPosts.forEach(carPost => this.selectedCarPosts.values.push({ 'Id': carPost.Id, 'Name': carPost.Name, 'Selected': false })
+  //  if (this.allCarPosts) {
+
+  //  }
+  //}
 }

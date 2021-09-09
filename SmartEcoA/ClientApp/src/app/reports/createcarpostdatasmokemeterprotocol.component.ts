@@ -37,8 +37,10 @@ export class ReportCreateCarPostDataSmokeMeterProtocolComponent implements OnIni
         this.CarPostDataSmokeMetersUpdate();
       });
     this.reportForm = new FormGroup({
-      CarPostDataSmokeMeterId: new FormControl('', [Validators.required])
+      CarPostDataSmokeMeterId: new FormControl('', [Validators.required]),
+      SelectedTypeReport: new FormControl('', [Validators.required])
     });
+    this.reportForm.controls["SelectedTypeReport"].setValue("false");
   }
 
   public CarPostDataSmokeMetersUpdate() {
@@ -76,7 +78,8 @@ export class ReportCreateCarPostDataSmokeMeterProtocolComponent implements OnIni
         DateTime: null,
         CarPostStartDate: null,
         CarPostEndDate: null,
-        FileName: null
+        FileName: null,
+        PDF: this.reportForm.controls["SelectedTypeReport"].value
       }
       this.service.post(report)
         .subscribe(() => {

@@ -38,6 +38,13 @@
         </mat-select>
         <mat-error i18n="@@CarPostDataAutoTestRequired" *ngIf="error('CarPostDataAutoTestId', 'required')">Car Post Data (Auto Test) is required</mat-error>
       </mat-form-field>
+      <mat-form-field class="not-first">
+        <mat-label i18n="@@TypeReport">Type Report</mat-label>
+        <mat-select formControlName="SelectedTypeReport">
+          <mat-option value="false">Word</mat-option>
+          <mat-option value="true">PDF</mat-option>
+        </mat-select>
+      </mat-form-field>
       <br />
 
     </mat-card-content>

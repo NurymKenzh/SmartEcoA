@@ -32,8 +32,10 @@ export class ReportCreateCarPostDataSmokeMeterLogComponent implements OnInit {
         this.CarPostId.setValue(this.carposts[0] ? this.carposts[0].Id : null);
       });
     this.reportForm = new FormGroup({
-      CarPostDataSmokeMeterId: new FormControl('', [Validators.required])
+      CarPostDataSmokeMeterId: new FormControl('', [Validators.required]),
+      SelectedTypeReport: new FormControl('', [Validators.required])
     });
+    this.reportForm.controls["SelectedTypeReport"].setValue("false");
   }
 
   public error(control: string,
@@ -63,7 +65,8 @@ export class ReportCreateCarPostDataSmokeMeterLogComponent implements OnInit {
         DateTime: null,
         CarPostStartDate: startDate,
         CarPostEndDate: endDate,
-        FileName: null
+        FileName: null,
+        PDF: this.reportForm.controls["SelectedTypeReport"].value
       }
       this.service.post(report)
         .subscribe(() => {
