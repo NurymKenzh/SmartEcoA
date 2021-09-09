@@ -14,7 +14,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarPostsClient", "CarPostsClient\CarPostsClient.csproj", "{2F19987B-09AE-43E0-A8D8-110B0FE06AC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarPostsServer", "CarPostsServer\CarPostsServer.csproj", "{88E9F19E-9E8A-459E-92ED-E06A0996E71B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarPostsServer", "CarPostsServer\CarPostsServer.csproj", "{88E9F19E-9E8A-459E-92ED-E06A0996E71B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{BD39F454-831C-416E-8F36-02665DF9BCC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +40,10 @@ Global
 		{88E9F19E-9E8A-459E-92ED-E06A0996E71B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88E9F19E-9E8A-459E-92ED-E06A0996E71B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88E9F19E-9E8A-459E-92ED-E06A0996E71B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD39F454-831C-416E-8F36-02665DF9BCC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD39F454-831C-416E-8F36-02665DF9BCC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD39F454-831C-416E-8F36-02665DF9BCC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD39F454-831C-416E-8F36-02665DF9BCC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
