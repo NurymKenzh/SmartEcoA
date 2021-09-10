@@ -116,6 +116,13 @@ namespace Server
                 {
                     if (currentCount > 1000000 || i == PostDataDivideds.Count - 1)
                     {
+                        if (i == PostDataDivideds.Count - 1)
+                        {
+                            insert.Append($"({PostDataDivideds[i].PostDataId}," +
+                                $" '{PostDataDivideds[i].MN}'," +
+                                $" '{PostDataDivideds[i].OceanusCode}'," +
+                                $" {PostDataDivideds[i].Value}),");
+                        }
                         insert.Remove(insert.Length - 1, 1);
                         connection.Execute(insert.ToString());
                         insert = new StringBuilder(firstLine);

@@ -101,6 +101,12 @@ namespace Server
                 {
                     if (currentCount > 1000000 || i == PostDatas.Count - 1)
                     {
+                        if (i == PostDatas.Count - 1)
+                        {
+                            insert.Append($"('{PostDatas[i].DateTime.ToString("yyyy-MM-dd HH:mm:ss")}'," +
+                                $" '{PostDatas[i].IP}'," +
+                                $" '{PostDatas[i].Data.Replace(Environment.NewLine, "")}'),");
+                        }
                         insert.Remove(insert.Length - 1, 1);
                         connection.Execute(insert.ToString());
                         insert = new StringBuilder($"INSERT INTO public.\"PostData\"(\"DateTime\", \"IP\", \"Data\") VALUES");

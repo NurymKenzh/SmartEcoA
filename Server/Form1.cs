@@ -16,44 +16,59 @@ namespace Server
         const string PostsDataConnectionString = "Host=localhost;Database=PostsData;Username=postgres;Password=postgres;Port=5432;CommandTimeout=0;Keepalive=0;",
             SmartEcoAConnectionString = "Host=localhost;Database=SmartEcoA;Username=postgres;Password=postgres;Port=5433;CommandTimeout=0;Keepalive=0;",
             LastReceivedPostDataDateTimeString = "LastReceivedPostDataDateTime",
-            LastPostDataDividedDateTimeString = "LastPostDataDividedDateTime";
+            LastPostDataDividedDateTimeString = "LastPostDataDividedDateTime",
+            LastPostDataAveragedDateTimeString = "LastPostDataAveragedDateTime";
 
         public FormMain()
         {
             InitializeComponent();
         }
 
-        private void FormMain_Load(object sender, EventArgs e)
+        private void backgroundWorkerPosts_DoWork(object sender, DoWorkEventArgs e)
         {
-            //backgroundWorkerGetPostsData.RunWorkerAsync();
-            backgroundWorkerDividePostDatas.RunWorkerAsync();
-        }
-
-        private void backgroundWorkerGetPostsData_DoWork(object sender, DoWorkEventArgs e)
-        {
-            while (!backgroundWorkerGetPostsData.CancellationPending)
+            while (!backgroundWorkerPosts.CancellationPending)
             {
                 PostDataReceiver postDataReceiver = new PostDataReceiver(
                     PostsDataConnectionString,
                     SmartEcoAConnectionString,
                     LastReceivedPostDataDateTimeString,
-                    textBoxGetPostsData);
+                    textBoxPostsData);
                 postDataReceiver.GetPostDatas();
-                Thread.Sleep(new TimeSpan(0, 0, 10));
+
+                PostDataDivider postDataDivider = new PostDataDivider(
+                    SmartEcoAConnectionString,
+                    LastPostDataDividedDateTimeString,
+                    textBoxPostsData);
+                postDataDivider.DividePostDatas();
+
+                PostDataAverager postDataAverager = new PostDataAverager(
+                    SmartEcoAConnectionString,
+                    LastPostDataAveragedDateTimeString,
+                    textBoxPostsData);
+                bool sleep = postDataAverager.AveragePostDatas();
+                if (sleep)
+                {
+                    Thread.Sleep(new TimeSpan(0, 0, 10));
+                }
             }
+        }
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            backgroundWorkerPosts.RunWorkerAsync();
+        }
+
+        private void backgroundWorkerGetPostsData_DoWork(object sender, DoWorkEventArgs e)
+        {
+            
         }
 
         private void backgroundWorkerDividePostDatas_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (!backgroundWorkerDividePostDatas.CancellationPending)
-            {
-                PostDataDivider postDataDivider = new PostDataDivider(
-                    SmartEcoAConnectionString,
-                    LastPostDataDividedDateTimeString,
-                    textBoxDividePostsDatas);
-                postDataDivider.DividePostDatas();
-                Thread.Sleep(new TimeSpan(0, 10, 10));
-            }
+        }
+
+        private void backgroundWorkerAveragePostsData_DoWork(object sender, DoWorkEventArgs e)
+        {
         }
     }
 }
