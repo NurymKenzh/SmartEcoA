@@ -227,7 +227,7 @@ namespace Server
                                 $" VALUES ('{DateTimeFinish.ToString("yyyy-MM-dd HH:mm:ss")}'," +
                                 $" {PostDataDivideds.Where(p => p.OceanusCode == oceanusCode && p.MN == mn).Average(p => p.Value) * measuredParameter.OceanusCoefficient}," +
                                 $" {measuredParameterId.Value}," +
-                                $" {postId.Value * measuredParameter.OceanusCoefficient}) RETURNING \"Id\";";
+                                $" {postId.Value}) RETURNING \"Id\";";
                             long idAvg = connection.Query<long>(insert).FirstOrDefault();
                             string update = $"UPDATE public.\"PostDataDivided\"" +
                                 $" SET \"PostDataAvgId\"={idAvg}" +
