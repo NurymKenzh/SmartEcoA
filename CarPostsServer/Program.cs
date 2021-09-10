@@ -14,9 +14,9 @@ namespace CarPostsServer
         {
             try
             {
-                IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Any, port);
+                //IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Any, port);
                 listener = new TcpListener(IPAddress.Parse("127.0.0.1"), port);
-                listener = new TcpListener(iPEndPoint);
+                //listener = new TcpListener(iPEndPoint);
                 listener.Start();
                 Console.WriteLine("Program started!");
 

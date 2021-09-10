@@ -58,8 +58,8 @@
 
             <mat-form-field class="not-first">
               <mat-label i18n="@@CarPosts">Car Posts</mat-label>
-              <mat-select multiple (selectionChange)="changeCarPosts($event)">
-                <mat-option *ngFor="let carPost of selectedCarPosts" [value]="carPost.Id">
+              <mat-select #multiselect multiple (selectionChange)="changeCarPosts($event)">
+                <mat-option *ngFor="let carPost of selectedCarPosts" [value]="carPost.Id" [id]="carPost.Id">
                   {{carPost.Name}}
                 </mat-option>
               </mat-select>

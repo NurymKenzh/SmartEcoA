@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SmartEcoA.Models;
@@ -9,9 +10,10 @@ using SmartEcoA.Models;
 namespace SmartEcoA.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210908092455_Report_20210908_00")]
+    partial class Report_20210908_00
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -704,9 +706,6 @@ namespace SmartEcoA.Migrations
                     b.Property<string>("OceanusCode")
                         .HasColumnType("text");
 
-                    b.Property<long?>("PostDataAvgId")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("PostDataId")
                         .HasColumnType("bigint");
 
@@ -714,8 +713,6 @@ namespace SmartEcoA.Migrations
                         .HasColumnType("numeric");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PostDataAvgId");
 
                     b.HasIndex("PostDataId");
 
@@ -1013,10 +1010,6 @@ namespace SmartEcoA.Migrations
 
             modelBuilder.Entity("SmartEcoA.Models.PostDataDivided", b =>
                 {
-                    b.HasOne("SmartEcoA.Models.PostDataAvg", "PostDataAvg")
-                        .WithMany()
-                        .HasForeignKey("PostDataAvgId");
-
                     b.HasOne("SmartEcoA.Models.PostData", "PostData")
                         .WithMany()
                         .HasForeignKey("PostDataId")

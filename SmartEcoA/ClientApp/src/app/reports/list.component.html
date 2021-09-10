@@ -11,7 +11,7 @@
   <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>
 
-<table mat-table [dataSource]="dataSource" matSort class="table">
+<table mat-table [dataSource]="dataSource" matSort matSortActive="DateTime" matSortDirection="desc" matSortDisableClear class="table">
   <tr>
     <ng-container matColumnDef="Name">
       <th i18n="@@Name" mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>

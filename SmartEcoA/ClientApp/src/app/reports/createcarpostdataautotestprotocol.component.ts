@@ -37,8 +37,10 @@ export class ReportCreateCarPostDataAutoTestProtocolComponent implements OnInit 
         this.CarPostDataAutoTestsUpdate();
       });
     this.reportForm = new FormGroup({
-      CarPostDataAutoTestId: new FormControl('', [Validators.required])
+      CarPostDataAutoTestId: new FormControl('', [Validators.required]),
+      SelectedTypeReport: new FormControl('', [Validators.required])
     });
+    this.reportForm.controls["SelectedTypeReport"].setValue("false");
   }
 
   public CarPostDataAutoTestsUpdate() {
@@ -76,7 +78,8 @@ export class ReportCreateCarPostDataAutoTestProtocolComponent implements OnInit 
         DateTime: null,
         CarPostStartDate: null,
         CarPostEndDate: null,
-        FileName: null
+        FileName: null,
+        PDF: this.reportForm.controls["SelectedTypeReport"].value
       }
       this.service.post(report)
         .subscribe(() => {

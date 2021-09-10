@@ -19,8 +19,8 @@ namespace CarPostsClient
     class Program
     {
         private const int port = 8089;
-        private const string server = "185.125.44.116";
-        //private const string server = "127.0.0.1";
+        //private const string server = "185.125.44.116";
+        private const string server = "127.0.0.1";
         public static IConfigurationRoot _config;
 
         static void Main(string[] args)
@@ -71,13 +71,13 @@ namespace CarPostsClient
 
                         JsonData jsonData = new JsonData();
 
-                        jsonData.carModelSmokeMeter = CreateModelSmokeMeter((string)obj.carModelSmokeMeterName);
+                        //jsonData.carModelSmokeMeter = CreateModelSmokeMeter((string)obj.carModelSmokeMeterName);
                         jsonData.carModelAutoTest = CreateModelAutoTest((int?)obj.carModelAutoTestId);
 
-                        if (jsonData.carModelSmokeMeter == null)
-                        {
-                            jsonData.carPostDataSmokeMeter = CreateDataSmokeMeter((DateTime?)obj.carPostDataSmokeMeterDate);
-                        }
+                        //if (jsonData.carModelSmokeMeter == null)
+                        //{
+                        //    jsonData.carPostDataSmokeMeter = CreateDataSmokeMeter((DateTime?)obj.carPostDataSmokeMeterDate);
+                        //}
                         if (jsonData.carModelAutoTest == null)
                         {
                             jsonData.carPostDataAutoTest = CreateDataAutoTest((DateTime?)obj.carPostDataAutoTestDate);

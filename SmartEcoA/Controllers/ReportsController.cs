@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.IO.Packaging;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -134,6 +136,8 @@ namespace SmartEcoA.Controllers
             //await _context.SaveChangesAsync();
             report.ApplicationUserId = User.Claims.First(c => c.Type == "Id").Value;
             report.DateTime = DateTime.Now;
+            try
+            {
             switch (report.NameEN)
             {
                 // CarPostDataAutoTestProtocol
@@ -152,9 +156,20 @@ namespace SmartEcoA.Controllers
                 case "Vehicle Emission Test Results Log (Gasoline)":
                     report = CreateCarPostDataAutoTestLog(report);
                     break;
+                }
+                if (report.PDF)
+                {
+                    var wordName = report.FileName;
+                    report.FileName = report.FileName.Replace("(MS Word).docx", "(PDF).pdf");
+                    ConvertDocToPdf(Path.Combine(Startup.Configuration["ReportsFolder"].ToString(), report.ApplicationUserId), report.FileName, wordName);
+                }
             }
-            _context.Report.Add(report);
-            await _context.SaveChangesAsync();
+            catch(Exception ex)
+            {
+
+            }
+            //_context.Report.Add(report);
+            //await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetReport", new { id = report.Id }, report);
         }
@@ -166,13 +181,21 @@ namespace SmartEcoA.Controllers
             {
                 Directory.CreateDirectory(userReportFolder);
             }
-            report.FileName = $"{report.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name}.docx";
+            report.FileName = $"{report.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name} (MS Word).docx";
             string reportFileNameFull = Path.Combine(userReportFolder, report.FileName);
 
             int carPostDataAutoTestId = Convert.ToInt32(report.Inputs.Split('=')[1]);
-            CarPostDataAutoTest carPostDataAutoTest = _context.CarPostDataAutoTest.FirstOrDefault(c => c.Id == carPostDataAutoTestId);
-            CarModelAutoTest carModelAutoTest = _context.CarModelAutoTest.FirstOrDefault(c => c.Id == carPostDataAutoTest.CarModelAutoTestId);
+            CarPostDataAutoTest carPostDataAutoTest = _context.CarPostDataAutoTest
+                .Include(c => c.Tester)
+                .FirstOrDefault(c => c.Id == carPostDataAutoTestId);
+            CarModelAutoTest carModelAutoTest = _context.CarModelAutoTest
+                .Include(c => c.TypeEcoClass)
+                .FirstOrDefault(c => c.Id == carPostDataAutoTest.CarModelAutoTestId);
             CarPost carPost = _context.CarPost.FirstOrDefault(c => c.Id == carModelAutoTest.CarPostId);
+            var carCheckNumber = _context.CarPostDataAutoTest
+                .Where(c => c.DateTime <= carPostDataAutoTest.DateTime && c.Number == carPostDataAutoTest.Number)
+                .Count()
+                .ToString();
 
             report.InputParametersEN = $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["Date"]}={carPostDataAutoTest.DateTime.Value.ToString("yyyy-MM-dd")};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPost"]}={carPost.Name};" +
@@ -202,10 +225,23 @@ namespace SmartEcoA.Controllers
                     docText = sr.ReadToEnd();
                 }
 
+                docText = new Regex("TestNumb").Replace(docText, carPostDataAutoTest.TestNumber.HasValue ? carPostDataAutoTest.TestNumber.Value.ToString() : string.Empty);
+                docText = new Regex("Day").Replace(docText, carPostDataAutoTest.DateTime.Value.ToString("dd"));
+                docText = new Regex("Month").Replace(docText, carPostDataAutoTest.DateTime.Value.ToString("MM"));
                 docText = new Regex("CarPostName").Replace(docText, carPost.Name);
                 docText = new Regex("Time").Replace(docText, carPostDataAutoTest.DateTime.Value.ToString("HH:mm:ss"));
+                docText = new Regex("GasSerialNumber").Replace(docText, carPostDataAutoTest.GasSerialNumber.HasValue ? carPostDataAutoTest.GasSerialNumber.Value.ToString() : string.Empty);
+                docText = new Regex("GasCheckDate").Replace(docText, carPostDataAutoTest.GasCheckDate.Value.ToString("dd:MM:yyyy"));
+                docText = new Regex("MeteoSerialNumber").Replace(docText, carPostDataAutoTest.MeteoSerialNumber.HasValue ? carPostDataAutoTest.MeteoSerialNumber.Value.ToString() : string.Empty);
+                docText = new Regex("MeteoCheckDate").Replace(docText, carPostDataAutoTest.MeteoCheckDate.Value.ToString("dd:MM:yyyy"));
+                docText = new Regex("Temperature").Replace(docText, carPostDataAutoTest.Temperature.HasValue ? carPostDataAutoTest.Temperature.Value.ToString() : string.Empty);
+                docText = new Regex("Pressure").Replace(docText, carPostDataAutoTest.Pressure.HasValue ? carPostDataAutoTest.Pressure.Value.ToString() : string.Empty);
                 docText = new Regex("CarModelName").Replace(docText, carModelAutoTest.Name);
                 docText = new Regex("CarNumber").Replace(docText, carPostDataAutoTest.Number);
+                docText = new Regex("Eco").Replace(docText, carModelAutoTest.TypeEcoClass.Name.Split(' ')[0]);
+                docText = new Regex("Cat").Replace(docText, carModelAutoTest.Category);
+                docText = new Regex("Check").Replace(docText, carCheckNumber);
+                docText = new Regex("CarYear").Replace(docText, carPostDataAutoTest.DOPOL1);
                 docText = new Regex("MIN_TAH").Replace(docText, carPostDataAutoTest.MIN_TAH.HasValue ? carPostDataAutoTest.MIN_TAH.Value.ToString() : string.Empty);
                 docText = new Regex("MAX_TAH").Replace(docText, carPostDataAutoTest.MAX_TAH.HasValue ? carPostDataAutoTest.MAX_TAH.Value.ToString() : string.Empty);
                 docText = new Regex("MIN_CO_").Replace(docText, carPostDataAutoTest.MIN_CO.HasValue ? carPostDataAutoTest.MIN_CO.Value.ToString() : string.Empty);
@@ -218,6 +254,7 @@ namespace SmartEcoA.Controllers
                 docText = new Regex("MAX_O2_").Replace(docText, carPostDataAutoTest.MAX_O2.HasValue ? carPostDataAutoTest.MAX_O2.Value.ToString() : string.Empty);
                 docText = new Regex("MIN_NO_").Replace(docText, carPostDataAutoTest.MIN_NO.HasValue ? carPostDataAutoTest.MIN_NO.Value.ToString() : string.Empty);
                 docText = new Regex("MAX_NO_").Replace(docText, carPostDataAutoTest.MAX_NO.HasValue ? carPostDataAutoTest.MAX_NO.Value.ToString() : string.Empty);
+                docText = new Regex("Tester").Replace(docText, carPostDataAutoTest.Tester.Name.Split(' ')[0]);
 
                 using (StreamWriter sw = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.Create)))
                 {
@@ -234,13 +271,17 @@ namespace SmartEcoA.Controllers
             {
                 Directory.CreateDirectory(userReportFolder);
             }
-            report.FileName = $"{report.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name}.docx";
+            report.FileName = $"{report.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name} (MS Word).docx";
             string reportFileNameFull = Path.Combine(userReportFolder, report.FileName);
 
             int carPostDataSmokeMeterId = Convert.ToInt32(report.Inputs.Split('=')[1]);
             CarPostDataSmokeMeter carPostDataSmokeMeter = _context.CarPostDataSmokeMeter.FirstOrDefault(c => c.Id == carPostDataSmokeMeterId);
             CarModelSmokeMeter carModelSmokeMeter = _context.CarModelSmokeMeter.FirstOrDefault(c => c.Id == carPostDataSmokeMeter.CarModelSmokeMeterId);
             CarPost carPost = _context.CarPost.FirstOrDefault(c => c.Id == carModelSmokeMeter.CarPostId);
+            var carCheckNumber = _context.CarPostDataSmokeMeter
+                .Where(c => c.DateTime <= carPostDataSmokeMeter.DateTime && c.Number == carPostDataSmokeMeter.Number)
+                .Count()
+                .ToString();
 
             report.InputParametersEN = $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["Date"]}={carPostDataSmokeMeter.DateTime.ToString("yyyy-MM-dd")};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPost"]}={carPost.Name};" +
@@ -274,6 +315,7 @@ namespace SmartEcoA.Controllers
                 docText = new Regex("Time").Replace(docText, carPostDataSmokeMeter.DateTime.ToString("HH:mm:ss"));
                 docText = new Regex("CarModelName").Replace(docText, carModelSmokeMeter.Name);
                 docText = new Regex("CarNumber").Replace(docText, carPostDataSmokeMeter.Number);
+                docText = new Regex("Check").Replace(docText, carCheckNumber);
                 docText = new Regex(@"\b(DFree)\b").Replace(docText, carPostDataSmokeMeter.DFree.HasValue ? carPostDataSmokeMeter.DFree.Value.ToString() : string.Empty);
                 docText = new Regex(@"\b(NDFree)\b").Replace(docText, carPostDataSmokeMeter.NDFree.HasValue ? carPostDataSmokeMeter.NDFree.Value.ToString() : string.Empty);
 
@@ -292,7 +334,7 @@ namespace SmartEcoA.Controllers
             {
                 Directory.CreateDirectory(userReportFolder);
             }
-            report.FileName = $"{report.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name}.docx";
+            report.FileName = $"{report.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name} (MS Word).docx";
             string reportFileNameFull = Path.Combine(userReportFolder, report.FileName);
 
             int carPostId = Convert.ToInt32(report.Inputs.Split('=')[1]);
@@ -358,13 +400,14 @@ namespace SmartEcoA.Controllers
             {
                 Directory.CreateDirectory(userReportFolder);
             }
-            report.FileName = $"{report.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name}.docx";
+            report.FileName = $"{report.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name} (MS Word).docx";
             string reportFileNameFull = Path.Combine(userReportFolder, report.FileName);
 
             int carPostId = Convert.ToInt32(report.Inputs.Split('=')[1]);
             CarPost carPost = _context.CarPost.FirstOrDefault(c => c.Id == carPostId);
             List<CarPostDataAutoTest> carPostDataAutoTests = _context.CarPostDataAutoTest
                 .Include(c => c.CarModelAutoTest)
+                .Include(c => c.Tester)
                 .Where(c => c.CarModelAutoTest.CarPostId == carPost.Id && report.CarPostStartDate <= c.DateTime && c.DateTime <= report.CarPostEndDate)
                 .OrderBy(c => c.DateTime)
                 .ToList();
@@ -404,6 +447,7 @@ namespace SmartEcoA.Controllers
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MAX_CO2}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MAX_O2}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MAX_NO}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].Tester.Name.Split(' ')[0]}")))),
                             new TableCell(new Paragraph(new Run(new Text(string.Empty))))));
                 }
 
@@ -478,6 +522,22 @@ namespace SmartEcoA.Controllers
             else
             {
                 return File(bytes, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", Path.GetFileName(reportFileNameFull));
+            }
+        }
+
+        private void ConvertDocToPdf(string pathDoc, string nameDoc, string wordName)
+        {
+            string YourApplicationPath = Startup.Configuration["ReportsFolder"].ToString();
+            ProcessStartInfo processInfo = new ProcessStartInfo();
+            processInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            processInfo.FileName = "cmd.exe";
+            processInfo.WorkingDirectory = YourApplicationPath;
+            processInfo.Arguments = $"/c OfficeToPDF.exe \"{Path.Combine(pathDoc, wordName)}\" \"{Path.Combine(pathDoc, nameDoc)}\"";
+            Process.Start(processInfo).WaitForExit();
+
+            if (System.IO.File.Exists(Path.Combine(pathDoc, wordName)))
+            {
+                System.IO.File.Delete(Path.Combine(pathDoc, wordName));
             }
         }
 

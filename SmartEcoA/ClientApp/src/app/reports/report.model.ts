@@ -16,4 +16,5 @@ export class Report {
   CarPostStartDate?: Date;
   CarPostEndDate?: Date;
   FileName: string;
+  PDF: boolean;
 }
