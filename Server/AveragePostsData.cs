@@ -62,6 +62,8 @@ namespace Server
                 posts);
             // save date
             SaveLastAveragedPostDataDateTime(dateTimeFinish);
+            // delete PostData, PostDataDivided
+            DeletePostDataAndDivided(dateTimeFinish);
             // log
             Logger.Log($"Усреднено {postDataDivideds.Count().ToString("N0")} разделённых данных с постов с {lastAveragedPostDataDateTime.ToString("yyyy-MM-dd HH:mm:ss")} по {dateTimeFinish.ToString("yyyy-MM-dd HH:mm:ss")}." +
                 $" Получено {countAvgs.ToString("N0")} усреднённых данных.");
@@ -244,6 +246,17 @@ namespace Server
                 int h = 0;
             }
             return count;
+        }
+
+        private void DeletePostDataAndDivided(DateTime DateTimeFinish)
+        {
+            using (var connection = new NpgsqlConnection(SmartEcoAConnectionString))
+            {
+                connection.Open();
+                string update = $"DELETE FROM public.\"PostData\" WHERE \"DateTime\" <= '{DateTimeFinish.ToString("yyyy-MM-dd HH:mm:ss")}';";
+                connection.Execute(update);
+                connection.Close();
+            }
         }
     }
 }
