@@ -18,6 +18,13 @@ namespace Server
             LastReceivedPostDataDateTimeString = "LastReceivedPostDataDateTime",
             LastPostDataDividedDateTimeString = "LastPostDataDividedDateTime",
             LastPostDataAveragedDateTimeString = "LastPostDataAveragedDateTime";
+        enum Working
+        {
+            Work = 1,
+            Stoping = 2,
+            Stop = 3
+        }
+        Working working = Working.Work;
 
         public FormMain()
         {
@@ -50,6 +57,33 @@ namespace Server
                 {
                     Thread.Sleep(new TimeSpan(0, 0, 10));
                 }
+            }
+        }
+
+        private void buttonPostsStartStop_Click(object sender, EventArgs e)
+        {
+            if (working == Working.Work)
+            {
+                backgroundWorkerPosts.CancelAsync();
+                labelPostsStartStop.Text = "Останавливается...";
+                buttonPostsStartStop.Text = "Запустить";
+                working = Working.Stoping;
+            }
+            else if (working == Working.Stop)
+            {
+                backgroundWorkerPosts.RunWorkerAsync();
+                labelPostsStartStop.Text = "Работает";
+                buttonPostsStartStop.Text = "Остановить";
+                working = Working.Work;
+            }
+        }
+
+        private void backgroundWorkerPosts_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (working == Working.Stoping)
+            {
+                labelPostsStartStop.Text = "Остановлено";
+                working = Working.Stop;
             }
         }
 
