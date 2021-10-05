@@ -62,34 +62,47 @@ namespace Server
 
         private void buttonPostsStartStop_Click(object sender, EventArgs e)
         {
-            if (workingPosts == Working.Work)
+            if (working == Working.Work)
             {
                 backgroundWorkerPosts.CancelAsync();
                 labelPostsStartStop.Text = "Останавливается...";
                 buttonPostsStartStop.Text = "Запустить";
-                workingPosts = Working.Stoping;
+                working = Working.Stoping;
             }
-            else if (workingPosts == Working.Stop)
+            else if (working == Working.Stop)
             {
                 backgroundWorkerPosts.RunWorkerAsync();
                 labelPostsStartStop.Text = "Работает";
                 buttonPostsStartStop.Text = "Остановить";
-                workingPosts = Working.Work;
+                working = Working.Work;
             }
         }
 
         private void backgroundWorkerPosts_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (workingPosts == Working.Stoping)
+            if (working == Working.Stoping)
             {
                 labelPostsStartStop.Text = "Остановлено";
-                workingPosts = Working.Stop;
+                working = Working.Stop;
             }
         }
 
         private void FormMain_Load(object sender, EventArgs e)
         {
             backgroundWorkerPosts.RunWorkerAsync();
+        }
+
+        private void backgroundWorkerGetPostsData_DoWork(object sender, DoWorkEventArgs e)
+        {
+            
+        }
+
+        private void backgroundWorkerDividePostDatas_DoWork(object sender, DoWorkEventArgs e)
+        {
+        }
+
+        private void backgroundWorkerAveragePostsData_DoWork(object sender, DoWorkEventArgs e)
+        {
         }
     }
 }

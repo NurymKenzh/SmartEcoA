@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace CarPostClient
 {
     partial class FormMain
@@ -29,7 +31,17 @@ namespace CarPostClient
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
+            this.notifyIconWork = new System.Windows.Forms.NotifyIcon(this.components);
             this.SuspendLayout();
+            // 
+            // notifyIconWork
+            // 
+            this.notifyIconWork.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIconWork.Icon")));
+            this.notifyIconWork.Text = "Идёт передача данных";
+            this.notifyIconWork.Visible = true;
+            this.notifyIconWork.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIconWork_MouseDoubleClick);
             // 
             // FormMain
             // 
@@ -37,12 +49,18 @@ namespace CarPostClient
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Name = "FormMain";
+            this.ShowIcon = false;
             this.Text = "CarPostClient";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
+            this.Shown += new System.EventHandler(this.FormMain_Shown);
+            this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.NotifyIcon notifyIconWork;
     }
 }
 
