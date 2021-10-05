@@ -56,6 +56,10 @@ namespace CarPostClient
             this.textBoxLog.TabIndex = 0;
             this.textBoxLog.WordWrap = false;
             // 
+            // backgroundWorkerMain
+            // 
+            this.backgroundWorkerMain.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerMain_DoWork);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -66,6 +70,7 @@ namespace CarPostClient
             this.ShowIcon = false;
             this.Text = "CarPostClient";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.Shown += new System.EventHandler(this.FormMain_Shown);
             this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.ResumeLayout(false);
