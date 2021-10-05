@@ -34,6 +34,8 @@ namespace CarPostClient
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.notifyIconWork = new System.Windows.Forms.NotifyIcon(this.components);
+            this.textBoxLog = new System.Windows.Forms.TextBox();
+            this.backgroundWorkerMain = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // notifyIconWork
@@ -43,11 +45,23 @@ namespace CarPostClient
             this.notifyIconWork.Visible = true;
             this.notifyIconWork.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIconWork_MouseDoubleClick);
             // 
+            // textBoxLog
+            // 
+            this.textBoxLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxLog.Location = new System.Drawing.Point(0, 0);
+            this.textBoxLog.Multiline = true;
+            this.textBoxLog.Name = "textBoxLog";
+            this.textBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxLog.Size = new System.Drawing.Size(800, 450);
+            this.textBoxLog.TabIndex = 0;
+            this.textBoxLog.WordWrap = false;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBoxLog);
             this.Name = "FormMain";
             this.ShowIcon = false;
             this.Text = "CarPostClient";
@@ -55,12 +69,15 @@ namespace CarPostClient
             this.Shown += new System.EventHandler(this.FormMain_Shown);
             this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.NotifyIcon notifyIconWork;
+        private System.Windows.Forms.TextBox textBoxLog;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerMain;
     }
 }
 
