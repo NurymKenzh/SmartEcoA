@@ -61,8 +61,10 @@ namespace CarPostClient
             {
                 if (!ReadAppSettings())
                 {
+                    Log("Ошибка чтения appsettings.json! Перерыв на 1 минуту.");
                     Thread.Sleep(new TimeSpan(0, 1, 0));
                 }
+                Log("Значения с appsettings.json прочитаны.");
                 Thread.Sleep(new TimeSpan(0, 0, 10));
             }
         }
@@ -105,6 +107,12 @@ namespace CarPostClient
                 }
             }
             return true;
+        }
+
+        public void Log(string Message)
+        {
+            Action action = () => textBoxLog.AppendText($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} >> {Message}{Environment.NewLine}");
+            textBoxLog.Invoke(action);
         }
     }
 }
