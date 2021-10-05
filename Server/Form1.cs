@@ -24,7 +24,7 @@ namespace Server
             Stoping = 2,
             Stop = 3
         }
-        Working working = Working.Work;
+        Working workingPosts = Working.Work;
 
         public FormMain()
         {
@@ -62,47 +62,34 @@ namespace Server
 
         private void buttonPostsStartStop_Click(object sender, EventArgs e)
         {
-            if (working == Working.Work)
+            if (workingPosts == Working.Work)
             {
                 backgroundWorkerPosts.CancelAsync();
                 labelPostsStartStop.Text = "Останавливается...";
                 buttonPostsStartStop.Text = "Запустить";
-                working = Working.Stoping;
+                workingPosts = Working.Stoping;
             }
-            else if (working == Working.Stop)
+            else if (workingPosts == Working.Stop)
             {
                 backgroundWorkerPosts.RunWorkerAsync();
                 labelPostsStartStop.Text = "Работает";
                 buttonPostsStartStop.Text = "Остановить";
-                working = Working.Work;
+                workingPosts = Working.Work;
             }
         }
 
         private void backgroundWorkerPosts_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (working == Working.Stoping)
+            if (workingPosts == Working.Stoping)
             {
                 labelPostsStartStop.Text = "Остановлено";
-                working = Working.Stop;
+                workingPosts = Working.Stop;
             }
         }
 
         private void FormMain_Load(object sender, EventArgs e)
         {
             backgroundWorkerPosts.RunWorkerAsync();
-        }
-
-        private void backgroundWorkerGetPostsData_DoWork(object sender, DoWorkEventArgs e)
-        {
-            
-        }
-
-        private void backgroundWorkerDividePostDatas_DoWork(object sender, DoWorkEventArgs e)
-        {
-        }
-
-        private void backgroundWorkerAveragePostsData_DoWork(object sender, DoWorkEventArgs e)
-        {
         }
     }
 }
