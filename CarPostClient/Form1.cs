@@ -3,8 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,6 +22,7 @@ namespace CarPostClient
         private string CarPostId = null,
             AutoTestPath = null,
             SmokeMeterPath;
+        private bool stop = false;
 
         public FormMain()
         {
@@ -41,8 +45,11 @@ namespace CarPostClient
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = true;
-            Hide();
+            if (!stop)
+            {
+                e.Cancel = true;
+                Hide();
+            }
         }
 
         private void FormMain_Shown(object sender, EventArgs e)
@@ -57,54 +64,101 @@ namespace CarPostClient
 
         private void backgroundWorkerMain_DoWork(object sender, DoWorkEventArgs e)
         {
+            Log($"Версия {GetProductVersion()}");
+            DateTime dateTimeTryUpdate = DateTime.Now/* - new TimeSpan(0, 11, 0)*/;
             while (!backgroundWorkerMain.CancellationPending)
             {
+                // run updater
+                if (DateTime.Now - dateTimeTryUpdate > new TimeSpan(0, 10, 0))
+                {
+                    try
+                    {
+                        Log($"Проверка обновления");
+                        Process updater = new Process();
+                        //updater.StartInfo.FileName = @"Updater\CarPostClientUpdater.exe";
+                        updater.StartInfo.FileName = @"C:\Users\N\source\repos\NurymKenzh\SmartEcoA\CarPostClientUpdater\bin\Debug\netcoreapp3.1\CarPostClientUpdater.exe";
+                        //updater.Start();
+                    }
+                    catch { }
+                }
+                // while updater is working
+                while (File.Exists("wait"))
+                {
+                    if (!textBoxLog.Lines[textBoxLog.Lines.Count() - 2].Contains("Проверка обновления"))
+                    {
+                        Log("Проверка обновления");
+                    }
+                    Thread.Sleep(new TimeSpan(0, 0, 5));
+                }
+                // update
+                if (File.Exists("stop"))
+                {
+                    Log("Обновление");
+                    notifyIconWork.Visible = false;
+                    stop = true;
+                    Application.Exit();
+                }
+
                 if (!ReadAppSettings())
                 {
                     Log("Ошибка чтения appsettings.json! Перерыв на 1 минуту.");
                     Thread.Sleep(new TimeSpan(0, 1, 0));
+                    continue;
                 }
                 Log("Значения с appsettings.json прочитаны.");
                 Thread.Sleep(new TimeSpan(0, 0, 10));
             }
         }
 
+        private string GetProductVersion()
+        {
+            return Application.ProductVersion;
+            //FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
+        }
+
         private bool ReadAppSettings()
         {
-            string settingsS = System.IO.File.ReadAllText("appsettings.json");
-            JObject settingsJO;
             try
             {
-                settingsJO = JObject.Parse(settingsS);
-            }
-            catch
-            {
+                string settingsS = System.IO.File.ReadAllText("appsettings.json");
+                JObject settingsJO;
                 try
                 {
-                    settingsS = settingsS.Replace("\\", "\\\\");
                     settingsJO = JObject.Parse(settingsS);
                 }
                 catch
                 {
-                    return false;
+                    try
+                    {
+                        settingsS = settingsS.Replace("\\", "\\\\");
+                        settingsJO = JObject.Parse(settingsS);
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                }
+                foreach (var item in settingsJO)
+                {
+                    switch (item.Key)
+                    {
+                        case "CarPostId":
+                            CarPostId = item.Value.ToString();
+                            break;
+                        case "AutoTestPath":
+                            AutoTestPath = item.Value.ToString();
+                            break;
+                        case "SmokeMeterPath":
+                            SmokeMeterPath = item.Value.ToString();
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
-            foreach (var item in settingsJO)
+            catch
             {
-                switch (item.Key)
-                {
-                    case "CarPostId":
-                        CarPostId = item.Value.ToString();
-                        break;
-                    case "AutoTestPath":
-                        AutoTestPath = item.Value.ToString();
-                        break;
-                    case "SmokeMeterPath":
-                        SmokeMeterPath = item.Value.ToString();
-                        break;
-                    default:
-                        break;
-                }
+                return false;
             }
             return true;
         }
