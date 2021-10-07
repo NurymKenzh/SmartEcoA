@@ -1,8 +1,11 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using CarPostsClient.Models;
+using Dapper;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -21,7 +24,7 @@ namespace CarPostClient
         private const string server = "185.125.44.116";
         private string CarPostId = null,
             AutoTestPath = null,
-            SmokeMeterPath;
+            SmokeMeterPath = null;
         private bool stop = false;
 
         public FormMain()
@@ -66,20 +69,30 @@ namespace CarPostClient
         {
             Log($"Версия {GetProductVersion()}");
             DateTime dateTimeTryUpdate = DateTime.Now/* - new TimeSpan(0, 11, 0)*/;
+            if (File.Exists("stop"))
+            {
+                File.Delete("stop");
+            }
             while (!backgroundWorkerMain.CancellationPending)
             {
                 // run updater
-                if (DateTime.Now - dateTimeTryUpdate > new TimeSpan(0, 10, 0))
+                if (DateTime.Now - dateTimeTryUpdate > new TimeSpan(0, 5, 0))
                 {
                     try
                     {
                         Log($"Проверка обновления");
                         Process updater = new Process();
-                        //updater.StartInfo.FileName = @"Updater\CarPostClientUpdater.exe";
-                        updater.StartInfo.FileName = @"C:\Users\N\source\repos\NurymKenzh\SmartEcoA\CarPostClientUpdater\bin\Debug\netcoreapp3.1\CarPostClientUpdater.exe";
-                        //updater.Start();
+                        updater.StartInfo.FileName = Path.Combine("Updater", "CarPostClientUpdater.exe");
+                        // for debug:
+                        //updater.StartInfo.FileName = @"C:\Users\N\source\repos\NurymKenzh\SmartEcoA\CarPostClientUpdater\bin\Debug\netcoreapp3.1\CarPostClientUpdater.exe";
+                        updater.Start();
+                        dateTimeTryUpdate = DateTime.Now;
+                        Thread.Sleep(new TimeSpan(0, 0, 10));
                     }
-                    catch { }
+                    catch (Exception ex)
+                    {
+                        Log($"Ошибка обновления: " + ex.Message);
+                    }
                 }
                 // while updater is working
                 while (File.Exists("wait"))
@@ -105,7 +118,14 @@ namespace CarPostClient
                     Thread.Sleep(new TimeSpan(0, 1, 0));
                     continue;
                 }
-                Log("Значения с appsettings.json прочитаны.");
+                Log("--------------------------------------");
+                Log("Значения с appsettings.json прочитаны:");
+                Log($"Id поста: {CarPostId},");
+                Log($"путь к базе данных Автотеста: {AutoTestPath},");
+                Log($"путь к базе данных Дымомера: {SmokeMeterPath}.");
+
+                Test();
+
                 Thread.Sleep(new TimeSpan(0, 0, 10));
             }
         }
@@ -113,7 +133,6 @@ namespace CarPostClient
         private string GetProductVersion()
         {
             return Application.ProductVersion;
-            //FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
         }
 
         private bool ReadAppSettings()
@@ -161,6 +180,28 @@ namespace CarPostClient
                 return false;
             }
             return true;
+        }
+
+        private void Test()
+        {
+            try
+            {
+                var provider = "Microsoft.Jet.OLEDB.4.0";
+                var autoTestPath = AutoTestPath;
+                string connectionString = $"Provider={provider};Data Source={autoTestPath};Extended Properties=dBase IV;";
+                connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\\Db\\AutoTest;Extended Properties=dBase IV;";
+                using (OleDbConnection connection = new OleDbConnection(connectionString))
+                {
+                    connection.Open();
+                    var carModelAutoTests = connection.Query<CarModelAutoTest>(
+                        $"SELECT * FROM model").OrderBy(c => c.ID).ToList();
+                    connection.Close();
+                }
+            }
+            catch(Exception ex)
+            {
+                Log($"Ошибка чтения базы данных: {ex.Message}");
+            }
         }
 
         public void Log(string Message)

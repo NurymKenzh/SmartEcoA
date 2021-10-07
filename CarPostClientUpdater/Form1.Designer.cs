@@ -48,7 +48,7 @@ namespace CarPostClientUpdater
             this.Name = "FormMain";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "Form1";
+            this.Text = "Updater";
             this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.ResumeLayout(false);

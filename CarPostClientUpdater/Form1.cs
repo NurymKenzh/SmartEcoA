@@ -30,28 +30,56 @@ namespace CarPostClientUpdater
         private void FormMain_Load(object sender, EventArgs e)
         {
             Hide();
-            ReadAppSettings();
-            FileStream waitFile = File.Create(Path.Combine(CarPostClientDir, "wait"));
-            waitFile.Close();
-            if (NeedUpdate())
+            try
             {
-                FileStream stopFile = File.Create(Path.Combine(CarPostClientDir, "stop"));
-                stopFile.Close();
-                File.Delete(Path.Combine(CarPostClientDir, "wait"));
-                Thread.Sleep(new TimeSpan(0, 0, 30));
+                ReadAppSettings();
+                if (string.IsNullOrEmpty(CarPostClientDir))
+                {
+                    CarPostClientDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName;
+                }
 
-                UpdateCarPostClient();
+                FileStream waitFile = File.Create(Path.Combine(CarPostClientDir, "wait"));
+                waitFile.Close();
+                if (NeedUpdate())
+                {
+                    FileStream stopFile = File.Create(Path.Combine(CarPostClientDir, "stop"));
+                    stopFile.Close();
+                    File.Delete(Path.Combine(CarPostClientDir, "wait"));
+                    Thread.Sleep(new TimeSpan(0, 0, 30));
 
-                // run new CarPostClient
-                File.Delete(Path.Combine(CarPostClientDir, "stop"));
+                    UpdateCarPostClient();
+
+                    // run new CarPostClient
+                    File.Delete(Path.Combine(CarPostClientDir, "stop"));
+                    Process client = new Process();
+                    client.StartInfo.FileName = Path.Combine(CarPostClientDir, CarPostClientFileName);
+                    client.Start();
+                }
+                if (File.Exists(Path.Combine(CarPostClientDir, "wait")))
+                {
+                    File.Delete(Path.Combine(CarPostClientDir, "wait"));
+                }
+            }
+            catch (Exception ex)
+            {
+                File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Errors.txt"),
+                    $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} >> Update error: {ex.Message}{Environment.NewLine}");
+            }
+            finally
+            {
+                if (File.Exists(Path.Combine(CarPostClientDir, "wait")))
+                {
+                    File.Delete(Path.Combine(CarPostClientDir, "wait"));
+                }
+                if (File.Exists(Path.Combine(CarPostClientDir, "stop")))
+                {
+                    File.Delete(Path.Combine(CarPostClientDir, "stop"));
+                }
                 Process client = new Process();
                 client.StartInfo.FileName = Path.Combine(CarPostClientDir, CarPostClientFileName);
                 client.Start();
             }
-            if (File.Exists(Path.Combine(CarPostClientDir, "wait")))
-            {
-                File.Delete(Path.Combine(CarPostClientDir, "wait"));
-            }
+
             Application.Exit();
         }
 
@@ -59,7 +87,7 @@ namespace CarPostClientUpdater
         {
             try
             {
-                string settingsS = System.IO.File.ReadAllText("appsettings.json");
+                string settingsS = File.ReadAllText("appsettings.json");
                 JObject settingsJO;
                 try
                 {
@@ -85,7 +113,7 @@ namespace CarPostClientUpdater
                             CarPostClientDir = item.Value.ToString();
                             if (string.IsNullOrEmpty(CarPostClientDir))
                             {
-                                CarPostClientDir = Directory.GetParent(Directory.GetCurrentDirectory()).FullName;
+                                CarPostClientDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName;
                             }
                             break;
                         default:
@@ -143,26 +171,43 @@ namespace CarPostClientUpdater
 
         private void UpdateCarPostClient()
         {
-            if (Directory.Exists(NewVersionDirectory))
+            if (Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NewVersionDirectory)))
             {
-                Directory.Delete(NewVersionDirectory, true);
+                Directory.Delete(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NewVersionDirectory), true);
             }
-            Directory.CreateDirectory(NewVersionDirectory);
+            Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NewVersionDirectory));
             WebClient webClient = new WebClient();
-            webClient.DownloadFile("http://smarteco.kz:8086/assets/CarPostClient.zip", Path.Combine(NewVersionDirectory, "CarPostClient.zip"));
-            foreach (string file in Directory.GetFiles(CarPostClientDir))
+            webClient.DownloadFile("http://smarteco.kz:8086/assets/CarPostClient.zip", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NewVersionDirectory, "CarPostClient.zip"));
+
+            try
             {
-                if (Path.GetFileName(file) == "stop" || Path.GetFileName(file) == "appsettings.json")
+                System.IO.Compression.ZipFile.ExtractToDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NewVersionDirectory, "CarPostClient.zip"),
+                    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NewVersionDirectory));
+                foreach (string file in Directory.GetFiles(CarPostClientDir))
                 {
-                    continue;
+                    if (Path.GetFileName(file) == "stop" || Path.GetFileName(file) == "appsettings.json")
+                    {
+                        continue;
+                    }
+                    try
+                    {
+                        File.Delete(file);
+                    }
+                    catch { }
                 }
-                try
+                foreach (string file in Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NewVersionDirectory)))
                 {
-                    File.Delete(file);
+                    if (Path.GetFileName(file) != "CarPostClient.zip")
+                    {
+                        File.Move(file, Path.Combine(CarPostClientDir, Path.GetFileName(file)), true);
+                    }
                 }
-                catch { }
             }
-            System.IO.Compression.ZipFile.ExtractToDirectory(Path.Combine(NewVersionDirectory, "CarPostClient.zip"), CarPostClientDir);
+            catch (Exception ex)
+            {
+                File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Errors.txt"),
+                        $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} >> Update error: {ex.Message}{Environment.NewLine}");
+            }
         }
 
         private void StopCarPostClient()

@@ -19,7 +19,6 @@ namespace CarPostClient
             {
                 if (!mutex.WaitOne(0, false))
                 {
-                    MessageBox.Show("Приложение уже запущено!");
                     return;
                 }
 
