@@ -1,5 +1,6 @@
 ﻿using CarPostsClient.Models;
 using Dapper;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,10 @@ using System.Data;
 using System.Data.OleDb;
 using System.Diagnostics;
 using System.Drawing;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -21,7 +24,9 @@ namespace CarPostClient
     public partial class FormMain : Form
     {
         private const int port = 8087;
-        private const string server = "185.125.44.116";
+        //private const string server = "185.125.44.116";
+        private const string server = "192.168.0.165";
+        //private const string server = "127.0.0.1";
         private string CarPostId = null,
             AutoTestPath = null,
             SmokeMeterPath = null;
@@ -122,9 +127,10 @@ namespace CarPostClient
                 Log("Значения с appsettings.json прочитаны:");
                 Log($"Id поста: {CarPostId},");
                 Log($"путь к базе данных Автотеста: {AutoTestPath},");
-                Log($"путь к базе данных Дымомера: {SmokeMeterPath}.");
+                Log($"путь к базе данных Дымомера: {SmokeMeterPath},");
+                Log($"сервер: {server}:{port}.");
 
-                Test();
+                Connect();
 
                 Thread.Sleep(new TimeSpan(0, 0, 10));
             }
@@ -182,7 +188,47 @@ namespace CarPostClient
             return true;
         }
 
-        private void Test()
+        private void Connect()
+        {
+            TcpClient client = null;
+            NetworkStream stream = null;
+            try
+            {
+                client = new TcpClient();
+                Log($"Попытка подключения");
+                client.Connect(server, port);
+                Log($"Получаю поток для записи");
+                stream = client.GetStream();
+
+                while (true)
+                {
+                    SendCarPostId(stream);
+                    break;
+                }
+            }
+            catch (SocketException ex)
+            {
+                Log($"Ошибка подключения к серверу: {ex.Message}{Environment.NewLine}");
+            }
+            catch (Exception ex)
+            {
+                Log($"Ошибка передачи данных: {ex.Message}{Environment.NewLine}");
+            }
+            finally
+            {
+                if (stream != null)
+                {
+                    stream.Close();
+                    stream.Dispose();
+                }
+                if (client != null && client.Connected != false)
+                {
+                    client.Close();
+                }
+            }
+        }
+
+        private void DBTest()
         {
             try
             {
@@ -202,6 +248,17 @@ namespace CarPostClient
             {
                 Log($"Ошибка чтения базы данных: {ex.Message}");
             }
+        }
+
+        private void SendCarPostId(NetworkStream stream)
+        {
+            dynamic obj = new ExpandoObject();
+            obj.CarPostId = CarPostId;
+            string json = JsonConvert.SerializeObject(obj);
+
+            //Sending data to the server
+            var data = Encoding.UTF8.GetBytes(json);
+            stream.Write(data, 0, data.Length);
         }
 
         public void Log(string Message)

@@ -37,11 +37,20 @@ namespace Server
             this.labelPostsStartStop = new System.Windows.Forms.Label();
             this.buttonPostsStartStop = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.textBoxCarPosts = new System.Windows.Forms.TextBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.labelCarPostsStartStop = new System.Windows.Forms.Label();
+            this.buttonCarPostsStartStop = new System.Windows.Forms.Button();
             this.backgroundWorkerPosts = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorkerCarPosts = new System.ComponentModel.BackgroundWorker();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -117,6 +126,8 @@ namespace Server
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.panel4);
+            this.tabPage2.Controls.Add(this.panel3);
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -125,11 +136,65 @@ namespace Server
             this.tabPage2.Text = "Автомобильные посты";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.textBoxCarPosts);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(3, 38);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(786, 459);
+            this.panel4.TabIndex = 1;
+            // 
+            // textBoxCarPosts
+            // 
+            this.textBoxCarPosts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxCarPosts.Location = new System.Drawing.Point(0, 0);
+            this.textBoxCarPosts.Multiline = true;
+            this.textBoxCarPosts.Name = "textBoxCarPosts";
+            this.textBoxCarPosts.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxCarPosts.Size = new System.Drawing.Size(786, 459);
+            this.textBoxCarPosts.TabIndex = 6;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.labelCarPostsStartStop);
+            this.panel3.Controls.Add(this.buttonCarPostsStartStop);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(3, 3);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(786, 35);
+            this.panel3.TabIndex = 0;
+            // 
+            // labelCarPostsStartStop
+            // 
+            this.labelCarPostsStartStop.AutoSize = true;
+            this.labelCarPostsStartStop.Location = new System.Drawing.Point(95, 3);
+            this.labelCarPostsStartStop.Name = "labelCarPostsStartStop";
+            this.labelCarPostsStartStop.Size = new System.Drawing.Size(56, 15);
+            this.labelCarPostsStartStop.TabIndex = 3;
+            this.labelCarPostsStartStop.Text = "Работает";
+            // 
+            // buttonCarPostsStartStop
+            // 
+            this.buttonCarPostsStartStop.Location = new System.Drawing.Point(5, 3);
+            this.buttonCarPostsStartStop.Name = "buttonCarPostsStartStop";
+            this.buttonCarPostsStartStop.Size = new System.Drawing.Size(84, 23);
+            this.buttonCarPostsStartStop.TabIndex = 2;
+            this.buttonCarPostsStartStop.Text = "Остановить";
+            this.buttonCarPostsStartStop.UseVisualStyleBackColor = true;
+            this.buttonCarPostsStartStop.Click += new System.EventHandler(this.buttonCarPostsStartStop_Click);
+            // 
             // backgroundWorkerPosts
             // 
             this.backgroundWorkerPosts.WorkerSupportsCancellation = true;
             this.backgroundWorkerPosts.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerPosts_DoWork);
             this.backgroundWorkerPosts.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerPosts_RunWorkerCompleted);
+            // 
+            // backgroundWorkerCarPosts
+            // 
+            this.backgroundWorkerCarPosts.WorkerSupportsCancellation = true;
+            this.backgroundWorkerCarPosts.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerCarPosts_DoWork);
+            this.backgroundWorkerCarPosts.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerCarPosts_RunWorkerCompleted);
             // 
             // FormMain
             // 
@@ -146,6 +211,11 @@ namespace Server
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -160,6 +230,12 @@ namespace Server
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label labelPostsStartStop;
         private System.Windows.Forms.Button buttonPostsStartStop;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label labelCarPostsStartStop;
+        private System.Windows.Forms.Button buttonCarPostsStartStop;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerCarPosts;
+        private System.Windows.Forms.TextBox textBoxCarPosts;
     }
 }
 
