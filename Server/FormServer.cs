@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Dapper;
+using Npgsql;
+using SmartEcoA.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,10 +25,10 @@ namespace Server
             LastPostDataAveragedDateTimeString = "LastPostDataAveragedDateTime";
         const int portCarPosts = 8087;
 
-
         TcpListener listener;
 
         private Logger LoggerCarPosts;
+        List<CarPost> CarPosts;
 
         enum Working
         {
@@ -83,19 +86,11 @@ namespace Server
         {
             if (workingCarPosts == Working.Work)
             {
-                //CarPostClient carPostClient = new CarPostClient(textBoxCarPosts);
-                //listener.EndAcceptTcpClient(new AsyncCallback(carPostClient.Process));
-                
-
                 backgroundWorkerCarPosts.CancelAsync();
-
                 listener.Stop();
-
                 labelCarPostsStartStop.Text = "Останавливается...";
                 buttonCarPostsStartStop.Text = "Запустить";
                 workingCarPosts = Working.Stoping;
-
-
             }
             else if (workingCarPosts == Working.Stop)
             {
@@ -135,34 +130,14 @@ namespace Server
 
         private void backgroundWorkerCarPosts_DoWork(object sender, DoWorkEventArgs e)
         {
-            //IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Any, port);
             listener = new TcpListener(IPAddress.Any, portCarPosts);
-            //listener = new TcpListener(portCarPosts);
-            //listener = new TcpListener(iPEndPoint);
             listener.Start();
             LoggerCarPosts.Log("Жду подключения...");
+            CarPosts = GetCarPosts();
+
             while (!backgroundWorkerCarPosts.CancellationPending)
             {
-                //try
-                //{
-                //    TcpClient tcpClient = listener.AcceptTcpClient();
-                //    CarPostClient client = new CarPostClient(tcpClient, textBoxCarPosts);
-
-                //    Thread clientThread = new Thread(new ThreadStart(client.Process));
-                //    clientThread.Start();
-                //}
-                //catch (Exception ex)
-                //{
-                //    Console.WriteLine(ex.Message);
-                //}
-                //finally
-                //{
-                //    if (listener != null)
-                //        listener.Stop();
-                //}
-                //Thread.Sleep(new TimeSpan(0, 0, 1));
-                
-                CarPostClient carPostClient = new CarPostClient(textBoxCarPosts);
+                CarPostClient carPostClient = new CarPostClient(textBoxCarPosts, listViewCarPosts, CarPosts);
                 listener.BeginAcceptTcpClient(new AsyncCallback(carPostClient.Process), listener);
                 Thread.Sleep(new TimeSpan(0, 0, 1));
             }
@@ -173,6 +148,17 @@ namespace Server
             backgroundWorkerPosts.RunWorkerAsync();
             LoggerCarPosts = new Logger(this.textBoxCarPosts);
             backgroundWorkerCarPosts.RunWorkerAsync();
+        }
+
+        private List<CarPost> GetCarPosts()
+        {
+            using (var connection = new NpgsqlConnection(SmartEcoAConnectionString))
+            {
+                connection.Open();
+                List<CarPost> carPosts = connection.Query<CarPost>($"SELECT \"Id\", \"Name\", \"Latitude\", \"Longitude\" FROM public.\"CarPost\";").ToList();
+                connection.Close();
+                return carPosts;
+            }
         }
     }
 }

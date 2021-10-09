@@ -38,6 +38,14 @@ namespace Server
             this.buttonPostsStartStop = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.listViewCarPosts = new System.Windows.Forms.ListView();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.textBoxCarPosts = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.labelCarPostsStartStop = new System.Windows.Forms.Label();
@@ -50,6 +58,9 @@ namespace Server
             this.panel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -94,6 +105,7 @@ namespace Server
             this.textBoxPostsData.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxPostsData.Size = new System.Drawing.Size(786, 459);
             this.textBoxPostsData.TabIndex = 5;
+            this.textBoxPostsData.WordWrap = false;
             // 
             // panel1
             // 
@@ -138,22 +150,94 @@ namespace Server
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.textBoxCarPosts);
+            this.panel4.Controls.Add(this.tabControl2);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 38);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(786, 459);
             this.panel4.TabIndex = 1;
             // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.tabPage3);
+            this.tabControl2.Controls.Add(this.tabPage4);
+            this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl2.Location = new System.Drawing.Point(0, 0);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(786, 459);
+            this.tabControl2.TabIndex = 7;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.listViewCarPosts);
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(778, 431);
+            this.tabPage3.TabIndex = 0;
+            this.tabPage3.Text = "Список";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // listViewCarPosts
+            // 
+            this.listViewCarPosts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4});
+            this.listViewCarPosts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewCarPosts.FullRowSelect = true;
+            this.listViewCarPosts.GridLines = true;
+            this.listViewCarPosts.HideSelection = false;
+            this.listViewCarPosts.Location = new System.Drawing.Point(3, 3);
+            this.listViewCarPosts.Name = "listViewCarPosts";
+            this.listViewCarPosts.Size = new System.Drawing.Size(772, 425);
+            this.listViewCarPosts.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.listViewCarPosts.TabIndex = 0;
+            this.listViewCarPosts.UseCompatibleStateImageBehavior = false;
+            this.listViewCarPosts.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Id";
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Название";
+            this.columnHeader2.Width = 200;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "IP";
+            this.columnHeader3.Width = 100;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Последнее время";
+            this.columnHeader4.Width = 200;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.textBoxCarPosts);
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(778, 431);
+            this.tabPage4.TabIndex = 1;
+            this.tabPage4.Text = "Журнал";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
             // textBoxCarPosts
             // 
             this.textBoxCarPosts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxCarPosts.Location = new System.Drawing.Point(0, 0);
+            this.textBoxCarPosts.Location = new System.Drawing.Point(3, 3);
             this.textBoxCarPosts.Multiline = true;
             this.textBoxCarPosts.Name = "textBoxCarPosts";
             this.textBoxCarPosts.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxCarPosts.Size = new System.Drawing.Size(786, 459);
+            this.textBoxCarPosts.Size = new System.Drawing.Size(772, 425);
             this.textBoxCarPosts.TabIndex = 6;
+            this.textBoxCarPosts.WordWrap = false;
             // 
             // panel3
             // 
@@ -213,7 +297,10 @@ namespace Server
             this.panel1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
+            this.tabControl2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.ResumeLayout(false);
@@ -236,6 +323,14 @@ namespace Server
         private System.Windows.Forms.Button buttonCarPostsStartStop;
         private System.ComponentModel.BackgroundWorker backgroundWorkerCarPosts;
         private System.Windows.Forms.TextBox textBoxCarPosts;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.ListView listViewCarPosts;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
     }
 }
 

@@ -1,4 +1,10 @@
-﻿using System;
+﻿using Dapper;
+using Newtonsoft.Json;
+using Npgsql;
+using SmartEcoA.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -10,60 +16,24 @@ namespace Server
     {
         private readonly Logger Logger;
         private readonly TextBox TextBoxLog;
-        private TcpClient _tcpClient;
+        private readonly ListView ListViewCarPosts;
+        private readonly List<CarPost> CarPosts;
 
-        public CarPostClient(TcpClient tcpClient,
-            TextBox TextBoxLog)
-        {
-            _tcpClient = tcpClient;
-            this.TextBoxLog = TextBoxLog;
-            Logger = new Logger(this.TextBoxLog);
-        }
-        public CarPostClient(TextBox TextBoxLog)
+        public CarPostClient(TextBox TextBoxLog,
+            ListView ListView,
+            List<CarPost> CarPosts)
         {
             this.TextBoxLog = TextBoxLog;
             Logger = new Logger(this.TextBoxLog);
-        }
-
-        public void Process()
-        {
-            NetworkStream stream = null;
-            string ip = ((IPEndPoint)_tcpClient.Client.RemoteEndPoint).Address.ToString();
-            Logger.Log($"Подключился пост с IP: {ip}");
-            stream = _tcpClient.GetStream();
-            try
-            {
-                byte[] data = new byte[_tcpClient.ReceiveBufferSize];
-                StringBuilder builder = new StringBuilder();
-                int bytes = 0;
-                do
-                {
-                    bytes = stream.Read(data, 0, data.Length);
-                    builder.Append(Encoding.UTF8.GetString(data, 0, bytes));
-                    Logger.Log($"Id поста: {builder.ToString()}");
-                }
-                while (stream.DataAvailable);
-            }
-            catch (Exception ex)
-            {
-                Logger.Log($"{ip}: ошибка ({ex.Message})");
-            }
-            finally
-            {
-                stream?.Close();
-                _tcpClient?.Close();
-            }
+            ListViewCarPosts = ListView;
+            this.CarPosts = CarPosts;
         }
 
         public void Process(IAsyncResult ar)
         {
-            // Get the listener that handles the client request.
             TcpListener listener = (TcpListener)ar.AsyncState;
-
-            // End the operation and display the received data on
-            // the console.
             TcpClient client;
-                try
+            try
             {
                 client = listener.EndAcceptTcpClient(ar);
             }
@@ -71,12 +41,8 @@ namespace Server
             {
                 return;
             }
-                
-
-            // Process the connection here. (Add the client to a
-            // server table, read data, etc.)
-            Logger.Log("Подключился пост");
-
+            string ip = (client.Client.RemoteEndPoint as IPEndPoint as IPEndPoint).Address.ToString();
+            Logger.Log($"Подключился пост ({ip})");
             StringBuilder builder = new StringBuilder();
             int bytes = 0;
             NetworkStream stream = client.GetStream();
@@ -87,15 +53,25 @@ namespace Server
                 builder.Append(Encoding.UTF8.GetString(data, 0, bytes));
             }
             while (stream.DataAvailable);
-            Logger.Log(builder.ToString());
-
-            // Signal the calling thread to continue.
-            //tcpClientConnected.Set();
+            string jsonString = builder.ToString();
+            dynamic obj = JsonConvert.DeserializeObject(jsonString);
+            string carPostId = (string)obj.CarPostId;
+            Logger.Log($"Id поста {ip} - {carPostId}");
+            UpdateListView(carPostId, ip);
 
             client.Close();
-            //client.Client.Disconnect(true);
             Logger.Log("Пост отключился");
+        }
 
+        private void UpdateListView(
+            string Id,
+            string IP)
+        {
+            string Name = CarPosts.FirstOrDefault(c => c.Id.ToString() == Id)?.Name;
+            string[] row = { Id, Name, IP, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") };
+            var listViewItem = new ListViewItem(row);
+            Action action = () => ListViewCarPosts.Items.Add(listViewItem);
+            ListViewCarPosts.Invoke(action);
         }
     }
 }
