@@ -37,7 +37,7 @@ namespace Server
             {
                 client = listener.EndAcceptTcpClient(ar);
             }
-            catch(ObjectDisposedException)
+            catch (ObjectDisposedException)
             {
                 return;
             }
@@ -68,10 +68,21 @@ namespace Server
             string IP)
         {
             string Name = CarPosts.FirstOrDefault(c => c.Id.ToString() == Id)?.Name;
-            string[] row = { Id, Name, IP, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") };
-            var listViewItem = new ListViewItem(row);
-            Action action = () => ListViewCarPosts.Items.Add(listViewItem);
-            ListViewCarPosts.Invoke(action);
+            ListViewItem listViewItem = null;
+            ListViewCarPosts.Invoke(new MethodInvoker(delegate
+            {
+                listViewItem = ListViewCarPosts.Items.Cast<ListViewItem>().FirstOrDefault(l => l.Text == Id);
+                if (listViewItem == null)
+                {
+                    string[] row = { Id, Name, IP, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") };
+                    listViewItem = new ListViewItem(row);
+                    ListViewCarPosts.Items.Add(listViewItem);
+                }
+                else
+                {
+                    listViewItem.SubItems[3].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                }
+            }));
         }
     }
 }

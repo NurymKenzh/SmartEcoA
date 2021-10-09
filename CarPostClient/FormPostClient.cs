@@ -25,7 +25,8 @@ namespace CarPostClient
     {
         private const int port = 8087;
         //private const string server = "185.125.44.116";
-        private const string server = "192.168.0.165";
+        //private const string server = "192.168.0.165";
+        private const string server = "192.168.43.47";
         //private const string server = "127.0.0.1";
         private string CarPostId = null,
             AutoTestPath = null,
