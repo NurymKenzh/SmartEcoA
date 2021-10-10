@@ -137,7 +137,7 @@ namespace Server
 
             while (!backgroundWorkerCarPosts.CancellationPending)
             {
-                CarPostClient carPostClient = new CarPostClient(textBoxCarPosts, listViewCarPosts, CarPosts);
+                CarPostClient carPostClient = new CarPostClient(textBoxCarPosts, listViewCarPosts, CarPosts, SmartEcoAConnectionString);
                 listener.BeginAcceptTcpClient(new AsyncCallback(carPostClient.Process), listener);
                 Thread.Sleep(new TimeSpan(0, 0, 1));
             }

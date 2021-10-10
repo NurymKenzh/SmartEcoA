@@ -32,6 +32,7 @@ namespace CarPostClientUpdater
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.notifyIconUpdate = new System.Windows.Forms.NotifyIcon(this.components);
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.SuspendLayout();
             // 
             // notifyIconUpdate
@@ -39,6 +40,11 @@ namespace CarPostClientUpdater
             this.notifyIconUpdate.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIconUpdate.Icon")));
             this.notifyIconUpdate.Text = "Обновление";
             this.notifyIconUpdate.Visible = true;
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
             // 
             // FormMain
             // 
@@ -58,6 +64,7 @@ namespace CarPostClientUpdater
         #endregion
 
         private System.Windows.Forms.NotifyIcon notifyIconUpdate;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }
 

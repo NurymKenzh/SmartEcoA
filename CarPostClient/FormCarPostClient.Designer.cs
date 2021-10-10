@@ -1,9 +1,7 @@
 ﻿
-using System;
-
 namespace CarPostClient
 {
-    partial class FormMain
+    partial class FormCarPostClient
     {
         /// <summary>
         ///  Required designer variable.
@@ -32,18 +30,11 @@ namespace CarPostClient
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            this.notifyIconWork = new System.Windows.Forms.NotifyIcon(this.components);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCarPostClient));
             this.textBoxLog = new System.Windows.Forms.TextBox();
-            this.backgroundWorkerMain = new System.ComponentModel.BackgroundWorker();
+            this.notifyIconWork = new System.Windows.Forms.NotifyIcon(this.components);
+            this.backgroundWorkerCarPostClient = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
-            // 
-            // notifyIconWork
-            // 
-            this.notifyIconWork.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIconWork.Icon")));
-            this.notifyIconWork.Text = "Идёт передача данных";
-            this.notifyIconWork.Visible = true;
-            this.notifyIconWork.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIconWork_MouseDoubleClick);
             // 
             // textBoxLog
             // 
@@ -56,23 +47,30 @@ namespace CarPostClient
             this.textBoxLog.TabIndex = 0;
             this.textBoxLog.WordWrap = false;
             // 
-            // backgroundWorkerMain
+            // notifyIconWork
             // 
-            this.backgroundWorkerMain.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerMain_DoWork);
+            this.notifyIconWork.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIconWork.Icon")));
+            this.notifyIconWork.Text = "Идёт передача данных";
+            this.notifyIconWork.Visible = true;
+            this.notifyIconWork.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIconWork_MouseDoubleClick);
             // 
-            // FormMain
+            // backgroundWorkerCarPostClient
+            // 
+            this.backgroundWorkerCarPostClient.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerCarPostClient_DoWork);
+            // 
+            // FormCarPostClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.textBoxLog);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "FormMain";
+            this.Name = "FormCarPostClient";
+            this.ShowIcon = false;
             this.Text = "CarPostClient";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
-            this.Load += new System.EventHandler(this.FormMain_Load);
-            this.Shown += new System.EventHandler(this.FormMain_Shown);
-            this.Resize += new System.EventHandler(this.FormMain_Resize);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormCarPostClient_FormClosing);
+            this.Load += new System.EventHandler(this.FormCarPostClient_Load);
+            this.Shown += new System.EventHandler(this.FormCarPostClient_Shown);
+            this.Resize += new System.EventHandler(this.FormCarPostClient_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -80,9 +78,9 @@ namespace CarPostClient
 
         #endregion
 
-        private System.Windows.Forms.NotifyIcon notifyIconWork;
         private System.Windows.Forms.TextBox textBoxLog;
-        private System.ComponentModel.BackgroundWorker backgroundWorkerMain;
+        private System.Windows.Forms.NotifyIcon notifyIconWork;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerCarPostClient;
     }
 }
 
