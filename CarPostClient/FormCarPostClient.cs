@@ -131,7 +131,7 @@ namespace CarPostClient
 
                 Connect();
 
-                Thread.Sleep(new TimeSpan(0, 0, 10));
+                Thread.Sleep(new TimeSpan(0, 0, 5));
             }
         }
 
@@ -205,7 +205,8 @@ namespace CarPostClient
 
                     //Wait response from Server
                     dynamic obj = new ExpandoObject();
-                    byte[] dataResponse = new byte[256];
+                    //byte[] dataResponse = new byte[256];
+                    byte[] dataResponse = new byte[client.ReceiveBufferSize];
                     while (true)
                     {
                         StringBuilder messageSB = new StringBuilder();
@@ -213,7 +214,7 @@ namespace CarPostClient
                         do
                         {
                             bytes = stream.Read(dataResponse, 0, dataResponse.Length);
-                            messageSB.Append(Encoding.Unicode.GetString(dataResponse, 0, bytes));
+                            messageSB.Append(Encoding.UTF8.GetString(dataResponse, 0, bytes));
                         }
                         while (stream.DataAvailable);
 
@@ -244,7 +245,7 @@ namespace CarPostClient
                         jsonData.tester = CreateTester((string)obj.testerName);
                     }
 
-                    string json = JsonConvert.SerializeObject(jsonData);
+                    string json = Environment.NewLine + JsonConvert.SerializeObject(jsonData) + Environment.NewLine;
 
                     if (jsonData.carModelSmokeMeter != null || jsonData.carPostDataSmokeMeter != null
                         || jsonData.carModelAutoTest != null || jsonData.carPostDataAutoTest != null)
@@ -252,11 +253,31 @@ namespace CarPostClient
                         //Sending data to the server
                         var data = Encoding.UTF8.GetBytes(json);
                         stream.Write(data, 0, data.Length);
-
-                        Log("Данные отправлены");
+                        if (jsonData.carModelAutoTest != null)
+                        {
+                            Log($"Данные отправлены: Автотест, модель автомобиля - {jsonData.carModelAutoTest.MODEL}");
+                        }
+                        if (jsonData.carModelSmokeMeter != null)
+                        {
+                            Log($"Данные отправлены: Дымомер, модель автомобиля - {jsonData.carModelSmokeMeter.MODEL}");
+                        }
+                        if (jsonData.carPostDataAutoTest != null)
+                        {
+                            Log($"Данные отправлены: Автотест, номер автомобиля - {jsonData.carPostDataAutoTest.NOMER}");
+                        }
+                        if (jsonData.carPostDataSmokeMeter != null)
+                        {
+                            Log($"Данные отправлены: Дымомер, номер автомобиля - {jsonData.carPostDataSmokeMeter.NOMER}");
+                        }
+                    }
+                    else
+                    {
+                        var data = Encoding.UTF8.GetBytes(json);
+                        stream.Write(data, 0, data.Length);
+                        Log("Нет новых данных для отправки");
                     }
 
-                    break;
+                    break; //?
                 }
             }
             catch (SocketException ex)
@@ -278,6 +299,7 @@ namespace CarPostClient
                 {
                     client.Close();
                 }
+                Log("Отключился");
             }
         }
 

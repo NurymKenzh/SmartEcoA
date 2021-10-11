@@ -1,6 +1,6 @@
 ﻿using Dapper;
 using Npgsql;
-using SmartEcoA.Models;
+using Server.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
