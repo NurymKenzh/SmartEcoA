@@ -303,8 +303,8 @@ namespace Server
                             connection.Open();
                             var typeEcoClassv = connection.Query<TypeEcoClass>($"SELECT \"Id\", \"Name\" " +
                                 $"FROM public.\"TypeEcoClass\" " +
-                                $"WHERE \"Name\" = '{clientJsonData.carModelAutoTest.TypeEcoName}' " +
-                                $"ORDER BY \"Id\"", commandTimeout: 86400);
+                                $"WHERE \"Id\" = '{clientJsonData.carModelAutoTest.ID_ECOLOG.ToString()}' " +
+                                $"ORDER BY \"Id\"");
                             typeEcoClass = typeEcoClassv.FirstOrDefault();
                         }
                     }
@@ -386,7 +386,7 @@ namespace Server
                         var carModelSmokeMetersv = connection.Query<CarModelSmokeMeter>($"SELECT \"Id\", \"Name\", \"CarPostId\" " +
                             $"FROM public.\"CarModelSmokeMeter\" " +
                             $"WHERE \"CarPostId\" = {carPostId} AND \"Name\" = '{clientJsonData.carPostDataSmokeMeter.MODEL}' " +
-                            $"ORDER BY \"Id\"", commandTimeout: 86400);
+                            $"ORDER BY \"Id\"");
                         carModelSmokeMeter = carModelSmokeMetersv.FirstOrDefault();
                     }
 
@@ -460,7 +460,7 @@ namespace Server
                         var carModelAutoTestsv = connection.Query<CarModelAutoTest>($"SELECT \"Id\", \"Name\", \"ParadoxId\", \"CarPostId\" " +
                             $"FROM public.\"CarModelAutoTest\" " +
                             $"WHERE \"CarPostId\" = {carPostId} AND \"ParadoxId\" = '{clientJsonData.carPostDataAutoTest.ID_MODEL}' " +
-                            $"ORDER BY \"Id\"", commandTimeout: 86400);
+                            $"ORDER BY \"Id\"");
                         carModelAutoTest = carModelAutoTestsv.FirstOrDefault();
 
                         if (!string.IsNullOrEmpty(clientJsonData.carPostDataAutoTest.DopInfo.TesterName))
@@ -470,7 +470,7 @@ namespace Server
                                 $"JOIN public.\"CarPostDataAutoTest\" as data ON data.\"TesterId\" = tester.\"Id\" " +
                                 $"JOIN public.\"CarModelAutoTest\" as model ON model.\"Id\" = data.\"CarModelAutoTestId\" " +
                                 $"WHERE model.\"CarPostId\" = {carPostId} " +
-                                $"ORDER BY tester.\"Id\" DESC", commandTimeout: 86400);
+                                $"ORDER BY tester.\"Id\" DESC");
                             tester = testersv.FirstOrDefault();
                         }
                         connection.Close();
@@ -599,7 +599,7 @@ namespace Server
                                     testerId = connection.ExecuteScalar(executeTester);
                                     if (testerId != null)
                                     {
-                                        connection.Execute($"UPDATE public.\"CarPostDataAutoTest\" SET \"TesterId\" = {testerId} WHERE \"Id\" = {id};", commandTimeout: 86400);
+                                        connection.Execute($"UPDATE public.\"CarPostDataAutoTest\" SET \"TesterId\" = {testerId} WHERE \"Id\" = {id};");
                                     }
                                 }
                                 connection.Close();
