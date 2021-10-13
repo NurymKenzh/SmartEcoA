@@ -474,12 +474,15 @@ namespace Server
 
                         if (!string.IsNullOrEmpty(clientJsonData.carPostDataAutoTest.DopInfo.TesterName))
                         {
-                            var testersv = connection.Query<Tester>($"SELECT tester.\"Id\", tester.\"Name\" " +
-                                $"FROM public.\"Tester\" as tester " +
-                                $"JOIN public.\"CarPostDataAutoTest\" as data ON data.\"TesterId\" = tester.\"Id\" " +
-                                $"JOIN public.\"CarModelAutoTest\" as model ON model.\"Id\" = data.\"CarModelAutoTestId\" " +
-                                $"WHERE model.\"CarPostId\" = {carPostId} " +
-                                $"ORDER BY tester.\"Id\" DESC");
+                            //var testersv = connection.Query<Tester>($"SELECT tester.\"Id\", tester.\"Name\" " +
+                            //    $"FROM public.\"Tester\" as tester " +
+                            //    $"JOIN public.\"CarPostDataAutoTest\" as data ON data.\"TesterId\" = tester.\"Id\" " +
+                            //    $"JOIN public.\"CarModelAutoTest\" as model ON model.\"Id\" = data.\"CarModelAutoTestId\" " +
+                            //    $"WHERE model.\"CarPostId\" = {carPostId} " +
+                            //    $"ORDER BY tester.\"Id\" DESC");
+                            var testersv = connection.Query<Tester>($"SELECT \"Id\", \"Name\"" +
+                                $" FROM public.\"Tester\"" +
+                                $" WHERE \"Name\" = '{clientJsonData.carPostDataAutoTest.DopInfo.TesterName}';");
                             tester = testersv.FirstOrDefault();
                         }
                         connection.Close();
