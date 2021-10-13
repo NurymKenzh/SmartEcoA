@@ -265,7 +265,7 @@ namespace CarPostClient
                         }
                         if (jsonData.carPostDataAutoTest != null)
                         {
-                            Log($"Данные отправлены: Автотест, измерение - {jsonData.carPostDataAutoTest.DATA}. {jsonData.carPostDataAutoTest.TIME}");
+                            Log($"Данные отправлены: Автотест, измерение - {FromDATATIME(jsonData.carPostDataAutoTest).ToString("yyyy-MM-dd HH:mm:ss")}");
                         }
                         if (jsonData.carPostDataSmokeMeter != null)
                         {
@@ -429,9 +429,9 @@ namespace CarPostClient
                         $"SELECT * FROM Main")
                         .ToList()
                         .Where(c => c.DATA.Year >= 2020)
-                        .Where(c => Convert.ToDateTime($"{c.DATA.ToShortDateString()} {c.TIME}") > Convert.ToDateTime(autoTestDataDateTime))
-                        .OrderBy(c => c.DATA)
-                        .ThenBy(c => c.TIME)
+                        //.Where(c => Convert.ToDateTime($"{c.DATA.ToShortDateString()} {c.TIME}") > Convert.ToDateTime(autoTestDataDateTime))
+                        .Where(c => FromDATATIME(c) > Convert.ToDateTime(autoTestDataDateTime))
+                        .OrderBy(c => FromDATATIME(c))
                         .FirstOrDefault();
                     if (carPostDataAutoTest != null)
                     {
@@ -458,6 +458,16 @@ namespace CarPostClient
             }
 
             return null;
+        }
+
+        private DateTime FromDATATIME(CarPostDataAutoTest carPostDataAutoTest)
+        {
+            return new DateTime(carPostDataAutoTest.DATA.Year,
+                carPostDataAutoTest.DATA.Month,
+                carPostDataAutoTest.DATA.Day,
+                Convert.ToInt32(carPostDataAutoTest.TIME.Split(':')[0]),
+                Convert.ToInt32(carPostDataAutoTest.TIME.Split(':')[1]),
+                Convert.ToInt32(carPostDataAutoTest.TIME.Split(':')[2]));
         }
 
         private Tester CreateTester(string testerName)
