@@ -23,10 +23,10 @@ namespace CarPostClient
     public partial class FormCarPostClient : Form
     {
         private const int port = 8087;
-        //private const string server = "185.125.44.116";
+        private const string server = "185.125.44.116";
         //private const string server = "192.168.0.165";
         //private const string server = "192.168.43.47";
-        private const string server = "127.0.0.1";
+        //private const string server = "127.0.0.1";
         private string CarPostId = null,
             AutoTestPath = null,
             SmokeMeterPath = null;
@@ -80,42 +80,42 @@ namespace CarPostClient
             }
             while (!backgroundWorkerCarPostClient.CancellationPending)
             {
-                //// run updater
-                //if (DateTime.Now - dateTimeTryUpdate > new TimeSpan(0, 5, 0))
-                //{
-                //    try
-                //    {
-                //        Log($"Проверка обновления");
-                //        Process updater = new Process();
-                //        updater.StartInfo.FileName = Path.Combine("Updater", "CarPostClientUpdater.exe");
-                //        // for debug:
-                //        //updater.StartInfo.FileName = @"C:\Users\N\source\repos\NurymKenzh\SmartEcoA\CarPostClientUpdater\bin\Debug\netcoreapp3.1\CarPostClientUpdater.exe";
-                //        updater.Start();
-                //        dateTimeTryUpdate = DateTime.Now;
-                //        Thread.Sleep(new TimeSpan(0, 0, 10));
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        Log($"Ошибка обновления: " + ex.Message);
-                //    }
-                //}
-                //// while updater is working
-                //while (File.Exists("wait"))
-                //{
-                //    if (!textBoxLog.Lines[textBoxLog.Lines.Count() - 2].Contains("Проверка обновления"))
-                //    {
-                //        Log("Проверка обновления");
-                //    }
-                //    Thread.Sleep(new TimeSpan(0, 0, 5));
-                //}
-                //// update
-                //if (File.Exists("stop"))
-                //{
-                //    Log("Обновление");
-                //    notifyIconWork.Visible = false;
-                //    stop = true;
-                //    Application.Exit();
-                //}
+                // run updater
+                if (DateTime.Now - dateTimeTryUpdate > new TimeSpan(0, 5, 0))
+                {
+                    try
+                    {
+                        Log($"Проверка обновления");
+                        Process updater = new Process();
+                        updater.StartInfo.FileName = Path.Combine("Updater", "CarPostClientUpdater.exe");
+                        // for debug:
+                        //updater.StartInfo.FileName = @"C:\Users\N\source\repos\NurymKenzh\SmartEcoA\CarPostClientUpdater\bin\Debug\netcoreapp3.1\CarPostClientUpdater.exe";
+                        updater.Start();
+                        dateTimeTryUpdate = DateTime.Now;
+                        Thread.Sleep(new TimeSpan(0, 0, 10));
+                    }
+                    catch (Exception ex)
+                    {
+                        Log($"Ошибка обновления: " + ex.Message);
+                    }
+                }
+                // while updater is working
+                while (File.Exists("wait"))
+                {
+                    if (!textBoxLog.Lines[textBoxLog.Lines.Count() - 2].Contains("Проверка обновления"))
+                    {
+                        Log("Проверка обновления");
+                    }
+                    Thread.Sleep(new TimeSpan(0, 0, 5));
+                }
+                // update
+                if (File.Exists("stop"))
+                {
+                    Log("Обновление");
+                    notifyIconWork.Visible = false;
+                    stop = true;
+                    Application.Exit();
+                }
 
                 if (!ReadAppSettings())
                 {
@@ -131,11 +131,10 @@ namespace CarPostClient
                 Log($"сервер: {server}:{port}.");
 
                 int sent = Connect();
-                //DBTest();
 
                 if(sent == 0)
                 {
-                    Thread.Sleep(new TimeSpan(0, 0, 5, 0, 100));
+                    Thread.Sleep(new TimeSpan(0, 0, 5, 0, 0));
                 }
                 else
                 {
