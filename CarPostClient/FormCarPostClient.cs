@@ -130,10 +130,17 @@ namespace CarPostClient
                 Log($"путь к базе данных Дымомера: {SmokeMeterPath},");
                 Log($"сервер: {server}:{port}.");
 
-                Connect();
+                int sent = Connect();
                 //DBTest();
 
-                Thread.Sleep(new TimeSpan(0, 0, 0, 0, 100));
+                if(sent == 0)
+                {
+                    Thread.Sleep(new TimeSpan(0, 0, 5, 0, 100));
+                }
+                else
+                {
+                    Thread.Sleep(new TimeSpan(0, 0, 0, 0, 100));
+                }
             }
         }
 
@@ -189,8 +196,9 @@ namespace CarPostClient
             return true;
         }
 
-        private void Connect()
+        private int Connect()
         {
+            int sentCount = 1;
             TcpClient client = null;
             NetworkStream stream = null;
             try
@@ -277,6 +285,7 @@ namespace CarPostClient
                         var data = Encoding.UTF8.GetBytes(json);
                         stream.Write(data, 0, data.Length);
                         Log("Нет новых данных для отправки");
+                        sentCount = 0;
                     }
 
                     break; //?
@@ -303,6 +312,7 @@ namespace CarPostClient
                 }
                 Log("Отключился");
             }
+            return sentCount;
         }
 
         private void DBTest()
