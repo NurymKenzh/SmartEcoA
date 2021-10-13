@@ -80,66 +80,70 @@ namespace CarPostClient
             }
             while (!backgroundWorkerCarPostClient.CancellationPending)
             {
-                // run updater
-                if (DateTime.Now - dateTimeTryUpdate > new TimeSpan(0, 5, 0))
+                try
                 {
-                    try
+                    // run updater
+                    if (DateTime.Now - dateTimeTryUpdate > new TimeSpan(0, 5, 0))
                     {
-                        Log($"Проверка обновления");
-                        Process updater = new Process();
-                        updater.StartInfo.FileName = Path.Combine("Updater", "CarPostClientUpdater.exe");
-                        // for debug:
-                        //updater.StartInfo.FileName = @"C:\Users\N\source\repos\NurymKenzh\SmartEcoA\CarPostClientUpdater\bin\Debug\netcoreapp3.1\CarPostClientUpdater.exe";
-                        updater.Start();
-                        dateTimeTryUpdate = DateTime.Now;
-                        Thread.Sleep(new TimeSpan(0, 0, 10));
+                        try
+                        {
+                            Log($"Проверка обновления");
+                            Process updater = new Process();
+                            updater.StartInfo.FileName = Path.Combine("Updater", "CarPostClientUpdater.exe");
+                            // for debug:
+                            //updater.StartInfo.FileName = @"C:\Users\N\source\repos\NurymKenzh\SmartEcoA\CarPostClientUpdater\bin\Debug\netcoreapp3.1\CarPostClientUpdater.exe";
+                            updater.Start();
+                            dateTimeTryUpdate = DateTime.Now;
+                            Thread.Sleep(new TimeSpan(0, 0, 10));
+                        }
+                        catch (Exception ex)
+                        {
+                            Log($"Ошибка обновления: " + ex.Message);
+                        }
                     }
-                    catch (Exception ex)
+                    // while updater is working
+                    while (File.Exists("wait"))
                     {
-                        Log($"Ошибка обновления: " + ex.Message);
+                        if (!textBoxLog.Lines[textBoxLog.Lines.Count() - 2].Contains("Проверка обновления"))
+                        {
+                            Log("Проверка обновления");
+                        }
+                        Thread.Sleep(new TimeSpan(0, 0, 5));
                     }
-                }
-                // while updater is working
-                while (File.Exists("wait"))
-                {
-                    if (!textBoxLog.Lines[textBoxLog.Lines.Count() - 2].Contains("Проверка обновления"))
+                    // update
+                    if (File.Exists("stop"))
                     {
-                        Log("Проверка обновления");
+                        Log("Обновление");
+                        notifyIconWork.Visible = false;
+                        stop = true;
+                        Application.Exit();
                     }
-                    Thread.Sleep(new TimeSpan(0, 0, 5));
-                }
-                // update
-                if (File.Exists("stop"))
-                {
-                    Log("Обновление");
-                    notifyIconWork.Visible = false;
-                    stop = true;
-                    Application.Exit();
-                }
 
-                if (!ReadAppSettings())
-                {
-                    Log("Ошибка чтения appsettings.json! Перерыв на 1 минуту.");
-                    Thread.Sleep(new TimeSpan(0, 1, 0));
-                    continue;
-                }
-                Log("--------------------------------------");
-                Log("Значения с appsettings.json прочитаны:");
-                Log($"Id поста: {CarPostId},");
-                Log($"путь к базе данных Автотеста: {AutoTestPath},");
-                Log($"путь к базе данных Дымомера: {SmokeMeterPath},");
-                Log($"сервер: {server}:{port}.");
+                    if (!ReadAppSettings())
+                    {
+                        Log("Ошибка чтения appsettings.json! Перерыв на 1 минуту.");
+                        Thread.Sleep(new TimeSpan(0, 1, 0));
+                        continue;
+                    }
+                    Log("--------------------------------------");
+                    Log("Значения с appsettings.json прочитаны:");
+                    Log($"Id поста: {CarPostId},");
+                    Log($"путь к базе данных Автотеста: {AutoTestPath},");
+                    Log($"путь к базе данных Дымомера: {SmokeMeterPath},");
+                    Log($"сервер: {server}:{port}.");
 
-                int sent = Connect();
+                    int sent = Connect();
 
-                if(sent == 0)
-                {
-                    Thread.Sleep(new TimeSpan(0, 0, 5, 0, 0));
+                    if (sent == 0)
+                    {
+                        Thread.Sleep(new TimeSpan(0, 0, 5, 0, 0));
+                    }
+                    else
+                    {
+                        Thread.Sleep(new TimeSpan(0, 0, 0, 0, 100));
+                    }
                 }
-                else
-                {
-                    Thread.Sleep(new TimeSpan(0, 0, 0, 0, 100));
-                }
+                catch { }
             }
         }
 
