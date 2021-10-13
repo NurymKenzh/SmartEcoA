@@ -23,10 +23,10 @@ namespace CarPostClient
     public partial class FormCarPostClient : Form
     {
         private const int port = 8087;
-        private const string server = "185.125.44.116";
+        //private const string server = "185.125.44.116";
         //private const string server = "192.168.0.165";
         //private const string server = "192.168.43.47";
-        //private const string server = "127.0.0.1";
+        private const string server = "127.0.0.1";
         private string CarPostId = null,
             AutoTestPath = null,
             SmokeMeterPath = null;
@@ -80,42 +80,42 @@ namespace CarPostClient
             }
             while (!backgroundWorkerCarPostClient.CancellationPending)
             {
-                // run updater
-                if (DateTime.Now - dateTimeTryUpdate > new TimeSpan(0, 5, 0))
-                {
-                    try
-                    {
-                        Log($"Проверка обновления");
-                        Process updater = new Process();
-                        updater.StartInfo.FileName = Path.Combine("Updater", "CarPostClientUpdater.exe");
-                        // for debug:
-                        //updater.StartInfo.FileName = @"C:\Users\N\source\repos\NurymKenzh\SmartEcoA\CarPostClientUpdater\bin\Debug\netcoreapp3.1\CarPostClientUpdater.exe";
-                        updater.Start();
-                        dateTimeTryUpdate = DateTime.Now;
-                        Thread.Sleep(new TimeSpan(0, 0, 10));
-                    }
-                    catch (Exception ex)
-                    {
-                        Log($"Ошибка обновления: " + ex.Message);
-                    }
-                }
-                // while updater is working
-                while (File.Exists("wait"))
-                {
-                    if (!textBoxLog.Lines[textBoxLog.Lines.Count() - 2].Contains("Проверка обновления"))
-                    {
-                        Log("Проверка обновления");
-                    }
-                    Thread.Sleep(new TimeSpan(0, 0, 5));
-                }
-                // update
-                if (File.Exists("stop"))
-                {
-                    Log("Обновление");
-                    notifyIconWork.Visible = false;
-                    stop = true;
-                    Application.Exit();
-                }
+                //// run updater
+                //if (DateTime.Now - dateTimeTryUpdate > new TimeSpan(0, 5, 0))
+                //{
+                //    try
+                //    {
+                //        Log($"Проверка обновления");
+                //        Process updater = new Process();
+                //        updater.StartInfo.FileName = Path.Combine("Updater", "CarPostClientUpdater.exe");
+                //        // for debug:
+                //        //updater.StartInfo.FileName = @"C:\Users\N\source\repos\NurymKenzh\SmartEcoA\CarPostClientUpdater\bin\Debug\netcoreapp3.1\CarPostClientUpdater.exe";
+                //        updater.Start();
+                //        dateTimeTryUpdate = DateTime.Now;
+                //        Thread.Sleep(new TimeSpan(0, 0, 10));
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        Log($"Ошибка обновления: " + ex.Message);
+                //    }
+                //}
+                //// while updater is working
+                //while (File.Exists("wait"))
+                //{
+                //    if (!textBoxLog.Lines[textBoxLog.Lines.Count() - 2].Contains("Проверка обновления"))
+                //    {
+                //        Log("Проверка обновления");
+                //    }
+                //    Thread.Sleep(new TimeSpan(0, 0, 5));
+                //}
+                //// update
+                //if (File.Exists("stop"))
+                //{
+                //    Log("Обновление");
+                //    notifyIconWork.Visible = false;
+                //    stop = true;
+                //    Application.Exit();
+                //}
 
                 if (!ReadAppSettings())
                 {
@@ -131,8 +131,9 @@ namespace CarPostClient
                 Log($"сервер: {server}:{port}.");
 
                 Connect();
+                //DBTest();
 
-                Thread.Sleep(new TimeSpan(0, 0, 5));
+                Thread.Sleep(new TimeSpan(0, 0, 0, 0, 100));
             }
         }
 
@@ -264,7 +265,7 @@ namespace CarPostClient
                         }
                         if (jsonData.carPostDataAutoTest != null)
                         {
-                            Log($"Данные отправлены: Автотест, номер автомобиля - {jsonData.carPostDataAutoTest.NOMER}");
+                            Log($"Данные отправлены: Автотест, измерение - {jsonData.carPostDataAutoTest.DATA}. {jsonData.carPostDataAutoTest.TIME}");
                         }
                         if (jsonData.carPostDataSmokeMeter != null)
                         {
@@ -317,6 +318,14 @@ namespace CarPostClient
                     connection.Open();
                     var carModelAutoTests = connection.Query<CarModelAutoTest>(
                         $"SELECT * FROM model").OrderBy(c => c.ID).ToList();
+                    var carPostDataAutoTest = connection.Query<CarPostDataAutoTest>(
+                        $"SELECT * FROM Main")
+                        .ToList()
+                        //.Where(c => Convert.ToDateTime($"{c.DATA.ToShortDateString()} {c.TIME}") > Convert.ToDateTime(autoTestDataDateTime))
+                        .OrderBy(c => c.DATA)
+                        .ThenBy(c => c.TIME)
+                        //.FirstOrDefault();
+                        .ToList();
                     connection.Close();
                 }
             }
@@ -350,15 +359,13 @@ namespace CarPostClient
                 using (OleDbConnection connection = new OleDbConnection(connectionString))
                 {
                     connection.Open();
-                    var carModelAutoTests = connection.Query<CarModelAutoTest>(
-                        $"SELECT * FROM model").OrderBy(c => c.ID).ToList();
+                    var carModelAutoTests = connection.Query<CarModelAutoTest>($"SELECT * FROM model").OrderBy(c => c.ID).ToList();
                     if (autoTestModelId != null)
                     {
                         carModelAutoTest = carModelAutoTests.Where(c => c.ID == autoTestModelId + 1).FirstOrDefault();
                         if (carModelAutoTest != null)
                         {
-                            var typeEco = connection.Query<TypeEco>(
-                            $"SELECT * FROM type_eco as m WHERE m.ID = {carModelAutoTest.ID_ECOLOG}").FirstOrDefault();
+                            var typeEco = connection.Query<TypeEco>($"SELECT * FROM type_eco as m WHERE m.ID = {carModelAutoTest.ID_ECOLOG}").FirstOrDefault();
                             carModelAutoTest.TypeEcoName = typeEco.NAME;
                         }
                     }
@@ -367,8 +374,7 @@ namespace CarPostClient
                         carModelAutoTest = carModelAutoTests.FirstOrDefault();
                         if (carModelAutoTest != null)
                         {
-                            var typeEco = connection.Query<TypeEco>(
-                            $"SELECT * FROM type_eco as m WHERE m.ID = {carModelAutoTest.ID_ECOLOG}").FirstOrDefault();
+                            var typeEco = connection.Query<TypeEco>($"SELECT * FROM type_eco as m WHERE m.ID = {carModelAutoTest.ID_ECOLOG}").FirstOrDefault();
                             carModelAutoTest.TypeEcoName = typeEco.NAME;
                         }
                     }
@@ -422,7 +428,10 @@ namespace CarPostClient
                     carPostDataAutoTest = connection.Query<CarPostDataAutoTest>(
                         $"SELECT * FROM Main")
                         .ToList()
+                        .Where(c => c.DATA.Year >= 2020)
                         .Where(c => Convert.ToDateTime($"{c.DATA.ToShortDateString()} {c.TIME}") > Convert.ToDateTime(autoTestDataDateTime))
+                        .OrderBy(c => c.DATA)
+                        .ThenBy(c => c.TIME)
                         .FirstOrDefault();
                     if (carPostDataAutoTest != null)
                     {

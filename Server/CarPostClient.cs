@@ -76,7 +76,6 @@ namespace Server
                                 //Logger.Log($"{carPostId}: данные получены: {messageSB.ToString()}");
                                 if (ParseData(messageSB.ToString(), carPostIdInt) == 0)
                                 {
-
                                     completeData = true;
                                     UpdateListView(carPostId, ip);
                                     break;
@@ -174,6 +173,7 @@ namespace Server
         {
             string carModelSmokeMeterName = string.Empty;
             int? carModelAutoTestId = null;
+            //    carModelAutoTestCount = null;
             DateTime? carPostDataAutoTestDate = new DateTime();
             DateTime? carPostDataSmokeMeterDate = new DateTime();
             string testerName = string.Empty;
@@ -195,6 +195,14 @@ namespace Server
                         $"ORDER BY \"Id\" DESC " +
                         $"LIMIT 1");
                     carModelAutoTestId = carModelAutoTestsv.FirstOrDefault() == null ? carModelAutoTestId : carModelAutoTestsv.FirstOrDefault().ParadoxId;
+                    //if (carModelAutoTestId != null)
+                    //{
+                    //    var carModelAutoTestCountv = connection.Query<int>($"SELECT COUNT(*) " +
+                    //        $"FROM public.\"CarModelAutoTest\" " +
+                    //        $"WHERE \"CarPostId\" = {carPostId} " +
+                    //        $"AND \"ParadoxId\" = {carModelAutoTestId.Value}");
+                    //    carModelAutoTestCount = carModelAutoTestCountv.FirstOrDefault();
+                    //}
 
                     var carPostDataAutoTestsv = connection.Query<CarPostDataAutoTest>($"SELECT * " +
                         $"FROM public.\"CarPostDataAutoTest\" as datas " +
@@ -226,6 +234,7 @@ namespace Server
                 dynamic obj = new ExpandoObject();
                 obj.carModelSmokeMeterName = carModelSmokeMeterName;
                 obj.carModelAutoTestId = carModelAutoTestId;
+                //obj.carModelAutoTestCount = carModelAutoTestCount;
                 obj.carPostDataAutoTestDate = carPostDataAutoTestDate;
                 obj.carPostDataSmokeMeterDate = carPostDataSmokeMeterDate;
                 string json = JsonConvert.SerializeObject(obj);
@@ -519,7 +528,7 @@ namespace Server
                             carPostDataAutoTest.TesterId = tester?.Id;
 
                             //Console.WriteLine($"{DateTime.Now} >> CarPost {carPostId}: Get data autotest finished{Environment.NewLine}");
-                            Logger.Log($"{carPostId}: получены данные: Автотест, номер автомобиля - {carPostDataAutoTest.Number}");
+                            Logger.Log($"{carPostId}: получены данные: Автотест, измерение - {carPostDataAutoTest.DateTime.Value.ToString("yyyy-MM-dd HH:mm:ss")}");
                         }
                         catch (Exception ex)
                         {
