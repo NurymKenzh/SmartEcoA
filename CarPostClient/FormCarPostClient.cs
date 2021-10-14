@@ -31,6 +31,7 @@ namespace CarPostClient
             AutoTestPath = null,
             SmokeMeterPath = null;
         private bool stop = false;
+        private OleDbConnection connection;
 
         public FormCarPostClient()
         {
@@ -78,6 +79,24 @@ namespace CarPostClient
             {
                 File.Delete("stop");
             }
+            
+            if (!ReadAppSettings())
+            {
+                Log("Ошибка чтения appsettings.json! Программа будет выключена через минуту!");
+                Thread.Sleep(new TimeSpan(0, 1, 0));
+                return;
+            }
+            Log("Значения с appsettings.json прочитаны:");
+            Log($"Id поста: {CarPostId},");
+            Log($"путь к базе данных Автотеста: {AutoTestPath},");
+            Log($"путь к базе данных Дымомера: {SmokeMeterPath},");
+            Log($"сервер: {server}:{port}.");
+            Log("--------------------------------------");
+            var provider = "Microsoft.Jet.OLEDB.4.0";
+            string connectionString = $"Provider={provider};Data Source={AutoTestPath};Extended Properties=dBase IV;";
+            connection = new OleDbConnection(connectionString);
+            connection.Open();
+
             while (!backgroundWorkerCarPostClient.CancellationPending)
             {
                 try
@@ -87,6 +106,7 @@ namespace CarPostClient
                     {
                         try
                         {
+                            Log("--------------------------------------");
                             Log($"Проверка обновления");
                             Process updater = new Process();
                             updater.StartInfo.FileName = Path.Combine("Updater", "CarPostClientUpdater.exe");
@@ -119,32 +139,19 @@ namespace CarPostClient
                         Application.Exit();
                     }
 
-                    if (!ReadAppSettings())
-                    {
-                        Log("Ошибка чтения appsettings.json! Перерыв на 1 минуту.");
-                        Thread.Sleep(new TimeSpan(0, 1, 0));
-                        continue;
-                    }
-                    Log("--------------------------------------");
-                    Log("Значения с appsettings.json прочитаны:");
-                    Log($"Id поста: {CarPostId},");
-                    Log($"путь к базе данных Автотеста: {AutoTestPath},");
-                    Log($"путь к базе данных Дымомера: {SmokeMeterPath},");
-                    Log($"сервер: {server}:{port}.");
-
                     int sent = Connect();
 
                     if (sent == 0)
                     {
+                        Log("Пауза 5 минут");
                         Thread.Sleep(new TimeSpan(0, 0, 5, 0, 0));
-                    }
-                    else
-                    {
-                        Thread.Sleep(new TimeSpan(0, 0, 0, 0, 100));
                     }
                 }
                 catch { }
             }
+
+            connection.Close();
+            connection.Dispose();
         }
 
         private string GetProductVersion()
@@ -207,6 +214,7 @@ namespace CarPostClient
             try
             {
                 client = new TcpClient();
+                Log("--------------------------------------");
                 Log($"Попытка подключения");
                 client.Connect(server, port);
                 Log($"Подключился");
@@ -297,10 +305,12 @@ namespace CarPostClient
             catch (SocketException ex)
             {
                 Log($"Ошибка подключения к серверу: {ex.Message}");
+                sentCount = 0;
             }
             catch (Exception ex)
             {
                 Log($"Ошибка передачи данных: {ex.Message}");
+                sentCount = 0;
             }
             finally
             {
@@ -365,13 +375,13 @@ namespace CarPostClient
             {
                 CarModelAutoTest carModelAutoTest = null;
                 //var provider = IntPtr.Size == 8 ? "Microsoft.ACE.OLEDB.12.0" : "Microsoft.Jet.OLEDB.4.0";
-                var provider = "Microsoft.Jet.OLEDB.4.0";
+                //var provider = "Microsoft.Jet.OLEDB.4.0";
 
-                string connectionString = $"Provider={provider};Data Source={AutoTestPath};Extended Properties=dBase IV;";
+                //string connectionString = $"Provider={provider};Data Source={AutoTestPath};Extended Properties=dBase IV;";
 
-                using (OleDbConnection connection = new OleDbConnection(connectionString))
+                //using (OleDbConnection connection = new OleDbConnection(connectionString))
                 {
-                    connection.Open();
+                    //connection.Open();
                     var carModelAutoTests = connection.Query<CarModelAutoTest>($"SELECT * FROM model").OrderBy(c => c.ID).ToList();
                     if (autoTestModelId != null)
                     {
@@ -412,7 +422,7 @@ namespace CarPostClient
                     //        carModelAutoTest.TypeEcoName = typeEco.NAME;
                     //    }
                     //}
-                    connection.Close();
+                    //connection.Close();
                 }
                 return carModelAutoTest;
             }
@@ -429,15 +439,15 @@ namespace CarPostClient
             try
             {
                 CarPostDataAutoTest carPostDataAutoTest = null;
-                var provider = "Microsoft.Jet.OLEDB.4.0";
+                //var provider = "Microsoft.Jet.OLEDB.4.0";
                 var lastTime = Convert.ToDateTime(autoTestDataDateTime).ToString("HH:mm:ss");
                 var lastDate = Convert.ToDateTime(autoTestDataDateTime).ToString("dd.MM.yyyy");
 
-                string connectionString = $"Provider={provider};Data Source={AutoTestPath};Extended Properties=dBase IV;";
+                //string connectionString = $"Provider={provider};Data Source={AutoTestPath};Extended Properties=dBase IV;";
 
-                using (OleDbConnection connection = new OleDbConnection(connectionString))
+                //using (OleDbConnection connection = new OleDbConnection(connectionString))
                 {
-                    connection.Open();
+                    //connection.Open();
                     carPostDataAutoTest = connection.Query<CarPostDataAutoTest>(
                         $"SELECT * FROM Main")
                         .ToList()
@@ -461,7 +471,7 @@ namespace CarPostClient
                             carPostDataAutoTest.DopInfo = dopInfo;
                         }
                     }
-                    connection.Close();
+                    //connection.Close();
                 }
                 return carPostDataAutoTest;
             }
@@ -489,13 +499,13 @@ namespace CarPostClient
             {
                 Tester tester = null;
                 //var provider = IntPtr.Size == 8 ? "Microsoft.ACE.OLEDB.12.0" : "Microsoft.Jet.OLEDB.4.0";
-                var provider = "Microsoft.Jet.OLEDB.4.0";
+                //var provider = "Microsoft.Jet.OLEDB.4.0";
 
-                string connectionString = $"Provider={provider};Data Source={AutoTestPath};Extended Properties=dBase IV;";
+                //string connectionString = $"Provider={provider};Data Source={AutoTestPath};Extended Properties=dBase IV;";
 
-                using (OleDbConnection connection = new OleDbConnection(connectionString))
+                //using (OleDbConnection connection = new OleDbConnection(connectionString))
                 {
-                    connection.Open();
+                    //connection.Open();
                     var testers = connection.Query<Tester>(
                         $"SELECT * FROM tester").OrderBy(t => t.ID).ToList();
                     var indexModel = testers.FindIndex(c => c.NAME == testerName);
@@ -507,7 +517,7 @@ namespace CarPostClient
                     {
                         tester = testers.FirstOrDefault();
                     }
-                    connection.Close();
+                    //connection.Close();
                 }
                 return tester;
             }
