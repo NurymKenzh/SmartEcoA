@@ -74,7 +74,7 @@ namespace CarPostClient
         private void backgroundWorkerCarPostClient_DoWork(object sender, DoWorkEventArgs e)
         {
             Log($"Версия {GetProductVersion()}");
-            DateTime dateTimeTryUpdate = DateTime.Now/* - new TimeSpan(0, 11, 0)*/;
+            DateTime dateTimeTryUpdate = DateTime.Now - new TimeSpan(0, 6, 0);
             if (File.Exists("stop"))
             {
                 File.Delete("stop");
@@ -144,7 +144,11 @@ namespace CarPostClient
                     if (sent == 0)
                     {
                         Log("Пауза 5 минут");
-                        Thread.Sleep(new TimeSpan(0, 0, 5, 0, 0));
+                        Thread.Sleep(new TimeSpan(0, 5, 0));
+                    }
+                    else
+                    {
+                        Thread.Sleep(new TimeSpan(0, 0, 5));
                     }
                 }
                 catch { }
@@ -299,7 +303,7 @@ namespace CarPostClient
                         sentCount = 0;
                     }
 
-                    break; //?
+                    break;
                 }
             }
             catch (SocketException ex)
@@ -326,36 +330,6 @@ namespace CarPostClient
                 Log("Отключился");
             }
             return sentCount;
-        }
-
-        private void DBTest()
-        {
-            try
-            {
-                var provider = "Microsoft.Jet.OLEDB.4.0";
-                var autoTestPath = AutoTestPath;
-                string connectionString = $"Provider={provider};Data Source={autoTestPath};Extended Properties=dBase IV;";
-                connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\\Db\\AutoTest;Extended Properties=dBase IV;";
-                using (OleDbConnection connection = new OleDbConnection(connectionString))
-                {
-                    connection.Open();
-                    var carModelAutoTests = connection.Query<CarModelAutoTest>(
-                        $"SELECT * FROM model").OrderBy(c => c.ID).ToList();
-                    var carPostDataAutoTest = connection.Query<CarPostDataAutoTest>(
-                        $"SELECT * FROM Main")
-                        .ToList()
-                        //.Where(c => Convert.ToDateTime($"{c.DATA.ToShortDateString()} {c.TIME}") > Convert.ToDateTime(autoTestDataDateTime))
-                        .OrderBy(c => c.DATA)
-                        .ThenBy(c => c.TIME)
-                        //.FirstOrDefault();
-                        .ToList();
-                    connection.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                Log($"Ошибка чтения базы данных: {ex.Message}");
-            }
         }
 
         private void SendCarPostId(NetworkStream stream)
