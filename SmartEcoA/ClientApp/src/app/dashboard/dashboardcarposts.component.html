@@ -68,7 +68,7 @@
         </mat-card>
       </mat-grid-tile>
 
-      <mat-grid-tile [colspan]="5" [rowspan]="10">
+      <mat-grid-tile [colspan]="5" [rowspan]="11">
         <mat-card class="dashboard-card">
           <mat-card-content class="dashboard-card-content">
             <div id="map" class="map"></div>
@@ -89,8 +89,7 @@
         </mat-card>
       </mat-grid-tile>-->
 
-      <mat-grid-tile [colspan]="5" [rowspan]="10">
-        bo
+      <mat-grid-tile [colspan]="5" [rowspan]="11">
         <mat-card class="dashboard-card" style="overflow: auto;">
           <button mat-raised-button type="button" color="primary" (click)="exporter.exportTable('xlsx', {fileName:'CarPostsReport', sheet: 'sheet_name', Props: {Author: 'SmartEco'}})">Excel</button>
           <button i18n="@@Print" mat-raised-button type="button" color="primary" printSectionId="print-section" ngxPrint>Print</button>

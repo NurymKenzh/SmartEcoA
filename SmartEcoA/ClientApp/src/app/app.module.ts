@@ -39,7 +39,6 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
@@ -70,6 +69,7 @@ import { PostsComponent } from './administration/posts.component';
 import { CarPostsComponent } from './administration/carposts.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardPostsComponent } from './dashboard/dashboardposts.component';
 import { DashboardCarPostsComponent } from './dashboard/dashboardcarposts.component';
 
 import { ReportsComponent } from './reports/reports.component';
@@ -214,7 +214,6 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
     NavComponent,
     HomeComponent,
     CounterComponent,
@@ -235,6 +234,7 @@ export function createTranslateLoader(http: HttpClient) {
     PostsComponent,
     CarPostsComponent,
     DashboardComponent,
+    DashboardPostsComponent,
     DashboardCarPostsComponent,
     ReportsComponent,
     ReportsListComponent,
@@ -355,6 +355,7 @@ export function createTranslateLoader(http: HttpClient) {
       { path: 'administration/posts', component: PostsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'administration/carposts', component: CarPostsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'dashboard', component: DashboardComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
+      { path: 'dashboard/dashboardposts', component: DashboardPostsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
       { path: 'dashboard/dashboardcarposts', component: DashboardCarPostsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
       { path: 'reports', component: ReportsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
       { path: 'reports/create', component: ReportCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },

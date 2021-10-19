@@ -26,23 +26,23 @@
 }
 
 .not-first {
-    padding-left: 15px;
+  padding-left: 15px;
 }
 
-.custom-scroll-bar{
-    padding-top: 10px;
-    height:60vh;
-    overflow-y:scroll;
-    overflow-x: hidden;
+.custom-scroll-bar {
+  padding-top: 10px;
+  height: 60vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
-.custom-scroll-bar::-webkit-scrollbar{
+  .custom-scroll-bar::-webkit-scrollbar {
     width: 5px;
-}
+  }
 
-.custom-scroll-bar::-webkit-scrollbar-thumb{
+  .custom-scroll-bar::-webkit-scrollbar-thumb {
     background: rgba(0,0,0,.26);
-}
+  }
 
 button:not(:first-child) {
   margin: 0px 0px 0px 8px;

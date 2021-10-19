@@ -94,6 +94,7 @@
     <None Remove="ClientApp\src\app\carposts\index.component.ts" />
     <None Remove="ClientApp\src\app\carposts\list.component.ts" />
     <None Remove="ClientApp\src\app\dashboard\dashboardcarposts.component.ts" />
+    <None Remove="ClientApp\src\app\dashboard\dashboardposts.component.ts" />
     <None Remove="ClientApp\src\app\dashboard\report.model.ts" />
     <None Remove="ClientApp\src\app\dataproviders\create.component.ts" />
     <None Remove="ClientApp\src\app\dataproviders\dataprovider.model.ts" />
@@ -347,6 +348,7 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\dashboard\dashboardcarposts.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\dashboard\dashboardposts.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dashboard\report.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dataproviders\create.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dataproviders\dataprovider.model.ts" />
