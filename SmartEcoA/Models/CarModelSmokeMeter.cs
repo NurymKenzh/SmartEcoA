@@ -13,30 +13,76 @@ namespace SmartEcoA.Models
         // Модель
         public string Name { get; set; }
 
-        // NADDUV
-        // Двигатель с наддувом
-        public bool Boost { get; set; }
+        // ID_ECOLOG
+        // Тип экологической классификации
+        public int? TypeEcoClassId { get; set; }
+        public TypeEcoClass TypeEcoClass { get; set; }
 
-        // D_FREE
-        // Предельно-допустимые значения коэффициента поглощения света k, указанные в знаке официального утверждения
-        // в режиме свободного ускорения
-        public decimal? DFreeMark { get; set; }
+        // CATEGORY
+        // Категория автомобиля
+        public string Category { get; set; }
 
-        // D_MAX
-        public decimal? DMaxMark { get; set; }
+        // DVIG
+        // Тип двигателя
+        // 0 - бензиновый, 1 - дизельный, 2 - газовый
+        public decimal? EngineType { get; set; }
 
-        // CONFIRM
-        // Имеет знак официального утверждения
-        //public bool ApprovalMark
-        //{
-        //    get
-        //    {
-        //        return DFreeMark != null ? true : false;
-        //    }
-        //}
+        // Порог ограничения выхлопа
+        // бензиновый, газовый
+
+        // MIN_TAH
+        // Минимальные обороты, 1/мин
+        public decimal? MIN_TAH { get; set; }
+
+        // DEL_MIN
+        // Минимальные обороты, +/-, 1/мин
+        public decimal? DEL_MIN { get; set; }
+
+        // MAX_TAH
+        // Повышенные обороты, 1/мин
+        public decimal? MAX_TAH { get; set; }
+
+        // DEL_MAX
+        // Повышенные обороты, +/-, 1/мин
+        public decimal? DEL_MAX { get; set; }
+
+        // MIN_CO
+        // CO при минимальных оборотах, %
+        public decimal? MIN_CO { get; set; }
+
+        // MAX_CO
+        // CO при повышенных оборотах, %
+        public decimal? MAX_CO { get; set; }
+
+        // MIN_CH
+        // CH при минимальных оборотах, ppm
+        public decimal? MIN_CH { get; set; }
+
+        // MAX_CH
+        // CH при повышенных оборотах, ppm
+        public decimal? MAX_CH { get; set; }
+
+        // L_MIN
+        // λ минимальная
+        public decimal? L_MIN { get; set; }
+
+        // L_MAX
+        // λ максимальная
+        public decimal? L_MAX { get; set; }
+
+        // дизельный
+
+        // K_SVOB
+        // Показатель ослабления светового потока K при свободном ускорении, 1/м
+        public decimal? K_SVOB { get; set; }
+
+        // K_MAX
+        // Показатель ослабления светового потока K при максимальной частоте вращения, 1/м
+        public decimal? K_MAX { get; set; }
 
         public int CarPostId { get; set; }
 
         public CarPost CarPost { get; set; }
+        public int? ParadoxId { get; set; }
     }
 }

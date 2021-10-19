@@ -8,10 +8,22 @@ namespace CarPostsClient.Models
     {
         private string model;
 
-        public bool NADDUV { get; set; }
-        public bool CONFIRM { get; set; }
-        public double? D_FREE { get; set; }
-        public double? D_MAX { get; set; }
+        public int ID { get; set; }
+        public int DVIG { get; set; }
+        public int ID_ECOLOG { get; set; }
+        public string CATEGORY { get; set; }
+        public decimal MIN_TAH { get; set; }
+        public decimal DEL_MIN { get; set; }
+        public decimal MAX_TAH { get; set; }
+        public decimal DEL_MAX { get; set; }
+        public decimal MIN_CO { get; set; }
+        public decimal MAX_CO { get; set; }
+        public decimal MIN_CH { get; set; }
+        public decimal MAX_CH { get; set; }
+        public decimal L_MIN { get; set; }
+        public decimal L_MAX { get; set; }
+        public decimal K_SVOB { get; set; }
+        public decimal K_MAX { get; set; }
         public string MODEL
         {
             get
@@ -25,5 +37,8 @@ namespace CarPostsClient.Models
                 model = Encoding.GetEncoding(1251).GetString(Encoding.GetEncoding(1252).GetBytes(value)); // for  provider "Microsoft.Jet.OLEDB.4.0"
             }
         }
+
+        //доп. поле для сервера
+        public string TypeEcoName { get; set; }
     }
 }

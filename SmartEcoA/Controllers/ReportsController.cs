@@ -168,8 +168,8 @@ namespace SmartEcoA.Controllers
             {
 
             }
-            //_context.Report.Add(report);
-            //await _context.SaveChangesAsync();
+            _context.Report.Add(report);
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetReport", new { id = report.Id }, report);
         }
@@ -275,29 +275,33 @@ namespace SmartEcoA.Controllers
             string reportFileNameFull = Path.Combine(userReportFolder, report.FileName);
 
             int carPostDataSmokeMeterId = Convert.ToInt32(report.Inputs.Split('=')[1]);
-            CarPostDataSmokeMeter carPostDataSmokeMeter = _context.CarPostDataSmokeMeter.FirstOrDefault(c => c.Id == carPostDataSmokeMeterId);
-            CarModelSmokeMeter carModelSmokeMeter = _context.CarModelSmokeMeter.FirstOrDefault(c => c.Id == carPostDataSmokeMeter.CarModelSmokeMeterId);
+            CarPostDataSmokeMeter carPostDataSmokeMeter = _context.CarPostDataSmokeMeter
+                .Include(c => c.Tester)
+                .FirstOrDefault(c => c.Id == carPostDataSmokeMeterId);
+            CarModelSmokeMeter carModelSmokeMeter = _context.CarModelSmokeMeter
+                .Include(c => c.TypeEcoClass)
+                .FirstOrDefault(c => c.Id == carPostDataSmokeMeter.CarModelSmokeMeterId);
             CarPost carPost = _context.CarPost.FirstOrDefault(c => c.Id == carModelSmokeMeter.CarPostId);
             var carCheckNumber = _context.CarPostDataSmokeMeter
                 .Where(c => c.DateTime <= carPostDataSmokeMeter.DateTime && c.Number == carPostDataSmokeMeter.Number)
                 .Count()
                 .ToString();
 
-            report.InputParametersEN = $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["Date"]}={carPostDataSmokeMeter.DateTime.ToString("yyyy-MM-dd")};" +
+            report.InputParametersEN = $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["Date"]}={carPostDataSmokeMeter.DateTime.Value.ToString("yyyy-MM-dd")};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPost"]}={carPost.Name};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarNumber"]}={carPostDataSmokeMeter.Number};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarModel"]}={carModelSmokeMeter.Name};" +
-                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["Time"]}={carPostDataSmokeMeter.DateTime.ToString("HH:mm:ss")};";
-            report.InputParametersRU = $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["Date"]}={carPostDataSmokeMeter.DateTime.ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["Time"]}={carPostDataSmokeMeter.DateTime.Value.ToString("HH:mm:ss")};";
+            report.InputParametersRU = $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["Date"]}={carPostDataSmokeMeter.DateTime.Value.ToString("yyyy-MM-dd")};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarPost"]}={carPost.Name};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarNumber"]}={carPostDataSmokeMeter.Number};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarModel"]}={carModelSmokeMeter.Name};" +
-                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["Time"]}={carPostDataSmokeMeter.DateTime.ToString("HH:mm:ss")};";
-            report.InputParametersKK = $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["Date"]}={carPostDataSmokeMeter.DateTime.ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["Time"]}={carPostDataSmokeMeter.DateTime.Value.ToString("HH:mm:ss")};";
+            report.InputParametersKK = $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["Date"]}={carPostDataSmokeMeter.DateTime.Value.ToString("yyyy-MM-dd")};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarPost"]}={carPost.Name};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarNumber"]}={carPostDataSmokeMeter.Number};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarModel"]}={carModelSmokeMeter.Name};" +
-                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["Time"]}={carPostDataSmokeMeter.DateTime.ToString("HH:mm:ss")};";
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["Time"]}={carPostDataSmokeMeter.DateTime.Value.ToString("HH:mm:ss")};";
 
             string reportTemplateFileNameFull = Path.Combine(Startup.Configuration["ReportsTeplatesFolder"].ToString(), report.NameRU);
             reportTemplateFileNameFull = Path.ChangeExtension(reportTemplateFileNameFull, "docx");
@@ -312,12 +316,12 @@ namespace SmartEcoA.Controllers
                 }
 
                 docText = new Regex("CarPostName").Replace(docText, carPost.Name);
-                docText = new Regex("Time").Replace(docText, carPostDataSmokeMeter.DateTime.ToString("HH:mm:ss"));
+                docText = new Regex("Time").Replace(docText, carPostDataSmokeMeter.DateTime.Value.ToString("HH:mm:ss"));
                 docText = new Regex("CarModelName").Replace(docText, carModelSmokeMeter.Name);
                 docText = new Regex("CarNumber").Replace(docText, carPostDataSmokeMeter.Number);
                 docText = new Regex("Check").Replace(docText, carCheckNumber);
-                docText = new Regex(@"\b(DFree)\b").Replace(docText, carPostDataSmokeMeter.DFree.HasValue ? carPostDataSmokeMeter.DFree.Value.ToString() : string.Empty);
-                docText = new Regex(@"\b(NDFree)\b").Replace(docText, carPostDataSmokeMeter.NDFree.HasValue ? carPostDataSmokeMeter.NDFree.Value.ToString() : string.Empty);
+                //docText = new Regex(@"\b(DFree)\b").Replace(docText, carPostDataSmokeMeter.K_SVOB.HasValue ? carPostDataSmokeMeter.K_SVOB.Value.ToString() : string.Empty);
+                //docText = new Regex(@"\b(NDFree)\b").Replace(docText, carPostDataSmokeMeter.K_MAX.HasValue ? carPostDataSmokeMeter.K_MAX.Value.ToString() : string.Empty);
 
                 using (StreamWriter sw = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.Create)))
                 {
@@ -341,6 +345,7 @@ namespace SmartEcoA.Controllers
             CarPost carPost = _context.CarPost.FirstOrDefault(c => c.Id == carPostId);
             List<CarPostDataSmokeMeter> carPostDataSmokeMeters = _context.CarPostDataSmokeMeter
                 .Include(c => c.CarModelSmokeMeter)
+                .Include(c => c.Tester)
                 .Where(c => c.CarModelSmokeMeter.CarPostId == carPost.Id && report.CarPostStartDate <= c.DateTime && c.DateTime <= report.CarPostEndDate)
                 .OrderBy(c => c.DateTime)
                 .ToList();
@@ -368,15 +373,15 @@ namespace SmartEcoA.Controllers
                     table.Append(
                         new TableRow(
                             new TableCell(new Paragraph(new Run(new Text($"{i + 1}")))),
-                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].DateTime.ToString("dd.MM.yyyy")}")))),
-                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].DateTime.ToString("HH:mm:ss")}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].DateTime.Value.ToString("dd.MM.yyyy")}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].DateTime.Value.ToString("HH:mm:ss")}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].CarModelSmokeMeter.Name}")))),
                             new TableCell(new Paragraph(new Run(new Text(string.Empty)))),
                             new TableCell(new Paragraph(new Run(new Text(string.Empty)))),
                             new TableCell(new Paragraph(new Run(new Text(string.Empty)))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].Number}")))),
-                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].DFree}")))),
-                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].NDFree}")))),
+                            //new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].K_SVOB}")))),
+                            //new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].K_MAX}")))),
                             new TableCell(new Paragraph(new Run(new Text(string.Empty))))));
                 }
 

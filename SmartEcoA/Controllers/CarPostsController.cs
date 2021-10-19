@@ -185,7 +185,10 @@ namespace SmartEcoA.Controllers
                     if (carPostDataSmokeMeter.Count != 0)
                     {
                         var amountExceedDiesel = carPostDataSmokeMeter
-                            .Where(c => c.DFree > c.CarModelSmokeMeter.DFreeMark || c.DMax > c.CarModelSmokeMeter.DMaxMark)
+                            .Where(c => c.MIN_TAH > c.CarModelSmokeMeter.MIN_TAH || c.MAX_TAH > c.CarModelSmokeMeter.MAX_TAH || c.MIN_CO > c.CarModelSmokeMeter.MIN_CO ||
+                                    c.MAX_CO > c.CarModelSmokeMeter.MAX_CO || c.MIN_CH > c.CarModelSmokeMeter.MIN_CH || c.MAX_CH > c.CarModelSmokeMeter.MAX_CH ||
+                                    c.MIN_L > c.CarModelSmokeMeter.L_MIN || c.MAX_L > c.CarModelSmokeMeter.L_MAX || c.K_SVOB > c.CarModelSmokeMeter.K_SVOB ||
+                                    c.K_MAX > c.CarModelSmokeMeter.K_MAX)
                             .Count();
 
                         ReportCarPost reportCarPost = new ReportCarPost

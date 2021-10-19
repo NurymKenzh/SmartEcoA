@@ -36,22 +36,6 @@ namespace CarPostsServer.ClientModels
         public string MODEL { get; set; }
         public int ID_MODEL { get; set; }
 
-        public DopInfo DopInfo { get; set; }
-    }
-
-    public class DopInfo
-    {
-        public int ID { get; set; }
-        public decimal TEMP { get; set; }
-        public decimal PRESS { get; set; }
-        public long N_AUTOTEST { get; set; }
-        public DateTime D_AUTOTEST { get; set; }
-        public long N_METEO { get; set; }
-        public DateTime D_METEO { get; set; }
-        public int ID_TESTER { get; set; }
-        public long NUM_TEST { get; set; }
-
-        //доп. поле для сервера
-        public string TesterName { get; set; }
+        public ClientDopInfo DopInfo { get; set; }
     }
 }

@@ -29,6 +29,7 @@ namespace SmartEcoA.Controllers
             return await _context.CarModelSmokeMeter
                 .Where(c => c.CarPostId == carpostid || carpostid == null)
                 .Include(c => c.CarPost)
+                .Include(c => c.TypeEcoClass)
                 .ToListAsync();
         }
 
@@ -39,6 +40,7 @@ namespace SmartEcoA.Controllers
         {
             var carModelSmokeMeter = await _context.CarModelSmokeMeter
                 .Include(c => c.CarPost)
+                .Include(c => c.TypeEcoClass)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (carModelSmokeMeter == null)

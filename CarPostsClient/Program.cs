@@ -19,18 +19,24 @@ namespace CarPostsClient
     class Program
     {
         private const int port = 8089;
-        //private const string server = "185.125.44.116";
-        private const string server = "127.0.0.1";
+        private const string server = "185.125.44.116";
+        //private const string server = "127.0.0.1";
         public static IConfigurationRoot _config;
 
         static void Main(string[] args)
         {
             Console.WriteLine("Program started!");
-            ConfigureServices();
             TcpClient client = null;
             NetworkStream stream = null;
             while (true)
             {
+                //Check valid configuration file
+                if (_config is null)
+                {
+                    ConfigureServices();
+                    Thread.Sleep(5000);
+                    continue;
+                }
                 try
                 {
                     client = new TcpClient();
@@ -71,17 +77,18 @@ namespace CarPostsClient
 
                         JsonData jsonData = new JsonData();
 
-                        //jsonData.carModelSmokeMeter = CreateModelSmokeMeter((string)obj.carModelSmokeMeterName);
+                        jsonData.carModelSmokeMeter = CreateModelSmokeMeter((int?)obj.carModelSmokeMeterId);
                         jsonData.carModelAutoTest = CreateModelAutoTest((int?)obj.carModelAutoTestId);
 
-                        //if (jsonData.carModelSmokeMeter == null)
-                        //{
-                        //    jsonData.carPostDataSmokeMeter = CreateDataSmokeMeter((DateTime?)obj.carPostDataSmokeMeterDate);
-                        //}
+                        if (jsonData.carModelSmokeMeter == null)
+                        {
+                            jsonData.carPostDataSmokeMeter = CreateDataSmokeMeter((DateTime?)obj.carPostDataSmokeMeterDate);
+                            jsonData.tester = CreateTester((string)obj.testerName, "SmokeMeter");//
+                        }
                         if (jsonData.carModelAutoTest == null)
                         {
                             jsonData.carPostDataAutoTest = CreateDataAutoTest((DateTime?)obj.carPostDataAutoTestDate);
-                            jsonData.tester = CreateTester((string)obj.testerName);
+                            jsonData.tester = CreateTester((string)obj.testerName, "AutoTest");
                         }
 
                         string json = JsonConvert.SerializeObject(jsonData);
@@ -136,7 +143,7 @@ namespace CarPostsClient
             stream.Write(data, 0, data.Length);
         }
 
-        private static CarModelSmokeMeter CreateModelSmokeMeter(string smokeMeterModel)
+        private static CarModelSmokeMeter CreateModelSmokeMeter(int? smokeMeterModelId)
         {
             try
             {
@@ -149,15 +156,26 @@ namespace CarPostsClient
                 {
                     connection.Open();
                     var carModelSmokeMeters = connection.Query<CarModelSmokeMeter>(
-                        $"SELECT * FROM model.dbf").ToList();
-                    var indexModel = carModelSmokeMeters.FindIndex(c => c.MODEL == smokeMeterModel);
-                    if (indexModel != -1)
+                        $"SELECT * FROM model.dbf").ToList();//
+                    if (smokeMeterModelId != null)
                     {
-                        carModelSmokeMeter = carModelSmokeMeters.Skip(indexModel + 1).FirstOrDefault();
+                        carModelSmokeMeter = carModelSmokeMeters.Where(c => c.ID == smokeMeterModelId + 1).FirstOrDefault();
+                        if (carModelSmokeMeter != null)
+                        {
+                            var typeEco = connection.Query<TypeEco>(
+                            $"SELECT * FROM type_eco as m WHERE m.ID = {carModelSmokeMeter.ID_ECOLOG}").FirstOrDefault();
+                            carModelSmokeMeter.TypeEcoName = typeEco.NAME;
+                        }
                     }
                     else
                     {
                         carModelSmokeMeter = carModelSmokeMeters.FirstOrDefault();
+                        if (carModelSmokeMeter != null)
+                        {
+                            var typeEco = connection.Query<TypeEco>(
+                            $"SELECT * FROM type_eco as m WHERE m.ID = {carModelSmokeMeter.ID_ECOLOG}").FirstOrDefault();
+                            carModelSmokeMeter.TypeEcoName = typeEco.NAME;
+                        }
                     }
                     connection.Close();
                 }
@@ -186,10 +204,25 @@ namespace CarPostsClient
                 {
                     connection.Open();
                     carPostDataSmokeMeter = connection.Query<CarPostDataSmokeMeter>(
-                        $"SELECT * FROM data")
+                        $"SELECT * FROM Main")
                         .ToList()
                         .Where(c => Convert.ToDateTime($"{c.DATA.ToShortDateString()} {c.TIME}") > Convert.ToDateTime(smokeMeterDataDateTime))
                         .FirstOrDefault();
+                    if (carPostDataSmokeMeter != null)
+                    {
+                        var dopInfo = connection.Query<DopInfo>(
+                            $"SELECT * FROM dop_info as m WHERE m.ID = {carPostDataSmokeMeter.ID}").FirstOrDefault();
+                        if (dopInfo != null)
+                        {
+                            var tester = connection.Query<Tester>(
+                                $"SELECT * FROM tester as m WHERE m.ID = {dopInfo.ID_TESTER}").FirstOrDefault();
+                            if (tester != null)
+                            {
+                                dopInfo.TesterName = tester.NAME;
+                            }
+                            carPostDataSmokeMeter.DopInfo = dopInfo;
+                        }
+                    }
                     connection.Close();
                 }
                 return carPostDataSmokeMeter;
@@ -318,16 +351,28 @@ namespace CarPostsClient
             return null;
         }
 
-        private static Tester CreateTester(string testerName)
+        private static Tester CreateTester(string testerName, string applicationName)
         {
             try
             {
                 Tester tester = null;
-                //var provider = IntPtr.Size == 8 ? "Microsoft.ACE.OLEDB.12.0" : "Microsoft.Jet.OLEDB.4.0";
-                var provider = "Microsoft.Jet.OLEDB.4.0";
-                var autoTestPath = _config.GetConnectionString("AutoTestPath");
+                string connectionString = String.Empty;
+                if (applicationName == "AutoTest")
+                {
+                    //var provider = IntPtr.Size == 8 ? "Microsoft.ACE.OLEDB.12.0" : "Microsoft.Jet.OLEDB.4.0";
+                    var provider = "Microsoft.Jet.OLEDB.4.0";
+                    var autoTestPath = _config.GetConnectionString("AutoTestPath");
 
-                string connectionString = $"Provider={provider};Data Source={autoTestPath};Extended Properties=dBase IV;";
+                    connectionString = $"Provider={provider};Data Source={autoTestPath};Extended Properties=dBase IV;";
+                }
+                else
+                {
+                    //var provider = IntPtr.Size == 8 ? "Microsoft.ACE.OLEDB.12.0" : "Microsoft.Jet.OLEDB.4.0";
+                    var provider = "Microsoft.Jet.OLEDB.4.0";
+                    var smokeMeterPath = _config.GetConnectionString("SmokeMeterPath");
+
+                    connectionString = $"Provider={provider};Data Source={smokeMeterPath};Extended Properties=dBase IV;";
+                }
 
                 using (OleDbConnection connection = new OleDbConnection(connectionString))
                 {
@@ -349,7 +394,8 @@ namespace CarPostsClient
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"{DateTime.Now} >> Error create model autotest >> {ex.Message}{Environment.NewLine}");
+                //Console.WriteLine($"{DateTime.Now} >> Error create model autotest >> {ex.Message}{Environment.NewLine}");
+                Console.WriteLine($"{DateTime.Now} >> Error create model >> {ex.Message}{Environment.NewLine}");
             }
 
             return null;
