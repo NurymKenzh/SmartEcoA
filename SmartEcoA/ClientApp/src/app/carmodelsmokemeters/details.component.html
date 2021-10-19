@@ -16,13 +16,37 @@
     <dl>
       <dt i18n="@@Name">Name</dt>
       <dd>{{carmodelsmokemeter?.Name}}</dd>
-      <dt i18n="@@Boost">Boost</dt>
-      <dd i18n="@@Yes" *ngIf="carmodelsmokemeter?.Boost==true">Yes</dd>
-      <dd i18n="@@No" *ngIf="carmodelsmokemeter?.Boost==false">No</dd>
-      <dt i18n="@@DFreeMark">DFreeMark</dt>
-      <dd>{{carmodelsmokemeter?.DFreeMark}}</dd>
-      <!--<dt i18n="@@DMaxMark">DMaxMark</dt>
-      <dd>{{carmodelsmokemeter?.DMaxMark}}</dd>-->
+      <dt i18n="@@TypeEcoClass">Type Eco Class</dt>
+      <dd>{{carmodelsmokemeter?.TypeEcoClass?.Name}}</dd>
+      <dt i18n="@@Category">Category</dt>
+      <dd>{{carmodelsmokemeter?.Category}}</dd>
+      <dt i18n="@@EngineType">EngineType</dt>
+      <dd i18n="@@Petrol" *ngIf="carmodelsmokemeter?.EngineType==0">Petrol</dd>
+      <dd i18n="@@Diesel" *ngIf="carmodelsmokemeter?.EngineType==1">Diesel</dd>
+      <dt i18n="@@MIN_TAH" *ngIf="carmodelsmokemeter?.EngineType==0">MIN_TAH</dt>
+      <dd *ngIf="carmodelsmokemeter?.EngineType==0">{{carmodelsmokemeter?.MIN_TAH}}</dd>
+      <dt i18n="@@DEL_MIN" *ngIf="carmodelsmokemeter?.EngineType==0">DEL_MIN</dt>
+      <dd *ngIf="carmodelsmokemeter?.EngineType==0">{{carmodelsmokemeter?.DEL_MIN}}</dd>
+      <dt i18n="@@MAX_TAH" *ngIf="carmodelsmokemeter?.EngineType==0">MAX_TAH</dt>
+      <dd *ngIf="carmodelsmokemeter?.EngineType==0">{{carmodelsmokemeter?.MAX_TAH}}</dd>
+      <dt i18n="@@DEL_MAX" *ngIf="carmodelsmokemeter?.EngineType==0">DEL_MAX</dt>
+      <dd *ngIf="carmodelsmokemeter?.EngineType==0">{{carmodelsmokemeter?.DEL_MAX}}</dd>
+      <dt i18n="@@MIN_CO" *ngIf="carmodelsmokemeter?.EngineType==0">MIN_CO</dt>
+      <dd *ngIf="carmodelsmokemeter?.EngineType==0">{{carmodelsmokemeter?.MIN_CO}}</dd>
+      <dt i18n="@@MAX_CO" *ngIf="carmodelsmokemeter?.EngineType==0">MAX_CO</dt>
+      <dd *ngIf="carmodelsmokemeter?.EngineType==0">{{carmodelsmokemeter?.MAX_CO}}</dd>
+      <dt i18n="@@MIN_CH" *ngIf="carmodelsmokemeter?.EngineType==0">MIN_CH</dt>
+      <dd *ngIf="carmodelsmokemeter?.EngineType==0">{{carmodelsmokemeter?.MIN_CH}}</dd>
+      <dt i18n="@@MAX_CH" *ngIf="carmodelsmokemeter?.EngineType==0">MAX_CH</dt>
+      <dd *ngIf="carmodelsmokemeter?.EngineType==0">{{carmodelsmokemeter?.MAX_CH}}</dd>
+      <dt i18n="@@L_MIN" *ngIf="carmodelsmokemeter?.EngineType==0">L_MIN</dt>
+      <dd *ngIf="carmodelsmokemeter?.EngineType==0">{{carmodelsmokemeter?.L_MIN}}</dd>
+      <dt i18n="@@L_MAX" *ngIf="carmodelsmokemeter?.EngineType==0">L_MAX</dt>
+      <dd *ngIf="carmodelsmokemeter?.EngineType==0">{{carmodelsmokemeter?.L_MAX}}</dd>
+      <dt i18n="@@K_SVOB" *ngIf="carmodelsmokemeter?.EngineType==1">K_SVOB</dt>
+      <dd *ngIf="carmodelsmokemeter?.EngineType==1">{{carmodelsmokemeter?.K_SVOB}}</dd>
+      <dt i18n="@@K_MAX" *ngIf="carmodelsmokemeter?.EngineType==1">K_MAX</dt>
+      <dd *ngIf="carmodelsmokemeter?.EngineType==1">{{carmodelsmokemeter?.K_MAX}}</dd>
       <dt i18n="@@CarPost">Car Post</dt>
       <dd>{{carmodelsmokemeter?.CarPost?.Name}}</dd>
     </dl>

@@ -9,14 +9,32 @@ namespace CarPostsClient.Models
         private string model;
         private string nomer;
 
+        public int ID { get; set; }
         public DateTime DATA { get; set; }
         public string TIME { get; set; }
-        public bool TYPE { get; set; }
-        public double D_FREE { get; set; }
-        public double D_MAX { get; set; }
-        public double N_D_FREE { get; set; }
-        public double N_D_MAX { get; set; }
-
+        public string DOPOL1 { get; set; }
+        public string DOPOL2 { get; set; }
+        public decimal MIN_TAH { get; set; }
+        public decimal MIN_CO { get; set; }
+        public decimal MIN_CH { get; set; }
+        public decimal MIN_CO2 { get; set; }
+        public decimal MIN_O2 { get; set; }
+        public decimal MIN_L { get; set; }
+        public decimal MAX_TAH { get; set; }
+        public decimal MAX_CO { get; set; }
+        public decimal MAX_CH { get; set; }
+        public decimal MAX_CO2 { get; set; }
+        public decimal MAX_O2 { get; set; }
+        public decimal MAX_L { get; set; }
+        public decimal ZAV_NOMER { get; set; }
+        public decimal K_1 { get; set; }
+        public decimal K_2 { get; set; }
+        public decimal K_3 { get; set; }
+        public decimal K_4 { get; set; }
+        public decimal K_SBOB { get; set; }
+        public decimal K_MAX { get; set; }
+        public decimal MIN_NO { get; set; }
+        public decimal MAX_NO { get; set; }
         public string NOMER
         {
             get
@@ -43,5 +61,8 @@ namespace CarPostsClient.Models
                 model = Encoding.GetEncoding(1251).GetString(Encoding.GetEncoding(1252).GetBytes(value)); // for  provider "Microsoft.Jet.OLEDB.4.0"
             }
         }
+        public int ID_MODEL { get; set; }
+
+        public DopInfo DopInfo { get; set; }
     }
 }

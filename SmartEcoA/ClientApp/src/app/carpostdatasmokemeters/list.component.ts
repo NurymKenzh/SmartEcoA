@@ -21,7 +21,7 @@ import { CarPostService } from '../carposts/carpost.service';
 })
 
 export class CarPostDataSmokeMetersListComponent implements OnInit, AfterViewInit {
-  columns: string[] = ['DateTime', 'CarPost', 'CarModelSmokeMeter', 'Number', 'DFree', 'NDFree', 'details-edit-delete'];
+  columns: string[] = ['DateTime', 'CarPost', 'CarModelSmokeMeter', 'Number', 'details-edit-delete'];
   dataSource = new MatTableDataSource<CarPostDataSmokeMeter>();
   Date = new FormControl(new Date());
   CarPostId = new FormControl();

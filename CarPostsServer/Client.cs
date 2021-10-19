@@ -96,7 +96,7 @@ namespace CarPostsServer
 
         private string GetLastData(int carPostId)
         {
-            string carModelSmokeMeterName = string.Empty;
+            int? carModelSmokeMeterId = null;
             int? carModelAutoTestId = null;
             DateTime? carPostDataAutoTestDate = new DateTime();
             DateTime? carPostDataSmokeMeterDate = new DateTime();
@@ -106,12 +106,12 @@ namespace CarPostsServer
                 using (var connection = new NpgsqlConnection("Host=localhost;Database=SmartEcoA;Username=postgres;Password=postgres;Port=5433"))
                 {
                     connection.Open();
-                    var carModelSmokeMetersv = connection.Query<CarModelSmokeMeter>($"SELECT \"Id\", \"Name\", \"CarPostId\" " +
+                    var carModelSmokeMetersv = connection.Query<CarModelSmokeMeter>($"SELECT \"Id\", \"Name\", \"ParadoxId\", \"CarPostId\" " +
                         $"FROM public.\"CarModelSmokeMeter\" " +
                         $"WHERE \"CarPostId\" = {carPostId} " +
                         $"ORDER BY \"Id\" DESC " +
                         $"LIMIT 1", commandTimeout: 86400);
-                    carModelSmokeMeterName = carModelSmokeMetersv.FirstOrDefault() == null ? carModelSmokeMeterName : carModelSmokeMetersv.FirstOrDefault().Name;
+                    carModelSmokeMeterId = carModelSmokeMetersv.FirstOrDefault() == null ? carModelSmokeMeterId : carModelSmokeMetersv.FirstOrDefault().ParadoxId;
 
                     var carModelAutoTestsv = connection.Query<CarModelAutoTest>($"SELECT \"Id\", \"Name\", \"ParadoxId\", \"CarPostId\" " +
                         $"FROM public.\"CarModelAutoTest\" " +
@@ -135,7 +135,7 @@ namespace CarPostsServer
                         $"ORDER BY datas.\"DateTime\" DESC " +
                         $"LIMIT 1", commandTimeout: 86400);
                     carPostDataSmokeMeterDate = carPostDataSmokeMetersv.FirstOrDefault() == null ? carPostDataSmokeMeterDate : carPostDataSmokeMetersv.FirstOrDefault().DateTime;
-
+                    ///////////
                     var testersv = connection.Query<Tester>($"SELECT tester.\"Id\", tester.\"Name\" " +
                         $"FROM public.\"Tester\" as tester " +
                         $"JOIN public.\"CarPostDataAutoTest\" as data ON data.\"TesterId\" = tester.\"Id\" " +
@@ -148,7 +148,7 @@ namespace CarPostsServer
                 }
 
                 dynamic obj = new ExpandoObject();
-                obj.carModelSmokeMeterName = carModelSmokeMeterName;
+                obj.carModelSmokeMeterId = carModelSmokeMeterId;
                 obj.carModelAutoTestId = carModelAutoTestId;
                 obj.carPostDataAutoTestDate = carPostDataAutoTestDate;
                 obj.carPostDataSmokeMeterDate = carPostDataSmokeMeterDate;
@@ -175,16 +175,43 @@ namespace CarPostsServer
 
                 if (clientJsonData.carModelSmokeMeter != null)
                 {
+                    TypeEcoClass typeEcoClass = new TypeEcoClass();
+                    if (!string.IsNullOrEmpty(clientJsonData.carModelSmokeMeter.TypeEcoName))
+                    {
+                        using (var connection = new NpgsqlConnection("Host=localhost;Database=SmartEcoA;Username=postgres;Password=postgres;Port=5433"))
+                        {
+                            connection.Open();
+                            var typeEcoClassv = connection.Query<TypeEcoClass>($"SELECT \"Id\", \"Name\" " +
+                                $"FROM public.\"TypeEcoClass\" " +
+                                $"WHERE \"Name\" = '{clientJsonData.carModelSmokeMeter.TypeEcoName}' " +
+                                $"ORDER BY \"Id\"", commandTimeout: 86400);
+                            typeEcoClass = typeEcoClassv.FirstOrDefault();
+                        }
+                    }
+
                     CarModelSmokeMeter carModelSmokeMeter = new CarModelSmokeMeter();
                     try
                     {
                         Console.WriteLine($"{DateTime.Now} >> CarPost {carPostId}: Get model smokemeter started{Environment.NewLine}");
 
                         carModelSmokeMeter.Name = clientJsonData.carModelSmokeMeter.MODEL;
-                        carModelSmokeMeter.Boost = clientJsonData.carModelSmokeMeter.NADDUV;
-                        carModelSmokeMeter.DFreeMark = Convert.ToDecimal(clientJsonData.carModelSmokeMeter.D_FREE);
-                        carModelSmokeMeter.DMaxMark = Convert.ToDecimal(clientJsonData.carModelSmokeMeter.D_MAX);
+                        carModelSmokeMeter.TypeEcoClassId = typeEcoClass.Id;
+                        carModelSmokeMeter.Category = clientJsonData.carModelSmokeMeter.CATEGORY;
+                        carModelSmokeMeter.EngineType = clientJsonData.carModelSmokeMeter.DVIG;
+                        carModelSmokeMeter.MIN_TAH = Convert.ToDecimal(clientJsonData.carModelSmokeMeter.MIN_TAH);
+                        carModelSmokeMeter.DEL_MIN = Convert.ToDecimal(clientJsonData.carModelSmokeMeter.DEL_MIN);
+                        carModelSmokeMeter.MAX_TAH = Convert.ToDecimal(clientJsonData.carModelSmokeMeter.MAX_TAH);
+                        carModelSmokeMeter.DEL_MAX = Convert.ToDecimal(clientJsonData.carModelSmokeMeter.DEL_MAX);
+                        carModelSmokeMeter.MIN_CO = Convert.ToDecimal(clientJsonData.carModelSmokeMeter.MIN_CO);
+                        carModelSmokeMeter.MAX_CO = Convert.ToDecimal(clientJsonData.carModelSmokeMeter.MAX_CO);
+                        carModelSmokeMeter.MIN_CH = Convert.ToDecimal(clientJsonData.carModelSmokeMeter.MIN_CH);
+                        carModelSmokeMeter.MAX_CH = Convert.ToDecimal(clientJsonData.carModelSmokeMeter.MAX_CH);
+                        carModelSmokeMeter.L_MIN = Convert.ToDecimal(clientJsonData.carModelSmokeMeter.L_MIN);
+                        carModelSmokeMeter.L_MAX = Convert.ToDecimal(clientJsonData.carModelSmokeMeter.L_MAX);
+                        carModelSmokeMeter.K_SVOB = Convert.ToDecimal(clientJsonData.carModelSmokeMeter.K_SVOB);
+                        carModelSmokeMeter.K_MAX = Convert.ToDecimal(clientJsonData.carModelSmokeMeter.K_MAX);
                         carModelSmokeMeter.CarPostId = carPostId;
+                        carModelSmokeMeter.ParadoxId = clientJsonData.carModelSmokeMeter.ID;
 
                         Console.WriteLine($"{DateTime.Now} >> CarPost {carPostId}: Get model smokemeter finished{Environment.NewLine}");
                     }
@@ -199,12 +226,26 @@ namespace CarPostsServer
                         using (var connection = new NpgsqlConnection("Host=localhost;Database=SmartEcoA;Username=postgres;Password=postgres;Port=5433"))
                         {
                             connection.Open();
-                            string execute = $"INSERT INTO public.\"CarModelSmokeMeter\"(\"CarPostId\", \"Name\", \"Boost\", \"DFreeMark\", \"DMaxMark\")" +
+                            string execute = $"INSERT INTO public.\"CarModelSmokeMeter\"(\"CarPostId\", \"Name\", \"TypeEcoClassId\", \"Category\", \"EngineType\", \"MIN_TAH\", " +
+                                $"\"DEL_MIN\", \"MAX_TAH\", \"DEL_MAX\", \"MIN_CO\", \"MAX_CO\", \"MIN_CH\", \"MAX_CH\", \"L_MIN\", \"L_MAX\", \"K_SVOB\", \"K_MAX\", \"ParadoxId\")" +
                                     $"VALUES({carModelSmokeMeter.CarPostId.ToString()}," +
                                     $"'{carModelSmokeMeter.Name}'," +
-                                    $"{carModelSmokeMeter.Boost.ToString()}," +
-                                    $"{carModelSmokeMeter.DFreeMark.ToString().Replace(",", ".")}," +
-                                    $"{carModelSmokeMeter.DMaxMark.ToString().Replace(",", ".")});";
+                                    $"{carModelSmokeMeter.TypeEcoClassId.ToString()}," +
+                                    $"'{carModelSmokeMeter.Category}'," +
+                                    $"{carModelSmokeMeter.EngineType.ToString()}," +
+                                    $"{carModelSmokeMeter.MIN_TAH.ToString().Replace(",", ".")}," +
+                                    $"{carModelSmokeMeter.DEL_MIN.ToString().Replace(",", ".")}," +
+                                    $"{carModelSmokeMeter.MAX_TAH.ToString().Replace(",", ".")}," +
+                                    $"{carModelSmokeMeter.DEL_MAX.ToString().Replace(",", ".")}," +
+                                    $"{carModelSmokeMeter.MIN_CO.ToString().Replace(",", ".")}," +
+                                    $"{carModelSmokeMeter.MAX_CO.ToString().Replace(",", ".")}," +
+                                    $"{carModelSmokeMeter.MIN_CH.ToString().Replace(",", ".")}," +
+                                    $"{carModelSmokeMeter.MAX_CH.ToString().Replace(",", ".")}," +
+                                    $"{carModelSmokeMeter.L_MIN.ToString().Replace(",", ".")}," +
+                                    $"{carModelSmokeMeter.L_MAX.ToString().Replace(",", ".")}," +
+                                    $"{carModelSmokeMeter.K_SVOB.ToString().Replace(",", ".")}," +
+                                    $"{carModelSmokeMeter.K_MAX.ToString().Replace(",", ".")}," +
+                                    $"{(carModelSmokeMeter.ParadoxId != null ? carModelSmokeMeter.ParadoxId.ToString() : "null")}); ";
                             connection.Execute(execute);
                             connection.Close();
                         }
@@ -301,14 +342,27 @@ namespace CarPostsServer
                 if (clientJsonData.carPostDataSmokeMeter != null)
                 {
                     CarModelSmokeMeter carModelSmokeMeter = new CarModelSmokeMeter();
+                    Tester tester = null;
                     using (var connection = new NpgsqlConnection("Host=localhost;Database=SmartEcoA;Username=postgres;Password=postgres;Port=5433"))
                     {
                         connection.Open();
-                        var carModelSmokeMetersv = connection.Query<CarModelSmokeMeter>($"SELECT \"Id\", \"Name\", \"CarPostId\" " +
+                        var carModelSmokeMetersv = connection.Query<CarModelSmokeMeter>($"SELECT \"Id\", \"Name\", \"ParadoxId\", \"CarPostId\" " +
                             $"FROM public.\"CarModelSmokeMeter\" " +
-                            $"WHERE \"CarPostId\" = {carPostId} AND \"Name\" = '{clientJsonData.carPostDataSmokeMeter.MODEL}' " +
+                            $"WHERE \"CarPostId\" = {carPostId} AND \"ParadoxId\" = '{clientJsonData.carPostDataSmokeMeter.ID_MODEL}' " +
                             $"ORDER BY \"Id\"", commandTimeout: 86400);
                         carModelSmokeMeter = carModelSmokeMetersv.FirstOrDefault();
+                        ///////////////
+                        if (!string.IsNullOrEmpty(clientJsonData.carPostDataAutoTest.DopInfo.TesterName))
+                        {
+                            var testersv = connection.Query<Tester>($"SELECT tester.\"Id\", tester.\"Name\" " +
+                                $"FROM public.\"Tester\" as tester " +
+                                $"JOIN public.\"CarPostDataAutoTest\" as data ON data.\"TesterId\" = tester.\"Id\" " +
+                                $"JOIN public.\"CarModelAutoTest\" as model ON model.\"Id\" = data.\"CarModelAutoTestId\" " +
+                                $"WHERE model.\"CarPostId\" = {carPostId} " +
+                                $"ORDER BY tester.\"Id\" DESC", commandTimeout: 86400);
+                            tester = testersv.FirstOrDefault();
+                        }
+                        connection.Close();
                     }
 
                     if (carModelSmokeMeter != null)
@@ -320,12 +374,38 @@ namespace CarPostsServer
 
                             carPostDataSmokeMeter.DateTime = Convert.ToDateTime($"{clientJsonData.carPostDataSmokeMeter.DATA.ToShortDateString()} {clientJsonData.carPostDataSmokeMeter.TIME}");
                             carPostDataSmokeMeter.Number = clientJsonData.carPostDataSmokeMeter.NOMER;
-                            carPostDataSmokeMeter.RunIn = clientJsonData.carPostDataSmokeMeter.TYPE;
-                            carPostDataSmokeMeter.DFree = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.D_FREE);
-                            carPostDataSmokeMeter.DMax = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.D_MAX);
-                            carPostDataSmokeMeter.NDFree = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.N_D_FREE);
-                            carPostDataSmokeMeter.NDMax = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.N_D_MAX);
+                            carPostDataSmokeMeter.DOPOL1 = clientJsonData.carPostDataSmokeMeter.DOPOL1;
+                            carPostDataSmokeMeter.DOPOL2 = clientJsonData.carPostDataSmokeMeter.DOPOL2;
+                            carPostDataSmokeMeter.MIN_TAH = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.MIN_TAH);
+                            carPostDataSmokeMeter.MIN_CO = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.MIN_CO);
+                            carPostDataSmokeMeter.MIN_CH = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.MIN_CH);
+                            carPostDataSmokeMeter.MIN_CO2 = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.MIN_CO2);
+                            carPostDataSmokeMeter.MIN_O2 = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.MIN_O2);
+                            carPostDataSmokeMeter.MIN_L = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.MIN_L);
+                            carPostDataSmokeMeter.MAX_TAH = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.MAX_TAH);
+                            carPostDataSmokeMeter.MAX_CO = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.MAX_CO);
+                            carPostDataSmokeMeter.MAX_CH = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.MAX_CH);
+                            carPostDataSmokeMeter.MAX_CO2 = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.MAX_CO2);
+                            carPostDataSmokeMeter.MAX_O2 = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.MAX_O2);
+                            carPostDataSmokeMeter.MAX_L = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.MAX_L);
+                            carPostDataSmokeMeter.ZAV_NOMER = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.ZAV_NOMER);
+                            carPostDataSmokeMeter.K_1 = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.K_1);
+                            carPostDataSmokeMeter.K_2 = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.K_2);
+                            carPostDataSmokeMeter.K_3 = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.K_3);
+                            carPostDataSmokeMeter.K_4 = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.K_4);
+                            carPostDataSmokeMeter.K_SVOB = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.K_SBOB);
+                            carPostDataSmokeMeter.K_MAX = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.K_MAX);
+                            carPostDataSmokeMeter.MIN_NO = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.MIN_NO);
+                            carPostDataSmokeMeter.MAX_NO = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.MAX_NO);
                             carPostDataSmokeMeter.CarModelSmokeMeterId = carModelSmokeMeter.Id;
+                            carPostDataSmokeMeter.Temperature = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.DopInfo?.TEMP);
+                            carPostDataSmokeMeter.Pressure = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.DopInfo?.PRESS);
+                            carPostDataSmokeMeter.GasSerialNumber = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.DopInfo?.N_AUTOTEST);
+                            carPostDataSmokeMeter.GasCheckDate = Convert.ToDateTime(clientJsonData.carPostDataSmokeMeter.DopInfo?.D_AUTOTEST);
+                            carPostDataSmokeMeter.MeteoSerialNumber = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.DopInfo?.N_METEO);
+                            carPostDataSmokeMeter.MeteoCheckDate = Convert.ToDateTime(clientJsonData.carPostDataSmokeMeter.DopInfo?.D_METEO);
+                            carPostDataSmokeMeter.TestNumber = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.DopInfo?.NUM_TEST);
+                            carPostDataSmokeMeter.TesterId = tester?.Id;
 
                             Console.WriteLine($"{DateTime.Now} >> CarPost {carPostId}: Get data smokemeter finished{Environment.NewLine}");
                         }
@@ -337,26 +417,80 @@ namespace CarPostsServer
                         try
                         {
                             Console.WriteLine($"{DateTime.Now} >> CarPost {carPostId}: Insert data smokemeter started{Environment.NewLine}");
+                            object id = null;
                             using (var connection = new NpgsqlConnection("Host=localhost;Database=SmartEcoA;Username=postgres;Password=postgres;Port=5433"))
                             {
                                 connection.Open();
-                                string execute = $"INSERT INTO public.\"CarPostDataSmokeMeter\"(\"CarModelSmokeMeterId\", \"DateTime\", \"Number\", \"RunIn\", " +
-                                            $"\"DFree\", \"DMax\", \"NDFree\", \"NDMax\")" +
-                                            $"VALUES({carPostDataSmokeMeter.CarModelSmokeMeterId.ToString()}," +
-                                            $"make_timestamptz(" +
-                                                $"{carPostDataSmokeMeter.DateTime.Year.ToString()}, " +
-                                                $"{carPostDataSmokeMeter.DateTime.Month.ToString()}, " +
-                                                $"{carPostDataSmokeMeter.DateTime.Day.ToString()}, " +
-                                                $"{carPostDataSmokeMeter.DateTime.Hour.ToString()}, " +
-                                                $"{carPostDataSmokeMeter.DateTime.Minute.ToString()}, " +
-                                                $"{carPostDataSmokeMeter.DateTime.Second.ToString()})," +
-                                            $"'{carPostDataSmokeMeter.Number}'," +
-                                            $"{carPostDataSmokeMeter.RunIn.ToString()}," +
-                                            $"{carPostDataSmokeMeter.DFree.ToString().Replace(",", ".")}," +
-                                            $"{carPostDataSmokeMeter.DMax.ToString().Replace(",", ".")}," +
-                                            $"{carPostDataSmokeMeter.NDFree.ToString().Replace(",", ".")}," +
-                                            $"{carPostDataSmokeMeter.NDMax.ToString().Replace(",", ".")});";
-                                connection.Execute(execute);
+
+                                string execute = $"INSERT INTO public.\"CarPostDataSmokeMeter\"(\"CarModelSmokeMeterId\", \"DateTime\", \"Number\", \"DOPOL1\", \"DOPOL2\", \"MIN_TAH\", " +
+                                           $"\"MIN_CO\", \"MIN_CH\", \"MIN_CO2\", \"MIN_O2\", \"MIN_L\", \"MAX_TAH\", \"MAX_CO\", \"MAX_CH\", \"MAX_CO2\", \"MAX_O2\", \"MAX_L\", \"ZAV_NOMER\", " +
+                                           $"\"K_1\", \"K_2\", \"K_3\", \"K_4\", \"K_SVOB\", \"K_MAX\", \"MIN_NO\", \"MAX_NO\", \"Temperature\", \"Pressure\", \"GasSerialNumber\", \"GasCheckDate\", " +
+                                           $"\"MeteoSerialNumber\", \"MeteoCheckDate\", \"TestNumber\", \"TesterId\")" +
+                                           $"VALUES({carPostDataSmokeMeter.CarModelSmokeMeterId.ToString()}," +
+                                           $"make_timestamptz(" +
+                                               $"{carPostDataSmokeMeter.DateTime.Value.Year.ToString()}, " +
+                                               $"{carPostDataSmokeMeter.DateTime.Value.Month.ToString()}, " +
+                                               $"{carPostDataSmokeMeter.DateTime.Value.Day.ToString()}, " +
+                                               $"{carPostDataSmokeMeter.DateTime.Value.Hour.ToString()}, " +
+                                               $"{carPostDataSmokeMeter.DateTime.Value.Minute.ToString()}, " +
+                                               $"{carPostDataSmokeMeter.DateTime.Value.Second.ToString()})," +
+                                           $"'{carPostDataSmokeMeter.Number}'," +
+                                           $"'{carPostDataSmokeMeter.DOPOL1}'," +
+                                           $"'{carPostDataSmokeMeter.DOPOL2}'," +
+                                           $"{carPostDataSmokeMeter.MIN_TAH.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.MIN_CO.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.MIN_CH.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.MIN_CO2.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.MIN_O2.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.MIN_L.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.MAX_TAH.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.MAX_CO.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.MAX_CH.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.MAX_CO2.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.MAX_O2.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.MAX_L.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.ZAV_NOMER.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.K_1.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.K_2.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.K_3.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.K_4.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.K_SVOB.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.K_MAX.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.MIN_NO.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.MAX_NO.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.Temperature.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.Pressure.ToString().Replace(",", ".")}," +
+                                           $"{carPostDataSmokeMeter.GasSerialNumber.ToString().Replace(",", ".")}," +
+                                           $"make_timestamptz(" +
+                                               $"{carPostDataSmokeMeter.GasCheckDate.Value.Year.ToString()}, " +
+                                               $"{carPostDataSmokeMeter.GasCheckDate.Value.Month.ToString()}, " +
+                                               $"{carPostDataSmokeMeter.GasCheckDate.Value.Day.ToString()}, " +
+                                               $"{carPostDataSmokeMeter.GasCheckDate.Value.Hour.ToString()}, " +
+                                               $"{carPostDataSmokeMeter.GasCheckDate.Value.Minute.ToString()}, " +
+                                               $"{carPostDataSmokeMeter.GasCheckDate.Value.Second.ToString()})," +
+                                           $"{carPostDataSmokeMeter.MeteoSerialNumber.ToString().Replace(",", ".")}," +
+                                           $"make_timestamptz(" +
+                                               $"{carPostDataSmokeMeter.MeteoCheckDate.Value.Year.ToString()}, " +
+                                               $"{carPostDataSmokeMeter.MeteoCheckDate.Value.Month.ToString()}, " +
+                                               $"{carPostDataSmokeMeter.MeteoCheckDate.Value.Day.ToString()}, " +
+                                               $"{carPostDataSmokeMeter.MeteoCheckDate.Value.Hour.ToString()}, " +
+                                               $"{carPostDataSmokeMeter.MeteoCheckDate.Value.Minute.ToString()}, " +
+                                               $"{carPostDataSmokeMeter.MeteoCheckDate.Value.Second.ToString()}), " +
+                                           $"{carPostDataSmokeMeter.TestNumber.ToString().Replace(",", ".")}, " +
+                                           $"{(carPostDataSmokeMeter.TesterId != null ? carPostDataSmokeMeter.TesterId.ToString() : "null")}) RETURNING \"Id\";";
+                                
+                                id = connection.ExecuteScalar(execute);
+                                if (tester == null && id != null && !string.IsNullOrEmpty(clientJsonData.carPostDataSmokeMeter.DopInfo.TesterName))
+                                {
+                                    object testerId = null;
+                                    string executeTester = $"INSERT INTO public.\"Tester\"(\"Name\")" +
+                                            $"VALUES('{clientJsonData.carPostDataSmokeMeter.DopInfo.TesterName.ToString()}') RETURNING \"Id\";";
+                                    testerId = connection.ExecuteScalar(executeTester);
+                                    if (testerId != null)
+                                    {
+                                        connection.Execute($"UPDATE public.\"CarPostDataSmokeMeter\" SET \"TesterId\" = {testerId} WHERE \"Id\" = {id};", commandTimeout: 86400);
+                                    }
+                                }
                                 connection.Close();
                             }
                             Console.WriteLine($"{DateTime.Now} >> CarPost {carPostId}: Insert data smokemeter finished{Environment.NewLine}");

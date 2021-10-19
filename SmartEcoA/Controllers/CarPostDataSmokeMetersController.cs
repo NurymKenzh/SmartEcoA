@@ -31,11 +31,12 @@ namespace SmartEcoA.Controllers
             var carPostDataSmokeMeter = _context.CarPostDataSmokeMeter
                     .Include(c => c.CarModelSmokeMeter)
                     .Include(c => c.CarModelSmokeMeter.CarPost)
+                    .Include(c => c.Tester)
                     .Where(c => true);
 
             if (Date != null)
             {
-                carPostDataSmokeMeter = carPostDataSmokeMeter.Where(c => c.DateTime.Year == Date.Value.Year && c.DateTime.Month == Date.Value.Month && c.DateTime.Day == Date.Value.Day);
+                carPostDataSmokeMeter = carPostDataSmokeMeter.Where(c => c.DateTime.Value.Year == Date.Value.Year && c.DateTime.Value.Month == Date.Value.Month && c.DateTime.Value.Day == Date.Value.Day);
             }
             if (CarPostId != null)
             {
@@ -70,6 +71,7 @@ namespace SmartEcoA.Controllers
             var carPostDataSmokeMeter = await _context.CarPostDataSmokeMeter
                 .Include(c => c.CarModelSmokeMeter)
                 .Include(c => c.CarModelSmokeMeter.CarPost)
+                .Include(c => c.Tester)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (carPostDataSmokeMeter == null)

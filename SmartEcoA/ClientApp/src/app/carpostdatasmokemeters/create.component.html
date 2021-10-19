@@ -47,14 +47,137 @@
         <mat-error i18n="@@More10Characters" *ngIf="error('Number', 'maxlength')">You have more than 10 characters</mat-error>
       </mat-form-field>
       <br />
-      <mat-checkbox i18n="@@RunIn" matInput formControlName="RunIn" id="runin">Run In</mat-checkbox>
-      <br />
       <mat-form-field>
-        <input i18n-placeholder="@@DFree" matInput type="number" placeholder="Smoke, 1/m (free acceleration)" formControlName="DFree" id="dfree">
+        <input i18n-placeholder="@@DOPOL1" matInput type="text" placeholder="Additional field 1" formControlName="DOPOL1" id="dopol1">
       </mat-form-field>
       <br />
       <mat-form-field>
-        <input i18n-placeholder="@@NDFree" matInput type="number" placeholder="Smoke, 1/m (norm)" formControlName="NDFree" id="ndfree">
+        <input i18n-placeholder="@@DOPOL2" matInput type="text" placeholder="Additional field 2" formControlName="DOPOL2" id="dopol2">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@MIN_TAH" matInput type="number" placeholder="Frequency at minimum speed, 1/min" formControlName="MIN_TAH" id="min_tah">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@MIN_CO" matInput type="number" placeholder="CO at minimum speed, %" formControlName="MIN_CO" id="min_co">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@MIN_CH" matInput type="number" placeholder="CH at minimum speed, ppm" formControlName="MIN_CH" id="min_ch">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@MIN_CO2" matInput type="number" placeholder="CO2 at minimum speed, %" formControlName="MIN_CO2" id="min_co2">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@MIN_O2" matInput type="number" placeholder="O2 at minimum speed, %" formControlName="MIN_O2" id="min_o2">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@MIN_L" matInput type="number" placeholder="λ at minimum speed, %" formControlName="MIN_L" id="min_l">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@MAX_TAH" matInput type="number" placeholder="Frequency at high speed, 1/min" formControlName="MAX_TAH" id="max_tah">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@MAX_CO" matInput type="number" placeholder="CO at increased speed, %" formControlName="MAX_CO" id="max_co">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@MAX_CH" matInput type="number" placeholder="CH at high speed, ppm" formControlName="MAX_CH" id="max_ch">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@MAX_CO2" matInput type="number" placeholder="CO2 at increased speed, %" formControlName="MAX_CO2" id="max_co2">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@MAX_O2" matInput type="number" placeholder="O2 at increased speed, %" formControlName="MAX_O2" id="max_o2">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@MAX_L" matInput type="number" placeholder="λ at increased speed, %" formControlName="MAX_L" id="max_l">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@ZAV_NOMER" matInput type="number" placeholder="Measurement number" formControlName="ZAV_NOMER" id="zav_nomer">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@K_1" matInput type="number" placeholder="Attenuation index of luminous flux K No. 1, 1/m" formControlName="K_1" id="k_1">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@K_2" matInput type="number" placeholder="Attenuation index of luminous flux K No. 2, 1/m" formControlName="K_2" id="k_2">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@K_3" matInput type="number" placeholder="Attenuation index of luminous flux K No. 3, 1/m" formControlName="K_3" id="k_3">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@K_4" matInput type="number" placeholder="Attenuation index of luminous flux K No. 4, 1/m" formControlName="K_4" id="k_4">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@K_SVOB" matInput type="number" placeholder="Attenuation index of luminous flux K at free acceleration, 1/m" formControlName="K_SVOB" id="k_svob">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@K_MAX" matInput type="number" placeholder="Luminous flux attenuation index K at maximum rotation frequency, 1/m" formControlName="K_MAX" id="k_max">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@MIN_NO" matInput type="number" placeholder="NO at minimum speed" formControlName="MIN_NO" id="min_no">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@MAX_NO" matInput type="number" placeholder="NO at high rpm" formControlName="MAX_NO" id="max_no">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@Temperature" matInput type="number" placeholder="Temperature, °C" formControlName="Temperature" id="temperature">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@Pressure" matInput type="number" placeholder="Atmospheric pressure, mm Hg" formControlName="Pressure" id="pressure">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@GasSerialNumber" matInput type="number" placeholder="Gas analyzer: serial number" formControlName="GasSerialNumber" id="gasserialnumber">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input matInput formControlName="GasCheckDate" [matDatetimepicker]="GasCheckDate" required autocomplete="false">
+        <mat-datetimepicker-toggle [for]="GasCheckDate" matSuffix></mat-datetimepicker-toggle>
+        <mat-datetimepicker #GasCheckDate type="datetime" timeInterval="1"></mat-datetimepicker>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@MeteoSerialNumber" matInput type="number" placeholder="Meteoscope: serial number" formControlName="MeteoSerialNumber" id="meteoserialnumber">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input matInput formControlName="MeteoCheckDate" [matDatetimepicker]="MeteoCheckDate" required autocomplete="false">
+        <mat-datetimepicker-toggle [for]="MeteoCheckDate" matSuffix></mat-datetimepicker-toggle>
+        <mat-datetimepicker #MeteoCheckDate type="datetime" timeInterval="1"></mat-datetimepicker>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@TestNumber" matInput type="number" placeholder="Test number" formControlName="TestNumber" id="testnumber">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label i18n="@@Tester">Tester</mat-label>
+        <mat-select formControlName="TesterId" id="testerid">
+          <mat-option *ngFor="let tester of testers" [value]="tester.Id">
+            {{tester.Name}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
       <br />
     </mat-card-content>
