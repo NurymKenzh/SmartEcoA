@@ -359,7 +359,7 @@ namespace CarPostClient
                     var carModelAutoTests = connection.Query<CarModelAutoTest>($"SELECT * FROM model").OrderBy(c => c.ID).ToList();
                     if (autoTestModelId != null)
                     {
-                        carModelAutoTest = carModelAutoTests.Where(c => c.ID == autoTestModelId + 1).FirstOrDefault();
+                        carModelAutoTest = carModelAutoTests.Where(c => c.ID > autoTestModelId).FirstOrDefault();
                         if (carModelAutoTest != null)
                         {
                             var typeEco = connection.Query<TypeEco>($"SELECT * FROM type_eco as m WHERE m.ID = {carModelAutoTest.ID_ECOLOG}").FirstOrDefault();
@@ -422,12 +422,14 @@ namespace CarPostClient
                 //using (OleDbConnection connection = new OleDbConnection(connectionString))
                 {
                     //connection.Open();
+                    var carModelAutoTests = connection.Query<CarModelAutoTest>($"SELECT * FROM model").OrderBy(c => c.ID).ToList();
                     carPostDataAutoTest = connection.Query<CarPostDataAutoTest>(
                         $"SELECT * FROM Main")
                         .ToList()
                         .Where(c => c.DATA.Year >= 2020)
                         //.Where(c => Convert.ToDateTime($"{c.DATA.ToShortDateString()} {c.TIME}") > Convert.ToDateTime(autoTestDataDateTime))
                         .Where(c => FromDATATIME(c) > Convert.ToDateTime(autoTestDataDateTime))
+                        .Where(c => carModelAutoTests.Select(m => m.ID).Contains(c.ID_MODEL))
                         .OrderBy(c => FromDATATIME(c))
                         .FirstOrDefault();
                     if (carPostDataAutoTest != null)
