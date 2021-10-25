@@ -14,10 +14,19 @@ export class PostDataAvgService {
     if (Id) {
       return this.http.get(this.baseUrl + this.apiUrl + Id);
     } else {
-      let params = new HttpParams()
-        .set('Date', `${Date.getFullYear()}-${Date.getMonth() + 1}-${Date.getDate()}`)
-        .set('PostId', PostId ? PostId : '')
-        .set('MeasuredParameterId', MeasuredParameterId ? MeasuredParameterId : '');
+      let params;
+      if (Date == null) {
+        params = new HttpParams()
+          .set('Date', '')
+          .set('PostId', PostId ? PostId : '')
+          .set('MeasuredParameterId', MeasuredParameterId ? MeasuredParameterId : '');
+      }
+      else {
+        params = new HttpParams()
+          .set('Date', `${Date.getFullYear()}-${Date.getMonth() + 1}-${Date.getDate()}`)
+          .set('PostId', PostId ? PostId : '')
+          .set('MeasuredParameterId', MeasuredParameterId ? MeasuredParameterId : '');
+      }
       return this.http.get(this.baseUrl + this.apiUrl, { params: params });
     }
   }

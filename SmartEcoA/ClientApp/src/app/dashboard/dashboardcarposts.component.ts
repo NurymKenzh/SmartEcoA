@@ -96,17 +96,17 @@ export class DashboardCarPostsComponent implements AfterViewInit {
       });
     };
 
-      function styleSelectPostFunction(feature) {
-        return new Style({
-          image: new Icon({
-            anchor: [0.5, 0.5],
-            anchorXUnits: 'fraction',
-            anchorYUnits: 'fraction',
-            src: '../images/icons/outline_emoji_transportation_black_24dp_select.png',
-            scale: 1.2,
-          }),
-          text: createCarPostTextStyle(feature),
-        });
+    function styleSelectPostFunction(feature) {
+      return new Style({
+        image: new Icon({
+          anchor: [0.5, 0.5],
+          anchorXUnits: 'fraction',
+          anchorYUnits: 'fraction',
+          src: '../images/icons/outline_emoji_transportation_black_24dp_select.png',
+          scale: 1.2,
+        }),
+        text: createCarPostTextStyle(feature),
+      });
     }
 
     function carPostStyleFunction(feature) {
@@ -183,8 +183,7 @@ export class DashboardCarPostsComponent implements AfterViewInit {
       }
     });
 
-    this.carpostservice.get()
-      .subscribe(res => {
+    this.carpostservice.get().subscribe(res => {
         this.carposts = res as CarPost[];
         this.carposts.forEach(function (value) {
           var polyFeature = new Feature({

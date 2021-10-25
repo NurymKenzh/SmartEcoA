@@ -21,7 +21,7 @@
 }
 
 .map {
-  height: 517px;
+  height: 717px;
   min-width: 300px;
 }
 
@@ -46,4 +46,8 @@
 
 button:not(:first-child) {
   margin: 0px 0px 0px 8px;
+}
+
+mat-spinner {
+  margin: 0 auto;
 }
