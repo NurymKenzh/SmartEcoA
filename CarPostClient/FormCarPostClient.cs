@@ -17,21 +17,23 @@ using CarPostClient.Models;
 using Dapper;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using NickBuhro.Translit;
 
 namespace CarPostClient
 {
     public partial class FormCarPostClient : Form
     {
         private const int port = 8087;
-        private const string server = "185.125.44.116";
+        ////private const string server = "185.125.44.116";
         //private const string server = "192.168.0.165";
         //private const string server = "192.168.43.47";
-        //private const string server = "127.0.0.1";
+        private const string server = "127.0.0.1";
         private string CarPostId = null,
             AutoTestPath = null,
             SmokeMeterPath = null;
         private bool stop = false;
         private OleDbConnection connection;
+        private OleDbConnection connection2;
 
         public FormCarPostClient()
         {
@@ -97,6 +99,10 @@ namespace CarPostClient
             connection = new OleDbConnection(connectionString);
             connection.Open();
 
+            string connectionStringSmokeMeter = $"Provider={provider};Data Source={SmokeMeterPath};Extended Properties=dBase IV;";
+            connection2 = new OleDbConnection(connectionStringSmokeMeter);
+            connection2.Open();
+
             while (!backgroundWorkerCarPostClient.CancellationPending)
             {
                 try
@@ -156,6 +162,8 @@ namespace CarPostClient
 
             connection.Close();
             connection.Dispose();
+            connection2.Close();
+            connection2.Dispose();
         }
 
         private string GetProductVersion()
@@ -257,17 +265,16 @@ namespace CarPostClient
                     }
                     JsonData jsonData = new JsonData();
 
-                    //jsonData.carModelSmokeMeter = CreateModelSmokeMeter((string)obj.carModelSmokeMeterName);
+                    jsonData.carModelSmokeMeter = CreateModelSmokeMeter((int?)obj.carModelSmokeMeterId);
                     jsonData.carModelAutoTest = CreateModelAutoTest((int?)obj.carModelAutoTestId);
 
-                    //if (jsonData.carModelSmokeMeter == null)
-                    //{
-                    //    jsonData.carPostDataSmokeMeter = CreateDataSmokeMeter((DateTime?)obj.carPostDataSmokeMeterDate);
-                    //}
+                    if (jsonData.carModelSmokeMeter == null)
+                    {
+                        jsonData.carPostDataSmokeMeter = CreateDataSmokeMeter((DateTime?)obj.carPostDataSmokeMeterDate);
+                    }
                     if (jsonData.carModelAutoTest == null)
                     {
                         jsonData.carPostDataAutoTest = CreateDataAutoTest((DateTime?)obj.carPostDataAutoTestDate);
-                        jsonData.tester = CreateTester((string)obj.testerName);
                     }
 
                     string json = Environment.NewLine + JsonConvert.SerializeObject(jsonData) + Environment.NewLine;
@@ -288,11 +295,12 @@ namespace CarPostClient
                         }
                         if (jsonData.carPostDataAutoTest != null)
                         {
-                            Log($"Данные отправлены: Автотест, измерение - {FromDATATIME(jsonData.carPostDataAutoTest).ToString("yyyy-MM-dd HH:mm:ss")}");
+                            Log($"Данные отправлены: Автотест, измерение - {FromDATATIME(jsonData.carPostDataAutoTest, null).ToString("yyyy-MM-dd HH:mm:ss")}");
                         }
                         if (jsonData.carPostDataSmokeMeter != null)
                         {
-                            Log($"Данные отправлены: Дымомер, номер автомобиля - {jsonData.carPostDataSmokeMeter.NOMER}");
+                            //Log($"Данные отправлены: Дымомер, номер автомобиля - {jsonData.carPostDataSmokeMeter.NOMER}");
+                            Log($"Данные отправлены: Дымомер, измерение - {FromDATATIME(null, jsonData.carPostDataSmokeMeter).ToString("yyyy-MM-dd HH:mm:ss")}");
                         }
                     }
                     else
@@ -408,6 +416,42 @@ namespace CarPostClient
             return null;
         }
 
+        private CarModelSmokeMeter CreateModelSmokeMeter(int? smokeMeterModelId)
+        {
+            try
+            {
+                    CarModelSmokeMeter carModelSmokeMeter = null;
+
+                    var carModelSmokeMeters = connection2.Query<CarModelSmokeMeter>($"SELECT * FROM model").OrderBy(c => c.ID).ToList();
+                    if (smokeMeterModelId != null)
+                    {
+                        carModelSmokeMeter = carModelSmokeMeters.Where(c => c.ID > smokeMeterModelId).FirstOrDefault();
+                        if (carModelSmokeMeter != null)
+                        {
+                            var typeEco = connection2.Query<TypeEco>($"SELECT * FROM type_eco as m WHERE m.ID = {carModelSmokeMeter.ID_ECOLOG}").FirstOrDefault();
+                            carModelSmokeMeter.TypeEcoName = typeEco.NAME;
+                        }
+                    }
+                    else
+                    {
+                        carModelSmokeMeter = carModelSmokeMeters.FirstOrDefault();
+                        if (carModelSmokeMeter != null)
+                        {
+                            var typeEco = connection2.Query<TypeEco>($"SELECT * FROM type_eco as m WHERE m.ID = {carModelSmokeMeter.ID_ECOLOG}").FirstOrDefault();
+                            carModelSmokeMeter.TypeEcoName = typeEco.NAME;
+                        }
+                    }
+
+                return carModelSmokeMeter;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{DateTime.Now} >> Error create model smokemeter >> {ex.Message}{Environment.NewLine}");
+            }
+
+            return null;
+        }
+
         private CarPostDataAutoTest CreateDataAutoTest(DateTime? autoTestDataDateTime)
         {
             try
@@ -428,9 +472,9 @@ namespace CarPostClient
                         .ToList()
                         .Where(c => c.DATA.Year >= 2020)
                         //.Where(c => Convert.ToDateTime($"{c.DATA.ToShortDateString()} {c.TIME}") > Convert.ToDateTime(autoTestDataDateTime))
-                        .Where(c => FromDATATIME(c) > Convert.ToDateTime(autoTestDataDateTime))
+                        .Where(c => FromDATATIME(c, null) > Convert.ToDateTime(autoTestDataDateTime))
                         .Where(c => carModelAutoTests.Select(m => m.ID).Contains(c.ID_MODEL))
-                        .OrderBy(c => FromDATATIME(c))
+                        .OrderBy(c => FromDATATIME(c, null))
                         .FirstOrDefault();
                     if (carPostDataAutoTest != null)
                     {
@@ -442,7 +486,7 @@ namespace CarPostClient
                                 $"SELECT * FROM tester as m WHERE m.ID = {dopInfo.ID_TESTER}").FirstOrDefault();
                             if (tester != null)
                             {
-                                dopInfo.TesterName = tester.NAME;
+                                dopInfo.TesterName = Transliteration.CyrillicToLatin(tester.NAME, Language.Russian);
                             }
                             carPostDataAutoTest.DopInfo = dopInfo;
                         }
@@ -459,50 +503,70 @@ namespace CarPostClient
             return null;
         }
 
-        private DateTime FromDATATIME(CarPostDataAutoTest carPostDataAutoTest)
-        {
-            return new DateTime(carPostDataAutoTest.DATA.Year,
-                carPostDataAutoTest.DATA.Month,
-                carPostDataAutoTest.DATA.Day,
-                Convert.ToInt32(carPostDataAutoTest.TIME.Split(':')[0]),
-                Convert.ToInt32(carPostDataAutoTest.TIME.Split(':')[1]),
-                Convert.ToInt32(carPostDataAutoTest.TIME.Split(':')[2]));
-        }
-
-        private Tester CreateTester(string testerName)
+        private CarPostDataSmokeMeter CreateDataSmokeMeter(DateTime? smokeMeterDataDateTime)
         {
             try
             {
-                Tester tester = null;
-                //var provider = IntPtr.Size == 8 ? "Microsoft.ACE.OLEDB.12.0" : "Microsoft.Jet.OLEDB.4.0";
-                //var provider = "Microsoft.Jet.OLEDB.4.0";
+                CarPostDataSmokeMeter carPostDataSmokeMeter = null;
+                var lastTime = Convert.ToDateTime(smokeMeterDataDateTime).ToString("HH:mm:ss");
+                var lastDate = Convert.ToDateTime(smokeMeterDataDateTime).ToString("MM/dd/yyyy");
 
-                //string connectionString = $"Provider={provider};Data Source={AutoTestPath};Extended Properties=dBase IV;";
+                var carModelSmokeMeters = connection2.Query<CarModelSmokeMeter>($"SELECT * FROM model").OrderBy(c => c.ID).ToList();
+                    carPostDataSmokeMeter = connection2.Query<CarPostDataSmokeMeter>(
+                        $"SELECT * FROM Main")
+                        .ToList()
+                        .Where(c => c.DATA.Year >= 2020)
+                      //.Where(c => Convert.ToDateTime($"{c.DATA.ToShortDateString()} {c.TIME}") > Convert.ToDateTime(smokeMeterDataDateTime))
+                        .Where(c => FromDATATIME(null, c) > Convert.ToDateTime(smokeMeterDataDateTime))
+                        .Where(c => carModelSmokeMeters.Select(m => m.ID).Contains(c.ID_MODEL))
+                        .OrderBy(c => FromDATATIME(null, c))
+                        .FirstOrDefault();
+                    if (carPostDataSmokeMeter != null)
+                    {
+                        var dopInfo = connection2.Query<DopInfo>(
+                            $"SELECT * FROM dop_info as m WHERE m.ID = {carPostDataSmokeMeter.ID}").FirstOrDefault();
+                        if (dopInfo != null)
+                        {
+                            var tester = connection2.Query<Tester>(
+                                $"SELECT * FROM tester as m WHERE m.ID = {dopInfo.ID_TESTER}").FirstOrDefault();
+                            if (tester != null)
+                            {
+                                dopInfo.TesterName = Transliteration.CyrillicToLatin(tester.NAME, Language.Russian);
+                        }
+                            carPostDataSmokeMeter.DopInfo = dopInfo;
+                        }
+                    }
 
-                //using (OleDbConnection connection = new OleDbConnection(connectionString))
-                {
-                    //connection.Open();
-                    var testers = connection.Query<Tester>(
-                        $"SELECT * FROM tester").OrderBy(t => t.ID).ToList();
-                    var indexModel = testers.FindIndex(c => c.NAME == testerName);
-                    if (indexModel != -1)
-                    {
-                        tester = testers.Skip(indexModel + 1).FirstOrDefault();
-                    }
-                    else
-                    {
-                        tester = testers.FirstOrDefault();
-                    }
-                    //connection.Close();
-                }
-                return tester;
+                return carPostDataSmokeMeter;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"{DateTime.Now} >> Error create model autotest >> {ex.Message}");
+                Console.WriteLine($"{DateTime.Now} >> Error create data smokemeter >> {ex.Message}{Environment.NewLine}");
             }
 
             return null;
+        }
+
+        private DateTime FromDATATIME(CarPostDataAutoTest carPostDataAutoTest, CarPostDataSmokeMeter carPostDataSmokeMeter)
+        {
+            if(carPostDataSmokeMeter == null)
+            {
+                return new DateTime(carPostDataAutoTest.DATA.Year,
+                    carPostDataAutoTest.DATA.Month,
+                    carPostDataAutoTest.DATA.Day,
+                    Convert.ToInt32(carPostDataAutoTest.TIME.Split(':')[0]),
+                    Convert.ToInt32(carPostDataAutoTest.TIME.Split(':')[1]),
+                    Convert.ToInt32(carPostDataAutoTest.TIME.Split(':')[2]));
+            }
+            else
+            {
+                return new DateTime(carPostDataSmokeMeter.DATA.Year,
+                    carPostDataSmokeMeter.DATA.Month,
+                    carPostDataSmokeMeter.DATA.Day,
+                    Convert.ToInt32(carPostDataSmokeMeter.TIME.Split(':')[0]),
+                    Convert.ToInt32(carPostDataSmokeMeter.TIME.Split(':')[1]),
+                    Convert.ToInt32(carPostDataSmokeMeter.TIME.Split(':')[2]));
+            }
         }
 
         public void Log(string Message)
