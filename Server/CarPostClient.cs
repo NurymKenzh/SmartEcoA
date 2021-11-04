@@ -43,6 +43,7 @@ namespace Server
             string ip = "",
                 carPostId = "";
             int carPostIdInt = -1;
+            StringBuilder messageSB = new StringBuilder();
             try
             {
                 client = listener.EndAcceptTcpClient(ar);
@@ -50,7 +51,7 @@ namespace Server
                 //Logger.Log($"Подключился пост ({ip})");
                 stream = client.GetStream();
                 // Get CarPostId
-                StringBuilder messageSB = new StringBuilder();
+                //StringBuilder messageSB = new StringBuilder();
                 int bytes = 0;
                 byte[] data = new byte[client.ReceiveBufferSize];
                 while (true)
@@ -135,7 +136,7 @@ namespace Server
             }
             catch (Exception ex)
             {
-                Logger.Log($"Связь оборвалась с {ip}: {ex.Message}");
+                Logger.Log($"Связь оборвалась с {ip}: {ex.Message}\n Данные: {messageSB.ToString()}");
             }
             finally
             {
@@ -295,6 +296,7 @@ namespace Server
                     }
                     catch (Exception ex)
                     {
+                        Logger.Log($"{carPostId}: Ошибка парсинга модели Дымомера: {jsonString}");
                         //Console.WriteLine($"{DateTime.Now} >> Error parse model smokemeter >> {ex.Message}{Environment.NewLine}");
                     }
 
@@ -331,6 +333,7 @@ namespace Server
                     }
                     catch (Exception ex)
                     {
+                        Logger.Log($"{carPostId}: Ошибка добавления в БД модели Дымомера: {jsonString}");
                         //Console.WriteLine($"{DateTime.Now} >> Error insert model smokemeter >> {ex.Message}{Environment.NewLine}");
                     }
                 }
@@ -488,6 +491,7 @@ namespace Server
                         }
                         catch (Exception ex)
                         {
+                            Logger.Log($"{carPostId}: Ошибка парсинга данных Дымомера: {jsonString}");
                             //Console.WriteLine($"{DateTime.Now} >> Error parse data smokemeter >> {ex.Message}{Environment.NewLine}");
                         }
 
@@ -573,6 +577,7 @@ namespace Server
                         }
                         catch (Exception ex)
                         {
+                            Logger.Log($"{carPostId}: Ошибка добавления в БД данных Дымомера: {jsonString}");
                             //Console.WriteLine($"{DateTime.Now} >> Error insert data smokemeter >> {ex.Message}{Environment.NewLine}");
                         }
                     }
