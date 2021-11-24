@@ -161,10 +161,8 @@ namespace SmartEcoA.Controllers
                     if (carPostDataAutoTest.Count != 0)
                     {
                         var amountExceedGasoline = carPostDataAutoTest
-                                .Where(c => c.MIN_TAH > c.CarModelAutoTest.MIN_TAH || c.MAX_TAH > c.CarModelAutoTest.MAX_TAH || c.MIN_CO > c.CarModelAutoTest.MIN_CO ||
-                                    c.MAX_CO > c.CarModelAutoTest.MAX_CO || c.MIN_CH > c.CarModelAutoTest.MIN_CH || c.MAX_CH > c.CarModelAutoTest.MAX_CH ||
-                                    c.MIN_L > c.CarModelAutoTest.L_MIN || c.MAX_L > c.CarModelAutoTest.L_MAX || c.K_SVOB > c.CarModelAutoTest.K_SVOB ||
-                                    c.K_MAX > c.CarModelAutoTest.K_MAX)
+                                .Where(c => c.MIN_CO > c.CarModelAutoTest.MIN_CO || c.MAX_CO > c.CarModelAutoTest.MAX_CO || 
+                                    c.MIN_CH > c.CarModelAutoTest.MIN_CH || c.MAX_CH > c.CarModelAutoTest.MAX_CH)
                                 .Count();
 
                         ReportCarPost reportCarPost = new ReportCarPost
@@ -185,9 +183,7 @@ namespace SmartEcoA.Controllers
                     if (carPostDataSmokeMeter.Count != 0)
                     {
                         var amountExceedDiesel = carPostDataSmokeMeter
-                            .Where(c => c.MIN_TAH > c.CarModelSmokeMeter.MIN_TAH || c.MAX_TAH > c.CarModelSmokeMeter.MAX_TAH || c.MIN_CO > c.CarModelSmokeMeter.MIN_CO ||
-                                    c.MAX_CO > c.CarModelSmokeMeter.MAX_CO || c.MIN_CH > c.CarModelSmokeMeter.MIN_CH || c.MAX_CH > c.CarModelSmokeMeter.MAX_CH ||
-                                    c.MIN_L > c.CarModelSmokeMeter.L_MIN || c.MAX_L > c.CarModelSmokeMeter.L_MAX || c.K_SVOB > c.CarModelSmokeMeter.K_SVOB ||
+                            .Where(c => c.K_SVOB > c.CarModelSmokeMeter.K_SVOB ||
                                     c.K_MAX > c.CarModelSmokeMeter.K_MAX)
                             .Count();
 
