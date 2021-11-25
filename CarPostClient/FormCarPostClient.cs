@@ -95,13 +95,9 @@ namespace CarPostClient
             Log($"сервер: {server}:{port}.");
             Log("--------------------------------------");
             var provider = "Microsoft.Jet.OLEDB.4.0";
-            string connectionString = $"Provider={provider};Data Source={AutoTestPath};Extended Properties=dBase IV;";
-            connection = new OleDbConnection(connectionString);
-            connection.Open();
 
-            string connectionStringSmokeMeter = $"Provider={provider};Data Source={SmokeMeterPath};Extended Properties=dBase IV;";
-            connection2 = new OleDbConnection(connectionStringSmokeMeter);
-            connection2.Open();
+            ConnectToAutoTest(provider);
+            ConnectToSmokeMeter(provider);
 
             while (!backgroundWorkerCarPostClient.CancellationPending)
             {
@@ -145,7 +141,20 @@ namespace CarPostClient
                         Application.Exit();
                     }
 
-                    int sent = Connect();
+                    int sent = 0;
+
+                    if ((connection is null || connection.State != ConnectionState.Open)
+                        && (connection2 is null || connection2.State != ConnectionState.Open))
+                    {
+                        Log("--------------------------------------");
+                        Log("Не удалось подключиться ни к одной базе данных! Программа будет выключена через минуту!");
+                        Thread.Sleep(new TimeSpan(0, 1, 0));
+                        return;
+                    }
+                    else
+                    {
+                        sent = Connect();
+                    }
 
                     if (sent == 0)
                     {
@@ -160,10 +169,10 @@ namespace CarPostClient
                 catch { }
             }
 
-            connection.Close();
-            connection.Dispose();
-            connection2.Close();
-            connection2.Dispose();
+            connection?.Close();
+            connection?.Dispose();
+            connection2?.Close();
+            connection2?.Dispose();
         }
 
         private string GetProductVersion()
@@ -218,6 +227,34 @@ namespace CarPostClient
             return true;
         }
 
+        private void ConnectToAutoTest(string provider)
+        {
+            try
+            {
+                string connectionString = $"Provider={provider};Data Source={AutoTestPath};Extended Properties=dBase IV;";
+                connection = new OleDbConnection(connectionString);
+                connection.Open();
+            }
+            catch
+            {
+                Log($"Путь к базе данных Автотеста указан неверно.");
+            }
+        }
+
+        private void ConnectToSmokeMeter(string provider)
+        {
+            try
+            {
+                string connectionStringSmokeMeter = $"Provider={provider};Data Source={SmokeMeterPath};Extended Properties=dBase IV;";
+                connection2 = new OleDbConnection(connectionStringSmokeMeter);
+                connection2.Open();
+            }
+            catch
+            {
+                Log($"Путь к базе данных Дымомера указан неверно.");
+            }
+        }
+
         private int Connect()
         {
             int sentCount = 1;
@@ -265,16 +302,25 @@ namespace CarPostClient
                     }
                     JsonData jsonData = new JsonData();
 
-                    jsonData.carModelSmokeMeter = CreateModelSmokeMeter((int?)obj.carModelSmokeMeterId);
-                    jsonData.carModelAutoTest = CreateModelAutoTest((int?)obj.carModelAutoTestId);
+                    if (connection != null && connection.State == ConnectionState.Open)
+                    {
+                        jsonData.carModelAutoTest = CreateModelAutoTest((int?)obj.carModelAutoTestId);
 
-                    if (jsonData.carModelSmokeMeter == null)
-                    {
-                        jsonData.carPostDataSmokeMeter = CreateDataSmokeMeter((DateTime?)obj.carPostDataSmokeMeterDate);
+                        if (jsonData.carModelAutoTest == null)
+                        {
+                            jsonData.carPostDataAutoTest = CreateDataAutoTest((DateTime?)obj.carPostDataAutoTestDate);
+                        }
+
                     }
-                    if (jsonData.carModelAutoTest == null)
+
+                    if (connection2 != null && connection2.State == ConnectionState.Open)
                     {
-                        jsonData.carPostDataAutoTest = CreateDataAutoTest((DateTime?)obj.carPostDataAutoTestDate);
+                        jsonData.carModelSmokeMeter = CreateModelSmokeMeter((int?)obj.carModelSmokeMeterId);
+
+                        if (jsonData.carModelSmokeMeter == null)
+                        {
+                            jsonData.carPostDataSmokeMeter = CreateDataSmokeMeter((DateTime?)obj.carPostDataSmokeMeterDate);
+                        }
                     }
 
                     string json = Environment.NewLine + JsonConvert.SerializeObject(jsonData) + Environment.NewLine;
