@@ -77,6 +77,8 @@ namespace CarPostClient
         {
             Log($"Версия {GetProductVersion()}");
             DateTime dateTimeTryUpdate = DateTime.Now - new TimeSpan(0, 6, 0);
+            DateTime dateTimeTryConnectAutotest = DateTime.Now - new TimeSpan(0, 6, 0);
+            DateTime dateTimeTryConnectSmokemeter = DateTime.Now - new TimeSpan(0, 6, 0);
             if (File.Exists("stop"))
             {
                 File.Delete("stop");
@@ -141,17 +143,39 @@ namespace CarPostClient
                         Application.Exit();
                     }
 
-                    int sent = 0;
-
-                    if ((connection is null || connection.State != ConnectionState.Open)
-                        && (connection2 is null || connection2.State != ConnectionState.Open))
+                    // try connect to Autotest DB
+                    if ((connection is null || connection.State != ConnectionState.Open) 
+                        && DateTime.Now - dateTimeTryConnectAutotest > new TimeSpan(0, 5, 0))
                     {
-                        Log("--------------------------------------");
-                        Log("Не удалось подключиться ни к одной базе данных! Программа будет выключена через минуту!");
-                        Thread.Sleep(new TimeSpan(0, 1, 0));
-                        return;
+                        if (!ReadAppSettings())
+                        {
+                            Log("Ошибка чтения appsettings.json!");
+                        }
+                        else
+                        {
+                            ConnectToAutoTest(provider);
+                        }
+                        dateTimeTryConnectAutotest = DateTime.Now;
                     }
-                    else
+                    // try connect to Smokemeter DB
+                    if ((connection2 is null || connection2.State != ConnectionState.Open)
+                        && DateTime.Now - dateTimeTryConnectSmokemeter > new TimeSpan(0, 5, 0))
+                    {
+                        if (!ReadAppSettings())
+                        {
+                            Log("Ошибка чтения appsettings.json!");
+                        }
+                        else
+                        {
+                            ConnectToSmokeMeter(provider);
+                        }
+                        dateTimeTryConnectSmokemeter = DateTime.Now;
+                    }
+
+                    int sent = 0;
+                    // if there is at least one connection
+                    if ((connection != null && connection.State == ConnectionState.Open)
+                        || (connection2 != null && connection2.State == ConnectionState.Open))
                     {
                         sent = Connect();
                     }
@@ -231,13 +255,16 @@ namespace CarPostClient
         {
             try
             {
+                Log("--------------------------------------");
+                Log($"Попытка подключения к базе данных Автотеста");
                 string connectionString = $"Provider={provider};Data Source={AutoTestPath};Extended Properties=dBase IV;";
                 connection = new OleDbConnection(connectionString);
                 connection.Open();
+                Log($"Подключено успешно");
             }
             catch
             {
-                Log($"Путь к базе данных Автотеста указан неверно.");
+                Log($"Путь указан неверно");
             }
         }
 
@@ -245,13 +272,16 @@ namespace CarPostClient
         {
             try
             {
+                Log("--------------------------------------");
+                Log($"Попытка подключения к базе данных Дымомера");
                 string connectionStringSmokeMeter = $"Provider={provider};Data Source={SmokeMeterPath};Extended Properties=dBase IV;";
                 connection2 = new OleDbConnection(connectionStringSmokeMeter);
                 connection2.Open();
+                Log($"Подключено успешно");
             }
             catch
             {
-                Log($"Путь к базе данных Дымомера указан неверно.");
+                Log($"Путь указан неверно");
             }
         }
 
