@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NickBuhro.Translit;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -25,6 +26,17 @@ namespace Server.Models
         public string MODEL { get; set; }
 
         //доп. поле для сервера
-        public string TypeEcoName { get; set; }
+        private string typeEcoName { get; set; }
+        public string TypeEcoName
+        {
+            get
+            {
+                return typeEcoName;
+            }
+            set
+            {
+                typeEcoName = Transliteration.LatinToCyrillic(value, Language.Russian);
+            }
+        }
     }
 }

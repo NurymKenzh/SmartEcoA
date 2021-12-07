@@ -447,7 +447,7 @@ namespace CarPostClient
                         if (carModelAutoTest != null)
                         {
                             var typeEco = connection.Query<TypeEco>($"SELECT * FROM type_eco as m WHERE m.ID = {carModelAutoTest.ID_ECOLOG}").FirstOrDefault();
-                            carModelAutoTest.TypeEcoName = typeEco.NAME;
+                            carModelAutoTest.TypeEcoName = Transliteration.CyrillicToLatin(typeEco.NAME, Language.Russian);
                         }
                     }
                     else
@@ -456,7 +456,7 @@ namespace CarPostClient
                         if (carModelAutoTest != null)
                         {
                             var typeEco = connection.Query<TypeEco>($"SELECT * FROM type_eco as m WHERE m.ID = {carModelAutoTest.ID_ECOLOG}").FirstOrDefault();
-                            carModelAutoTest.TypeEcoName = typeEco.NAME;
+                            carModelAutoTest.TypeEcoName = Transliteration.CyrillicToLatin(typeEco.NAME, Language.Russian);
                         }
                     }
                     //var indexModel = carModelAutoTests.FindIndex(c => c.ID == autoTestModelId);
@@ -505,8 +505,8 @@ namespace CarPostClient
                         if (carModelSmokeMeter != null)
                         {
                             var typeEco = connection2.Query<TypeEco>($"SELECT * FROM type_eco as m WHERE m.ID = {carModelSmokeMeter.ID_ECOLOG}").FirstOrDefault();
-                            carModelSmokeMeter.TypeEcoName = typeEco.NAME;
-                        }
+                            carModelSmokeMeter.TypeEcoName = Transliteration.CyrillicToLatin(typeEco.NAME, Language.Russian);
+                    }
                     }
                     else
                     {
@@ -514,7 +514,7 @@ namespace CarPostClient
                         if (carModelSmokeMeter != null)
                         {
                             var typeEco = connection2.Query<TypeEco>($"SELECT * FROM type_eco as m WHERE m.ID = {carModelSmokeMeter.ID_ECOLOG}").FirstOrDefault();
-                            carModelSmokeMeter.TypeEcoName = typeEco.NAME;
+                            carModelSmokeMeter.TypeEcoName = Transliteration.CyrillicToLatin(typeEco.NAME, Language.Russian);
                         }
                     }
 

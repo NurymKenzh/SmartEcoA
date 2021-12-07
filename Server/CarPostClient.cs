@@ -273,7 +273,7 @@ namespace Server
                         //Console.WriteLine($"{DateTime.Now} >> CarPost {carPostId}: Get model smokemeter started{Environment.NewLine}");
 
                         carModelSmokeMeter.Name = clientJsonData.carModelSmokeMeter.MODEL;
-                        carModelSmokeMeter.TypeEcoClassId = typeEcoClass.Id;
+                        carModelSmokeMeter.TypeEcoClassId = typeEcoClass?.Id;
                         carModelSmokeMeter.Category = clientJsonData.carModelSmokeMeter.CATEGORY;
                         carModelSmokeMeter.EngineType = clientJsonData.carModelSmokeMeter.DVIG;
                         carModelSmokeMeter.MIN_TAH = Convert.ToDecimal(clientJsonData.carModelSmokeMeter.MIN_TAH);
@@ -310,7 +310,7 @@ namespace Server
                                 $"\"DEL_MIN\", \"MAX_TAH\", \"DEL_MAX\", \"MIN_CO\", \"MAX_CO\", \"MIN_CH\", \"MAX_CH\", \"L_MIN\", \"L_MAX\", \"K_SVOB\", \"K_MAX\", \"ParadoxId\")" +
                                     $"VALUES({carModelSmokeMeter.CarPostId.ToString()}," +
                                     $"'{carModelSmokeMeter.Name}'," +
-                                    $"{carModelSmokeMeter.TypeEcoClassId.ToString()}," +
+                                    $"{(carModelSmokeMeter.TypeEcoClassId != null ? carModelSmokeMeter.TypeEcoClassId.ToString() : "null")}," +
                                     $"'{carModelSmokeMeter.Category}'," +
                                     $"{carModelSmokeMeter.EngineType.ToString()}," +
                                     $"{carModelSmokeMeter.MIN_TAH.ToString().Replace(",", ".")}," +
@@ -347,7 +347,7 @@ namespace Server
                             connection.Open();
                             var typeEcoClassv = connection.Query<TypeEcoClass>($"SELECT \"Id\", \"Name\" " +
                                 $"FROM public.\"TypeEcoClass\" " +
-                                $"WHERE \"Id\" = '{clientJsonData.carModelAutoTest.ID_ECOLOG.ToString()}' " +
+                                $"WHERE \"Name\" = '{clientJsonData.carModelAutoTest.TypeEcoName.ToString()}' " +
                                 $"ORDER BY \"Id\"");
                             typeEcoClass = typeEcoClassv.FirstOrDefault();
                         }
@@ -359,7 +359,7 @@ namespace Server
                         //Console.WriteLine($"{DateTime.Now} >> CarPost {carPostId}: Get model autotest started{Environment.NewLine}");
 
                         carModelAutoTest.Name = clientJsonData.carModelAutoTest.MODEL;
-                        carModelAutoTest.TypeEcoClassId = typeEcoClass.Id;
+                        carModelAutoTest.TypeEcoClassId = typeEcoClass?.Id;
                         carModelAutoTest.Category = clientJsonData.carModelAutoTest.CATEGORY;
                         carModelAutoTest.EngineType = clientJsonData.carModelAutoTest.DVIG;
                         carModelAutoTest.MIN_TAH = Convert.ToDecimal(clientJsonData.carModelAutoTest.MIN_TAH);
@@ -395,7 +395,7 @@ namespace Server
                                 $"\"DEL_MIN\", \"MAX_TAH\", \"DEL_MAX\", \"MIN_CO\", \"MAX_CO\", \"MIN_CH\", \"MAX_CH\", \"L_MIN\", \"L_MAX\", \"K_SVOB\", \"K_MAX\", \"ParadoxId\")" +
                                     $"VALUES({carModelAutoTest.CarPostId.ToString()}," +
                                     $"'{carModelAutoTest.Name}'," +
-                                    $"{carModelAutoTest.TypeEcoClassId.ToString()}," +
+                                    $"{(carModelAutoTest.TypeEcoClassId != null ? carModelAutoTest.TypeEcoClassId.ToString() : "null")}," +
                                     $"'{carModelAutoTest.Category}'," +
                                     $"{carModelAutoTest.EngineType.ToString()}," +
                                     $"{carModelAutoTest.MIN_TAH.ToString().Replace(",", ".")}," +
@@ -763,6 +763,8 @@ namespace Server
             catch (Exception ex)
             {
                 //Console.WriteLine($"{DateTime.Now} >> Error parse data >> {ex.Message}{Environment.NewLine}");
+                Logger.Log($"{carPostId}: Ошибка данных: {jsonString}");
+                return 0;
             }
             return 1;
         }
