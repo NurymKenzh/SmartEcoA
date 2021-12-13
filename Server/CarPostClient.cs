@@ -434,7 +434,7 @@ namespace Server
                             $"ORDER BY \"Id\"");
                         carModelSmokeMeter = carModelSmokeMetersv.FirstOrDefault();
 
-                        if (!string.IsNullOrEmpty(clientJsonData.carPostDataSmokeMeter.DopInfo.TesterName))
+                        if (!string.IsNullOrEmpty(clientJsonData.carPostDataSmokeMeter.DopInfo?.TesterName))
                         {
                             var testersv = connection.Query<Tester>($"SELECT \"Id\", \"Name\"" +
                                 $" FROM public.\"Tester\"" +
@@ -477,13 +477,26 @@ namespace Server
                             carPostDataSmokeMeter.MIN_NO = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.MIN_NO);
                             carPostDataSmokeMeter.MAX_NO = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.MAX_NO);
                             carPostDataSmokeMeter.CarModelSmokeMeterId = carModelSmokeMeter.Id;
-                            carPostDataSmokeMeter.Temperature = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.DopInfo?.TEMP);
-                            carPostDataSmokeMeter.Pressure = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.DopInfo?.PRESS);
-                            carPostDataSmokeMeter.GasSerialNumber = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.DopInfo?.N_AUTOTEST);
-                            carPostDataSmokeMeter.GasCheckDate = Convert.ToDateTime(clientJsonData.carPostDataSmokeMeter.DopInfo?.D_AUTOTEST);
-                            carPostDataSmokeMeter.MeteoSerialNumber = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.DopInfo?.N_METEO);
-                            carPostDataSmokeMeter.MeteoCheckDate = Convert.ToDateTime(clientJsonData.carPostDataSmokeMeter.DopInfo?.D_METEO);
-                            carPostDataSmokeMeter.TestNumber = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.DopInfo?.NUM_TEST);
+                            if (clientJsonData.carPostDataSmokeMeter.DopInfo is null)
+                            {
+                                carPostDataSmokeMeter.Temperature = null;
+                                carPostDataSmokeMeter.Pressure = null;
+                                carPostDataSmokeMeter.GasSerialNumber = null;
+                                carPostDataSmokeMeter.GasCheckDate = null;
+                                carPostDataSmokeMeter.MeteoSerialNumber = null;
+                                carPostDataSmokeMeter.MeteoCheckDate = null;
+                                carPostDataSmokeMeter.TestNumber = null;
+                            }
+                            else
+                            {
+                                carPostDataSmokeMeter.Temperature = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.DopInfo.TEMP);
+                                carPostDataSmokeMeter.Pressure = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.DopInfo.PRESS);
+                                carPostDataSmokeMeter.GasSerialNumber = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.DopInfo.N_AUTOTEST);
+                                carPostDataSmokeMeter.GasCheckDate = Convert.ToDateTime(clientJsonData.carPostDataSmokeMeter.DopInfo.D_AUTOTEST);
+                                carPostDataSmokeMeter.MeteoSerialNumber = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.DopInfo.N_METEO);
+                                carPostDataSmokeMeter.MeteoCheckDate = Convert.ToDateTime(clientJsonData.carPostDataSmokeMeter.DopInfo.D_METEO);
+                                carPostDataSmokeMeter.TestNumber = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.DopInfo.NUM_TEST);
+                            }
                             carPostDataSmokeMeter.TesterId = tester?.Id;
 
                             //Console.WriteLine($"{DateTime.Now} >> CarPost {carPostId}: Get data smokemeter finished{Environment.NewLine}");
@@ -538,29 +551,17 @@ namespace Server
                                            $"{carPostDataSmokeMeter.K_MAX.ToString().Replace(",", ".")}," +
                                            $"{carPostDataSmokeMeter.MIN_NO.ToString().Replace(",", ".")}," +
                                            $"{carPostDataSmokeMeter.MAX_NO.ToString().Replace(",", ".")}," +
-                                           $"{carPostDataSmokeMeter.Temperature.ToString().Replace(",", ".")}," +
-                                           $"{carPostDataSmokeMeter.Pressure.ToString().Replace(",", ".")}," +
-                                           $"{carPostDataSmokeMeter.GasSerialNumber.ToString().Replace(",", ".")}," +
-                                           $"make_timestamptz(" +
-                                               $"{carPostDataSmokeMeter.GasCheckDate.Value.Year.ToString()}, " +
-                                               $"{carPostDataSmokeMeter.GasCheckDate.Value.Month.ToString()}, " +
-                                               $"{carPostDataSmokeMeter.GasCheckDate.Value.Day.ToString()}, " +
-                                               $"{carPostDataSmokeMeter.GasCheckDate.Value.Hour.ToString()}, " +
-                                               $"{carPostDataSmokeMeter.GasCheckDate.Value.Minute.ToString()}, " +
-                                               $"{carPostDataSmokeMeter.GasCheckDate.Value.Second.ToString()})," +
-                                           $"{carPostDataSmokeMeter.MeteoSerialNumber.ToString().Replace(",", ".")}," +
-                                           $"make_timestamptz(" +
-                                               $"{carPostDataSmokeMeter.MeteoCheckDate.Value.Year.ToString()}, " +
-                                               $"{carPostDataSmokeMeter.MeteoCheckDate.Value.Month.ToString()}, " +
-                                               $"{carPostDataSmokeMeter.MeteoCheckDate.Value.Day.ToString()}, " +
-                                               $"{carPostDataSmokeMeter.MeteoCheckDate.Value.Hour.ToString()}, " +
-                                               $"{carPostDataSmokeMeter.MeteoCheckDate.Value.Minute.ToString()}, " +
-                                               $"{carPostDataSmokeMeter.MeteoCheckDate.Value.Second.ToString()}), " +
-                                           $"{carPostDataSmokeMeter.TestNumber.ToString().Replace(",", ".")}, " +
+                                           $"{(carPostDataSmokeMeter.Temperature != null ? carPostDataSmokeMeter.Temperature.ToString().Replace(",", ".") : "null")}," +
+                                           $"{(carPostDataSmokeMeter.Pressure != null ? carPostDataSmokeMeter.Pressure.ToString().Replace(",", ".") : "null")}," +
+                                           $"{(carPostDataSmokeMeter.GasSerialNumber != null ? carPostDataSmokeMeter.GasSerialNumber.ToString().Replace(",", ".") : "null")}," +
+                                           $"{(carPostDataSmokeMeter.GasCheckDate == null ? "null" : $"make_timestamptz({carPostDataSmokeMeter.GasCheckDate.Value.Year}, {carPostDataSmokeMeter.GasCheckDate.Value.Month}, {carPostDataSmokeMeter.GasCheckDate.Value.Day}, {carPostDataSmokeMeter.GasCheckDate.Value.Hour}, {carPostDataSmokeMeter.GasCheckDate.Value.Minute}, {carPostDataSmokeMeter.GasCheckDate.Value.Second})")}," +
+                                           $"{(carPostDataSmokeMeter.MeteoSerialNumber != null ? carPostDataSmokeMeter.MeteoSerialNumber.ToString().Replace(",", ".") : "null")}," +
+                                           $"{(carPostDataSmokeMeter.MeteoCheckDate == null ? "null" : $"make_timestamptz({carPostDataSmokeMeter.MeteoCheckDate.Value.Year}, {carPostDataSmokeMeter.MeteoCheckDate.Value.Month}, {carPostDataSmokeMeter.MeteoCheckDate.Value.Day}, {carPostDataSmokeMeter.MeteoCheckDate.Value.Hour}, {carPostDataSmokeMeter.MeteoCheckDate.Value.Minute}, {carPostDataSmokeMeter.MeteoCheckDate.Value.Second})")}," +
+                                           $"{(carPostDataSmokeMeter.TestNumber != null ? carPostDataSmokeMeter.TestNumber.ToString().Replace(",", ".") : "null")}, " +
                                            $"{(carPostDataSmokeMeter.TesterId != null ? carPostDataSmokeMeter.TesterId.ToString() : "null")}) RETURNING \"Id\";";
 
                                 id = connection.ExecuteScalar(execute);
-                                if (tester == null && id != null && !string.IsNullOrEmpty(clientJsonData.carPostDataSmokeMeter.DopInfo.TesterName))
+                                if (tester == null && id != null && !string.IsNullOrEmpty(clientJsonData.carPostDataSmokeMeter.DopInfo?.TesterName))
                                 {
                                     object testerId = null;
                                     string executeTester = $"INSERT INTO public.\"Tester\"(\"Name\")" +
@@ -598,7 +599,7 @@ namespace Server
                             $"ORDER BY \"Id\"");
                         carModelAutoTest = carModelAutoTestsv.FirstOrDefault();
 
-                        if (!string.IsNullOrEmpty(clientJsonData.carPostDataAutoTest.DopInfo.TesterName))
+                        if (!string.IsNullOrEmpty(clientJsonData.carPostDataAutoTest.DopInfo?.TesterName))
                         {
                             //var testersv = connection.Query<Tester>($"SELECT tester.\"Id\", tester.\"Name\" " +
                             //    $"FROM public.\"Tester\" as tester " +
@@ -647,13 +648,26 @@ namespace Server
                             carPostDataAutoTest.MIN_NO = Convert.ToDecimal(clientJsonData.carPostDataAutoTest.MIN_NO);
                             carPostDataAutoTest.MAX_NO = Convert.ToDecimal(clientJsonData.carPostDataAutoTest.MAX_NO);
                             carPostDataAutoTest.CarModelAutoTestId = carModelAutoTest.Id;
-                            carPostDataAutoTest.Temperature = Convert.ToDecimal(clientJsonData.carPostDataAutoTest.DopInfo?.TEMP);
-                            carPostDataAutoTest.Pressure = Convert.ToDecimal(clientJsonData.carPostDataAutoTest.DopInfo?.PRESS);
-                            carPostDataAutoTest.GasSerialNumber = Convert.ToDecimal(clientJsonData.carPostDataAutoTest.DopInfo?.N_AUTOTEST);
-                            carPostDataAutoTest.GasCheckDate = Convert.ToDateTime(clientJsonData.carPostDataAutoTest.DopInfo?.D_AUTOTEST);
-                            carPostDataAutoTest.MeteoSerialNumber = Convert.ToDecimal(clientJsonData.carPostDataAutoTest.DopInfo?.N_METEO);
-                            carPostDataAutoTest.MeteoCheckDate = Convert.ToDateTime(clientJsonData.carPostDataAutoTest.DopInfo?.D_METEO);
-                            carPostDataAutoTest.TestNumber = Convert.ToDecimal(clientJsonData.carPostDataAutoTest.DopInfo?.NUM_TEST);
+                            if (clientJsonData.carPostDataSmokeMeter.DopInfo is null)
+                            {
+                                carPostDataAutoTest.Temperature = null;
+                                carPostDataAutoTest.Pressure = null;
+                                carPostDataAutoTest.GasSerialNumber = null;
+                                carPostDataAutoTest.GasCheckDate = null;
+                                carPostDataAutoTest.MeteoSerialNumber = null;
+                                carPostDataAutoTest.MeteoCheckDate = null;
+                                carPostDataAutoTest.TestNumber = null;
+                            }
+                            else
+                            {
+                                carPostDataAutoTest.Temperature = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.DopInfo.TEMP);
+                                carPostDataAutoTest.Pressure = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.DopInfo.PRESS);
+                                carPostDataAutoTest.GasSerialNumber = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.DopInfo.N_AUTOTEST);
+                                carPostDataAutoTest.GasCheckDate = Convert.ToDateTime(clientJsonData.carPostDataSmokeMeter.DopInfo.D_AUTOTEST);
+                                carPostDataAutoTest.MeteoSerialNumber = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.DopInfo.N_METEO);
+                                carPostDataAutoTest.MeteoCheckDate = Convert.ToDateTime(clientJsonData.carPostDataSmokeMeter.DopInfo.D_METEO);
+                                carPostDataAutoTest.TestNumber = Convert.ToDecimal(clientJsonData.carPostDataSmokeMeter.DopInfo.NUM_TEST);
+                            }
                             carPostDataAutoTest.TesterId = tester?.Id;
 
                             //Console.WriteLine($"{DateTime.Now} >> CarPost {carPostId}: Get data autotest finished{Environment.NewLine}");
@@ -707,29 +721,17 @@ namespace Server
                                             $"{carPostDataAutoTest.K_MAX.ToString().Replace(",", ".")}," +
                                             $"{carPostDataAutoTest.MIN_NO.ToString().Replace(",", ".")}," +
                                             $"{carPostDataAutoTest.MAX_NO.ToString().Replace(",", ".")}," +
-                                            $"{carPostDataAutoTest.Temperature.ToString().Replace(",", ".")}," +
-                                            $"{carPostDataAutoTest.Pressure.ToString().Replace(",", ".")}," +
-                                            $"{carPostDataAutoTest.GasSerialNumber.ToString().Replace(",", ".")}," +
-                                            $"make_timestamptz(" +
-                                                $"{carPostDataAutoTest.GasCheckDate.Value.Year.ToString()}, " +
-                                                $"{carPostDataAutoTest.GasCheckDate.Value.Month.ToString()}, " +
-                                                $"{carPostDataAutoTest.GasCheckDate.Value.Day.ToString()}, " +
-                                                $"{carPostDataAutoTest.GasCheckDate.Value.Hour.ToString()}, " +
-                                                $"{carPostDataAutoTest.GasCheckDate.Value.Minute.ToString()}, " +
-                                                $"{carPostDataAutoTest.GasCheckDate.Value.Second.ToString()})," +
-                                            $"{carPostDataAutoTest.MeteoSerialNumber.ToString().Replace(",", ".")}," +
-                                            $"make_timestamptz(" +
-                                                $"{carPostDataAutoTest.MeteoCheckDate.Value.Year.ToString()}, " +
-                                                $"{carPostDataAutoTest.MeteoCheckDate.Value.Month.ToString()}, " +
-                                                $"{carPostDataAutoTest.MeteoCheckDate.Value.Day.ToString()}, " +
-                                                $"{carPostDataAutoTest.MeteoCheckDate.Value.Hour.ToString()}, " +
-                                                $"{carPostDataAutoTest.MeteoCheckDate.Value.Minute.ToString()}, " +
-                                                $"{carPostDataAutoTest.MeteoCheckDate.Value.Second.ToString()}), " +
-                                            $"{carPostDataAutoTest.TestNumber.ToString().Replace(",", ".")}, " +
-                                            $"{(carPostDataAutoTest.TesterId != null ? carPostDataAutoTest.TesterId.ToString() : "null")}) RETURNING \"Id\";";
+                                            $"{(carPostDataAutoTest.Temperature != null ? carPostDataAutoTest.Temperature.ToString().Replace(",", ".") : "null")}," +
+                                           $"{(carPostDataAutoTest.Pressure != null ? carPostDataAutoTest.Pressure.ToString().Replace(",", ".") : "null")}," +
+                                           $"{(carPostDataAutoTest.GasSerialNumber != null ? carPostDataAutoTest.GasSerialNumber.ToString().Replace(",", ".") : "null")}," +
+                                           $"{(carPostDataAutoTest.GasCheckDate == null ? "null" : $"make_timestamptz({carPostDataAutoTest.GasCheckDate.Value.Year}, {carPostDataAutoTest.GasCheckDate.Value.Month}, {carPostDataAutoTest.GasCheckDate.Value.Day}, {carPostDataAutoTest.GasCheckDate.Value.Hour}, {carPostDataAutoTest.GasCheckDate.Value.Minute}, {carPostDataAutoTest.GasCheckDate.Value.Second})")}," +
+                                           $"{(carPostDataAutoTest.MeteoSerialNumber != null ? carPostDataAutoTest.MeteoSerialNumber.ToString().Replace(",", ".") : "null")}," +
+                                           $"{(carPostDataAutoTest.MeteoCheckDate == null ? "null" : $"make_timestamptz({carPostDataAutoTest.MeteoCheckDate.Value.Year}, {carPostDataAutoTest.MeteoCheckDate.Value.Month}, {carPostDataAutoTest.MeteoCheckDate.Value.Day}, {carPostDataAutoTest.MeteoCheckDate.Value.Hour}, {carPostDataAutoTest.MeteoCheckDate.Value.Minute}, {carPostDataAutoTest.MeteoCheckDate.Value.Second})")}," +
+                                           $"{(carPostDataAutoTest.TestNumber != null ? carPostDataAutoTest.TestNumber.ToString().Replace(",", ".") : "null")}, " +
+                                           $"{(carPostDataAutoTest.TesterId != null ? carPostDataAutoTest.TesterId.ToString() : "null")}) RETURNING \"Id\";";
 
                                 id = connection.ExecuteScalar(execute);
-                                if (tester == null && id != null && !string.IsNullOrEmpty(clientJsonData.carPostDataAutoTest.DopInfo.TesterName))
+                                if (tester == null && id != null && !string.IsNullOrEmpty(clientJsonData.carPostDataAutoTest.DopInfo?.TesterName))
                                 {
                                     object testerId = null;
                                     string executeTester = $"INSERT INTO public.\"Tester\"(\"Name\")" +
