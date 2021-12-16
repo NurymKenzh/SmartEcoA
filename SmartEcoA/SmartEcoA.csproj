@@ -11,6 +11,15 @@
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
     <UserSecretsId>9fecf69d-e3a8-41a5-aff8-53d087b9e5f8</UserSecretsId>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
@@ -160,6 +169,8 @@
     <None Remove="ClientApp\src\app\reports\createcarpostdatasmokemeterlog.component.ts" />
     <None Remove="ClientApp\src\app\reports\createcarpostdatasmokemeterprotocol.component.ts" />
     <None Remove="ClientApp\src\app\reports\createcarposts.component.ts" />
+    <None Remove="ClientApp\src\app\reports\createcarpostsprotocol.component.ts" />
+    <None Remove="ClientApp\src\app\reports\createcarsexcessprotocol.component.ts" />
     <None Remove="ClientApp\src\app\reports\delete.component.ts" />
     <None Remove="ClientApp\src\app\reports\details.component.ts" />
     <None Remove="ClientApp\src\app\reports\list.component.ts" />
@@ -475,6 +486,8 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\reports\createcarpostdataautotestlog.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\reports\createcarsexcessprotocol.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\reports\createcarpostsprotocol.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\reports\createcarpostdatasmokemeterlog.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\reports\createcarpostdatasmokemeterprotocol.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\reports\createcarpostdataautotestprotocol.component.ts" />

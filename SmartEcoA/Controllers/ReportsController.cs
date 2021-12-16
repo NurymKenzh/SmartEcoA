@@ -156,6 +156,14 @@ namespace SmartEcoA.Controllers
                 case "Vehicle Emission Test Results Log (Gasoline)":
                     report = CreateCarPostDataAutoTestLog(report);
                     break;
+                // CarPostsProtocol
+                case "Report car posts for the day":
+                    report = CreateCarPostsProtocol(report);
+                    break;
+                // CarsExcessProtocol
+                case "Report on repeated exceedances cars at posts":
+                    report = CreateCarsExcessProtocol(report);
+                    break;
                 }
                 if (report.PDF)
                 {
@@ -469,6 +477,221 @@ namespace SmartEcoA.Controllers
             return report;
         }
 
+        private Report CreateCarPostsProtocol(Report report)
+        {
+            string userReportFolder = Path.Combine(Startup.Configuration["ReportsFolder"].ToString(), report.ApplicationUserId);
+            if (!Directory.Exists(userReportFolder))
+            {
+                Directory.CreateDirectory(userReportFolder);
+            }
+            report.FileName = $"{report.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name} {report.CarPostStartDate.Value.ToString("yyyy-MM-dd")} (MS Word).docx";
+            string reportFileNameFull = Path.Combine(userReportFolder, report.FileName);
+
+            var carPostsDataAutoTest = _context.CarPostDataAutoTest
+                .Include(c => c.CarModelAutoTest)
+                .Include(c => c.CarModelAutoTest.CarPost)
+                .Where(c => c.DateTime.Value.Year == report.CarPostStartDate.Value.Year && c.DateTime.Value.Month == report.CarPostStartDate.Value.Month && c.DateTime.Value.Day == report.CarPostStartDate.Value.Day)
+                .ToList();
+            var carPostsDataSmokeMeter = _context.CarPostDataSmokeMeter
+                .Include(c => c.CarModelSmokeMeter)
+                .Include(c => c.CarModelSmokeMeter.CarPost)
+                .Where(c => c.DateTime.Value.Year == report.CarPostStartDate.Value.Year && c.DateTime.Value.Month == report.CarPostStartDate.Value.Month && c.DateTime.Value.Day == report.CarPostStartDate.Value.Day)
+                .ToList();
+
+            var carPosts = _context.CarPost
+                .ToList();
+
+            report.InputParametersEN = $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPostStartDate"]}={Convert.ToDateTime(report.CarPostStartDate).ToString("yyyy-MM-dd")};";
+            report.InputParametersRU = $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarPostStartDate"]}={Convert.ToDateTime(report.CarPostStartDate).ToString("yyyy-MM-dd")};";
+            report.InputParametersKK = $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarPostStartDate"]}={Convert.ToDateTime(report.CarPostStartDate).ToString("yyyy-MM-dd")};";
+
+            string reportTemplateFileNameFull = Path.Combine(Startup.Configuration["ReportsTeplatesFolder"].ToString(), report.NameRU);
+            reportTemplateFileNameFull = Path.ChangeExtension(reportTemplateFileNameFull, "docx");
+            System.IO.File.Copy(reportTemplateFileNameFull, reportFileNameFull);
+
+            using (WordprocessingDocument wordDoc = WordprocessingDocument.Open(reportFileNameFull, true))
+            {
+                string docText = null;
+                using (StreamReader sr = new StreamReader(wordDoc.MainDocumentPart.GetStream()))
+                {
+                    docText = sr.ReadToEnd();
+                }
+
+                docText = new Regex("MeasuredDate").Replace(docText, report.CarPostStartDate.Value.ToString("dd MMMM yyyy", new CultureInfo("ru-RU")) + " г.");
+
+                using (StreamWriter sw = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.Create)))
+                {
+                    sw.Write(docText);
+                }
+
+                Body body = wordDoc.MainDocumentPart.Document.Body;
+                Table table = body.Elements<Table>().First();
+                List<TableRow> rows = table.Elements<TableRow>().ToList();
+                int fontSize = 20;
+
+                foreach (var carPost in carPosts)
+                {
+                    var carPostDataAutoTest = carPostsDataAutoTest
+                        .Where(c => c.CarModelAutoTest.CarPost.Id == carPost.Id);
+
+                    var carPostDataSmokeMeter = carPostsDataSmokeMeter
+                        .Where(c => c.CarModelSmokeMeter.CarPost.Id == carPost.Id);
+
+                    var amountExceedGasoline = carPostDataAutoTest
+                        .Where(c => c.MIN_CO > c.CarModelAutoTest.MIN_CO || c.MAX_CO > c.CarModelAutoTest.MAX_CO ||
+                                c.MIN_CH > c.CarModelAutoTest.MIN_CH || c.MAX_CH > c.CarModelAutoTest.MAX_CH)
+                        .Count();
+
+                    var amountExceedDiesel = carPostDataSmokeMeter
+                        .Where(c => c.K_SVOB > c.CarModelSmokeMeter.K_SVOB || c.K_MAX > c.CarModelSmokeMeter.K_MAX)
+                        .Count();
+
+                    var amountExceedCO = carPostDataAutoTest
+                        .Where(c => c.MIN_CO > c.CarModelAutoTest.MIN_CO || c.MAX_CO > c.CarModelAutoTest.MAX_CO)
+                        .Count();
+
+                    var amountExceedKSVOB = carPostDataSmokeMeter
+                        .Where(c => c.K_SVOB > c.CarModelSmokeMeter.K_SVOB)
+                        .Count();
+
+                    rows[0].Append(SetTableCell($"{carPost.Name.Split(' ')[1].Replace("\"", "")}", fontSize));
+                    rows[1].Append(SetTableCell($"{carPostDataAutoTest.Count() + carPostDataSmokeMeter.Count()}", fontSize));
+                    rows[2].Append(SetTableCell($"{carPostDataAutoTest.Count()}", fontSize));
+                    rows[3].Append(SetTableCell($"{carPostDataSmokeMeter.Count()}", fontSize));
+                    rows[4].Append(SetTableCell($"{amountExceedGasoline + amountExceedDiesel}", fontSize));
+                    rows[5].Append(SetTableCell($"{amountExceedCO}", fontSize));
+                    rows[6].Append(SetTableCell($"{amountExceedKSVOB}", fontSize));
+                }
+
+                var amountExceedGasolineTotal = carPostsDataAutoTest
+                    .Where(c => c.MIN_CO > c.CarModelAutoTest.MIN_CO || c.MAX_CO > c.CarModelAutoTest.MAX_CO ||
+                                c.MIN_CH > c.CarModelAutoTest.MIN_CH || c.MAX_CH > c.CarModelAutoTest.MAX_CH)
+                    .Count();
+
+                var amountExceedDieselTotal = carPostsDataSmokeMeter
+                    .Where(c => c.K_SVOB > c.CarModelSmokeMeter.K_SVOB || c.K_MAX > c.CarModelSmokeMeter.K_MAX)
+                    .Count();
+
+                var amountExceedCOTotal = carPostsDataAutoTest
+                    .Where(c => c.MIN_CO > c.CarModelAutoTest.MIN_CO || c.MAX_CO > c.CarModelAutoTest.MAX_CO)
+                    .Count();
+
+                var amountExceedKSVOBTotal = carPostsDataSmokeMeter
+                    .Where(c => c.K_SVOB > c.CarModelSmokeMeter.K_SVOB)
+                    .Count();
+
+                rows[0].Append(SetTableCell($"Всего", fontSize));
+                rows[1].Append(SetTableCell($"{carPostsDataAutoTest.Count() + carPostsDataSmokeMeter.Count()}", fontSize));
+                rows[2].Append(SetTableCell($"{carPostsDataAutoTest.Count()}", fontSize));
+                rows[3].Append(SetTableCell($"{carPostsDataSmokeMeter.Count()}", fontSize));
+                rows[4].Append(SetTableCell($"{amountExceedGasolineTotal + amountExceedDieselTotal}", fontSize));
+                rows[5].Append(SetTableCell($"{amountExceedCOTotal}", fontSize));
+                rows[6].Append(SetTableCell($"{amountExceedKSVOBTotal}", fontSize));
+
+                using (StreamWriter sw = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.OpenOrCreate)))
+                {
+                    sw.Write(docText);
+                }
+            }
+            return report;
+        }
+
+        private Report CreateCarsExcessProtocol(Report report)
+        {
+            string userReportFolder = Path.Combine(Startup.Configuration["ReportsFolder"].ToString(), report.ApplicationUserId);
+            if (!Directory.Exists(userReportFolder))
+            {
+                Directory.CreateDirectory(userReportFolder);
+            }
+            report.FileName = $"{report.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name} (MS Word).docx";
+            string reportFileNameFull = Path.Combine(userReportFolder, report.FileName);
+
+            var amountExceedGasoline = _context.CarPostDataAutoTest
+                .Include(c => c.CarModelAutoTest)
+                .Include(c => c.CarModelAutoTest.CarPost)
+                .Where(c => report.CarPostStartDate <= c.DateTime && c.DateTime <= report.CarPostEndDate)
+                .Where(c => c.MIN_CO > c.CarModelAutoTest.MIN_CO || c.MAX_CO > c.CarModelAutoTest.MAX_CO ||
+                                c.MIN_CH > c.CarModelAutoTest.MIN_CH || c.MAX_CH > c.CarModelAutoTest.MAX_CH)
+                .OrderBy(c => c.DateTime)
+                .ToList();
+
+            var amountExceedDiesel = _context.CarPostDataSmokeMeter
+                .Include(c => c.CarModelSmokeMeter)
+                .Include(c => c.CarModelSmokeMeter.CarPost)
+                .Where(c => report.CarPostStartDate <= c.DateTime && c.DateTime <= report.CarPostEndDate)
+                .Where(c => c.K_SVOB > c.CarModelSmokeMeter.K_SVOB || c.K_MAX > c.CarModelSmokeMeter.K_MAX)
+                .OrderBy(c => c.DateTime)
+                .ToList();
+
+            var repeatedExceedancesGasoline = amountExceedGasoline
+                .GroupBy(x => x.Number)
+                .Where(g => g.Count() >= 2)
+                .ToList();
+            var repeatedExceedancesDiesel = amountExceedDiesel
+                .GroupBy(x => x.Number)
+                .Where(g => g.Count() >= 2)
+                .ToList();
+
+            report.InputParametersEN = $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["StartDate"]}={Convert.ToDateTime(report.CarPostStartDate).ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["EndDate"]}={Convert.ToDateTime(report.CarPostEndDate).ToString("yyyy-MM-dd")};";
+            report.InputParametersRU = $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["StartDate"]}={Convert.ToDateTime(report.CarPostStartDate).ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["EndDate"]}={Convert.ToDateTime(report.CarPostEndDate).ToString("yyyy-MM-dd")};";
+            report.InputParametersKK = $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["StartDate"]}={Convert.ToDateTime(report.CarPostStartDate).ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["EndDate"]}={Convert.ToDateTime(report.CarPostEndDate).ToString("yyyy-MM-dd")};";
+
+            string reportTemplateFileNameFull = Path.Combine(Startup.Configuration["ReportsTeplatesFolder"].ToString(), report.NameRU);
+            reportTemplateFileNameFull = Path.ChangeExtension(reportTemplateFileNameFull, "docx");
+            System.IO.File.Copy(reportTemplateFileNameFull, reportFileNameFull);
+
+            using (WordprocessingDocument wordDoc = WordprocessingDocument.Open(reportFileNameFull, true))
+            {
+                string docText = null;
+                using (StreamReader sr = new StreamReader(wordDoc.MainDocumentPart.GetStream()))
+                {
+                    docText = sr.ReadToEnd();
+                }
+
+                docText = new Regex("StartDate").Replace(docText, report.CarPostStartDate.Value.ToString("dd MMMM yyyy", new CultureInfo("ru-RU")) + " г.");
+                docText = new Regex("EndDate").Replace(docText, report.CarPostEndDate.Value.ToString("dd MMMM yyyy", new CultureInfo("ru-RU")) + " г.");
+
+                using (StreamWriter sw = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.Create)))
+                {
+                    sw.Write(docText);
+                }
+
+                Body body = wordDoc.MainDocumentPart.Document.Body;
+                Table table = body.Elements<Table>().First();
+                int fontSize = 24;
+                for (int i = 0; i < repeatedExceedancesGasoline.Count; i++)
+                {
+                    table.Append(
+                        new TableRow(
+                            SetTableCell($"{repeatedExceedancesGasoline[i].Key}", fontSize),
+                            SetTableCell($"{repeatedExceedancesGasoline[i].First().CarModelAutoTest.Name}", fontSize),
+                            SetTableCell($"{repeatedExceedancesGasoline[i].First().DOPOL1}", fontSize),
+                            SetTableCell($"{repeatedExceedancesGasoline[i].Count()}", fontSize),
+                            SetTableCell($"{(repeatedExceedancesGasoline[i].First().CarModelAutoTest.EngineType == 1 ? "дизель" : "бензин")}", fontSize)));
+                }
+                for (int i = 0; i < repeatedExceedancesDiesel.Count; i++)
+                {
+                    table.Append(
+                        new TableRow(
+                            SetTableCell($"{repeatedExceedancesDiesel[i].Key}", fontSize),
+                            SetTableCell($"{repeatedExceedancesDiesel[i].First().CarModelSmokeMeter.Name}", fontSize),
+                            SetTableCell($"{repeatedExceedancesDiesel[i].First().DOPOL1}", fontSize),
+                            SetTableCell($"{repeatedExceedancesDiesel[i].Count()}", fontSize),
+                            SetTableCell($"{(repeatedExceedancesDiesel[i].First().CarModelSmokeMeter.EngineType == 1 ? "дизель" : "бензин")}", fontSize)));
+                }
+
+                using (StreamWriter sw = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.Create)))
+                {
+                    sw.Write(docText);
+                }
+            }
+
+            return report;
+        }
+
         // DELETE: api/Reports/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Administrator, Moderator, Customer")]
@@ -549,6 +772,55 @@ namespace SmartEcoA.Controllers
         private bool ReportExists(int id)
         {
             return _context.Report.Any(e => e.Id == id);
+        }
+
+        private TableCell SetTableCell(string text, int fontSize)
+        {
+            TableCell tableCell = new TableCell();
+
+            //create the cell properties
+            TableCellProperties tcp = new TableCellProperties();
+            //create the vertial alignment properties
+            TableCellVerticalAlignment tcVA = new TableCellVerticalAlignment() 
+            { 
+                Val = TableVerticalAlignmentValues.Center
+            };
+            tcp.Append(tcVA);
+            tableCell.Append(tcp);
+            tableCell.Append(SetParagraphStyle(text, fontSize));
+
+            return tableCell;
+        }
+
+        private Paragraph SetParagraphStyle(string text, int fontSize)
+        {
+            //paragraph properties 
+            ParagraphProperties User_heading_pPr = new ParagraphProperties();
+            //trying to align center a paragraph
+            Justification justification = new Justification() { Val = JustificationValues.Center };
+            User_heading_pPr.Append(justification);
+
+            RunProperties runProperties = new RunProperties()
+            {
+                RunFonts = new RunFonts()
+                {
+                    Ascii = "Times New Roman",
+                    HighAnsi = "Times New Roman",
+                    ComplexScript = "Times New Roman"
+                },
+                FontSize = new FontSize()
+                {
+                    Val = fontSize.ToString()
+                }
+            };
+
+            Run run = new Run(runProperties);
+            run.Append(new Text($"{text}"));
+
+            Paragraph paragraph = new Paragraph(User_heading_pPr);
+            paragraph.Append(run);
+
+            return paragraph;
         }
     }
 }
