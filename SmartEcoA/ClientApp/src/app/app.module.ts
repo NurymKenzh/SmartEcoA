@@ -206,6 +206,13 @@ import { CarPostAnalyticCreateComponent } from './carpostanalytics/create.compon
 import { CarPostAnalyticEditComponent } from './carpostanalytics/edit.component';
 import { CarPostAnalyticDetailsComponent } from './carpostanalytics/details.component';
 
+import { AppealCitizensComponent } from './appealcitizens/appealcitizens.component';
+import { AppealCitizenService } from './appealcitizens/appealcitizen.service';
+import { AppealCitizensListComponent } from './appealcitizens/list.component';
+import { AppealCitizenCreateComponent } from './appealcitizens/create.component';
+import { AppealCitizenCreateAnswerComponent } from './appealcitizens/createanswer.component';
+import { AppealCitizenDeleteComponent } from './appealcitizens/delete.component';
+
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { NgxPrintModule } from 'ngx-print';
 
@@ -336,7 +343,12 @@ export function createTranslateLoader(http: HttpClient) {
     CarPostAnalyticDeleteComponent,
     CarPostAnalyticCreateComponent,
     CarPostAnalyticEditComponent,
-    CarPostAnalyticDetailsComponent
+    CarPostAnalyticDetailsComponent,
+    AppealCitizensComponent,
+    AppealCitizensListComponent,
+    AppealCitizenCreateComponent,
+    AppealCitizenCreateAnswerComponent,
+    AppealCitizenDeleteComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -429,6 +441,10 @@ export function createTranslateLoader(http: HttpClient) {
       { path: 'carpostanalytics/create', component: CarPostAnalyticCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'carpostanalytics/edit/:id', component: CarPostAnalyticEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
       { path: 'carpostanalytics/:id', component: CarPostAnalyticDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator'] } },
+      { path: 'appealcitizens', component: AppealCitizensComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
+      { path: 'appealcitizens/create', component: AppealCitizenCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
+      { path: 'appealcitizens/delete', component: AppealCitizenDeleteComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
+      { path: 'appealcitizens/createanswer/:id', component: AppealCitizenCreateAnswerComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator', 'Moderator', 'Customer'] } },
     ]),
     BrowserAnimationsModule,
     ReactiveFormsModule,
@@ -491,6 +507,7 @@ export function createTranslateLoader(http: HttpClient) {
     TypeEcoClassService,
     TesterService,
     CarPostAnalyticService,
+    AppealCitizenService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizeInterceptor,

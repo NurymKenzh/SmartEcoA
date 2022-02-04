@@ -615,11 +615,42 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="AppealCitizens" datatype="html">
+        <source>Appeal of citizens</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/nav/nav.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/appealcitizens.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/appealcitizens.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/create.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/create.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/createanswer.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/createanswer.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Register" datatype="html">
         <source>Register</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/nav/nav.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">23</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/users/register.component.html</context>
@@ -638,7 +669,7 @@
         <source>Log in</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/nav/nav.component.html</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">24</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/users/login.component.html</context>
@@ -653,7 +684,7 @@
         <source>Log out</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/nav/nav.component.html</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Language" datatype="html">
@@ -1049,6 +1080,22 @@
           <context context-type="sourcefile">app/carpostanalytics/list.component.html</context>
           <context context-type="linenumber">34</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/delete.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/delete.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/list.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/list.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="AreYouSureDeleteThisRecord" datatype="html">
         <source>Are you sure to delete this record?</source>
@@ -1112,6 +1159,10 @@
           <context context-type="sourcefile">app/carpostanalytics/delete.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/delete.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Cancel" datatype="html">
         <source>Cancel</source>
@@ -1145,7 +1196,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/reports/createcarpostsprotocol.component.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">42</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/reports/createcarsexcessprotocol.component.html</context>
@@ -1306,6 +1357,18 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/carpostanalytics/edit.component.html</context>
           <context context-type="linenumber">36</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/delete.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/create.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/createanswer.component.html</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Filter" datatype="html">
@@ -2998,10 +3061,6 @@
           <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/reports/createcarpostsprotocol.component.html</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">app/postdatas/list.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
@@ -3053,6 +3112,10 @@
           <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostsprotocol.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/reports/createcarsexcessprotocol.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
@@ -3069,6 +3132,10 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/reports/createcarpostdataautotestlog.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/reports/createcarpostsprotocol.component.html</context>
           <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
@@ -3239,7 +3306,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/reports/createcarpostsprotocol.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">41</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/reports/createcarsexcessprotocol.component.html</context>
@@ -3348,6 +3415,18 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/carpostanalytics/create.component.html</context>
           <context context-type="linenumber">35</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/list.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/create.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/createanswer.component.html</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Name" datatype="html">
@@ -3756,7 +3835,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="CreateCarPostsProtocol" datatype="html">
-        <source>Create Report car posts for the day</source>
+        <source>Create Report car posts for the period</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/reports/createcarposts.component.html</context>
           <context context-type="linenumber">29</context>
@@ -3820,7 +3899,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/reports/createcarpostsprotocol.component.html</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">31</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/reports/createcarsexcessprotocol.component.html</context>
@@ -3989,6 +4068,10 @@
           <context context-type="sourcefile">app/testers/edit.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/create.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="NameEnglishRequired" datatype="html">
         <source>Name (English) is required</source>
@@ -4122,6 +4205,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/testers/edit.component.html</context>
           <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/create.component.html</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="NameRussian" datatype="html">
@@ -7149,6 +7236,75 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/carpostanalytics/details.component.html</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ToAnswer" datatype="html">
+        <source>To Answer</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/list.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/createanswer.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/createanswer.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Administrator" datatype="html">
+        <source>Administrator</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/list.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ToQuestion" datatype="html">
+        <source>To Question</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/create.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/create.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="NameUser" datatype="html">
+        <source>NameUser</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/create.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="NameUserRequired" datatype="html">
+        <source>Name is required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/create.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Text" datatype="html">
+        <source>Text</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/create.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/createanswer.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="TextRequired" datatype="html">
+        <source>Text is required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/create.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/appealcitizens/createanswer.component.html</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
     </body>

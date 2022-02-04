@@ -8,18 +8,24 @@
   <a i18n-matTooltip="@@CarPosts" class="btn" [routerLink]="['/reports/create/carposts']" matTooltip="Car Posts">
     <span i18n="@@CarPosts">Car Posts</span>
   </a> /
-  <a i18n-matTooltip="@@CreateCarPostsProtocol" class="btn" matTooltip="Create Report car posts for the day">
-    <span i18n="@@CreateCarPostsProtocol">Create Report car posts for the day</span>
+  <a i18n-matTooltip="@@CreateCarPostsProtocol" class="btn" matTooltip="Create Report car posts for the period">
+    <span i18n="@@CreateCarPostsProtocol">Create Report car posts for the period</span>
   </a>
   <br />
   <form [formGroup]="reportForm" autocomplete="off" novalidate (ngSubmit)="create(reportForm.value)">
     <mat-card-content>
 
       <mat-form-field>
-        <mat-label i18n="@@Date">Date</mat-label>
-        <input matInput [matDatepicker]="picker" [formControl]="CarPostDate">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <mat-label i18n="@@StartDate">Start Date</mat-label>
+        <input matInput [matDatepicker]="picker1" [formControl]="CarPostStartDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="not-first">
+        <mat-label i18n="@@EndDate">End Date</mat-label>
+        <input matInput [matDatepicker]="picker2" [min]="CarPostStartDate.value" [formControl]="CarPostEndDate">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
       <mat-form-field class="not-first">
         <mat-label i18n="@@TypeReport">Type Report</mat-label>

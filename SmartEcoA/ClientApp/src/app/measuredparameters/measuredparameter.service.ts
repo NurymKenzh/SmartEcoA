@@ -12,6 +12,8 @@ export class MeasuredParameterService {
 
   public get(Id?) {
     if (Id) {
+      console.log(Id);
+      console.log(this.baseUrl + this.apiUrl + Id);
       return this.http.get(this.baseUrl + this.apiUrl + Id);
     } else {
       return this.http.get(this.baseUrl + this.apiUrl);

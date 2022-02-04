@@ -1,0 +1,30 @@
+<mat-card>
+  <a i18n-matTooltip="@@AppealCitizens" class="btn" [routerLink]="['/appealcitizens']" matTooltip="AppealCitizens">
+    <span i18n="@@AppealCitizens">Appeal of citizens</span>
+  </a> /
+  <a i18n-matTooltip="@@ToAnswer" class="btn" matTooltip="To Answer">
+    <span i18n="@@ToAnswer">To Answer</span>
+  </a>
+  <br />
+  <form [formGroup]="answerForm" autocomplete="off" novalidate (ngSubmit)="create(answerForm.value)">
+    <mat-card>
+      <mat-card-title>
+        <p class="h5">{{questionForAnswer?.Name}}</p>
+      </mat-card-title>
+      <mat-card-content>
+        <p>{{questionForAnswer?.Text}}</p>
+      </mat-card-content>
+    </mat-card>
+      <mat-card-content>
+        <mat-form-field style="width: 500px;">
+          <textarea rows="20" i18n-placeholder="@@Text" matInput type="text" placeholder="Text" formControlName="Text" id="text"></textarea>
+          <mat-error i18n="@@TextRequired" *ngIf="error('Text', 'required')">Text is required</mat-error>
+        </mat-form-field>
+        <br />
+      </mat-card-content>
+      <mat-card-actions align="center">
+        <button i18n="@@Create" mat-raised-button color="primary" [disabled]="!answerForm.valid">Create</button>
+        <button i18n="@@Cancel" type="button" mat-raised-button color="warn" (click)="cancel()">Cancel</button>
+      </mat-card-actions>
+</form>
+</mat-card>

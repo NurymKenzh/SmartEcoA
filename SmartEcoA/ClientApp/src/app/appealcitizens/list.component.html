@@ -1,0 +1,36 @@
+<a i18n-matTooltip="@@Create" class="btn" [routerLink]="['/appealcitizens/create']" matTooltip="Create"><i class="material-icons">add</i></a>
+
+<div class="mb-4" *ngFor="let questionAndAnswer of questionAndAnswers">
+  <mat-card class="mb-1">
+    <mat-card-title>
+      <span class="h5">{{questionAndAnswer?.Question.Name}}</span>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <span>{{questionAndAnswer?.Question.DateTime}}</span>
+    </mat-card-subtitle>
+    <br />
+    <mat-card-content>
+      <p>{{questionAndAnswer?.Question.Text}}</p>
+    </mat-card-content>
+    <mat-card-actions align="right">
+      <a i18n="@@ToAnswer" class="btn" *ngIf="userService.authorizedUser() && userService.allowedRole(['Administrator', 'Moderator'])" mat-raised-button color="aqua" [routerLink]="['/appealcitizens/createanswer', questionAndAnswer?.Question.Id]">To Answer</a>
+      <button i18n="@@Delete" *ngIf="userService.authorizedUser() && (userService.allowedRole(['Administrator', 'Moderator']) || authorizedUser.Email == questionAndAnswer.Question.ApplicationUser.Email)" type="button" mat-raised-button color="warn" (click)="deleteQuestion(questionAndAnswer?.Question.Id)">Delete</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card style="background-color:lavender; left:15%; width:85%;" class="mb-1" *ngFor="let answer of questionAndAnswer.Answers">
+    <mat-card-title>
+      <span class="h5" i18n="@@Administrator">Administrator</span>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <span>{{answer.DateTime}}</span>
+    </mat-card-subtitle>
+    <br />
+    <mat-card-content>
+      <p>{{answer.Text}}</p>
+    </mat-card-content>
+    <mat-card-actions align="right">
+      <button i18n="@@Delete" *ngIf="userService.authorizedUser() && userService.allowedRole(['Administrator', 'Moderator'])" type="button" mat-raised-button color="warn" (click)="deleteAnswer(answer.Id)">Delete</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

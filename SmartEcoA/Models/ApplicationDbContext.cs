@@ -32,5 +32,7 @@ namespace SmartEcoA.Models
         public DbSet<SmartEcoA.Models.Report> Report { get; set; }
         public DbSet<SmartEcoA.Models.TypeEcoClass> TypeEcoClass { get; set; }
         public DbSet<SmartEcoA.Models.Tester> Tester { get; set; }
+        public DbSet<SmartEcoA.Models.Question> Question { get; set; }
+        public DbSet<SmartEcoA.Models.Answer> Answer { get; set; }
     }
 }
