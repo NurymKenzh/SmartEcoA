@@ -328,8 +328,11 @@ namespace SmartEcoA.Controllers
                 docText = new Regex("CarModelName").Replace(docText, carModelSmokeMeter.Name);
                 docText = new Regex("CarNumber").Replace(docText, carPostDataSmokeMeter.Number);
                 docText = new Regex("Check").Replace(docText, carCheckNumber);
-                //docText = new Regex(@"\b(DFree)\b").Replace(docText, carPostDataSmokeMeter.K_SVOB.HasValue ? carPostDataSmokeMeter.K_SVOB.Value.ToString() : string.Empty);
-                //docText = new Regex(@"\b(NDFree)\b").Replace(docText, carPostDataSmokeMeter.K_MAX.HasValue ? carPostDataSmokeMeter.K_MAX.Value.ToString() : string.Empty);
+                docText = new Regex("Eco").Replace(docText, carModelSmokeMeter.TypeEcoClass.Name.Split(' ')[0]);
+                docText = new Regex("Cat").Replace(docText, carModelSmokeMeter.Category);
+                docText = new Regex("CarYear").Replace(docText, carPostDataSmokeMeter.DOPOL1);
+                docText = new Regex(@"\b(DFree)\b").Replace(docText, carPostDataSmokeMeter.K_SVOB.HasValue ? carPostDataSmokeMeter.K_SVOB.Value.ToString() : string.Empty);
+                docText = new Regex(@"\b(NDFree)\b").Replace(docText, carPostDataSmokeMeter.K_MAX.HasValue ? carPostDataSmokeMeter.K_MAX.Value.ToString() : string.Empty);
 
                 using (StreamWriter sw = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.Create)))
                 {
@@ -353,6 +356,7 @@ namespace SmartEcoA.Controllers
             CarPost carPost = _context.CarPost.FirstOrDefault(c => c.Id == carPostId);
             List<CarPostDataSmokeMeter> carPostDataSmokeMeters = _context.CarPostDataSmokeMeter
                 .Include(c => c.CarModelSmokeMeter)
+                .Include(c => c.CarModelSmokeMeter.TypeEcoClass)
                 .Include(c => c.Tester)
                 .Where(c => c.CarModelSmokeMeter.CarPostId == carPost.Id && report.CarPostStartDate <= c.DateTime && c.DateTime <= report.CarPostEndDate)
                 .OrderBy(c => c.DateTime)
@@ -395,12 +399,12 @@ namespace SmartEcoA.Controllers
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].DateTime.Value.ToString("dd.MM.yyyy")}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].DateTime.Value.ToString("HH:mm:ss")}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].CarModelSmokeMeter.Name}")))),
-                            new TableCell(new Paragraph(new Run(new Text(string.Empty)))),
-                            new TableCell(new Paragraph(new Run(new Text(string.Empty)))),
-                            new TableCell(new Paragraph(new Run(new Text(string.Empty)))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].CarModelSmokeMeter.TypeEcoClass.Name.Split(' ')[0]}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].CarModelSmokeMeter.Category}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].DOPOL1}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].Number}")))),
-                            //new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].K_SVOB}")))),
-                            //new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].K_MAX}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].K_SVOB}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].K_MAX}")))),
                             new TableCell(new Paragraph(new Run(new Text(string.Empty))))));
                 }
 
@@ -426,6 +430,7 @@ namespace SmartEcoA.Controllers
             CarPost carPost = _context.CarPost.FirstOrDefault(c => c.Id == carPostId);
             List<CarPostDataAutoTest> carPostDataAutoTests = _context.CarPostDataAutoTest
                 .Include(c => c.CarModelAutoTest)
+                .Include(c => c.CarModelAutoTest.TypeEcoClass)
                 .Include(c => c.Tester)
                 .Where(c => c.CarModelAutoTest.CarPostId == carPost.Id && report.CarPostStartDate <= c.DateTime && c.DateTime <= report.CarPostEndDate)
                 .OrderBy(c => c.DateTime)
@@ -468,9 +473,9 @@ namespace SmartEcoA.Controllers
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].DateTime.Value.ToString("dd.MM.yyyy")}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].DateTime.Value.ToString("HH:mm:ss")}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].CarModelAutoTest.Name}")))),
-                            new TableCell(new Paragraph(new Run(new Text(string.Empty)))),
-                            new TableCell(new Paragraph(new Run(new Text(string.Empty)))),
-                            new TableCell(new Paragraph(new Run(new Text(string.Empty)))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].CarModelAutoTest.TypeEcoClass.Name.Split(' ')[0]}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].CarModelAutoTest.Category}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].DOPOL1}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].Number}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MAX_CO}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MAX_CH}")))),
