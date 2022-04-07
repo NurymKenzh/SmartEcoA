@@ -309,7 +309,7 @@ namespace Server
                             string execute = $"INSERT INTO public.\"CarModelSmokeMeter\"(\"CarPostId\", \"Name\", \"TypeEcoClassId\", \"Category\", \"EngineType\", \"MIN_TAH\", " +
                                 $"\"DEL_MIN\", \"MAX_TAH\", \"DEL_MAX\", \"MIN_CO\", \"MAX_CO\", \"MIN_CH\", \"MAX_CH\", \"L_MIN\", \"L_MAX\", \"K_SVOB\", \"K_MAX\", \"ParadoxId\")" +
                                     $"VALUES({carModelSmokeMeter.CarPostId.ToString()}," +
-                                    $"'{carModelSmokeMeter.Name}'," +
+                                    $"'{carModelSmokeMeter.Name.Replace("\'", "\'\'")}'," +   //Replace for special symbol '
                                     $"{(carModelSmokeMeter.TypeEcoClassId != null ? carModelSmokeMeter.TypeEcoClassId.ToString() : "null")}," +
                                     $"'{carModelSmokeMeter.Category}'," +
                                     $"{carModelSmokeMeter.EngineType.ToString()}," +
@@ -394,7 +394,7 @@ namespace Server
                             string execute = $"INSERT INTO public.\"CarModelAutoTest\"(\"CarPostId\", \"Name\", \"TypeEcoClassId\", \"Category\", \"EngineType\", \"MIN_TAH\", " +
                                 $"\"DEL_MIN\", \"MAX_TAH\", \"DEL_MAX\", \"MIN_CO\", \"MAX_CO\", \"MIN_CH\", \"MAX_CH\", \"L_MIN\", \"L_MAX\", \"K_SVOB\", \"K_MAX\", \"ParadoxId\")" +
                                     $"VALUES({carModelAutoTest.CarPostId.ToString()}," +
-                                    $"'{carModelAutoTest.Name}'," +
+                                    $"'{carModelAutoTest.Name.Replace("\'", "\'\'")}'," +   //Replace for special symbol '
                                     $"{(carModelAutoTest.TypeEcoClassId != null ? carModelAutoTest.TypeEcoClassId.ToString() : "null")}," +
                                     $"'{carModelAutoTest.Category}'," +
                                     $"{carModelAutoTest.EngineType.ToString()}," +
