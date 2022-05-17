@@ -11,5 +11,7 @@ namespace CarPostClient.Models
         public CarModelAutoTest carModelAutoTest { get; set; }
         public CarPostDataAutoTest carPostDataAutoTest { get; set; }
         public Tester tester { get; set; }
+        public string VersionDbAutotest { get; set; }
+        public string VersionDbSmokemeter { get; set; }
     }
 }

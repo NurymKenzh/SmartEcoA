@@ -24,13 +24,17 @@ namespace CarPostClient
     public partial class FormCarPostClient : Form
     {
         private const int port = 8087;
-        private const string server = "185.125.44.116";
+        private readonly string server = Debugger.IsAttached ? "127.0.0.1" : "185.125.44.116";
+        //private const string server = "185.125.44.116";
         //private const string server = "192.168.0.165";
         //private const string server = "192.168.43.47";
         //private const string server = "127.0.0.1";
         private string CarPostId = null,
             AutoTestPath = null,
-            SmokeMeterPath = null;
+            AutoTestPathCopy = null,
+            SmokeMeterPath = null,
+            SmokeMeterPathCopy = null,
+            BaseDirectoryForCopy = @"C:\DbCopies";
         private bool stop = false;
         private OleDbConnection connection;
         private OleDbConnection connection2;
@@ -177,6 +181,8 @@ namespace CarPostClient
                     if ((connection != null && connection.State == ConnectionState.Open)
                         || (connection2 != null && connection2.State == ConnectionState.Open))
                     {
+                        CopyDbFiles(AutoTestPath, AutoTestPathCopy);
+                        CopyDbFiles(SmokeMeterPath, SmokeMeterPathCopy);
                         sent = Connect();
                     }
 
@@ -187,7 +193,7 @@ namespace CarPostClient
                     }
                     else
                     {
-                        Thread.Sleep(new TimeSpan(0, 0, 5));
+                        Thread.Sleep(new TimeSpan(0, 0, 20));
                     }
                 }
                 catch { }
@@ -235,9 +241,11 @@ namespace CarPostClient
                             break;
                         case "AutoTestPath":
                             AutoTestPath = item.Value.ToString();
+                            AutoTestPathCopy = Path.Combine(BaseDirectoryForCopy, "Autotest", "Db");
                             break;
                         case "SmokeMeterPath":
                             SmokeMeterPath = item.Value.ToString();
+                            SmokeMeterPathCopy = Path.Combine(BaseDirectoryForCopy, "Smokemeter", "Db");
                             break;
                         default:
                             break;
@@ -255,9 +263,10 @@ namespace CarPostClient
         {
             try
             {
+                CopyDbFiles(AutoTestPath, AutoTestPathCopy);
                 Log("--------------------------------------");
                 Log($"Попытка подключения к базе данных Автотеста");
-                string connectionString = $"Provider={provider};Data Source={AutoTestPath};Extended Properties=dBase IV;";
+                string connectionString = $"Provider={provider};Data Source={AutoTestPathCopy};Extended Properties=dBase IV;";
                 connection = new OleDbConnection(connectionString);
                 connection.Open();
                 Log($"Подключено успешно");
@@ -272,9 +281,10 @@ namespace CarPostClient
         {
             try
             {
+                CopyDbFiles(SmokeMeterPath, SmokeMeterPathCopy);
                 Log("--------------------------------------");
                 Log($"Попытка подключения к базе данных Дымомера");
-                string connectionStringSmokeMeter = $"Provider={provider};Data Source={SmokeMeterPath};Extended Properties=dBase IV;";
+                string connectionStringSmokeMeter = $"Provider={provider};Data Source={SmokeMeterPathCopy};Extended Properties=dBase IV;";
                 connection2 = new OleDbConnection(connectionStringSmokeMeter);
                 connection2.Open();
                 Log($"Подключено успешно");
@@ -331,6 +341,7 @@ namespace CarPostClient
                         throw new Exception((string)obj.Error);
                     }
                     JsonData jsonData = new JsonData();
+                    CheckVersionDatabases(obj, jsonData);
 
                     if (connection != null && connection.State == ConnectionState.Open)
                     {
@@ -649,6 +660,68 @@ namespace CarPostClient
         {
             Action action = () => textBoxLog.AppendText($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} >> {Message}{Environment.NewLine}");
             textBoxLog.Invoke(action);
+        }
+
+        private void CopyDbFiles(string pathFrom, string pathTo)
+        {
+            if (!Directory.Exists(pathTo))
+            {
+                Directory.CreateDirectory(pathTo);
+            }
+            else
+            {
+                var sizeDirFrom = new DirectoryInfo(pathFrom).EnumerateFiles("*.*", SearchOption.AllDirectories).Sum(fi => fi.Length);
+                var sizeDirTo = new DirectoryInfo(pathTo).EnumerateFiles("*.*", SearchOption.AllDirectories).Sum(fi => fi.Length);
+                if (long.Equals(sizeDirFrom, sizeDirTo))
+                {
+                    return;
+                }
+                Directory.GetFiles(pathTo).ToList().ForEach(f => File.Delete(f));
+            }
+            Directory.GetFiles(pathFrom).ToList().ForEach(f => File.Copy(f, Path.Combine(pathTo, Path.GetFileName(f))));
+        }
+
+        private void CheckVersionDatabases(dynamic obj, JsonData jsonData)
+        {
+            var autotestVersion = Convert.ToDateTime(obj.versionDbAutotest);
+            var smokemeterVersion = Convert.ToDateTime(obj.versionDbSmokemeter);
+
+            var carModelAutoTests = connection.Query<CarModelAutoTest>($"SELECT * FROM model").OrderBy(c => c.ID).ToList();
+            var carPostDataAutoTest = connection
+                .Query<CarPostDataAutoTest>($"SELECT * FROM Main")
+                .ToList()
+                .Where(c => c.DATA.Year >= 2020)
+                .Where(c => carModelAutoTests.Select(m => m.ID).Contains(c.ID_MODEL))
+                .OrderBy(c => FromDATATIME(c, null))
+                .FirstOrDefault();
+
+            var carModelSmokeMeters = connection2.Query<CarModelSmokeMeter>($"SELECT * FROM model").OrderBy(c => c.ID).ToList();
+            var carPostDataSmokeMeter = connection2
+                .Query<CarPostDataSmokeMeter>($"SELECT * FROM Main")
+                .ToList()
+                .Where(c => c.DATA.Year >= 2020)
+                .Where(c => carModelSmokeMeters.Select(m => m.ID).Contains(c.ID_MODEL))
+                .OrderBy(c => FromDATATIME(null, c))
+                .FirstOrDefault();
+
+            if (!ReferenceEquals(carPostDataAutoTest, null))
+            {
+                var autotestVersionDb = FromDATATIME(carPostDataAutoTest, null);
+                if (autotestVersionDb > autotestVersion)
+                {
+                    obj.carModelAutoTestId = null;
+                    jsonData.VersionDbAutotest = autotestVersionDb.ToString("yyyy-MM-dd HH:mm:ss");
+                }
+            }
+            if (!ReferenceEquals(carPostDataSmokeMeter, null))
+            {
+                var smokemeterVersionDb = FromDATATIME(null, carPostDataSmokeMeter);
+                if (smokemeterVersionDb > smokemeterVersion)
+                {
+                    obj.carModelSmokeMeterId = null;
+                    jsonData.VersionDbSmokemeter = smokemeterVersionDb.ToString("yyyy-MM-dd HH:mm:ss");
+                }
+            }
         }
     }
 }
