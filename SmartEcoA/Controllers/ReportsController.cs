@@ -557,6 +557,8 @@ namespace SmartEcoA.Controllers
                 List<TableRow> rows = table.Elements<TableRow>().ToList();
                 int fontSize = 20;
 
+                var typeEcoClasses = _context.TypeEcoClass.ToList();
+
                 foreach (var carPost in carPosts)
                 {
                     var carPostDataAutoTest = carPostsDataAutoTest
@@ -566,20 +568,20 @@ namespace SmartEcoA.Controllers
                         .Where(c => c.CarModelSmokeMeter.CarPost.Id == carPost.Id);
 
                     var amountExceedGasoline = carPostDataAutoTest
-                        .Where(c => c.MIN_CO > c.CarModelAutoTest.MIN_CO || c.MAX_CO > c.CarModelAutoTest.MAX_CO ||
-                                c.MIN_CH > c.CarModelAutoTest.MIN_CH || c.MAX_CH > c.CarModelAutoTest.MAX_CH)
+                        .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MIN_CO || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MAX_CO ||
+                                c.MIN_CH > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MIN_CH || c.MAX_CH > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MAX_CH)
                         .Count();
 
                     var amountExceedDiesel = carPostDataSmokeMeter
-                        .Where(c => c.K_SVOB > c.CarModelSmokeMeter.K_SVOB || c.K_MAX > c.CarModelSmokeMeter.K_MAX)
+                        .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.K_SVOB || c.K_MAX > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.K_MAX)
                         .Count();
 
                     var amountExceedCO = carPostDataAutoTest
-                        .Where(c => c.MIN_CO > c.CarModelAutoTest.MIN_CO || c.MAX_CO > c.CarModelAutoTest.MAX_CO)
+                        .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MIN_CO || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MAX_CO)
                         .Count();
 
                     var amountExceedKSVOB = carPostDataSmokeMeter
-                        .Where(c => c.K_SVOB > c.CarModelSmokeMeter.K_SVOB)
+                        .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.K_SVOB)
                         .Count();
 
                     var postNames = carPost.Name.Split(' ');
@@ -594,20 +596,20 @@ namespace SmartEcoA.Controllers
                 }
 
                 var amountExceedGasolineTotal = carPostsDataAutoTest
-                    .Where(c => c.MIN_CO > c.CarModelAutoTest.MIN_CO || c.MAX_CO > c.CarModelAutoTest.MAX_CO ||
-                                c.MIN_CH > c.CarModelAutoTest.MIN_CH || c.MAX_CH > c.CarModelAutoTest.MAX_CH)
+                    .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MIN_CO || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MAX_CO ||
+                                c.MIN_CH > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MIN_CH || c.MAX_CH > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MAX_CH)
                     .Count();
 
                 var amountExceedDieselTotal = carPostsDataSmokeMeter
-                    .Where(c => c.K_SVOB > c.CarModelSmokeMeter.K_SVOB || c.K_MAX > c.CarModelSmokeMeter.K_MAX)
+                    .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.K_SVOB || c.K_MAX > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.K_MAX)
                     .Count();
 
                 var amountExceedCOTotal = carPostsDataAutoTest
-                    .Where(c => c.MIN_CO > c.CarModelAutoTest.MIN_CO || c.MAX_CO > c.CarModelAutoTest.MAX_CO)
+                    .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MIN_CO || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MAX_CO)
                     .Count();
 
                 var amountExceedKSVOBTotal = carPostsDataSmokeMeter
-                    .Where(c => c.K_SVOB > c.CarModelSmokeMeter.K_SVOB)
+                    .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.K_SVOB)
                     .Count();
 
                 rows[0].Append(SetTableCell($"Всего", fontSize));
@@ -636,22 +638,28 @@ namespace SmartEcoA.Controllers
             report.FileName = $"{report.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name} (MS Word).docx";
             string reportFileNameFull = Path.Combine(userReportFolder, report.FileName);
 
-            var amountExceedGasoline = _context.CarPostDataAutoTest
+            var typeEcoClasses = _context.TypeEcoClass.ToList();
+
+            var carPostsDataAutoTest = _context.CarPostDataAutoTest
                 .Include(c => c.CarModelAutoTest)
                 .Include(c => c.CarModelAutoTest.CarPost)
                 .Where(c => report.CarPostStartDate <= c.DateTime && c.DateTime <= report.CarPostEndDate)
-                .Where(c => c.MIN_CO > c.CarModelAutoTest.MIN_CO || c.MAX_CO > c.CarModelAutoTest.MAX_CO ||
-                                c.MIN_CH > c.CarModelAutoTest.MIN_CH || c.MAX_CH > c.CarModelAutoTest.MAX_CH)
                 .OrderBy(c => c.DateTime)
                 .ToList();
 
-            var amountExceedDiesel = _context.CarPostDataSmokeMeter
+            var carPostsDataSmokeMeter = _context.CarPostDataSmokeMeter
                 .Include(c => c.CarModelSmokeMeter)
                 .Include(c => c.CarModelSmokeMeter.CarPost)
                 .Where(c => report.CarPostStartDate <= c.DateTime && c.DateTime <= report.CarPostEndDate)
-                .Where(c => c.K_SVOB > c.CarModelSmokeMeter.K_SVOB || c.K_MAX > c.CarModelSmokeMeter.K_MAX)
                 .OrderBy(c => c.DateTime)
                 .ToList();
+
+            var amountExceedGasoline = carPostsDataAutoTest
+                .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MIN_CO || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MAX_CO ||
+                       c.MIN_CH > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MIN_CH || c.MAX_CH > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MAX_CH);
+
+            var amountExceedDiesel = carPostsDataSmokeMeter
+                .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.K_SVOB || c.K_MAX > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.K_MAX);
 
             var repeatedExceedancesGasoline = amountExceedGasoline
                 .GroupBy(x => x.Number)

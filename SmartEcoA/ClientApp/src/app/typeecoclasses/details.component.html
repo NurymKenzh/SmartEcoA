@@ -16,33 +16,60 @@
     <dl>
       <dt i18n="@@Name">Name</dt>
       <dd>{{typeecoclass?.Name}}</dd>
-      <dt i18n="@@EngineType">EngineType</dt>
-      <dd i18n="@@Petrol" *ngIf="typeecoclass?.EngineType==0">Petrol</dd>
+      <!--<dt i18n="@@EngineType">EngineType</dt>
+      <dd i18n="@@Petrol">Petrol</dd>
       <dd i18n="@@Diesel" *ngIf="typeecoclass?.EngineType==1">Diesel</dd>
-      <dt i18n="@@MIN_TAH" *ngIf="typeecoclass?.EngineType==0">MIN_TAH</dt>
-      <dd *ngIf="typeecoclass?.EngineType==0">{{typeecoclass?.MIN_TAH}}</dd>
-      <dt i18n="@@DEL_MIN" *ngIf="typeecoclass?.EngineType==0">DEL_MIN</dt>
-      <dd *ngIf="typeecoclass?.EngineType==0">{{typeecoclass?.DEL_MIN}}</dd>
-      <dt i18n="@@MAX_TAH" *ngIf="typeecoclass?.EngineType==0">MAX_TAH</dt>
-      <dd *ngIf="typeecoclass?.EngineType==0">{{typeecoclass?.MAX_TAH}}</dd>
-      <dt i18n="@@DEL_MAX" *ngIf="typeecoclass?.EngineType==0">DEL_MAX</dt>
-      <dd *ngIf="typeecoclass?.EngineType==0">{{typeecoclass?.DEL_MAX}}</dd>
-      <dt i18n="@@MIN_CO" *ngIf="typeecoclass?.EngineType==0">MIN_CO</dt>
-      <dd *ngIf="typeecoclass?.EngineType==0">{{typeecoclass?.MIN_CO}}</dd>
-      <dt i18n="@@MAX_CO" *ngIf="typeecoclass?.EngineType==0">MAX_CO</dt>
-      <dd *ngIf="typeecoclass?.EngineType==0">{{typeecoclass?.MAX_CO}}</dd>
-      <dt i18n="@@MIN_CH" *ngIf="typeecoclass?.EngineType==0">MIN_CH</dt>
-      <dd *ngIf="typeecoclass?.EngineType==0">{{typeecoclass?.MIN_CH}}</dd>
-      <dt i18n="@@MAX_CH" *ngIf="typeecoclass?.EngineType==0">MAX_CH</dt>
-      <dd *ngIf="typeecoclass?.EngineType==0">{{typeecoclass?.MAX_CH}}</dd>
-      <dt i18n="@@L_MIN" *ngIf="typeecoclass?.EngineType==0">L_MIN</dt>
-      <dd *ngIf="typeecoclass?.EngineType==0">{{typeecoclass?.L_MIN}}</dd>
-      <dt i18n="@@L_MAX" *ngIf="typeecoclass?.EngineType==0">L_MAX</dt>
-      <dd *ngIf="typeecoclass?.EngineType==0">{{typeecoclass?.L_MAX}}</dd>
+      <dt i18n="@@MIN_TAH">MIN_TAH</dt>
+      <dd>{{typeecoclass?.MIN_TAH}}</dd>
+      <dt i18n="@@DEL_MIN">DEL_MIN</dt>
+      <dd>{{typeecoclass?.DEL_MIN}}</dd>
+      <dt i18n="@@MAX_TAH">MAX_TAH</dt>
+      <dd>{{typeecoclass?.MAX_TAH}}</dd>
+      <dt i18n="@@DEL_MAX">DEL_MAX</dt>
+      <dd>{{typeecoclass?.DEL_MAX}}</dd>
+      <dt i18n="@@MIN_CO">MIN_CO</dt>
+      <dd>{{typeecoclass?.MIN_CO}}</dd>
+      <dt i18n="@@MAX_CO">MAX_CO</dt>
+      <dd>{{typeecoclass?.MAX_CO}}</dd>
+      <dt i18n="@@MIN_CH">MIN_CH</dt>
+      <dd>{{typeecoclass?.MIN_CH}}</dd>
+      <dt i18n="@@MAX_CH">MAX_CH</dt>
+      <dd>{{typeecoclass?.MAX_CH}}</dd>
+      <dt i18n="@@L_MIN">L_MIN</dt>
+      <dd>{{typeecoclass?.L_MIN}}</dd>
+      <dt i18n="@@L_MAX">L_MAX</dt>
+      <dd>{{typeecoclass?.L_MAX}}</dd>
       <dt i18n="@@K_SVOB" *ngIf="typeecoclass?.EngineType==1">K_SVOB</dt>
       <dd *ngIf="typeecoclass?.EngineType==1">{{typeecoclass?.K_SVOB}}</dd>
       <dt i18n="@@K_MAX" *ngIf="typeecoclass?.EngineType==1">K_MAX</dt>
-      <dd *ngIf="typeecoclass?.EngineType==1">{{typeecoclass?.K_MAX}}</dd>
+      <dd *ngIf="typeecoclass?.EngineType==1">{{typeecoclass?.K_MAX}}</dd>-->
+      <dd i18n="@@Petrol">Petrol</dd>
+      <dt i18n="@@MIN_TAH">MIN_TAH</dt>
+      <dd>{{typeecoclass?.MIN_TAH}}</dd>
+      <dt i18n="@@DEL_MIN">DEL_MIN</dt>
+      <dd>{{typeecoclass?.DEL_MIN}}</dd>
+      <dt i18n="@@MAX_TAH">MAX_TAH</dt>
+      <dd>{{typeecoclass?.MAX_TAH}}</dd>
+      <dt i18n="@@DEL_MAX">DEL_MAX</dt>
+      <dd>{{typeecoclass?.DEL_MAX}}</dd>
+      <dt i18n="@@MIN_CO">MIN_CO</dt>
+      <dd>{{typeecoclass?.MIN_CO}}</dd>
+      <dt i18n="@@MAX_CO">MAX_CO</dt>
+      <dd>{{typeecoclass?.MAX_CO}}</dd>
+      <dt i18n="@@MIN_CH">MIN_CH</dt>
+      <dd>{{typeecoclass?.MIN_CH}}</dd>
+      <dt i18n="@@MAX_CH">MAX_CH</dt>
+      <dd>{{typeecoclass?.MAX_CH}}</dd>
+      <dt i18n="@@L_MIN">L_MIN</dt>
+      <dd>{{typeecoclass?.L_MIN}}</dd>
+      <dt i18n="@@L_MAX">L_MAX</dt>
+      <dd>{{typeecoclass?.L_MAX}}</dd>
+      
+      <dd i18n="@@Diesel">Diesel</dd>
+      <dt i18n="@@K_SVOB" >K_SVOB</dt>
+      <dd>{{typeecoclass?.K_SVOB}}</dd>
+      <dt i18n="@@K_MAX">K_MAX</dt>
+      <dd>{{typeecoclass?.K_MAX}}</dd>
     </dl>
   </mat-card-content>
   <mat-card-actions align="center">

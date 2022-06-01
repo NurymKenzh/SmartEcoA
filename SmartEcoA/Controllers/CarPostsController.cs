@@ -146,6 +146,8 @@ namespace SmartEcoA.Controllers
             List<ReportCarPost> reportCarPosts = new List<ReportCarPost>();
             if (StartDate != null && EndDate != null && CarPostsId.Count != 0)
             {
+                var typeEcoClasses = _context.TypeEcoClass.ToList();
+
                 foreach (var carPostId in CarPostsId)
                 {
                     var carPostName = _context.CarPost
@@ -161,8 +163,8 @@ namespace SmartEcoA.Controllers
                     if (carPostDataAutoTest.Count != 0)
                     {
                         var amountExceedGasoline = carPostDataAutoTest
-                                .Where(c => c.MIN_CO > c.CarModelAutoTest.MIN_CO || c.MAX_CO > c.CarModelAutoTest.MAX_CO || 
-                                    c.MIN_CH > c.CarModelAutoTest.MIN_CH || c.MAX_CH > c.CarModelAutoTest.MAX_CH)
+                                .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MIN_CO || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MAX_CO || 
+                                    c.MIN_CH > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MIN_CH || c.MAX_CH > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MAX_CH)
                                 .Count();
 
                         ReportCarPost reportCarPost = new ReportCarPost
@@ -183,8 +185,8 @@ namespace SmartEcoA.Controllers
                     if (carPostDataSmokeMeter.Count != 0)
                     {
                         var amountExceedDiesel = carPostDataSmokeMeter
-                            .Where(c => c.K_SVOB > c.CarModelSmokeMeter.K_SVOB ||
-                                    c.K_MAX > c.CarModelSmokeMeter.K_MAX)
+                            .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.K_SVOB ||
+                                    c.K_MAX > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.K_MAX)
                             .Count();
 
                         ReportCarPost reportCarPost = new ReportCarPost
