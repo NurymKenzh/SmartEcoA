@@ -213,6 +213,8 @@ namespace SmartEcoA.Controllers
                 .Where(c => c.DateTime <= carPostDataAutoTest.DateTime && c.Number == carPostDataAutoTest.Number)
                 .Count()
                 .ToString();
+            
+            var typeEcoClasses = _context.TypeEcoClass.ToList();
 
             report.InputParametersEN = $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["Date"]}={carPostDataAutoTest.DateTime.Value.ToString("yyyy-MM-dd")};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPost"]}={carPost.Name};" +
@@ -255,7 +257,7 @@ namespace SmartEcoA.Controllers
                 docText = new Regex("Pressure").Replace(docText, carPostDataAutoTest.Pressure.HasValue ? carPostDataAutoTest.Pressure.Value.ToString() : string.Empty);
                 docText = new Regex("CarModelName").Replace(docText, carModelAutoTest.Name);
                 docText = new Regex("CarNumber").Replace(docText, carPostDataAutoTest.Number);
-                docText = new Regex("Eco").Replace(docText, carModelAutoTest.TypeEcoClass.Name.Split(' ')[0]);
+                docText = new Regex("Eco").Replace(docText, typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(carPostDataAutoTest.DOPOL2.ToLower()))?.Name.Split(' ')[0]);
                 docText = new Regex("Cat").Replace(docText, carModelAutoTest.Category);
                 docText = new Regex("Check").Replace(docText, carCheckNumber);
                 docText = new Regex("CarYear").Replace(docText, carPostDataAutoTest.DOPOL1);
@@ -303,6 +305,8 @@ namespace SmartEcoA.Controllers
                 .Where(c => c.DateTime <= carPostDataSmokeMeter.DateTime && c.Number == carPostDataSmokeMeter.Number)
                 .Count()
                 .ToString();
+            
+            var typeEcoClasses = _context.TypeEcoClass.ToList();
 
             report.InputParametersEN = $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["Date"]}={carPostDataSmokeMeter.DateTime.Value.ToString("yyyy-MM-dd")};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPost"]}={carPost.Name};" +
@@ -337,7 +341,7 @@ namespace SmartEcoA.Controllers
                 docText = new Regex("CarModelName").Replace(docText, carModelSmokeMeter.Name);
                 docText = new Regex("CarNumber").Replace(docText, carPostDataSmokeMeter.Number);
                 docText = new Regex("Check").Replace(docText, carCheckNumber);
-                docText = new Regex("Eco").Replace(docText, carModelSmokeMeter.TypeEcoClass.Name.Split(' ')[0]);
+                docText = new Regex("Eco").Replace(docText, typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(carPostDataSmokeMeter.DOPOL2.ToLower()))?.Name.Split(' ')[0]);
                 docText = new Regex("Cat").Replace(docText, carModelSmokeMeter.Category);
                 docText = new Regex("CarYear").Replace(docText, carPostDataSmokeMeter.DOPOL1);
                 docText = new Regex(@"\b(DFree)\b").Replace(docText, carPostDataSmokeMeter.K_SVOB.HasValue ? carPostDataSmokeMeter.K_SVOB.Value.ToString() : string.Empty);
@@ -370,6 +374,8 @@ namespace SmartEcoA.Controllers
                 .Where(c => c.CarModelSmokeMeter.CarPostId == carPost.Id && report.CarPostStartDate <= c.DateTime && c.DateTime <= report.CarPostEndDate)
                 .OrderBy(c => c.DateTime)
                 .ToList();
+            
+            var typeEcoClasses = _context.TypeEcoClass.ToList();
 
             report.InputParametersEN = $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["StartDate"]}={Convert.ToDateTime(report.CarPostStartDate).ToString("yyyy-MM-dd")};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["EndDate"]}={Convert.ToDateTime(report.CarPostEndDate).ToString("yyyy-MM-dd")};" +
@@ -408,7 +414,7 @@ namespace SmartEcoA.Controllers
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].DateTime.Value.ToString("dd.MM.yyyy")}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].DateTime.Value.ToString("HH:mm:ss")}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].CarModelSmokeMeter.Name}")))),
-                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].CarModelSmokeMeter.TypeEcoClass.Name.Split(' ')[0]}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(carPostDataSmokeMeters[i].DOPOL2.ToLower()))?.Name.Split(' ')[0]}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].CarModelSmokeMeter.Category}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].DOPOL1}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].Number}")))),
@@ -444,6 +450,8 @@ namespace SmartEcoA.Controllers
                 .Where(c => c.CarModelAutoTest.CarPostId == carPost.Id && report.CarPostStartDate <= c.DateTime && c.DateTime <= report.CarPostEndDate)
                 .OrderBy(c => c.DateTime)
                 .ToList();
+
+            var typeEcoClasses = _context.TypeEcoClass.ToList();
 
             report.InputParametersEN = $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["StartDate"]}={Convert.ToDateTime(report.CarPostStartDate).ToString("yyyy-MM-dd")};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["EndDate"]}={Convert.ToDateTime(report.CarPostEndDate).ToString("yyyy-MM-dd")};" +
@@ -482,7 +490,7 @@ namespace SmartEcoA.Controllers
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].DateTime.Value.ToString("dd.MM.yyyy")}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].DateTime.Value.ToString("HH:mm:ss")}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].CarModelAutoTest.Name}")))),
-                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].CarModelAutoTest.TypeEcoClass.Name.Split(' ')[0]}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(carPostDataAutoTests[i].DOPOL2.ToLower()))?.Name.Split(' ')[0]}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].CarModelAutoTest.Category}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].DOPOL1}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].Number}")))),
@@ -771,6 +779,8 @@ namespace SmartEcoA.Controllers
                 .OrderBy(c => c.DateTime)
                 .ToList();
 
+            var typeEcoClasses = _context.TypeEcoClass.ToList();
+
             foreach (var carPostDataAutoTest in carPostDataAutoTests) 
             {
                 var fileName = $"{carPostDataAutoTest.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name} (MS Word).docx";
@@ -807,7 +817,7 @@ namespace SmartEcoA.Controllers
                     docText = new Regex("Pressure").Replace(docText, carPostDataAutoTest.Pressure.HasValue ? carPostDataAutoTest.Pressure.Value.ToString() : string.Empty);
                     docText = new Regex("CarModelName").Replace(docText, carPostDataAutoTest.CarModelAutoTest.Name);
                     docText = new Regex("CarNumber").Replace(docText, carPostDataAutoTest.Number);
-                    docText = new Regex("Eco").Replace(docText, carPostDataAutoTest.CarModelAutoTest.TypeEcoClass.Name.Split(' ')[0]);
+                    docText = new Regex("Eco").Replace(docText, typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(carPostDataAutoTest.DOPOL2.ToLower()))?.Name.Split(' ')[0]);
                     docText = new Regex("Cat").Replace(docText, carPostDataAutoTest.CarModelAutoTest.Category);
                     docText = new Regex("Check").Replace(docText, carCheckNumber);
                     docText = new Regex("CarYear").Replace(docText, carPostDataAutoTest.DOPOL1);
@@ -900,6 +910,8 @@ namespace SmartEcoA.Controllers
                 .OrderBy(c => c.DateTime)
                 .ToList();
 
+            var typeEcoClasses = _context.TypeEcoClass.ToList();
+
             foreach (var carPostDataSmokeMeter in carPostDataSmokeMeters)
             {
                 var fileName = $"{carPostDataSmokeMeter.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name} (MS Word).docx";
@@ -928,7 +940,7 @@ namespace SmartEcoA.Controllers
                     docText = new Regex("CarModelName").Replace(docText, carPostDataSmokeMeter.CarModelSmokeMeter.Name);
                     docText = new Regex("CarNumber").Replace(docText, carPostDataSmokeMeter.Number);
                     docText = new Regex("Check").Replace(docText, carCheckNumber);
-                    docText = new Regex("Eco").Replace(docText, carPostDataSmokeMeter.CarModelSmokeMeter.TypeEcoClass.Name.Split(' ')[0]);
+                    docText = new Regex("Eco").Replace(docText, typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(carPostDataSmokeMeter.DOPOL2.ToLower()))?.Name.Split(' ')[0]);
                     docText = new Regex("Cat").Replace(docText, carPostDataSmokeMeter.CarModelSmokeMeter.Category);
                     docText = new Regex("CarYear").Replace(docText, carPostDataSmokeMeter.DOPOL1);
                     docText = new Regex(@"\b(DFree)\b").Replace(docText, carPostDataSmokeMeter.K_SVOB.HasValue ? carPostDataSmokeMeter.K_SVOB.Value.ToString() : string.Empty);
