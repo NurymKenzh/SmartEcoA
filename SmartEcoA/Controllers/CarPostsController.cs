@@ -163,8 +163,10 @@ namespace SmartEcoA.Controllers
                     if (carPostDataAutoTest.Count != 0)
                     {
                         var amountExceedGasoline = carPostDataAutoTest
-                                .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MIN_CO || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MAX_CO || 
-                                    c.MIN_CH > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MIN_CH || c.MAX_CH > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MAX_CH)
+                                .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MIN_CO 
+                                || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MAX_CO 
+                                || c.MIN_CH > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MIN_CH 
+                                || c.MAX_CH > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MAX_CH)
                                 .Count();
 
                         ReportCarPost reportCarPost = new ReportCarPost
@@ -185,8 +187,8 @@ namespace SmartEcoA.Controllers
                     if (carPostDataSmokeMeter.Count != 0)
                     {
                         var amountExceedDiesel = carPostDataSmokeMeter
-                            .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.K_SVOB ||
-                                    c.K_MAX > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.K_MAX)
+                            .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.K_SVOB
+                            || c.K_MAX > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.K_MAX)
                             .Count();
 
                         ReportCarPost reportCarPost = new ReportCarPost

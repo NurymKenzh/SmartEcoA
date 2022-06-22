@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.IO.Compression;
 using System.IO.Packaging;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -164,8 +165,16 @@ namespace SmartEcoA.Controllers
                 case "Report on repeated exceedances cars at posts":
                     report = CreateCarsExcessProtocol(report);
                     break;
+                // CarPostDataAutoTestProtocolPeriod
+                case "Report of measurements of harmful emissions in the exhaust gases of a motor vehicle for the period":
+                    report = CreateCarPostDataAutoTestProtocolPeriod(report);
+                    break;
+                // CreateCarPostDataSmokeMeterProtocolPeriod
+                case "Report of measurements of harmful emissions in the exhaust gases of a motor vehicle (Diesel) for the period":
+                    report = CreateCarPostDataSmokeMeterProtocolPeriod(report);
+                    break;
                 }
-                if (report.PDF)
+                if (report.PDF && !report.FileName.Contains(".zip"))
                 {
                     var wordName = report.FileName;
                     report.FileName = report.FileName.Replace("(MS Word).docx", "(PDF).pdf");
@@ -568,20 +577,24 @@ namespace SmartEcoA.Controllers
                         .Where(c => c.CarModelSmokeMeter.CarPost.Id == carPost.Id);
 
                     var amountExceedGasoline = carPostDataAutoTest
-                        .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MIN_CO || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MAX_CO ||
-                                c.MIN_CH > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MIN_CH || c.MAX_CH > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MAX_CH)
+                        .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MIN_CO 
+                        || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MAX_CO 
+                        || c.MIN_CH > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MIN_CH 
+                        || c.MAX_CH > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MAX_CH)
                         .Count();
 
                     var amountExceedDiesel = carPostDataSmokeMeter
-                        .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.K_SVOB || c.K_MAX > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.K_MAX)
+                        .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.K_SVOB 
+                        || c.K_MAX > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.K_MAX)
                         .Count();
 
                     var amountExceedCO = carPostDataAutoTest
-                        .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MIN_CO || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MAX_CO)
+                        .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MIN_CO 
+                        || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MAX_CO)
                         .Count();
 
                     var amountExceedKSVOB = carPostDataSmokeMeter
-                        .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.K_SVOB)
+                        .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.K_SVOB)
                         .Count();
 
                     var postNames = carPost.Name.Split(' ');
@@ -596,20 +609,24 @@ namespace SmartEcoA.Controllers
                 }
 
                 var amountExceedGasolineTotal = carPostsDataAutoTest
-                    .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MIN_CO || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MAX_CO ||
-                                c.MIN_CH > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MIN_CH || c.MAX_CH > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MAX_CH)
+                    .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MIN_CO 
+                    || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MAX_CO 
+                    || c.MIN_CH > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MIN_CH 
+                    || c.MAX_CH > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MAX_CH)
                     .Count();
 
                 var amountExceedDieselTotal = carPostsDataSmokeMeter
-                    .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.K_SVOB || c.K_MAX > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.K_MAX)
+                    .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.K_SVOB 
+                    || c.K_MAX > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.K_MAX)
                     .Count();
 
                 var amountExceedCOTotal = carPostsDataAutoTest
-                    .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MIN_CO || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MAX_CO)
+                    .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MIN_CO 
+                    || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MAX_CO)
                     .Count();
 
                 var amountExceedKSVOBTotal = carPostsDataSmokeMeter
-                    .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.K_SVOB)
+                    .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.K_SVOB)
                     .Count();
 
                 rows[0].Append(SetTableCell($"Всего", fontSize));
@@ -655,11 +672,14 @@ namespace SmartEcoA.Controllers
                 .ToList();
 
             var amountExceedGasoline = carPostsDataAutoTest
-                .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MIN_CO || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MAX_CO ||
-                       c.MIN_CH > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MIN_CH || c.MAX_CH > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.MAX_CH);
+                .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MIN_CO 
+                || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MAX_CO 
+                || c.MIN_CH > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MIN_CH 
+                || c.MAX_CH > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MAX_CH);
 
             var amountExceedDiesel = carPostsDataSmokeMeter
-                .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.K_SVOB || c.K_MAX > typeEcoClasses.FirstOrDefault(t => t.Name.Contains(c.DOPOL2))?.K_MAX);
+                .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.K_SVOB 
+                || c.K_MAX > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.K_MAX);
 
             var repeatedExceedancesGasoline = amountExceedGasoline
                 .GroupBy(x => x.Number)
@@ -728,6 +748,244 @@ namespace SmartEcoA.Controllers
                     sw.Write(docText);
                 }
             }
+
+            return report;
+        }
+
+        private Report CreateCarPostDataAutoTestProtocolPeriod(Report report)
+        {
+            List<string> reportNameFiles = new List<string>();
+            string userReportFolder = Path.Combine(Startup.Configuration["ReportsFolder"].ToString(), report.ApplicationUserId);
+            if (!Directory.Exists(userReportFolder))
+            {
+                Directory.CreateDirectory(userReportFolder);
+            }
+
+            int carPostId = Convert.ToInt32(report.Inputs.Split('=')[1]);
+            List<CarPostDataAutoTest> carPostDataAutoTests = _context.CarPostDataAutoTest
+                .Include(c => c.CarModelAutoTest)
+                .Include(c => c.CarModelAutoTest.TypeEcoClass)
+                .Include(c => c.CarModelAutoTest.CarPost)
+                .Include(c => c.Tester)
+                .Where(c => c.DateTime >= report.CarPostStartDate && c.DateTime <= report.CarPostEndDate && c.CarModelAutoTest.CarPostId == carPostId)
+                .OrderBy(c => c.DateTime)
+                .ToList();
+
+            foreach (var carPostDataAutoTest in carPostDataAutoTests) 
+            {
+                var fileName = $"{carPostDataAutoTest.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name} (MS Word).docx";
+                string reportFileNameFull = Path.Combine(userReportFolder, fileName);
+                reportNameFiles.Add(fileName);
+
+                var carCheckNumber = _context.CarPostDataAutoTest
+                    .Where(c => c.DateTime <= carPostDataAutoTest.DateTime && c.Number == carPostDataAutoTest.Number)
+                    .Count()
+                    .ToString();
+
+                string reportTemplateFileNameFull = Path.Combine(Startup.Configuration["ReportsTeplatesFolder"].ToString(), report.NameRU.Replace(" за период", ""));
+                reportTemplateFileNameFull = Path.ChangeExtension(reportTemplateFileNameFull, "docx");
+                System.IO.File.Copy(reportTemplateFileNameFull, reportFileNameFull);
+
+                using (WordprocessingDocument wordDoc = WordprocessingDocument.Open(reportFileNameFull, true))
+                {
+                    string docText = null;
+                    using (StreamReader sr = new StreamReader(wordDoc.MainDocumentPart.GetStream()))
+                    {
+                        docText = sr.ReadToEnd();
+                    }
+
+                    docText = new Regex("TestNumb").Replace(docText, carPostDataAutoTest.TestNumber.HasValue ? carPostDataAutoTest.TestNumber.Value.ToString() : string.Empty);
+                    docText = new Regex("Day").Replace(docText, carPostDataAutoTest.DateTime.Value.ToString("dd"));
+                    docText = new Regex("Month").Replace(docText, carPostDataAutoTest.DateTime.Value.ToString("MM"));
+                    docText = new Regex("CarPostName").Replace(docText, carPostDataAutoTest.CarModelAutoTest.CarPost.Name);
+                    docText = new Regex("Time").Replace(docText, carPostDataAutoTest.DateTime.Value.ToString("HH:mm:ss"));
+                    docText = new Regex("GasSerialNumber").Replace(docText, carPostDataAutoTest.GasSerialNumber.HasValue ? carPostDataAutoTest.GasSerialNumber.Value.ToString() : string.Empty);
+                    docText = new Regex("GasCheckDate").Replace(docText, carPostDataAutoTest.GasCheckDate.HasValue ? carPostDataAutoTest.GasCheckDate.Value.ToString("dd:MM:yyyy") : string.Empty);
+                    docText = new Regex("MeteoSerialNumber").Replace(docText, carPostDataAutoTest.MeteoSerialNumber.HasValue ? carPostDataAutoTest.MeteoSerialNumber.Value.ToString() : string.Empty);
+                    docText = new Regex("MeteoCheckDate").Replace(docText, carPostDataAutoTest.MeteoCheckDate.HasValue ? carPostDataAutoTest.MeteoCheckDate.Value.ToString("dd:MM:yyyy") : string.Empty);
+                    docText = new Regex("Temperature").Replace(docText, carPostDataAutoTest.Temperature.HasValue ? carPostDataAutoTest.Temperature.Value.ToString() : string.Empty);
+                    docText = new Regex("Pressure").Replace(docText, carPostDataAutoTest.Pressure.HasValue ? carPostDataAutoTest.Pressure.Value.ToString() : string.Empty);
+                    docText = new Regex("CarModelName").Replace(docText, carPostDataAutoTest.CarModelAutoTest.Name);
+                    docText = new Regex("CarNumber").Replace(docText, carPostDataAutoTest.Number);
+                    docText = new Regex("Eco").Replace(docText, carPostDataAutoTest.CarModelAutoTest.TypeEcoClass.Name.Split(' ')[0]);
+                    docText = new Regex("Cat").Replace(docText, carPostDataAutoTest.CarModelAutoTest.Category);
+                    docText = new Regex("Check").Replace(docText, carCheckNumber);
+                    docText = new Regex("CarYear").Replace(docText, carPostDataAutoTest.DOPOL1);
+                    docText = new Regex("MIN_TAH").Replace(docText, carPostDataAutoTest.MIN_TAH.HasValue ? carPostDataAutoTest.MIN_TAH.Value.ToString() : string.Empty);
+                    docText = new Regex("MAX_TAH").Replace(docText, carPostDataAutoTest.MAX_TAH.HasValue ? carPostDataAutoTest.MAX_TAH.Value.ToString() : string.Empty);
+                    docText = new Regex("MIN_CO_").Replace(docText, carPostDataAutoTest.MIN_CO.HasValue ? carPostDataAutoTest.MIN_CO.Value.ToString() : string.Empty);
+                    docText = new Regex("MAX_CO_").Replace(docText, carPostDataAutoTest.MAX_CO.HasValue ? carPostDataAutoTest.MAX_CO.Value.ToString() : string.Empty);
+                    docText = new Regex("MIN_CH_").Replace(docText, carPostDataAutoTest.MIN_CH.HasValue ? carPostDataAutoTest.MIN_CH.Value.ToString() : string.Empty);
+                    docText = new Regex("MAX_CH_").Replace(docText, carPostDataAutoTest.MAX_CH.HasValue ? carPostDataAutoTest.MAX_CH.Value.ToString() : string.Empty);
+                    docText = new Regex("MIN_CO2").Replace(docText, carPostDataAutoTest.MIN_CO2.HasValue ? carPostDataAutoTest.MIN_CO2.Value.ToString() : string.Empty);
+                    docText = new Regex("MAX_CO2").Replace(docText, carPostDataAutoTest.MAX_CO2.HasValue ? carPostDataAutoTest.MAX_CO2.Value.ToString() : string.Empty);
+                    docText = new Regex("MIN_O2_").Replace(docText, carPostDataAutoTest.MIN_O2.HasValue ? carPostDataAutoTest.MIN_O2.Value.ToString() : string.Empty);
+                    docText = new Regex("MAX_O2_").Replace(docText, carPostDataAutoTest.MAX_O2.HasValue ? carPostDataAutoTest.MAX_O2.Value.ToString() : string.Empty);
+                    docText = new Regex("MIN_NO_").Replace(docText, carPostDataAutoTest.MIN_NO.HasValue ? carPostDataAutoTest.MIN_NO.Value.ToString() : string.Empty);
+                    docText = new Regex("MAX_NO_").Replace(docText, carPostDataAutoTest.MAX_NO.HasValue ? carPostDataAutoTest.MAX_NO.Value.ToString() : string.Empty);
+                    docText = new Regex("Tester").Replace(docText, carPostDataAutoTest.Tester?.Name != null ? carPostDataAutoTest.Tester.Name.Split(' ')[0] : string.Empty);
+
+                    using (StreamWriter sw = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.Create)))
+                    {
+                        sw.Write(docText);
+                    }
+                }
+            }
+
+            report.FileName = $"{report.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name} c {report.CarPostStartDate.Value.ToString("dd-MM-yyyy")} по {report.CarPostEndDate.Value.ToString("dd-MM-yyyy")} (MS Word).zip";
+            report.InputParametersEN = $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPostStartDate"]}={report.CarPostStartDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPostEndDate"]}={report.CarPostEndDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPostId"]}={carPostId};";
+            report.InputParametersRU = $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarPostStartDate"]}={report.CarPostStartDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarPostEndDate"]}={report.CarPostEndDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarPostId"]}={carPostId};";
+            report.InputParametersKK = $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarPostStartDate"]}={report.CarPostStartDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarPostEndDate"]}={report.CarPostEndDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarPostId"]}={carPostId};";
+
+            if (report.PDF)
+            {
+                report.FileName = report.FileName.Replace("(MS Word)", "(PDF)");
+                reportNameFiles = reportNameFiles.Select(f => f.Replace("(MS Word).docx", "(PDF).pdf")).ToList();
+
+                foreach (var reportName in reportNameFiles)
+                {
+                    var fileName = reportName.Replace("(PDF).pdf", "(MS Word).docx");
+                    ConvertDocToPdf(userReportFolder, reportName, fileName);
+                }
+            }
+
+            using (var compressedFileStream = new FileStream(Path.Combine(userReportFolder, report.FileName), FileMode.CreateNew))
+            {
+                using (var zipArchive = new ZipArchive(compressedFileStream, ZipArchiveMode.Create, false))
+                {
+                    foreach (var reportNameFile in reportNameFiles)
+                    {
+                        var zipEntry = zipArchive.CreateEntry(reportNameFile);
+                        var reportFileByte = System.IO.File.ReadAllBytes(Path.Combine(userReportFolder, reportNameFile));
+                        using (var originalFileStream = new MemoryStream(reportFileByte))
+                        {
+                            using (var zipEntryStream = zipEntry.Open())
+                            {
+                                originalFileStream.CopyTo(zipEntryStream);
+                            }
+                        }
+                    }
+                }
+            }
+            reportNameFiles
+                .Select(fileName => Path.Combine(userReportFolder, fileName))
+                .ToList()
+                .ForEach(System.IO.File.Delete);
+
+            return report;
+        }
+
+        private Report CreateCarPostDataSmokeMeterProtocolPeriod(Report report)
+        {
+            List<string> reportNameFiles = new List<string>();
+            string userReportFolder = Path.Combine(Startup.Configuration["ReportsFolder"].ToString(), report.ApplicationUserId);
+            if (!Directory.Exists(userReportFolder))
+            {
+                Directory.CreateDirectory(userReportFolder);
+            }
+
+            int carPostId = Convert.ToInt32(report.Inputs.Split('=')[1]);
+            List<CarPostDataSmokeMeter> carPostDataSmokeMeters = _context.CarPostDataSmokeMeter
+                .Include(c => c.CarModelSmokeMeter)
+                .Include(c => c.CarModelSmokeMeter.TypeEcoClass)
+                .Include(c => c.CarModelSmokeMeter.CarPost)
+                .Include(c => c.Tester)
+                .Where(c => c.DateTime >= report.CarPostStartDate && c.DateTime <= report.CarPostEndDate && c.CarModelSmokeMeter.CarPostId == carPostId)
+                .OrderBy(c => c.DateTime)
+                .ToList();
+
+            foreach (var carPostDataSmokeMeter in carPostDataSmokeMeters)
+            {
+                var fileName = $"{carPostDataSmokeMeter.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name} (MS Word).docx";
+                string reportFileNameFull = Path.Combine(userReportFolder, fileName);
+                reportNameFiles.Add(fileName);
+
+                var carCheckNumber = _context.CarPostDataSmokeMeter
+                    .Where(c => c.DateTime <= carPostDataSmokeMeter.DateTime && c.Number == carPostDataSmokeMeter.Number)
+                    .Count()
+                    .ToString();
+
+                string reportTemplateFileNameFull = Path.Combine(Startup.Configuration["ReportsTeplatesFolder"].ToString(), report.NameRU.Replace(" за период", ""));
+                reportTemplateFileNameFull = Path.ChangeExtension(reportTemplateFileNameFull, "docx");
+                System.IO.File.Copy(reportTemplateFileNameFull, reportFileNameFull);
+
+                using (WordprocessingDocument wordDoc = WordprocessingDocument.Open(reportFileNameFull, true))
+                {
+                    string docText = null;
+                    using (StreamReader sr = new StreamReader(wordDoc.MainDocumentPart.GetStream()))
+                    {
+                        docText = sr.ReadToEnd();
+                    }
+
+                    docText = new Regex("CarPostName").Replace(docText, carPostDataSmokeMeter.CarModelSmokeMeter.CarPost.Name);
+                    docText = new Regex("Time").Replace(docText, carPostDataSmokeMeter.DateTime.Value.ToString("HH:mm:ss"));
+                    docText = new Regex("CarModelName").Replace(docText, carPostDataSmokeMeter.CarModelSmokeMeter.Name);
+                    docText = new Regex("CarNumber").Replace(docText, carPostDataSmokeMeter.Number);
+                    docText = new Regex("Check").Replace(docText, carCheckNumber);
+                    docText = new Regex("Eco").Replace(docText, carPostDataSmokeMeter.CarModelSmokeMeter.TypeEcoClass.Name.Split(' ')[0]);
+                    docText = new Regex("Cat").Replace(docText, carPostDataSmokeMeter.CarModelSmokeMeter.Category);
+                    docText = new Regex("CarYear").Replace(docText, carPostDataSmokeMeter.DOPOL1);
+                    docText = new Regex(@"\b(DFree)\b").Replace(docText, carPostDataSmokeMeter.K_SVOB.HasValue ? carPostDataSmokeMeter.K_SVOB.Value.ToString() : string.Empty);
+                    docText = new Regex(@"\b(NDFree)\b").Replace(docText, carPostDataSmokeMeter.K_MAX.HasValue ? carPostDataSmokeMeter.K_MAX.Value.ToString() : string.Empty);
+
+                    using (StreamWriter sw = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.Create)))
+                    {
+                        sw.Write(docText);
+                    }
+                }
+            }
+
+            report.FileName = $"{report.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name} c {report.CarPostStartDate.Value.ToString("dd-MM-yyyy")} по {report.CarPostEndDate.Value.ToString("dd-MM-yyyy")} (MS Word).zip";
+            report.InputParametersEN = $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPostStartDate"]}={report.CarPostStartDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPostEndDate"]}={report.CarPostEndDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPostId"]}={carPostId};";
+            report.InputParametersRU = $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarPostStartDate"]}={report.CarPostStartDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarPostEndDate"]}={report.CarPostEndDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarPostId"]}={carPostId};";
+            report.InputParametersKK = $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarPostStartDate"]}={report.CarPostStartDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarPostEndDate"]}={report.CarPostEndDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarPostId"]}={carPostId};";
+
+            if (report.PDF)
+            {
+                report.FileName = report.FileName.Replace("(MS Word)", "(PDF)");
+                reportNameFiles = reportNameFiles.Select(f => f.Replace("(MS Word).docx", "(PDF).pdf")).ToList();
+
+                foreach (var reportName in reportNameFiles)
+                {
+                    var fileName = reportName.Replace("(PDF).pdf", "(MS Word).docx");
+                    ConvertDocToPdf(userReportFolder, reportName, fileName);
+                }
+            }
+
+            using (var compressedFileStream = new FileStream(Path.Combine(userReportFolder, report.FileName), FileMode.CreateNew))
+            {
+                using (var zipArchive = new ZipArchive(compressedFileStream, ZipArchiveMode.Create, false))
+                {
+                    foreach (var reportNameFile in reportNameFiles)
+                    {
+                        var zipEntry = zipArchive.CreateEntry(reportNameFile);
+                        var reportFileByte = System.IO.File.ReadAllBytes(Path.Combine(userReportFolder, reportNameFile));
+                        using (var originalFileStream = new MemoryStream(reportFileByte))
+                        {
+                            using (var zipEntryStream = zipEntry.Open())
+                            {
+                                originalFileStream.CopyTo(zipEntryStream);
+                            }
+                        }
+                    }
+                }
+            }
+            reportNameFiles
+                .Select(fileName => Path.Combine(userReportFolder, fileName))
+                .ToList()
+                .ForEach(System.IO.File.Delete);
 
             return report;
         }

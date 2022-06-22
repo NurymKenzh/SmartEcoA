@@ -565,6 +565,7 @@ namespace CarPostClient
                         .FirstOrDefault();
                     if (carPostDataAutoTest != null)
                     {
+                        carPostDataAutoTest.DOPOL2 = Transliteration.CyrillicToLatin(carPostDataAutoTest.DOPOL2, Language.Russian);
                         var dopInfo = connection.Query<DopInfo>(
                             $"SELECT * FROM dop_info as m WHERE m.ID = {carPostDataAutoTest.ID}").FirstOrDefault();
                         if (dopInfo != null)
@@ -610,7 +611,8 @@ namespace CarPostClient
                         .FirstOrDefault();
                     if (carPostDataSmokeMeter != null)
                     {
-                        var dopInfo = connection2.Query<DopInfo>(
+                    carPostDataSmokeMeter.DOPOL2 = Transliteration.CyrillicToLatin(carPostDataSmokeMeter.DOPOL2, Language.Russian);
+                    var dopInfo = connection2.Query<DopInfo>(
                             $"SELECT * FROM dop_info as m WHERE m.ID = {carPostDataSmokeMeter.ID}").FirstOrDefault();
                         if (dopInfo != null)
                         {

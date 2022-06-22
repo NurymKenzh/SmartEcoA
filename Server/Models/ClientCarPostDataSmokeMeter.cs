@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NickBuhro.Translit;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,7 +11,18 @@ namespace Server.Models
         public DateTime DATA { get; set; }
         public string TIME { get; set; }
         public string DOPOL1 { get; set; }
-        public string DOPOL2 { get; set; }
+        private string dopol2 { get; set; }
+        public string DOPOL2
+        {
+            get
+            {
+                return dopol2;
+            }
+            set
+            {
+                dopol2 = Transliteration.LatinToCyrillic(value, Language.Russian);
+            }
+        }
         public decimal MIN_TAH { get; set; }
         public decimal MIN_CO { get; set; }
         public decimal MIN_CH { get; set; }
