@@ -869,15 +869,29 @@ namespace SmartEcoA.Controllers
             {
                 using (var zipArchive = new ZipArchive(compressedFileStream, ZipArchiveMode.Create, false))
                 {
-                    foreach (var reportNameFile in reportNameFiles)
+                    if (reportNameFiles.Count != 0) 
                     {
-                        var zipEntry = zipArchive.CreateEntry(reportNameFile);
-                        var reportFileByte = System.IO.File.ReadAllBytes(Path.Combine(userReportFolder, reportNameFile));
-                        using (var originalFileStream = new MemoryStream(reportFileByte))
+                        foreach (var reportNameFile in reportNameFiles)
                         {
-                            using (var zipEntryStream = zipEntry.Open())
+                            var zipEntry = zipArchive.CreateEntry(reportNameFile);
+                            var reportFileByte = System.IO.File.ReadAllBytes(Path.Combine(userReportFolder, reportNameFile));
+                            using (var originalFileStream = new MemoryStream(reportFileByte))
                             {
-                                originalFileStream.CopyTo(zipEntryStream);
+                                using (var zipEntryStream = zipEntry.Open())
+                                {
+                                    originalFileStream.CopyTo(zipEntryStream);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var zipEntry = zipArchive.CreateEntry("Нет данных.txt");
+                        using (var zipEntryStream = zipEntry.Open())
+                        {
+                            using (var streamWriter = new StreamWriter(zipEntryStream))
+                            {
+                                streamWriter.Write("Нет данных");
                             }
                         }
                     }
@@ -980,15 +994,29 @@ namespace SmartEcoA.Controllers
             {
                 using (var zipArchive = new ZipArchive(compressedFileStream, ZipArchiveMode.Create, false))
                 {
-                    foreach (var reportNameFile in reportNameFiles)
+                    if (reportNameFiles.Count != 0)
                     {
-                        var zipEntry = zipArchive.CreateEntry(reportNameFile);
-                        var reportFileByte = System.IO.File.ReadAllBytes(Path.Combine(userReportFolder, reportNameFile));
-                        using (var originalFileStream = new MemoryStream(reportFileByte))
+                        foreach (var reportNameFile in reportNameFiles)
                         {
-                            using (var zipEntryStream = zipEntry.Open())
+                            var zipEntry = zipArchive.CreateEntry(reportNameFile);
+                            var reportFileByte = System.IO.File.ReadAllBytes(Path.Combine(userReportFolder, reportNameFile));
+                            using (var originalFileStream = new MemoryStream(reportFileByte))
                             {
-                                originalFileStream.CopyTo(zipEntryStream);
+                                using (var zipEntryStream = zipEntry.Open())
+                                {
+                                    originalFileStream.CopyTo(zipEntryStream);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var zipEntry = zipArchive.CreateEntry("Нет данных.txt");
+                        using (var zipEntryStream = zipEntry.Open())
+                        {
+                            using (var streamWriter = new StreamWriter(zipEntryStream))
+                            {
+                                streamWriter.Write("Нет данных");
                             }
                         }
                     }
