@@ -250,9 +250,9 @@ namespace SmartEcoA.Controllers
                 docText = new Regex("CarPostName").Replace(docText, carPost.Name);
                 docText = new Regex("Time").Replace(docText, carPostDataAutoTest.DateTime.Value.ToString("HH:mm:ss"));
                 docText = new Regex("GasSerialNumber").Replace(docText, carPostDataAutoTest.GasSerialNumber.HasValue ? carPostDataAutoTest.GasSerialNumber.Value.ToString() : string.Empty);
-                docText = new Regex("GasCheckDate").Replace(docText, carPostDataAutoTest.GasCheckDate.HasValue ? carPostDataAutoTest.GasCheckDate.Value.ToString("dd:MM:yyyy") : string.Empty);
+                docText = new Regex("GasCheckDate").Replace(docText, carPostDataAutoTest.GasCheckDate.HasValue ? carPostDataAutoTest.GasCheckDate.Value.ToString("dd.MM.yyyy") : string.Empty);
                 docText = new Regex("MeteoSerialNumber").Replace(docText, carPostDataAutoTest.MeteoSerialNumber.HasValue ? carPostDataAutoTest.MeteoSerialNumber.Value.ToString() : string.Empty);
-                docText = new Regex("MeteoCheckDate").Replace(docText, carPostDataAutoTest.MeteoCheckDate.HasValue ? carPostDataAutoTest.MeteoCheckDate.Value.ToString("dd:MM:yyyy") : string.Empty);
+                docText = new Regex("MeteoCheckDate").Replace(docText, carPostDataAutoTest.MeteoCheckDate.HasValue ? carPostDataAutoTest.MeteoCheckDate.Value.ToString("dd.MM.yyyy") : string.Empty);
                 docText = new Regex("Temperature").Replace(docText, carPostDataAutoTest.Temperature.HasValue ? carPostDataAutoTest.Temperature.Value.ToString() : string.Empty);
                 docText = new Regex("Pressure").Replace(docText, carPostDataAutoTest.Pressure.HasValue ? carPostDataAutoTest.Pressure.Value.ToString() : string.Empty);
                 docText = new Regex("CarModelName").Replace(docText, carModelAutoTest.Name);
@@ -336,8 +336,17 @@ namespace SmartEcoA.Controllers
                     docText = sr.ReadToEnd();
                 }
 
+                docText = new Regex("TestNumb").Replace(docText, carPostDataSmokeMeter.TestNumber.HasValue ? carPostDataSmokeMeter.TestNumber.Value.ToString() : string.Empty);
+                docText = new Regex("Day").Replace(docText, carPostDataSmokeMeter.DateTime.Value.ToString("dd"));
+                docText = new Regex("Month").Replace(docText, carPostDataSmokeMeter.DateTime.Value.ToString("MM"));
                 docText = new Regex("CarPostName").Replace(docText, carPost.Name);
                 docText = new Regex("Time").Replace(docText, carPostDataSmokeMeter.DateTime.Value.ToString("HH:mm:ss"));
+                docText = new Regex("GasSerialNumber").Replace(docText, carPostDataSmokeMeter.GasSerialNumber.HasValue ? carPostDataSmokeMeter.GasSerialNumber.Value.ToString() : string.Empty);
+                docText = new Regex("GasCheckDate").Replace(docText, carPostDataSmokeMeter.GasCheckDate.HasValue ? carPostDataSmokeMeter.GasCheckDate.Value.ToString("dd.MM.yyyy") : string.Empty);
+                docText = new Regex("MeteoSerialNumber").Replace(docText, carPostDataSmokeMeter.MeteoSerialNumber.HasValue ? carPostDataSmokeMeter.MeteoSerialNumber.Value.ToString() : string.Empty);
+                docText = new Regex("MeteoCheckDate").Replace(docText, carPostDataSmokeMeter.MeteoCheckDate.HasValue ? carPostDataSmokeMeter.MeteoCheckDate.Value.ToString("dd.MM.yyyy") : string.Empty);
+                docText = new Regex("Temperature").Replace(docText, carPostDataSmokeMeter.Temperature.HasValue ? carPostDataSmokeMeter.Temperature.Value.ToString() : string.Empty);
+                docText = new Regex("Pressure").Replace(docText, carPostDataSmokeMeter.Pressure.HasValue ? carPostDataSmokeMeter.Pressure.Value.ToString() : string.Empty);
                 docText = new Regex("CarModelName").Replace(docText, carModelSmokeMeter.Name);
                 docText = new Regex("CarNumber").Replace(docText, carPostDataSmokeMeter.Number);
                 docText = new Regex("Check").Replace(docText, carCheckNumber);
@@ -346,6 +355,7 @@ namespace SmartEcoA.Controllers
                 docText = new Regex("CarYear").Replace(docText, carPostDataSmokeMeter.DOPOL1);
                 docText = new Regex(@"\b(DFree)\b").Replace(docText, carPostDataSmokeMeter.K_SVOB.HasValue ? carPostDataSmokeMeter.K_SVOB.Value.ToString() : string.Empty);
                 docText = new Regex(@"\b(NDFree)\b").Replace(docText, carPostDataSmokeMeter.K_MAX.HasValue ? carPostDataSmokeMeter.K_MAX.Value.ToString() : string.Empty);
+                docText = new Regex("Tester").Replace(docText, carPostDataSmokeMeter.Tester?.Name != null ? carPostDataSmokeMeter.Tester.Name.Split(' ')[0] : string.Empty);
 
                 using (StreamWriter sw = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.Create)))
                 {
@@ -494,6 +504,7 @@ namespace SmartEcoA.Controllers
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].CarModelAutoTest.Category}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].DOPOL1}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].Number}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(carPostDataAutoTests[i].DOPOL2.ToLower()))?.MIN_CO}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MAX_CO}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MAX_CH}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MAX_CO2}")))),
@@ -810,9 +821,9 @@ namespace SmartEcoA.Controllers
                     docText = new Regex("CarPostName").Replace(docText, carPostDataAutoTest.CarModelAutoTest.CarPost.Name);
                     docText = new Regex("Time").Replace(docText, carPostDataAutoTest.DateTime.Value.ToString("HH:mm:ss"));
                     docText = new Regex("GasSerialNumber").Replace(docText, carPostDataAutoTest.GasSerialNumber.HasValue ? carPostDataAutoTest.GasSerialNumber.Value.ToString() : string.Empty);
-                    docText = new Regex("GasCheckDate").Replace(docText, carPostDataAutoTest.GasCheckDate.HasValue ? carPostDataAutoTest.GasCheckDate.Value.ToString("dd:MM:yyyy") : string.Empty);
+                    docText = new Regex("GasCheckDate").Replace(docText, carPostDataAutoTest.GasCheckDate.HasValue ? carPostDataAutoTest.GasCheckDate.Value.ToString("dd.MM.yyyy") : string.Empty);
                     docText = new Regex("MeteoSerialNumber").Replace(docText, carPostDataAutoTest.MeteoSerialNumber.HasValue ? carPostDataAutoTest.MeteoSerialNumber.Value.ToString() : string.Empty);
-                    docText = new Regex("MeteoCheckDate").Replace(docText, carPostDataAutoTest.MeteoCheckDate.HasValue ? carPostDataAutoTest.MeteoCheckDate.Value.ToString("dd:MM:yyyy") : string.Empty);
+                    docText = new Regex("MeteoCheckDate").Replace(docText, carPostDataAutoTest.MeteoCheckDate.HasValue ? carPostDataAutoTest.MeteoCheckDate.Value.ToString("dd.MM.yyyy") : string.Empty);
                     docText = new Regex("Temperature").Replace(docText, carPostDataAutoTest.Temperature.HasValue ? carPostDataAutoTest.Temperature.Value.ToString() : string.Empty);
                     docText = new Regex("Pressure").Replace(docText, carPostDataAutoTest.Pressure.HasValue ? carPostDataAutoTest.Pressure.Value.ToString() : string.Empty);
                     docText = new Regex("CarModelName").Replace(docText, carPostDataAutoTest.CarModelAutoTest.Name);
@@ -949,8 +960,17 @@ namespace SmartEcoA.Controllers
                         docText = sr.ReadToEnd();
                     }
 
+                    docText = new Regex("TestNumb").Replace(docText, carPostDataSmokeMeter.TestNumber.HasValue ? carPostDataSmokeMeter.TestNumber.Value.ToString() : string.Empty);
+                    docText = new Regex("Day").Replace(docText, carPostDataSmokeMeter.DateTime.Value.ToString("dd"));
+                    docText = new Regex("Month").Replace(docText, carPostDataSmokeMeter.DateTime.Value.ToString("MM"));
                     docText = new Regex("CarPostName").Replace(docText, carPostDataSmokeMeter.CarModelSmokeMeter.CarPost.Name);
                     docText = new Regex("Time").Replace(docText, carPostDataSmokeMeter.DateTime.Value.ToString("HH:mm:ss"));
+                    docText = new Regex("GasSerialNumber").Replace(docText, carPostDataSmokeMeter.GasSerialNumber.HasValue ? carPostDataSmokeMeter.GasSerialNumber.Value.ToString() : string.Empty);
+                    docText = new Regex("GasCheckDate").Replace(docText, carPostDataSmokeMeter.GasCheckDate.HasValue ? carPostDataSmokeMeter.GasCheckDate.Value.ToString("dd.MM.yyyy") : string.Empty);
+                    docText = new Regex("MeteoSerialNumber").Replace(docText, carPostDataSmokeMeter.MeteoSerialNumber.HasValue ? carPostDataSmokeMeter.MeteoSerialNumber.Value.ToString() : string.Empty);
+                    docText = new Regex("MeteoCheckDate").Replace(docText, carPostDataSmokeMeter.MeteoCheckDate.HasValue ? carPostDataSmokeMeter.MeteoCheckDate.Value.ToString("dd.MM.yyyy") : string.Empty);
+                    docText = new Regex("Temperature").Replace(docText, carPostDataSmokeMeter.Temperature.HasValue ? carPostDataSmokeMeter.Temperature.Value.ToString() : string.Empty);
+                    docText = new Regex("Pressure").Replace(docText, carPostDataSmokeMeter.Pressure.HasValue ? carPostDataSmokeMeter.Pressure.Value.ToString() : string.Empty);
                     docText = new Regex("CarModelName").Replace(docText, carPostDataSmokeMeter.CarModelSmokeMeter.Name);
                     docText = new Regex("CarNumber").Replace(docText, carPostDataSmokeMeter.Number);
                     docText = new Regex("Check").Replace(docText, carCheckNumber);
@@ -959,6 +979,7 @@ namespace SmartEcoA.Controllers
                     docText = new Regex("CarYear").Replace(docText, carPostDataSmokeMeter.DOPOL1);
                     docText = new Regex(@"\b(DFree)\b").Replace(docText, carPostDataSmokeMeter.K_SVOB.HasValue ? carPostDataSmokeMeter.K_SVOB.Value.ToString() : string.Empty);
                     docText = new Regex(@"\b(NDFree)\b").Replace(docText, carPostDataSmokeMeter.K_MAX.HasValue ? carPostDataSmokeMeter.K_MAX.Value.ToString() : string.Empty);
+                    docText = new Regex("Tester").Replace(docText, carPostDataSmokeMeter.Tester?.Name != null ? carPostDataSmokeMeter.Tester.Name.Split(' ')[0] : string.Empty);
 
                     using (StreamWriter sw = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.Create)))
                     {

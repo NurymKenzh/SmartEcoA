@@ -556,7 +556,7 @@ namespace Server
                         var carModelSmokeMetersv = connection.Query<CarModelSmokeMeter>($"SELECT \"Id\", \"Name\", \"ParadoxId\", \"CarPostId\" " +
                             $"FROM public.\"CarModelSmokeMeter\" " +
                             $"WHERE \"CarPostId\" = {carPostId} AND \"ParadoxId\" = '{clientJsonData.carPostDataSmokeMeter.ID_MODEL}' " +
-                            $"ORDER BY \"Id\"");
+                            $"ORDER BY \"Id\" DESC");
                         carModelSmokeMeter = carModelSmokeMetersv.FirstOrDefault();
 
                         if (!string.IsNullOrEmpty(clientJsonData.carPostDataSmokeMeter.DopInfo?.TesterName))
@@ -721,7 +721,7 @@ namespace Server
                         var carModelAutoTestsv = connection.Query<CarModelAutoTest>($"SELECT \"Id\", \"Name\", \"ParadoxId\", \"CarPostId\" " +
                             $"FROM public.\"CarModelAutoTest\" " +
                             $"WHERE \"CarPostId\" = {carPostId} AND \"ParadoxId\" = '{clientJsonData.carPostDataAutoTest.ID_MODEL}' " +
-                            $"ORDER BY \"Id\"");
+                            $"ORDER BY \"Id\" DESC");
                         carModelAutoTest = carModelAutoTestsv.FirstOrDefault();
 
                         if (!string.IsNullOrEmpty(clientJsonData.carPostDataAutoTest.DopInfo?.TesterName))

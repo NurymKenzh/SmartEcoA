@@ -46,31 +46,31 @@ namespace Server
 
         private void backgroundWorkerPosts_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (!backgroundWorkerPosts.CancellationPending)
-            {
-                PostDataReceiver postDataReceiver = new PostDataReceiver(
-                    PostsDataConnectionString,
-                    SmartEcoAConnectionString,
-                    LastReceivedPostDataDateTimeString,
-                    textBoxPostsData);
-                postDataReceiver.GetPostDatas();
+            //while (!backgroundWorkerPosts.CancellationPending)
+            //{
+            //    PostDataReceiver postDataReceiver = new PostDataReceiver(
+            //        PostsDataConnectionString,
+            //        SmartEcoAConnectionString,
+            //        LastReceivedPostDataDateTimeString,
+            //        textBoxPostsData);
+            //    postDataReceiver.GetPostDatas();
 
-                PostDataDivider postDataDivider = new PostDataDivider(
-                    SmartEcoAConnectionString,
-                    LastPostDataDividedDateTimeString,
-                    textBoxPostsData);
-                postDataDivider.DividePostDatas();
+            //    PostDataDivider postDataDivider = new PostDataDivider(
+            //        SmartEcoAConnectionString,
+            //        LastPostDataDividedDateTimeString,
+            //        textBoxPostsData);
+            //    postDataDivider.DividePostDatas();
 
-                PostDataAverager postDataAverager = new PostDataAverager(
-                    SmartEcoAConnectionString,
-                    LastPostDataAveragedDateTimeString,
-                    textBoxPostsData);
-                bool sleep = postDataAverager.AveragePostDatas();
-                if (sleep)
-                {
-                    Thread.Sleep(new TimeSpan(0, 0, 10));
-                }
-            }
+            //    PostDataAverager postDataAverager = new PostDataAverager(
+            //        SmartEcoAConnectionString,
+            //        LastPostDataAveragedDateTimeString,
+            //        textBoxPostsData);
+            //    bool sleep = postDataAverager.AveragePostDatas();
+            //    if (sleep)
+            //    {
+            //        Thread.Sleep(new TimeSpan(0, 0, 10));
+            //    }
+            //}
         }
 
         private void backgroundWorkerCarPosts_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
