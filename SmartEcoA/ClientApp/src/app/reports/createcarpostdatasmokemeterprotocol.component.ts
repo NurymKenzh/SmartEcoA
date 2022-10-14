@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ReportService } from './report.service';
-import { Report } from './report.model';
+import { Report, TypesReport } from './report.model';
 
 import { CarPost } from '../carposts/carpost.model';
 import { CarPostService } from '../carposts/carpost.service';
@@ -19,9 +19,12 @@ import { CarPostDataSmokeMeterService } from '../carpostdatasmokemeters/carpostd
 export class ReportCreateCarPostDataSmokeMeterProtocolComponent implements OnInit {
   public reportForm: FormGroup;
   carposts: CarPost[];
+  typesreport: TypesReport;
   CarPostDate = new FormControl(new Date());
   CarPostId = new FormControl('');
   carpostdatasmokemeters: CarPostDataSmokeMeter[];
+  SelectedTypeReport = new FormControl('');
+  public typesreportValue = [];
 
   constructor(private router: Router,
     private service: ReportService,
@@ -37,10 +40,9 @@ export class ReportCreateCarPostDataSmokeMeterProtocolComponent implements OnIni
         this.CarPostDataSmokeMetersUpdate();
       });
     this.reportForm = new FormGroup({
-      CarPostDataSmokeMeterId: new FormControl('', [Validators.required]),
-      SelectedTypeReport: new FormControl('', [Validators.required])
+      CarPostDataSmokeMeterId: new FormControl('', [Validators.required])
     });
-    this.reportForm.controls["SelectedTypeReport"].setValue("false");
+    this.typesreportValue = Object.keys(TypesReport).filter(type => isNaN(<any>type) && type !== "values" && type != "Excel");
   }
 
   public CarPostDataSmokeMetersUpdate() {
@@ -79,7 +81,7 @@ export class ReportCreateCarPostDataSmokeMeterProtocolComponent implements OnIni
         CarPostStartDate: null,
         CarPostEndDate: null,
         FileName: null,
-        PDF: this.reportForm.controls["SelectedTypeReport"].value
+        TypeReport: this.SelectedTypeReport.value as TypesReport
       }
       this.service.post(report)
         .subscribe(() => {

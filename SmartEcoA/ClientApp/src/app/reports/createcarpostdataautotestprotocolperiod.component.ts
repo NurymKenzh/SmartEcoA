@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ReportService } from './report.service';
-import { Report } from './report.model';
+import { Report, TypesReport } from './report.model';
 
 import { CarPost } from '../carposts/carpost.model';
 import { CarPostService } from '../carposts/carpost.service';
+import { MatOption, MatSelect} from '@angular/material';
 
 @Component({
   templateUrl: 'createcarpostdataautotestprotocolperiod.component.html',
@@ -16,9 +17,16 @@ import { CarPostService } from '../carposts/carpost.service';
 export class ReportCreateCarPostDataAutoTestProtocolPeriodComponent implements OnInit {
   public reportForm: FormGroup;
   carposts: CarPost[];
+  typesreport: TypesReport;
   CarPostStartDate = new FormControl(new Date());
   CarPostEndDate = new FormControl(new Date());
-  CarPostId = new FormControl('');
+  CarPostsId = new FormControl();
+  public allCarPosts = [];
+  SelectedTypeReport = new FormControl('');
+  public typesreportValue = [];
+
+  @ViewChild('allSelected', null) private allSelected: MatOption;
+  @ViewChild('multiselect', null) multiselect: MatSelect;
 
   constructor(private router: Router,
     private service: ReportService,
@@ -28,13 +36,10 @@ export class ReportCreateCarPostDataAutoTestProtocolPeriodComponent implements O
     this.carPostService.get()
       .subscribe(res => {
         this.carposts = res as CarPost[];
-        this.carposts.sort((a, b) => (a.Name > b.Name) ? 1 : ((b.Name > a.Name) ? -1 : 0));
-        this.CarPostId.setValue(this.carposts[0] ? this.carposts[0].Id : null);
+        this.carposts.forEach(carPost => this.allCarPosts.push({ 'Id': carPost.Id, 'Name': carPost.Name, 'Selected': false }));
       });
-    this.reportForm = new FormGroup({
-      SelectedTypeReport: new FormControl('', [Validators.required])
-    });
-    this.reportForm.controls["SelectedTypeReport"].setValue("false");
+    this.reportForm = new FormGroup({});
+    this.typesreportValue = Object.keys(TypesReport).filter(type => isNaN(<any>type) && type !== "values" && type != "Excel");
   }
 
   public error(control: string,
@@ -47,6 +52,7 @@ export class ReportCreateCarPostDataAutoTestProtocolPeriodComponent implements O
   }
 
   public create(reportFormValue) {
+    let carPostsId = this.CarPostsId.value.join(';');
     var startDate = new Date(Date.UTC(this.CarPostStartDate.value.getFullYear(), this.CarPostStartDate.value.getMonth(), this.CarPostStartDate.value.getDate(), 0, 0, 0));
     var endDate = new Date(Date.UTC(this.CarPostEndDate.value.getFullYear(), this.CarPostEndDate.value.getMonth(), this.CarPostEndDate.value.getDate(), 23, 59, 59));
     if (this.reportForm.valid) {
@@ -61,12 +67,12 @@ export class ReportCreateCarPostDataAutoTestProtocolPeriodComponent implements O
         InputParametersEN: null,
         InputParametersRU: null,
         InputParametersKK: null,
-        Inputs: `CarPostId=${this.CarPostId.value}`,
+        Inputs: carPostsId,
         DateTime: null,
         CarPostStartDate: startDate,
         CarPostEndDate: endDate,
         FileName: null,
-        PDF: this.reportForm.controls["SelectedTypeReport"].value
+        TypeReport: this.SelectedTypeReport.value as TypesReport
       }
       this.service.post(report)
         .subscribe(() => {
@@ -76,6 +82,23 @@ export class ReportCreateCarPostDataAutoTestProtocolPeriodComponent implements O
             console.log(error);
           })
         );
+    }
+  }
+
+  tosslePerOne() {
+    if (this.allSelected.selected) {
+      this.allSelected.deselect();
+      return false;
+    }
+    if (this.CarPostsId.value.length === this.carposts.length)
+      this.allSelected.select();
+
+  }
+  toggleAllSelection() {
+    if (this.allSelected.selected) {
+      this.multiselect.options.forEach((item: MatOption) => item.select());
+    } else {
+      this.multiselect.options.forEach((item: MatOption) => item.deselect());
     }
   }
 }

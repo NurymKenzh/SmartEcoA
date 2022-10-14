@@ -16,5 +16,11 @@ export class Report {
   CarPostStartDate?: Date;
   CarPostEndDate?: Date;
   FileName: string;
-  PDF: boolean;
+  TypeReport: TypesReport;
+}
+
+export enum TypesReport {
+  Word,
+  PDF,
+  Excel
 }

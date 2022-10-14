@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ReportService } from './report.service';
 import { Report } from './report.model';
+import { TypesReport } from './report.model';
 
 import { CarPost } from '../carposts/carpost.model';
 import { CarPostService } from '../carposts/carpost.service';
@@ -19,9 +20,12 @@ import { CarPostDataAutoTestService } from '../carpostdataautotests/carpostdataa
 export class ReportCreateCarPostDataAutoTestProtocolComponent implements OnInit {
   public reportForm: FormGroup;
   carposts: CarPost[];
+  typesreport: TypesReport;
   CarPostDate = new FormControl(new Date());
   CarPostId = new FormControl('');
   carpostdataautotests: CarPostDataAutoTest[];
+  SelectedTypeReport = new FormControl('');
+  public typesreportValue = [];
 
   constructor(private router: Router,
     private service: ReportService,
@@ -37,10 +41,9 @@ export class ReportCreateCarPostDataAutoTestProtocolComponent implements OnInit 
         this.CarPostDataAutoTestsUpdate();
       });
     this.reportForm = new FormGroup({
-      CarPostDataAutoTestId: new FormControl('', [Validators.required]),
-      SelectedTypeReport: new FormControl('', [Validators.required])
+      CarPostDataAutoTestId: new FormControl('', [Validators.required])
     });
-    this.reportForm.controls["SelectedTypeReport"].setValue("false");
+    this.typesreportValue = Object.keys(TypesReport).filter(type => isNaN(<any>type) && type !== "values" && type != "Excel");
   }
 
   public CarPostDataAutoTestsUpdate() {
@@ -79,7 +82,7 @@ export class ReportCreateCarPostDataAutoTestProtocolComponent implements OnInit 
         CarPostStartDate: null,
         CarPostEndDate: null,
         FileName: null,
-        PDF: this.reportForm.controls["SelectedTypeReport"].value
+        TypeReport: this.SelectedTypeReport.value as TypesReport
       }
       this.service.post(report)
         .subscribe(() => {

@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using OfficeOpenXml;
 using SmartEcoA.Models;
 
 namespace SmartEcoA.Controllers
@@ -139,42 +140,49 @@ namespace SmartEcoA.Controllers
             report.DateTime = DateTime.Now;
             try
             {
-            switch (report.NameEN)
-            {
-                // CarPostDataAutoTestProtocol
-                case "Report of measurements of harmful emissions in the exhaust gases of a motor vehicle":
-                    report = CreateCarPostDataAutoTestProtocol(report);
-                    break;
-                // CarPostDataSmokeMeterProtocol
-                case "Report of measurements of harmful emissions in the exhaust gases of a motor vehicle (Diesel)":
-                    report = CreateCarPostDataSmokeMeterProtocol(report);
-                    break;
-                // CarPostDataSmokeMeterLog
-                case "Vehicle Emission Test Results Log (Diesel)":
-                    report = CreateCarPostDataSmokeMeterLog(report);
-                    break;
-                // CarPostDataAutoTestLog
-                case "Vehicle Emission Test Results Log (Gasoline)":
-                    report = CreateCarPostDataAutoTestLog(report);
-                    break;
-                // CarPostsProtocol
-                case "Report car posts for the period":
-                    report = CreateCarPostsProtocol(report);
-                    break;
-                // CarsExcessProtocol
-                case "Report on repeated exceedances cars at posts":
-                    report = CreateCarsExcessProtocol(report);
-                    break;
-                // CarPostDataAutoTestProtocolPeriod
-                case "Report of measurements of harmful emissions in the exhaust gases of a motor vehicle for the period":
-                    report = CreateCarPostDataAutoTestProtocolPeriod(report);
-                    break;
-                // CreateCarPostDataSmokeMeterProtocolPeriod
-                case "Report of measurements of harmful emissions in the exhaust gases of a motor vehicle (Diesel) for the period":
-                    report = CreateCarPostDataSmokeMeterProtocolPeriod(report);
-                    break;
+                switch (report.NameEN)
+                {
+                    // CarPostDataAutoTestProtocol
+                    case "Report of measurements of harmful emissions in the exhaust gases of a motor vehicle":
+                        report = CreateCarPostDataAutoTestProtocol(report);
+                        break;
+                    // CarPostDataSmokeMeterProtocol
+                    case "Report of measurements of harmful emissions in the exhaust gases of a motor vehicle (Diesel)":
+                        report = CreateCarPostDataSmokeMeterProtocol(report);
+                        break;
+                    // CarPostDataSmokeMeterLog
+                    case "Vehicle Emission Test Results Log (Diesel)":
+                        report = CreateCarPostDataSmokeMeterLog(report);
+                        break;
+                    // CarPostDataAutoTestLog
+                    case "Vehicle Emission Test Results Log (Gasoline)":
+                        report = CreateCarPostDataAutoTestLog(report);
+                        break;
+                    // CarPostsProtocol
+                    case "Report car posts for the period":
+                        if (report.TypeReport is TypesReport.Excel)
+                        {
+                            report = CreateCarPostsProtocolExcel(report);
+                        }
+                        else 
+                        {
+                            report = CreateCarPostsProtocol(report);
+                        }
+                        break;
+                    // CarsExcessProtocol
+                    case "Report on repeated exceedances cars at posts":
+                        report = CreateCarsExcessProtocol(report);
+                        break;
+                    // CarPostDataAutoTestProtocolPeriod
+                    case "Report of measurements of harmful emissions in the exhaust gases of a motor vehicle for the period":
+                        report = CreateCarPostDataAutoTestProtocolPeriod(report);
+                        break;
+                    // CreateCarPostDataSmokeMeterProtocolPeriod
+                    case "Report of measurements of harmful emissions in the exhaust gases of a motor vehicle (Diesel) for the period":
+                        report = CreateCarPostDataSmokeMeterProtocolPeriod(report);
+                        break;
                 }
-                if (report.PDF && !report.FileName.Contains(".zip"))
+                if (report.TypeReport is TypesReport.PDF && !report.FileName.Contains(".zip"))
                 {
                     var wordName = report.FileName;
                     report.FileName = report.FileName.Replace("(MS Word).docx", "(PDF).pdf");
@@ -416,21 +424,27 @@ namespace SmartEcoA.Controllers
 
                 Body body = wordDoc.MainDocumentPart.Document.Body;
                 Table table = body.Elements<Table>().First();
+                int k = 0;
                 for (int i = 0; i < carPostDataSmokeMeters.Count; i++)
                 {
                     table.Append(
                         new TableRow(
-                            new TableCell(new Paragraph(new Run(new Text($"{i + 1}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{k + 1}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].DateTime.Value.ToString("dd.MM.yyyy")}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].DateTime.Value.ToString("HH:mm:ss")}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].CarModelSmokeMeter.Name}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].Number}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(carPostDataSmokeMeters[i].DOPOL2.ToLower()))?.Name.Split(' ')[0]}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].CarModelSmokeMeter.Category}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].DOPOL1}")))),
-                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].Number}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].K_SVOB}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataSmokeMeters[i].K_MAX}")))),
                             new TableCell(new Paragraph(new Run(new Text(string.Empty))))));
+                    k++;
+                    if (carPostDataSmokeMeters[i].DateTime.Value.ToString("dd.MM.yyyy") != carPostDataSmokeMeters[i - 1].DateTime.Value.ToString("dd.MM.yyyy"))
+                    {
+                        k = 0;
+                    }
                 }
 
                 using (StreamWriter sw = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.Create)))
@@ -492,18 +506,19 @@ namespace SmartEcoA.Controllers
 
                 Body body = wordDoc.MainDocumentPart.Document.Body;
                 Table table = body.Elements<Table>().First();
+                int k = 0;
                 for (int i = 0; i < carPostDataAutoTests.Count; i++)
                 {
                     table.Append(
                         new TableRow(
-                            new TableCell(new Paragraph(new Run(new Text($"{i + 1}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{k + 1}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].DateTime.Value.ToString("dd.MM.yyyy")}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].DateTime.Value.ToString("HH:mm:ss")}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].CarModelAutoTest.Name}")))),
+                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].Number}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(carPostDataAutoTests[i].DOPOL2.ToLower()))?.Name.Split(' ')[0]}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].CarModelAutoTest.Category}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].DOPOL1}")))),
-                            new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].Number}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(carPostDataAutoTests[i].DOPOL2.ToLower()))?.MIN_CO}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MAX_CO}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MAX_CH}")))),
@@ -512,6 +527,11 @@ namespace SmartEcoA.Controllers
                             new TableCell(new Paragraph(new Run(new Text($"{carPostDataAutoTests[i].MAX_NO}")))),
                             new TableCell(new Paragraph(new Run(new Text($"{(carPostDataAutoTests[i].Tester?.Name != null ? carPostDataAutoTests[i].Tester.Name.Split(' ')[0] : string.Empty)}")))),
                             new TableCell(new Paragraph(new Run(new Text(string.Empty))))));
+                    k++;
+                    if(carPostDataAutoTests[i].DateTime.Value.ToString("dd.MM.yyyy") != carPostDataAutoTests[i - 1].DateTime.Value.ToString("dd.MM.yyyy"))
+                    {
+                        k = 0;
+                    }
                 }
 
                 using (StreamWriter sw = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.Create)))
@@ -780,21 +800,26 @@ namespace SmartEcoA.Controllers
                 Directory.CreateDirectory(userReportFolder);
             }
 
-            int carPostId = Convert.ToInt32(report.Inputs.Split('=')[1]);
+            //int carPostId = Convert.ToInt32(report.Inputs.Split('=')[1]);
+            int[] carPostsId = Array.ConvertAll(report.Inputs.Split(';'), s => int.Parse(s));
             List<CarPostDataAutoTest> carPostDataAutoTests = _context.CarPostDataAutoTest
                 .Include(c => c.CarModelAutoTest)
                 .Include(c => c.CarModelAutoTest.TypeEcoClass)
                 .Include(c => c.CarModelAutoTest.CarPost)
                 .Include(c => c.Tester)
-                .Where(c => c.DateTime >= report.CarPostStartDate && c.DateTime <= report.CarPostEndDate && c.CarModelAutoTest.CarPostId == carPostId)
+                .Where(c => c.DateTime >= report.CarPostStartDate && c.DateTime <= report.CarPostEndDate && carPostsId.Contains(c.CarModelAutoTest.CarPostId))
                 .OrderBy(c => c.DateTime)
                 .ToList();
 
             var typeEcoClasses = _context.TypeEcoClass.ToList();
 
+            var carPostsName = _context.CarPost
+                .Where(c => carPostsId.Contains(c.Id))
+                .Select(c => c.Name).ToList();
+
             foreach (var carPostDataAutoTest in carPostDataAutoTests) 
             {
-                var fileName = $"{carPostDataAutoTest.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name} (MS Word).docx";
+                var fileName = $"{carPostDataAutoTest.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name} {carPostDataAutoTest.CarModelAutoTest.CarPost.Name.Replace("\"","\'")} (MS Word).docx";
                 string reportFileNameFull = Path.Combine(userReportFolder, fileName);
                 reportNameFiles.Add(fileName);
 
@@ -856,15 +881,15 @@ namespace SmartEcoA.Controllers
             report.FileName = $"{report.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name} c {report.CarPostStartDate.Value.ToString("dd-MM-yyyy")} по {report.CarPostEndDate.Value.ToString("dd-MM-yyyy")} (MS Word).zip";
             report.InputParametersEN = $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPostStartDate"]}={report.CarPostStartDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPostEndDate"]}={report.CarPostEndDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
-                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPostId"]}={carPostId};";
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPostId"]}={report.Inputs}";
             report.InputParametersRU = $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarPostStartDate"]}={report.CarPostStartDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarPostEndDate"]}={report.CarPostEndDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
-                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarPostId"]}={carPostId};";
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarPostId"]}={report.Inputs}";
             report.InputParametersKK = $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarPostStartDate"]}={report.CarPostStartDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarPostEndDate"]}={report.CarPostEndDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
-                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarPostId"]}={carPostId};";
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarPostId"]}={report.Inputs}";
 
-            if (report.PDF)
+            if (report.TypeReport is TypesReport.PDF)
             {
                 report.FileName = report.FileName.Replace("(MS Word)", "(PDF)");
                 reportNameFiles = reportNameFiles.Select(f => f.Replace("(MS Word).docx", "(PDF).pdf")).ToList();
@@ -897,7 +922,8 @@ namespace SmartEcoA.Controllers
                     }
                     else
                     {
-                        var zipEntry = zipArchive.CreateEntry("Нет данных.txt");
+                        string carPostsNames = String.Join(", ", carPostsName.ToArray());
+                        var zipEntry = zipArchive.CreateEntry($"Нет данных {carPostsNames}.txt");
                         using (var zipEntryStream = zipEntry.Open())
                         {
                             using (var streamWriter = new StreamWriter(zipEntryStream))
@@ -925,21 +951,26 @@ namespace SmartEcoA.Controllers
                 Directory.CreateDirectory(userReportFolder);
             }
 
-            int carPostId = Convert.ToInt32(report.Inputs.Split('=')[1]);
+            //int carPostId = Convert.ToInt32(report.Inputs.Split('=')[1]);
+            int[] carPostsId = Array.ConvertAll(report.Inputs.Split(';'), s => int.Parse(s));
             List<CarPostDataSmokeMeter> carPostDataSmokeMeters = _context.CarPostDataSmokeMeter
                 .Include(c => c.CarModelSmokeMeter)
                 .Include(c => c.CarModelSmokeMeter.TypeEcoClass)
                 .Include(c => c.CarModelSmokeMeter.CarPost)
                 .Include(c => c.Tester)
-                .Where(c => c.DateTime >= report.CarPostStartDate && c.DateTime <= report.CarPostEndDate && c.CarModelSmokeMeter.CarPostId == carPostId)
+                .Where(c => c.DateTime >= report.CarPostStartDate && c.DateTime <= report.CarPostEndDate && carPostsId.Contains(c.CarModelSmokeMeter.CarPostId))
                 .OrderBy(c => c.DateTime)
                 .ToList();
 
             var typeEcoClasses = _context.TypeEcoClass.ToList();
 
+            var carPostsName = _context.CarPost
+                .Where(c => carPostsId.Contains(c.Id))
+                .Select(c => c.Name).ToList();
+
             foreach (var carPostDataSmokeMeter in carPostDataSmokeMeters)
             {
-                var fileName = $"{carPostDataSmokeMeter.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name} (MS Word).docx";
+                var fileName = $"{carPostDataSmokeMeter.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name} {carPostDataSmokeMeter.CarModelSmokeMeter.CarPost.Name} (MS Word).docx";
                 string reportFileNameFull = Path.Combine(userReportFolder, fileName);
                 reportNameFiles.Add(fileName);
 
@@ -991,15 +1022,15 @@ namespace SmartEcoA.Controllers
             report.FileName = $"{report.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name} c {report.CarPostStartDate.Value.ToString("dd-MM-yyyy")} по {report.CarPostEndDate.Value.ToString("dd-MM-yyyy")} (MS Word).zip";
             report.InputParametersEN = $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPostStartDate"]}={report.CarPostStartDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPostEndDate"]}={report.CarPostEndDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
-                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPostId"]}={carPostId};";
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["CarPostId"]}={report.Inputs}";
             report.InputParametersRU = $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarPostStartDate"]}={report.CarPostStartDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarPostEndDate"]}={report.CarPostEndDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
-                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarPostId"]}={carPostId};";
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["CarPostId"]}={report.Inputs}";
             report.InputParametersKK = $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarPostStartDate"]}={report.CarPostStartDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
                 $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarPostEndDate"]}={report.CarPostEndDate.Value.ToString("yyyy-MM-dd HH:mm:ss")};" +
-                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarPostId"]}={carPostId};";
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["CarPostId"]}={report.Inputs}";
 
-            if (report.PDF)
+            if (report.TypeReport is TypesReport.PDF)
             {
                 report.FileName = report.FileName.Replace("(MS Word)", "(PDF)");
                 reportNameFiles = reportNameFiles.Select(f => f.Replace("(MS Word).docx", "(PDF).pdf")).ToList();
@@ -1032,7 +1063,8 @@ namespace SmartEcoA.Controllers
                     }
                     else
                     {
-                        var zipEntry = zipArchive.CreateEntry("Нет данных.txt");
+                        string carPostsNames = String.Join(", ", carPostsName.ToArray());
+                        var zipEntry = zipArchive.CreateEntry($"Нет данных {carPostsNames}.txt");
                         using (var zipEntryStream = zipEntry.Open())
                         {
                             using (var streamWriter = new StreamWriter(zipEntryStream))
@@ -1167,7 +1199,7 @@ namespace SmartEcoA.Controllers
                     HighAnsi = "Times New Roman",
                     ComplexScript = "Times New Roman"
                 },
-                FontSize = new FontSize()
+                FontSize = new DocumentFormat.OpenXml.Wordprocessing.FontSize()
                 {
                     Val = fontSize.ToString()
                 }
@@ -1180,6 +1212,167 @@ namespace SmartEcoA.Controllers
             paragraph.Append(run);
 
             return paragraph;
+        }
+
+        private Report CreateCarPostsProtocolExcel(Report report)
+        {
+            report.FileName = $"{report.DateTime.Value.ToString("yyyy-MM-dd HH.mm.ss")} {report.Name} c {report.CarPostStartDate.Value.ToString("dd-MM-yyyy")} по {report.CarPostEndDate.Value.ToString("dd-MM-yyyy")} (Excel).xlsx";
+            string userReportFolder = Path.Combine(Startup.Configuration["ReportsFolder"].ToString(), report.ApplicationUserId);
+            if (!Directory.Exists(userReportFolder))
+            {
+                Directory.CreateDirectory(userReportFolder);
+            }
+
+            var carPostsDataAutoTest = _context.CarPostDataAutoTest
+                .Include(c => c.CarModelAutoTest)
+                .Include(c => c.CarModelAutoTest.CarPost)
+                //.Where(c => c.DateTime.Value.Year == report.CarPostStartDate.Value.Year && c.DateTime.Value.Month == report.CarPostStartDate.Value.Month && c.DateTime.Value.Day == report.CarPostStartDate.Value.Day)
+                .Where(c => report.CarPostStartDate <= c.DateTime && c.DateTime <= report.CarPostEndDate)
+                .ToList();
+            var carPostsDataSmokeMeter = _context.CarPostDataSmokeMeter
+                .Include(c => c.CarModelSmokeMeter)
+                .Include(c => c.CarModelSmokeMeter.CarPost)
+                //.Where(c => c.DateTime.Value.Year == report.CarPostStartDate.Value.Year && c.DateTime.Value.Month == report.CarPostStartDate.Value.Month && c.DateTime.Value.Day == report.CarPostStartDate.Value.Day)
+                .Where(c => report.CarPostStartDate <= c.DateTime && c.DateTime <= report.CarPostEndDate)
+                .ToList();
+
+            var carPosts = _context.CarPost
+                .ToList();
+
+            report.InputParametersEN = $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["StartDate"]}={Convert.ToDateTime(report.CarPostStartDate).ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("en"))["EndDate"]}={Convert.ToDateTime(report.CarPostEndDate).ToString("yyyy-MM-dd")};";
+            report.InputParametersRU = $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["StartDate"]}={Convert.ToDateTime(report.CarPostStartDate).ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("ru"))["EndDate"]}={Convert.ToDateTime(report.CarPostEndDate).ToString("yyyy-MM-dd")};";
+            report.InputParametersKK = $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["StartDate"]}={Convert.ToDateTime(report.CarPostStartDate).ToString("yyyy-MM-dd")};" +
+                $"{_sharedLocalizer.WithCulture(new CultureInfo("kk"))["EndDate"]}={Convert.ToDateTime(report.CarPostEndDate).ToString("yyyy-MM-dd")};";
+
+            FileInfo file = new FileInfo(Path.Combine(userReportFolder, report.FileName));
+            using (ExcelPackage package = new ExcelPackage(file))
+            {
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Лист 1");
+
+                //Заголовок
+                worksheet.Cells[2, 1].Value = $"Отчет по Экологическим постам c {report.CarPostStartDate.Value.ToString("dd-MM-yyyy")} по {report.CarPostEndDate.Value.ToString("dd-MM-yyyy")}";
+                worksheet.Cells["A2:I2"].Merge = true;
+                worksheet.Cells[2, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                worksheet.Cells[2, 1].Style.Font.Bold = true;
+                worksheet.Cells[2, 1].Style.Font.Size = 16;
+
+                //"шапка" таблицы
+                int row = 4;
+
+                    worksheet.Cells[row, 1].Value = $"";
+                    worksheet.Cells[row + 1, 1].Value = $"Количество замеров (кол-во автомашин) в т.ч";
+                    worksheet.Cells[row + 2, 1].Value = $"бензиновые";
+                    worksheet.Cells[row + 3, 1].Value = $"на дизеле";
+                    worksheet.Cells[row + 4, 1].Value = $"Количество превышений";
+                    worksheet.Cells[row + 5, 1].Value = $"Превышения СО";
+                    worksheet.Cells[row + 6, 1].Value = $"Превышения дымность";
+
+                //Установка стилей для "шапки" таблицы
+                for (int i = row; i < row + 7; i++)
+                {
+                    worksheet.Cells[i, 1].Style.Font.Bold = true;
+                    worksheet.Cells[i, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[i, 1].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                    worksheet.Cells[i, 1].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                }
+
+                var typeEcoClasses = _context.TypeEcoClass.ToList();
+
+                int col = 2;
+                foreach (var carPost in carPosts)
+                {
+                    var carPostDataAutoTest = carPostsDataAutoTest
+                        .Where(c => c.CarModelAutoTest.CarPost.Id == carPost.Id);
+
+                    var carPostDataSmokeMeter = carPostsDataSmokeMeter
+                        .Where(c => c.CarModelSmokeMeter.CarPost.Id == carPost.Id);
+
+                    var amountExceedGasoline = carPostDataAutoTest
+                        .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MIN_CO
+                        || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MAX_CO
+                        || c.MIN_CH > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MIN_CH
+                        || c.MAX_CH > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MAX_CH)
+                        .Count();
+
+                    var amountExceedDiesel = carPostDataSmokeMeter
+                        .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.K_SVOB
+                        || c.K_MAX > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.K_MAX)
+                        .Count();
+
+                    var amountExceedCO = carPostDataAutoTest
+                        .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MIN_CO
+                        || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MAX_CO)
+                        .Count();
+
+                    var amountExceedKSVOB = carPostDataSmokeMeter
+                        .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.K_SVOB)
+                        .Count();
+
+                    var postNames = carPost.Name.Split(' ');
+                    var name = postNames.Length > 1 ? postNames[1] : postNames.Length > 0 ? postNames[0] : "";
+                    
+                    worksheet.Cells[row, col].Value = $"{name.Replace("\"", "")}";
+                    worksheet.Cells[row + 1, col].Value = $"{carPostDataAutoTest.Count() + carPostDataSmokeMeter.Count()}";
+                    worksheet.Cells[row + 2, col].Value = $"{carPostDataAutoTest.Count()}";
+                    worksheet.Cells[row + 3, col].Value = $"{carPostDataSmokeMeter.Count()}";
+                    worksheet.Cells[row + 4, col].Value = $"{amountExceedGasoline + amountExceedDiesel}";
+                    worksheet.Cells[row + 5, col].Value = $"{amountExceedCO}";
+                    worksheet.Cells[row + 6, col].Value = $"{amountExceedKSVOB}";
+                    
+                    for (int i = row; i < row + 7; i++)
+                    {
+                        worksheet.Cells[i, col].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    }
+                    
+                    col++;
+                }
+
+                var amountExceedGasolineTotal = carPostsDataAutoTest
+                    .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MIN_CO
+                    || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MAX_CO
+                    || c.MIN_CH > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MIN_CH
+                    || c.MAX_CH > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MAX_CH)
+                    .Count();
+
+                var amountExceedDieselTotal = carPostsDataSmokeMeter
+                    .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.K_SVOB
+                    || c.K_MAX > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.K_MAX)
+                    .Count();
+
+                var amountExceedCOTotal = carPostsDataAutoTest
+                    .Where(c => c.MIN_CO > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MIN_CO
+                    || c.MAX_CO > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.MAX_CO)
+                    .Count();
+
+                var amountExceedKSVOBTotal = carPostsDataSmokeMeter
+                    .Where(c => c.K_SVOB > typeEcoClasses.FirstOrDefault(t => t.Name.ToLower().Contains(c.DOPOL2.ToLower()))?.K_SVOB)
+                    .Count();
+
+                worksheet.Cells[row, col].Value = $"Всего";
+                worksheet.Cells[row + 1, col].Value = $"{carPostsDataAutoTest.Count() + carPostsDataSmokeMeter.Count()}";
+                worksheet.Cells[row + 2, col].Value = $"{carPostsDataAutoTest.Count()}";
+                worksheet.Cells[row + 3, col].Value = $"{carPostsDataSmokeMeter.Count()}";
+                worksheet.Cells[row + 4, col].Value = $"{amountExceedGasolineTotal + amountExceedDieselTotal}";
+                worksheet.Cells[row + 5, col].Value = $"{amountExceedCOTotal}";
+                worksheet.Cells[row + 6, col].Value = $"{amountExceedKSVOBTotal}";
+
+                for (int i = row; i < row + 7; i++)
+                {
+                    worksheet.Cells[i, col].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                }
+
+                //Автовыравнивание по ширине
+                for (int i = 1; i < col; i++)
+                {
+                    worksheet.Column(i).AutoFit();
+                }
+
+                package.Save();
+            }
+
+            return report;
         }
     }
 }

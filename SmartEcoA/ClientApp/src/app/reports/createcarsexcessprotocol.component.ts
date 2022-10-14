@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ReportService } from './report.service';
-import { Report } from './report.model';
+import { Report, TypesReport } from './report.model';
 
 import { CarPost } from '../carposts/carpost.model';
 
@@ -15,17 +15,18 @@ import { CarPost } from '../carposts/carpost.model';
 export class ReportCreateCarsExcessProtocolComponent implements OnInit {
   public reportForm: FormGroup;
   carposts: CarPost[];
+  typesreport: TypesReport;
   CarPostStartDate = new FormControl(new Date());
   CarPostEndDate = new FormControl(new Date());
+  SelectedTypeReport = new FormControl('');
+  public typesreportValue = [];
 
   constructor(private router: Router,
     private service: ReportService) { }
 
   ngOnInit() {
-    this.reportForm = new FormGroup({
-      SelectedTypeReport: new FormControl('', [Validators.required])
-    });
-    this.reportForm.controls["SelectedTypeReport"].setValue("false");
+    this.reportForm = new FormGroup({});
+    this.typesreportValue = Object.keys(TypesReport).filter(type => isNaN(<any>type) && type !== "values" && type != "Excel");
   }
 
   public error(control: string,
@@ -57,7 +58,7 @@ export class ReportCreateCarsExcessProtocolComponent implements OnInit {
         CarPostStartDate: startDate,
         CarPostEndDate: endDate,
         FileName: null,
-        PDF: this.reportForm.controls["SelectedTypeReport"].value
+        TypeReport: this.SelectedTypeReport.value as TypesReport
       }
       this.service.post(report)
         .subscribe(() => {

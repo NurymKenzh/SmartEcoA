@@ -75,6 +75,13 @@ namespace SmartEcoA.Models
 
         public string FileName { get; set; }
 
-        public bool PDF { get; set; }
+        public TypesReport? TypeReport { get; set; }
+
+    }
+    public enum TypesReport
+    {
+        Word,
+        PDF,
+        Excel
     }
 }
